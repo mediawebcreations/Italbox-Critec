@@ -1,0 +1,330 @@
+.body_bg {
+		background:#ffffff url(../imgs/fundo-web.jpg) top center no-repeat;
+		margin: 0;
+		font-family: robotomedium;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+}
+
+@font-face{ 
+	font-family: 'robotomedium';
+	src: url('font/roboto-medium-webfont.eot');
+	src: url('font/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('font/roboto-medium-webfont.woff') format('woff'),
+	     url('font/roboto-medium-webfont.ttf') format('truetype'),
+	     url('font/roboto-medium-webfont.svg#webfont') format('svg');
+}
+
+.header {
+	height: 50px;
+	width: 100%;
+	background: transparent;
+	border-bottom-width:0!important;
+	position: absolute;
+}
+
+.logotipo{
+	display: block;
+	margin: auto;
+	padding: 13px;
+	width: 121px;
+	height: 24px;
+	background: url(../imgs/logotipo.png) no-repeat center;
+}
+
+.open-menu{
+	top: 0;
+	right: 10px;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background-image: url(../imgs/icons/menu.png)!important;
+
+}
+
+.header > .search{
+	top: 0;
+	right: 55px;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background-image: url(../imgs/icons/search.png);
+}
+
+.seta-baixo {
+	width: 45px;
+	height: 45px;
+	background: url(../imgs/icons/seta-baixo.png) #ffffff;
+	margin: auto;
+	z-index:3;
+	margin: auto;
+	position: absolute;
+	left: 0;
+	right: 0;
+}
+
+#imgs{
+	position: absolute;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 440px;
+	width: 1000px;
+}
+
+.lista-catalogos li {
+	float: left;
+	list-style-type:none;
+	margin: 20px;
+	width: 270px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.lista-catalogos div {
+	padding-bottom: 10px;
+	margin-bottom: 25px;
+}
+
+.lista-catalogos span {
+	padding-top: 10px;
+}
+
+#catalogo {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.lista-paginas{
+	padding: 0px;
+	margin: 0px;
+	overflow: hidden;
+	/*width: 60000px;*/
+	/*background: #000;*/
+}
+
+
+.lista-paginas li {
+	float: left;
+	list-style-type:none;
+	margin: 0px;
+	text-align: center;
+	font-size: 14px;
+}
+
+.lista-paginas>li>img {
+	/*max-height: 100%;*/
+	margin:auto;
+	/*position: absolute;*/
+	top: 0;
+	bottom: 0;
+	display: block;
+}
+
+
+.fundo-menu {
+    /* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(255, 255, 255);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(255, 255, 255, 0.8);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFFFF, endColorstr=#FFFFFFFF);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#FFFFFFFF, endColorstr=#FFFFFFFF)";
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: none;
+}
+
+.fundo-menu > .fechar{
+	top: 0;
+	right: 10px;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background-image: url(../imgs/icons/menu.png);
+}
+
+.menu {
+	position: absolute;
+	width: 240px;
+	height: 200px;
+	font-size: 12px;
+	left: 0;
+	top: 1200px;
+	right: 0;
+	bottom: 0;
+	margin:auto;
+}
+
+.menu ul {
+	padding: 0px;
+}
+
+.menu li {
+	border-top: solid; 1px;
+	list-style-type: none;
+	padding: 15px 10px 13px 60px;
+}
+
+
+.menu li:last-child{
+	border-bottom: solid; 1px;
+}
+
+.menu li.menu-italbox {
+	background: url(../imgs/icons/italbox.png) no-repeat ;
+}
+.menu li.menu-favoritos {
+	background: url(../imgs/icons/favoritos.png) no-repeat ;
+}
+.menu li.menu-language {
+	background: url(../imgs/icons/language.png) no-repeat ;
+}
+.menu li.menu-ajuda {
+	background: url(../imgs/icons/ajuda.png) no-repeat ;
+}
+
+
+
+
+@media  
+only screen and (-webkit-min-device-pixel-ratio: 2),  
+only screen and ( min--moz-device-pixel-ratio: 2),  
+only screen and ( -o-min-device-pixel-ratio: 2/1),  
+only screen and ( min-device-pixel-ratio: 2),  
+only screen and ( min-resolution: 192dpi),  
+only screen and ( min-resolution: 2dppx) {
+    /* Retina-specific stuff here */
+
+    .header > .logotipo{
+		background: url(../imgs/logotipo.png) no-repeat center;
+		background-size: 121px 24px;
+	}
+	   
+
+    .header > .search {
+    	background-image: url(../imgs/icons/search-retina.png);
+    	background-size: 45px 45px;
+    }
+
+    .header > .topo {
+    	background-image: url(../imgs/icons/menu-retina.png);
+    	background-size: 45px 45px;
+    }
+
+    .menu li.menu-italbox {
+		background: url(../imgs/icons/italbox-retina.png) no-repeat ;
+		background-size: 45px 45px;
+	}
+	.menu li.menu-favoritos {
+		background: url(../imgs/icons/favoritos-retina.png) no-repeat ;
+		background-size: 45px 45px;
+	}
+	.menu li.menu-language {
+		background: url(../imgs/icons/language-retina.png) no-repeat ;
+		background-size: 45px 45px;
+	}
+	.menu li.menu-ajuda {
+		background: url(../imgs/icons/ajuda-retina.png) no-repeat ;
+		background-size: 45px 45px;
+	}
+
+	.seta-baixo {
+		background: url(../imgs/icons/seta-baixo-retina.png) #ffffff;
+		background-size: 45px 45px;
+	}
+
+} 
+
+
+
+
+@media screen and (max-width:960px) {
+
+	
+
+}
+
+
+@media screen and (max-width:768px) {
+
+	body {
+		background:#ffffff url(../imgs/fundo.jpg) top center no-repeat;
+	}
+
+}
+
+
+
+
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* -------------------------------- responsive ------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+
+
+
+@media only screen and (min-width: 320px) {
+
+  /* Small screen, non-retina */
+
+}
+
+@media 
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 320px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 320px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 320px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 320px),
+only screen and (                min-resolution: 192dpi) and (min-width: 320px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 320px) { 
+
+  /* Small screen, retina, stuff to override above media query */
+
+}
+
+@media only screen and (min-width: 700px) {
+
+  /* Medium screen, non-retina */
+
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 700px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 700px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 700px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 700px),
+only screen and (                min-resolution: 192dpi) and (min-width: 700px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 700px) { 
+
+  /* Medium screen, retina, stuff to override above media query */
+
+}
+
+@media only screen and (min-width: 1300px) {
+
+  /* Large screen, non-retina */
+
+}
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
+only screen and (   min--moz-device-pixel-ratio: 2)      and (min-width: 1300px),
+only screen and (     -o-min-device-pixel-ratio: 2/1)    and (min-width: 1300px),
+only screen and (        min-device-pixel-ratio: 2)      and (min-width: 1300px),
+only screen and (                min-resolution: 192dpi) and (min-width: 1300px),
+only screen and (                min-resolution: 2dppx)  and (min-width: 1300px) { 
+
+  /* Large screen, retina, stuff to override above media query */
+
+}
