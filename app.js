@@ -1,3 +1,272 @@
+window.dao =  {
+    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
+    syncURL: "http://localhost:8080/server-app/connect.php?test=1",
+    //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
+    //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
+    initialize: function(callback) {
+        var self = this;
+        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 200000);
+
+        // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
+        // no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
+        // does not already exist.
+        this.db.transaction(
+            function(tx) {
+                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos'", this.txErrorHandler,
+                    function(tx, results) {
+                        if (results.rows.length == 1) {
+                            log('Using existing Catalogos table in local SQLite database');
+                        }
+                        else
+                        {
+                            log('Catalogos table does not exist in local SQLite database');
+                            self.createTable(callback);
+                        }
+                    });
+            }
+        )
+    },
+        
+    createTable: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql =
+                    "CREATE TABLE IF NOT EXISTS catalogos ( " +
+                    "id_catalogo INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "nome VARCHAR(50), " +
+                    "capa VARCHAR(50), " +
+                    "cor VARCHAR(50), " +
+                    "lastModified VARCHAR(50))";
+                tx.executeSql(sql);
+            },
+            this.txErrorHandler,
+            function() {
+                log('Table Catalogos successfully CREATED in local SQLite database');
+                callback();
+            }
+        );
+    },
+
+    dropTable: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                tx.executeSql('DROP TABLE IF EXISTS catalogos');
+            },
+            this.txErrorHandler,
+            function() {
+                log('Table Catalogos successfully DROPPED in local SQLite database');
+                callback();
+            }
+        );
+    },
+
+    findAll: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT * FROM CATALOGOS";
+                log('Local SQLite database: "SELECT * FROM CATALOGOS"');
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var len = results.rows.length,
+                            catalogos = [],
+                            i = 0;
+                        for (; i < len; i = i + 1) {
+                            catalogos[i] = results.rows.item(i);
+                        }
+                        log(len + ' rows found');
+                        callback(catalogos);
+                    }
+                );
+            }
+        );
+    },
+
+    getLastSync: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT MAX(lastModified) as lastSync FROM catalogos";
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var lastSync = results.rows.item(0).lastSync;
+                        log('Last local timestamp is ' + lastSync);
+                        callback(lastSync);
+                    }
+                );
+            }
+        );
+    },
+
+    sync: function(callback) {
+        var self = this;
+        log('Starting synchronization...');
+        this.getLastSync(function(lastSync){
+            self.getChanges(self.syncURL, lastSync,
+                function (changes) {
+                    if (changes.length > 0) {
+                        self.applyChanges(changes, callback);
+                    } else {
+                        log('Nothing to synchronize');
+                        callback();
+                    }
+                }
+            );
+        });
+    },
+
+    getChanges: function(syncURL, modifiedSince, callback) {
+
+        $.ajax({
+            url: syncURL,
+            data: {modifiedSince: modifiedSince},
+            dataType:"json",
+            success:function (data) {
+                log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+                //alert(modifiedSince);
+                callback(data);
+            },
+            error: function(model, response) {
+                alert("A trabalhar em modo offline");
+            }
+        });
+
+    },
+
+    applyChanges: function(catalogos, callback) {
+        this.db.transaction(
+            function(tx) {
+                var l = catalogos.length;
+                var sql =
+                    "INSERT OR REPLACE INTO catalogos (id_catalogo, nome, capa, cor, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+                log('Inserting or Updating in local database:');
+                var e;
+                for (var i = 0; i < l; i++) {
+                    e = catalogos[i];
+                    log(e.id_catalogo + ' ' + e.nome + ' ' + e.capa + ' ' + e.cor + ' ' + e.lastModified);
+                    var params = [e.id_catalogo, e.nome, e.capa , e.cor , e.lastModified];
+                    tx.executeSql(sql, params);
+                }
+                log('Synchronization complete (' + l + ' items synchronized)');
+            },
+            this.txErrorHandler,
+            function(tx) {
+                callback();
+            }
+        );
+    },
+
+    txErrorHandler: function(tx) {
+        alert(tx.message);
+    }
+};
+
+dao.initialize(function() {
+    console.log('database initialized');
+});
+
+dao.sync(renderList);
+renderList();
+//renderImagens();
+
+$('#reset').on('click', function() {
+    dao.dropTable(function() {
+       dao.createTable();
+    });
+});
+
+
+$('#sync').on('click', function() {
+    dao.sync(renderList);
+});
+
+
+$('#render').on('click', function() {
+    renderList();
+});
+
+$('#clearLog').on('click', function() {
+    $('#log').val('');
+});
+
+//function reload() {
+//    location.reload();
+//};
+
+function renderList(catalogos) {
+    log('Rendering list using local SQLite data...');
+    dao.findAll(function(catalogos) {
+        $('#list').empty();
+        var l = catalogos.length;
+        for (var i = 0; i < l; i++) {
+            var catalogo = catalogos[i];
+            $('#list').append('<tr>' +
+                '<td>' + catalogo.id_catalogo + '</td>' +
+                '<td>' + catalogo.nome + '</td>' +
+                //'<td>' + catalogo.capa + '</td>' +
+                '<td>' + catalogo.cor + '</td>' +
+                '<td>' + catalogo.lastModified + '</td></tr>');
+        }
+    });
+};
+
+//function renderImagens(catalogos) {
+//    log('Rendering list using local SQLite data...');
+//    dao.findAll(function(catalogos) {
+//        //$('#imagens').empty();
+//        var div = document.getElementById('catalogo_front');
+//        var l = catalogos.length;
+//        for (var i = 0; i < l; i++) {
+//            var catalogo = catalogos[i];
+//            var img = document.createElement('img');
+//            img.src = catalogo.nome;
+//            div.appendChild(img);
+//        }
+//    });
+//}
+
+function renderImages(callback) {
+    log('Rendering list using local SQLite data...');
+    var arr = [];
+    dao.findAll(function(catalogos) {
+        var l = catalogos.length;
+        for (var i = 0; i < l; i++) {
+            var catalogo = catalogos[i];
+            var listaImagens = {
+                   //style: "background-color: #000000; color:black;",
+                   //title: catalogo.nome,
+                   //html: "<img style=' margin:auto; width: 100%;' src='data:image/jpg;base64,"+catalogo.capa+"'/>"
+                   xtype: 'imageviewer',
+                   imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+              };
+              arr.push(listaImagens); 
+            }
+         callback(arr);
+    });
+}
+
+function log(msg) {
+    $('#log').val($('#log').val() + msg + '\n');
+};
+//
+//Ext.application({
+//    name: 'Italbox',
+//    launch: function() {
+//        renderImages(function(arr){
+//            //var x = arr.length;
+//            //for (var i = 0; i < x; i++) {
+//              //var catalogo = catalogos[i];
+//              //window.alert(arr[i].html);
+//            //}
+//            Italbox.container = Ext.create('Ext.Carousel', {
+//                fullscreen: true,
+//                items: arr
+//        });
+//     });
+//       
+//    }
+//});
+
+renderImages(function(arr){
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
@@ -8,90 +277,17 @@ Ext.Loader.setConfig({
 Ext.define('Italbox.Viewport', {
     extend: 'Ext.Carousel',
     xtype : 'my-viewport',
-    fullscreen: true,
     config: {
-        items: [
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag1.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag2.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag3.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag4.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag5.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag6.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag7.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag8.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag10.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag11.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag12.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag13.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag14.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag15.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag16.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag17.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag18.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag19.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag20.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag21.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag22.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag23.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag24.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag25.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag26.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag27.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag28.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag29.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag30.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag31.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag32.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag33.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag34.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag35.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag36.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag37.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag38.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag39.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag40.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag41.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag42.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag43.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag44.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag45.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag46.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag47.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag48.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag49.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag50.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag51.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag52.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag53.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag54.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag55.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag56.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag57.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag58.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag59.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag60.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag61.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag62.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag63.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag64.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag65.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag66.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag67.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag68.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag69.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag70.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag71.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag72.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag73.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag74.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag75.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag76.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag77.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag78.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag79.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'catalogo/pag80.jpeg'}
-           
-        ],
+        items: arr
+        //[
+        //    {
+        //        xtype: 'imageviewer',
+        //        imageSrc: 'http://nrodrigues.net/italbox/catalogo/pag1.jpeg'
+        //    },
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/catalogo/pag80.jpeg'}
+        //   
+        //]
+        ,
         listeners: {
             activeitemchange: function(container, value, oldValue, eOpts) {
                 if (oldValue) {
@@ -103,8 +299,24 @@ Ext.define('Italbox.Viewport', {
                 this.getActiveItem().resize();
             }
         }
+        
+    },
+    onDragStart: function(e) {
+        var scroller = this.getActiveItem().getScrollable().getScroller();
+        if (e.targetTouches.length === 1 && (e.deltaX < 0 && scroller.getMaxPosition().x === scroller.position.x) || (e.deltaX > 0 && scroller.position.x === 0)) {
+            this.callParent(arguments);
+        }
+    },
+    onDrag: function(e) {
+        if (e.targetTouches.length == 1)
+            this.callParent(arguments);
+    },
+    onDragEnd: function(e) {
+        if (e.targetTouches.length < 2)
+            this.callParent(arguments);
     }
 });
+
 
 Ext.define('Italbox.ViewportPanel', {
     extend: 'Ext.Panel',
@@ -116,7 +328,6 @@ Ext.define('Italbox.ViewportPanel', {
             xtype: 'titlebar',
             title: '<div class="logotipo"></div>',
             cls: 'header',
-            floating  : true,
             docked: 'top',
             items: [
                 {
@@ -124,88 +335,29 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:      'plain',
                     xtype: 'button',
                     cls: 'open-menu',
-                    handler: function() {
-                
-                        //add a hidden panel with showAnimation and hideAnimation
-                         var panel = Ext.Viewport.add({ 
-                            xtype: 'container',  
-                            modal: {
-                                style: 'opacity: 0.8; background-color: #ffffff;'
-                            },
-                            height    : 200,
-                            width     : 240,
-                            floating  : true,                               
-                            top       : 50,
-                            cls: 'menu',
-                            hideOnMaskTap: true,
-                            showAnimation: 
-                            {
-                                type: 'slideIn',
-                                duration: 1000,
-                                direction: 'up',
-                                easing: 'easeOut'
-                            },  
-                            hideAnimation: 
-                            {
-                                //TweenMax.to(this, 1, {autoAlpha:0});
-                                type: 'slideOut',
-                                duration: 700,
-                                direction: 'down',
-                                easing: 'easeIn'
-                            }, 
-                            items     : [
-                                {
-                                    html  : '<li class="menu-italbox">ITALBOX</li>'
-                                },
-                                {
-                                    html  : '<li class="menu-favoritos">FAVARITOS</li>'
-                                },
-                                {
-                                    html  : '<li class="menu-language">LANGUAGE</li>'
-                                },
-                                {
-                                    html  : '<li class="menu-ajuda">AJUDA</li>'
-                                }
-                            ]
-                        });
-
-                        
-                        //show the panel
-                        panel.show();
-                    }
+                     handler: function () {
+            //Ext.Msg.alert('You clicked the button');
+            //window.location.href=window.location.href;
+        }, // handler
+        //renderTo: Ext.getBody()
+                },
+                    {
+                    align: 'right',
+                    ui:      'plain',
+                    xtype: 'button',
+                    cls: 'open-menu2',
+                     handler: function () {
+            //Ext.Msg.alert('You clicked the button');
+            window.location.href=window.location.href;
+        }, // handler
+        //renderTo: Ext.getBody()
                 }
             ]
         }, {
             xtype: 'my-viewport',
             id: 'myCarousel'
         }]
-        },
-    //end config
-    initialize:function(){
-        console.log('Panel initialize');
-        // Add a Listener. Listen for [Viewport ~ Orientation] Change.
-        Ext.Viewport.on('orientationchange', 'onOrientationChange', this);
-        this.callParent(arguments);
-
-
-    },
-   
-
-    onOrientationChange: function(viewport, orientation, width, height){
-
-         alert("Mudanca ecrã");
-
-       /* var items = this.getItems();
-        for (var i=0;i<items.getCount();i++){
-            var obj = items.getAt(i);
-            if (obj instanceof Ext.view.ux.ImageViewer){
-                console.log("Resize");
-                obj.resize();
-            }
-        }*/
     }
-
-
 });
 
 Ext.application({
@@ -235,7 +387,7 @@ Ext.application({
     glossOnIcon: false,
     phoneStartupScreen: 'resources/startup/italboxStartUp.jpg',
     tabletStartupScreen: 'resources/startup/italboxStartUp.jpg',
-
+    
     launch: function() {
 
         Ext.Viewport.add({
@@ -243,4 +395,5 @@ Ext.application({
             cls: 'body_bg'
         });
     }
+});
 });
