@@ -1,6 +1,6 @@
 window.dao =  {
-    syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    //syncURL: "http://localhost:8080/server-app/connect.php?test=1",
+    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
+    syncURL: "http://localhost:8080/server-app/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
     //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
     initialize: function(callback) {
@@ -279,6 +279,8 @@ Ext.define('Italbox.Viewport', {
     extend: 'Ext.Carousel',
     xtype : 'my-viewport',
     config: {
+        height: '80%',
+        margin: '5% 0 0 0',
         items: arr
         //[
         //    {
