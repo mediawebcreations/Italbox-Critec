@@ -23,6 +23,7 @@
 	background: transparent;
 	border-bottom-width:0!important;
 	position: absolute;
+        z-index: 999;
 }
 
 .logotipo{

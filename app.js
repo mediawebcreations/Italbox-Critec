@@ -236,7 +236,8 @@ function renderImages(callback) {
                    //title: catalogo.nome,
                    //html: "<img style=' margin:auto; width: 100%;' src='data:image/jpg;base64,"+catalogo.capa+"'/>"
                    xtype: 'imageviewer',
-                   imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+                    imageSrc: catalogo.capa
               };
               arr.push(listaImagens); 
             }
