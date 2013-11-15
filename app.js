@@ -1,6 +1,6 @@
 window.dao =  {
     syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    //syncURL: "http://localhost:8080/server-app/connect.php?test=1",
+    //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
     //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
     initialize: function(callback) {
@@ -234,7 +234,7 @@ function renderImages(callback) {
             var listaImagens = {
                    //style: "background-color: #000000; color:black;",
                    //title: catalogo.nome,
-                   //html: "<img style=' margin:auto; width: 100%;' src='data:image/jpg;base64,"+catalogo.capa+"'/>"
+                   //html: "<img style=' margin:auto; width: 100%;' src='"+catalogo.capa+"'/>"
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                     imageSrc: catalogo.capa
@@ -275,12 +275,12 @@ Ext.Loader.setConfig({
     }
 });
 
-Ext.define('Italbox.Viewport', {
+Ext.define('Italbox.Viewport2', {
     extend: 'Ext.Carousel',
-    xtype : 'my-viewport',
+    xtype : 'my-viewport2',
     config: {
-        height: '80%',
-        margin: '5% 0 0 0',
+        //height: '80%',
+        //margin: '60px 0 0 0',
         items: arr
         //[
         //    {
@@ -317,9 +317,87 @@ Ext.define('Italbox.Viewport', {
     onDragEnd: function(e) {
         if (e.targetTouches.length < 2)
             this.callParent(arguments);
-    }
+    },
+    
 });
 
+
+Ext.define('Italbox.Viewport', {
+    extend: 'Ext.Panel',
+    xtype : 'my-viewport',
+    //id:'teste2',
+    config: {
+            //cls: 'teste',
+            layout: {
+                type: 'vbox',
+                pack: 'center',
+                
+            },
+            items: [
+                {
+                    //give it an xtype of list for the list component
+                    xtype: 'dataview',
+
+                    //height: '400px',
+                    margin: '50px 0 0 0', 
+                    flex: 1,
+                    scrollable: 'horizontal',
+
+                    inline: {
+                        wrap: false
+                    },
+
+                    //set the itemtpl to show the fields for the store
+                     store: {
+                        fields: ['photo','name', 'age'],
+                        data: [{
+                            photo: 'http://nrodrigues.net/italbox/img/catalogo1.png',
+                            name: 'Jamie',
+                            age: 100
+                        }, {
+                            photo: 'http://nrodrigues.net/italbox/img/catalogo2.png',
+                            name: 'Rob',
+                            age: 21
+                        }, {
+                            photo: 'http://nrodrigues.net/italbox/img/catalogo3.png',
+                            name: 'Tommy',
+                            age: 24
+                        }, {
+                            photo: 'http://nrodrigues.net/italbox/img/catalogo1.png',
+                            name: 'Jacky',
+                            age: 24
+                       }]
+                    },
+
+                    itemTpl: '<img src="{photo}" style="margin-right:30px;">',
+                    //itemTpl: '<img src="{photo}" style="margin-right:30px; height:100%;"><div>{name} {age}</div>',
+                }
+            ],
+         
+            
+    },
+        initialize : function(){
+        var me = this;
+             this.element.on('tap', function(e, el){
+                 // Here you will get the target element
+                 //console.log(e.target, el);
+                 //alert(e.target, el);
+             //    Ext.Msg.alert('teste',e);
+                 Ext.Msg.confirm(
+            "Download",
+            "Donwnload Catalog?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    //window.location.reload();
+                    Ext.getCmp('myList').hide();
+                    Ext.getCmp('myCarroucel').show();
+                    Ext.getCmp('back').show()
+                }
+            }
+        );
+             }, this);
+    }
+});
 
 Ext.define('Italbox.ViewportPanel', {
     extend: 'Ext.Panel',
@@ -333,6 +411,22 @@ Ext.define('Italbox.ViewportPanel', {
             cls: 'header',
             docked: 'top',
             items: [
+                {
+                   // align: 'left',
+                    //ui:    'plain',
+                    xtype: 'button',
+                    text: 'back',
+                    id: 'back',
+                    //cls: 'back',
+                    hidden: true,
+                    handler: function () {
+                    Ext.getCmp('myCarroucel').hide();
+                    Ext.getCmp('back').hide();
+                    Ext.getCmp('myList').show();
+                    //Ext.Msg.alert('You clicked the button');
+        }, // handler
+        ////renderTo: Ext.getBody()
+                },
                 {
                     align: 'right',
                     ui:      'plain',
@@ -350,16 +444,31 @@ Ext.define('Italbox.ViewportPanel', {
                     xtype: 'button',
                     cls: 'open-menu2',
                      handler: function () {
-            //Ext.Msg.alert('You clicked the button');
-            window.location.href=window.location.href;
+               Ext.Msg.confirm(
+            "Update",
+            "Update Catalog List?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    //window.location.reload();
+                    window.location.href=window.location.href;
+                }
+            }
+        );
+            
         }, // handler
         //renderTo: Ext.getBody()
                 }
             ]
         }, {
             xtype: 'my-viewport',
-            id: 'myCarousel'
-        }]
+            id: 'myList'
+        },
+        {
+            xtype: 'my-viewport2',
+            hidden: true,
+            id: 'myCarroucel'
+        },
+        ]
     }
 });
 

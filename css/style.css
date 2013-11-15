@@ -23,7 +23,12 @@
 	background: transparent;
 	border-bottom-width:0!important;
 	position: absolute;
-        z-index: 999;
+        z-index: 1;
+}
+
+.teste{
+   height:  80%;
+  /* background:#ffffff url(../imgs/fundo-web.jpg) top center no-repeat;*/     
 }
 
 .logotipo{
@@ -53,6 +58,14 @@
 	height: 45px;
 	background-image: url(../imgs/icons/language.png)!important;
 
+}
+.back{
+	top: 0;
+	left: 20px;
+	position: absolute;
+	width: 45px;
+	height: 45px;
+	background-image: url(../imgs/icons/back.png)!important;
 }
 
 .header > .search{
