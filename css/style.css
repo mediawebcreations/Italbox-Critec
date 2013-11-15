@@ -23,7 +23,7 @@
 	background: transparent;
 	border-bottom-width:0!important;
 	position: absolute;
-        z-index: 1;
+        z-index: 998;
 }
 
 .teste{
