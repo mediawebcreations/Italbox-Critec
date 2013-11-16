@@ -1,213 +1,214 @@
-window.dao =  {
-    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
-    //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
-    //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
-    initialize: function(callback) {
-        var self = this;
-        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 200000);
-
-        // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
-        // no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
-        // does not already exist.
-        this.db.transaction(
-            function(tx) {
-                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos'", this.txErrorHandler,
-                    function(tx, results) {
-                        if (results.rows.length == 1) {
-                            log('Using existing Catalogos table in local SQLite database');
-                        }
-                        else
-                        {
-                            log('Catalogos table does not exist in local SQLite database');
-                            self.createTable(callback);
-                        }
-                    });
-            }
-        )
-    },
-        
-    createTable: function(callback) {
-        this.db.transaction(
-            function(tx) {
-                var sql =
-                    "CREATE TABLE IF NOT EXISTS catalogos ( " +
-                    "id_catalogo INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "nome VARCHAR(50), " +
-                    "capa VARCHAR(50), " +
-                    "cor VARCHAR(50), " +
-                    "lastModified VARCHAR(50))";
-                tx.executeSql(sql);
-            },
-            this.txErrorHandler,
-            function() {
-                log('Table Catalogos successfully CREATED in local SQLite database');
-                callback();
-            }
-        );
-    },
-
-    dropTable: function(callback) {
-        this.db.transaction(
-            function(tx) {
-                tx.executeSql('DROP TABLE IF EXISTS catalogos');
-            },
-            this.txErrorHandler,
-            function() {
-                log('Table Catalogos successfully DROPPED in local SQLite database');
-                callback();
-            }
-        );
-    },
-
-    findAll: function(callback) {
-        this.db.transaction(
-            function(tx) {
-                var sql = "SELECT * FROM CATALOGOS";
-                log('Local SQLite database: "SELECT * FROM CATALOGOS"');
-                tx.executeSql(sql, this.txErrorHandler,
-                    function(tx, results) {
-                        var len = results.rows.length,
-                            catalogos = [],
-                            i = 0;
-                        for (; i < len; i = i + 1) {
-                            catalogos[i] = results.rows.item(i);
-                        }
-                        log(len + ' rows found');
-                        callback(catalogos);
-                    }
-                );
-            }
-        );
-    },
-
-    getLastSync: function(callback) {
-        this.db.transaction(
-            function(tx) {
-                var sql = "SELECT MAX(lastModified) as lastSync FROM catalogos";
-                tx.executeSql(sql, this.txErrorHandler,
-                    function(tx, results) {
-                        var lastSync = results.rows.item(0).lastSync;
-                        log('Last local timestamp is ' + lastSync);
-                        callback(lastSync);
-                    }
-                );
-            }
-        );
-    },
-
-    sync: function(callback) {
-        var self = this;
-        log('Starting synchronization...');
-        this.getLastSync(function(lastSync){
-            self.getChanges(self.syncURL, lastSync,
-                function (changes) {
-                    if (changes.length > 0) {
-                        self.applyChanges(changes, callback);
-                    } else {
-                        log('Nothing to synchronize');
-                        callback();
-                    }
-                }
-            );
-        });
-    },
-
-    getChanges: function(syncURL, modifiedSince, callback) {
-
-        $.ajax({
-            url: syncURL,
-            data: {modifiedSince: modifiedSince},
-            dataType:"json",
-            success:function (data) {
-                log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
-                callback(data);
-            },
-            error: function(model, response) {
-                alert("A trabalhar em modo offline");
-            }
-        });
-
-    },
-
-    applyChanges: function(catalogos, callback) {
-        this.db.transaction(
-            function(tx) {
-                var l = catalogos.length;
-                var sql =
-                    "INSERT OR REPLACE INTO catalogos (id_catalogo, nome, capa, cor, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?)";
-                log('Inserting or Updating in local database:');
-                var e;
-                for (var i = 0; i < l; i++) {
-                    e = catalogos[i];
-                    log(e.id_catalogo + ' ' + e.nome + ' ' + e.capa + ' ' + e.cor + ' ' + e.lastModified);
-                    var params = [e.id_catalogo, e.nome, e.capa , e.cor , e.lastModified];
-                    tx.executeSql(sql, params);
-                }
-                log('Synchronization complete (' + l + ' items synchronized)');
-            },
-            this.txErrorHandler,
-            function(tx) {
-                callback();
-            }
-        );
-    },
-
-    txErrorHandler: function(tx) {
-        alert(tx.message);
-    }
-};
-
-dao.initialize(function() {
-    console.log('database initialized');
-});
-
-dao.sync(renderList);
-renderList();
-//renderImagens();
-
-$('#reset').on('click', function() {
-    dao.dropTable(function() {
-       dao.createTable();
-    });
-});
-
-
-$('#sync').on('click', function() {
-    dao.sync(renderList);
-});
-
-
-$('#render').on('click', function() {
-    renderList();
-});
-
-$('#clearLog').on('click', function() {
-    $('#log').val('');
-});
-
-//function reload() {
-//    location.reload();
+//window.dao =  {
+//    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
+//    syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
+//    //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
+//    //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
+//    initialize: function(callback) {
+//        var self = this;
+//         this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 200000);
+//        //this.db = window.sqlitePlugin.openDatabase("italboxdb", "1.0", "Italbox DB", -1);
+//
+//        // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
+//        // no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
+//        // does not already exist.
+//        this.db.transaction(
+//            function(tx) {
+//                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos'", this.txErrorHandler,
+//                    function(tx, results) {
+//                        if (results.rows.length == 1) {
+//                            log('Using existing Catalogos table in local SQLite database');
+//                        }
+//                        else
+//                        {
+//                            log('Catalogos table does not exist in local SQLite database');
+//                            self.createTable(callback);
+//                        }
+//                    });
+//            }
+//        )
+//    },
+//        
+//    createTable: function(callback) {
+//        this.db.transaction(
+//            function(tx) {
+//                var sql =
+//                    "CREATE TABLE IF NOT EXISTS catalogos ( " +
+//                    "id_catalogo INTEGER PRIMARY KEY AUTOINCREMENT, " +
+//                    "nome VARCHAR(50), " +
+//                    "capa VARCHAR(50), " +
+//                    "cor VARCHAR(50), " +
+//                    "lastModified VARCHAR(50))";
+//                tx.executeSql(sql);
+//            },
+//            this.txErrorHandler,
+//            function() {
+//                log('Table Catalogos successfully CREATED in local SQLite database');
+//                callback();
+//            }
+//        );
+//    },
+//
+//    dropTable: function(callback) {
+//        this.db.transaction(
+//            function(tx) {
+//                tx.executeSql('DROP TABLE IF EXISTS catalogos');
+//            },
+//            this.txErrorHandler,
+//            function() {
+//                log('Table Catalogos successfully DROPPED in local SQLite database');
+//                callback();
+//            }
+//        );
+//    },
+//
+//    findAll: function(callback) {
+//        this.db.transaction(
+//            function(tx) {
+//                var sql = "SELECT * FROM CATALOGOS";
+//                log('Local SQLite database: "SELECT * FROM CATALOGOS"');
+//                tx.executeSql(sql, this.txErrorHandler,
+//                    function(tx, results) {
+//                        var len = results.rows.length,
+//                            catalogos = [],
+//                            i = 0;
+//                        for (; i < len; i = i + 1) {
+//                            catalogos[i] = results.rows.item(i);
+//                        }
+//                        log(len + ' rows found');
+//                        callback(catalogos);
+//                    }
+//                );
+//            }
+//        );
+//    },
+//
+//    getLastSync: function(callback) {
+//        this.db.transaction(
+//            function(tx) {
+//                var sql = "SELECT MAX(lastModified) as lastSync FROM catalogos";
+//                tx.executeSql(sql, this.txErrorHandler,
+//                    function(tx, results) {
+//                        var lastSync = results.rows.item(0).lastSync;
+//                        log('Last local timestamp is ' + lastSync);
+//                        callback(lastSync);
+//                    }
+//                );
+//            }
+//        );
+//    },
+//
+//    sync: function(callback) {
+//        var self = this;
+//        log('Starting synchronization...');
+//        this.getLastSync(function(lastSync){
+//            self.getChanges(self.syncURL, lastSync,
+//                function (changes) {
+//                    if (changes.length > 0) {
+//                        self.applyChanges(changes, callback);
+//                    } else {
+//                        log('Nothing to synchronize');
+//                        callback();
+//                    }
+//                }
+//            );
+//        });
+//    },
+//
+//    getChanges: function(syncURL, modifiedSince, callback) {
+//
+//        $.ajax({
+//            url: syncURL,
+//            data: {modifiedSince: modifiedSince},
+//            dataType:"json",
+//            success:function (data) {
+//                log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+//                //alert(modifiedSince);
+//                callback(data);
+//            },
+//            error: function(model, response) {
+//                alert("A trabalhar em modo offline");
+//            }
+//        });
+//
+//    },
+//
+//    applyChanges: function(catalogos, callback) {
+//        this.db.transaction(
+//            function(tx) {
+//                var l = catalogos.length;
+//                var sql =
+//                    "INSERT OR REPLACE INTO catalogos (id_catalogo, nome, capa, cor, lastModified) " +
+//                    "VALUES (?, ?, ?, ?, ?)";
+//                log('Inserting or Updating in local database:');
+//                var e;
+//                for (var i = 0; i < l; i++) {
+//                    e = catalogos[i];
+//                    log(e.id_catalogo + ' ' + e.nome + ' ' + e.capa + ' ' + e.cor + ' ' + e.lastModified);
+//                    var params = [e.id_catalogo, e.nome, e.capa , e.cor , e.lastModified];
+//                    tx.executeSql(sql, params);
+//                }
+//                log('Synchronization complete (' + l + ' items synchronized)');
+//            },
+//            this.txErrorHandler,
+//            function(tx) {
+//                callback();
+//            }
+//        );
+//    },
+//
+//    txErrorHandler: function(tx) {
+//        alert(tx.message);
+//    }
 //};
-
-function renderList(catalogos) {
-    log('Rendering list using local SQLite data...');
-    dao.findAll(function(catalogos) {
-        $('#list').empty();
-        var l = catalogos.length;
-        for (var i = 0; i < l; i++) {
-            var catalogo = catalogos[i];
-            $('#list').append('<tr>' +
-                '<td>' + catalogo.id_catalogo + '</td>' +
-                '<td>' + catalogo.nome + '</td>' +
-                //'<td>' + catalogo.capa + '</td>' +
-                '<td>' + catalogo.cor + '</td>' +
-                '<td>' + catalogo.lastModified + '</td></tr>');
-        }
-    });
-};
+//
+//dao.initialize(function() {
+//    console.log('database initialized');
+//});
+//
+//dao.sync(renderList);
+//renderList();
+////renderImagens();
+//
+//$('#reset').on('click', function() {
+//    dao.dropTable(function() {
+//       dao.createTable();
+//    });
+//});
+//
+//
+//$('#sync').on('click', function() {
+//    dao.sync(renderList);
+//});
+//
+//
+//$('#render').on('click', function() {
+//    renderList();
+//});
+//
+//$('#clearLog').on('click', function() {
+//    $('#log').val('');
+//});
+//
+////function reload() {
+////    location.reload();
+////};
+//
+//function renderList(catalogos) {
+//    log('Rendering list using local SQLite data...');
+//    dao.findAll(function(catalogos) {
+//        $('#list').empty();
+//        var l = catalogos.length;
+//        for (var i = 0; i < l; i++) {
+//            var catalogo = catalogos[i];
+//            $('#list').append('<tr>' +
+//                '<td>' + catalogo.id_catalogo + '</td>' +
+//                '<td>' + catalogo.nome + '</td>' +
+//                //'<td>' + catalogo.capa + '</td>' +
+//                '<td>' + catalogo.cor + '</td>' +
+//                '<td>' + catalogo.lastModified + '</td></tr>');
+//        }
+//    });
+//};
 
 //function renderImagens(catalogos) {
 //    log('Rendering list using local SQLite data...');
@@ -224,30 +225,30 @@ function renderList(catalogos) {
 //    });
 //}
 
-function renderImages(callback) {
-    log('Rendering list using local SQLite data...');
-    var arr = [];
-    dao.findAll(function(catalogos) {
-        var l = catalogos.length;
-        for (var i = 0; i < l; i++) {
-            var catalogo = catalogos[i];
-            var listaImagens = {
-                   //style: "background-color: #000000; color:black;",
-                   //title: catalogo.nome,
-                   //html: "<img style=' margin:auto; width: 100%;' src='"+catalogo.capa+"'/>"
-                   xtype: 'imageviewer',
-                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
-                    imageSrc: catalogo.capa
-              };
-              arr.push(listaImagens); 
-            }
-         callback(arr);
-    });
-}
-
-function log(msg) {
-    $('#log').val($('#log').val() + msg + '\n');
-};
+//function renderImages(callback) {
+//    log('Rendering list using local SQLite data...');
+//    var arr = [];
+//    dao.findAll(function(catalogos) {
+//        var l = catalogos.length;
+//        for (var i = 0; i < l; i++) {
+//            var catalogo = catalogos[i];
+//            var listaImagens = {
+//                   //style: "background-color: #000000; color:black;",
+//                   //title: catalogo.nome,
+//                   //html: "<img style=' margin:auto; width: 100%;' src='"+catalogo.capa+"'/>"
+//                   xtype: 'imageviewer',
+//                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+//                    imageSrc: catalogo.capa
+//              };
+//              arr.push(listaImagens); 
+//            }
+//         callback(arr);
+//    });
+//};
+//
+//function log(msg) {
+//    $('#log').val($('#log').val() + msg + '\n');
+//};
 //
 //Ext.application({
 //    name: 'Italbox',
@@ -267,7 +268,7 @@ function log(msg) {
 //    }
 //});
 
-renderImages(function(arr){
+//renderImages(function(arr){
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
@@ -281,15 +282,15 @@ Ext.define('Italbox.Viewport2', {
     config: {
         //height: '80%',
         //margin: '60px 0 0 0',
-        items: arr
-        //[
-        //    {
-        //        xtype: 'imageviewer',
-        //        imageSrc: 'http://nrodrigues.net/italbox/catalogo/pag1.jpeg'
-        //    },
-        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/catalogo/pag80.jpeg'}
-        //   
-        //]
+        items: //arr
+        [
+            {
+                xtype: 'imageviewer',
+                imageSrc: 'http://nrodrigues.net/italbox/img/catalogo1.png'
+            },
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/catalogo2.png'}
+           
+        ]
         ,
         listeners: {
             activeitemchange: function(container, value, oldValue, eOpts) {
@@ -331,8 +332,8 @@ Ext.define('Italbox.Viewport', {
             layout: {
                 type: 'vbox',
                 pack: 'center',
-                height: '400px'
-                //align : 'middle'
+                height: '400px',
+                
             },
             items: [
                 {
@@ -509,4 +510,4 @@ Ext.application({
         });
     }
 });
-});
+//});
