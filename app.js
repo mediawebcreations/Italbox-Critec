@@ -5,7 +5,7 @@ window.dao =  {
     //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
     initialize: function(callback) {
         var self = this;
-        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 200000);
+        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 3*1024);
         //this.db = window.sqlitePlugin.openDatabase("italboxdb", "1.0", "Italbox DB", -1);
 
         // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
@@ -272,7 +272,7 @@ function log(msg) {
 
 renderImages(function(arr){
     alert(arr);
-});
+
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
@@ -286,7 +286,7 @@ Ext.define('Italbox.Viewport2', {
     config: {
         //height: '80%',
         //margin: '60px 0 0 0',
-        items: ''
+        items: arr
         /*[
             {
                 xtype: 'imageviewer',
@@ -513,4 +513,5 @@ Ext.application({
             cls: 'body_bg',
         });
     }
+});
 });
