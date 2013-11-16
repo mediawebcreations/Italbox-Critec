@@ -128,7 +128,7 @@ window.dao =  {
             error: function(model, response) {
                 alert("A trabalhar em modo offline");
             },
-            async:   false
+            //async:   false
         });
 
     },
@@ -161,6 +161,7 @@ window.dao =  {
         alert(tx.message);
     }
 };
+
 
 dao.initialize(function() {
     console.log('database initialized');
@@ -270,6 +271,8 @@ function log(msg) {
 //});
 
 renderImages(function(arr){
+    alert(arr);
+});
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
@@ -283,7 +286,7 @@ Ext.define('Italbox.Viewport2', {
     config: {
         //height: '80%',
         //margin: '60px 0 0 0',
-        items: arr
+        items: ''
         /*[
             {
                 xtype: 'imageviewer',
@@ -507,8 +510,7 @@ Ext.application({
 
         Ext.Viewport.add({
             xtype: 'my-viewport-panel',
-            cls: 'body_bg'
+            cls: 'body_bg',
         });
     }
-});
 });
