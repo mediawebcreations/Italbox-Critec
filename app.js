@@ -5,8 +5,8 @@ window.dao =  {
     //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
     initialize: function(callback) {
         var self = this;
-        //this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 200000);
-        this.db = window.sqlitePlugin.openDatabase("italboxdb", "1.0", "Italbox DB", -1);
+        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 200000);
+        //this.db = window.sqlitePlugin.openDatabase("italboxdb", "1.0", "Italbox DB", -1);
 
         // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
         // no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
