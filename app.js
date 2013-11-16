@@ -1,6 +1,6 @@
 window.dao =  {
-    syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
+    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
+    syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
     //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
     initialize: function(callback) {
@@ -331,16 +331,17 @@ Ext.define('Italbox.Viewport', {
             layout: {
                 type: 'vbox',
                 pack: 'center',
-                
+                height: '400px'
+                //align : 'middle'
             },
             items: [
                 {
                     //give it an xtype of list for the list component
                     xtype: 'dataview',
 
-                    //height: '400px',
-                    margin: '50px 0 0 0', 
-                    flex: 1,
+                    height: '400px',
+                    //margin: '50px 0 0 0', 
+                    //flex: 1,
                     scrollable: 'horizontal',
 
                     inline: {
