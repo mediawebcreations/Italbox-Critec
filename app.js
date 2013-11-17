@@ -1,11 +1,11 @@
 window.dao =  {
-    syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
+    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
+    syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
-    //syncURL: "http://192.168.23.132:8080/server-app/connect.php?test=1",
+    //syncURL: "http://192.168.1.2:8080/GitHub/connect.php?test=1",
     initialize: function(callback) {
         var self = this;
-        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 3*1024);
+        this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 3000000);
         //this.db = window.sqlitePlugin.openDatabase("italboxdb", "1.0", "Italbox DB", -1);
 
         // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
@@ -270,8 +270,8 @@ function log(msg) {
 //    }
 //});
 
-renderImages(function(arr){
-    alert(arr);
+//renderImages(function(arr){
+    //alert(arr);
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -283,18 +283,40 @@ Ext.Loader.setConfig({
 Ext.define('Italbox.Viewport2', {
     extend: 'Ext.Carousel',
     xtype : 'my-viewport2',
+    
     config: {
+        showAnimation: 
+                            {
+                                type: 'slideIn',
+                                duration: 1000,
+                                direction: 'up',
+                                easing: 'easeOut'
+                            },  
+                            hideAnimation: 
+                            {
+                                //TweenMax.to(this, 1, {autoAlpha:0});
+                                type: 'slideOut',
+                                duration: 700,
+                                direction: 'down',
+                                easing: 'easeIn'
+                            }, 
         //height: '80%',
         //margin: '60px 0 0 0',
-        items: arr
-        /*[
-            {
-                xtype: 'imageviewer',
-                imageSrc: 'http://nrodrigues.net/italbox/img/catalogo1.png'
-            },
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/catalogo2.png'}
+        items: //arr
+        [
            
-        ]*/
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag2.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag3.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag4.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag5.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag6.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag7.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag8.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag9.jpeg'},
+            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag10.jpeg'}
+            
+           
+        ]
         ,
         listeners: {
             activeitemchange: function(container, value, oldValue, eOpts) {
@@ -332,6 +354,21 @@ Ext.define('Italbox.Viewport', {
     xtype : 'my-viewport',
     //id:'teste2',
     config: {
+        showAnimation: 
+                            {
+                                type: 'slideIn',
+                                duration: 1000,
+                                direction: 'up',
+                                easing: 'easeOut'
+                            },  
+                            hideAnimation: 
+                            {
+                                //TweenMax.to(this, 1, {autoAlpha:0});
+                                type: 'slideOut',
+                                duration: 700,
+                                direction: 'down',
+                                easing: 'easeIn'
+                            }, 
             //cls: 'teste',
             layout: {
                 type: 'vbox',
@@ -355,54 +392,69 @@ Ext.define('Italbox.Viewport', {
 
                     //set the itemtpl to show the fields for the store
                      store: {
-                        fields: ['photo','name', 'age'],
+                        fields: ['capa','cor', 'nome'],
                         data: [{
-                            photo: 'http://nrodrigues.net/italbox/img/catalogo1.png',
-                            name: 'Jamie',
-                            age: 100
+                            capa: 'http://nrodrigues.net/italbox/img/catalogo1.png',
+                            cor: 'azul',
+                            nome: 'Catalogo 1'
                         }, {
-                            photo: 'http://nrodrigues.net/italbox/img/catalogo2.png',
-                            name: 'Rob',
-                            age: 21
+                            capa: 'http://nrodrigues.net/italbox/img/catalogo2.png',
+                            cor: 'azul',
+                            nome: 'Catalogo 2'
                         }, {
-                            photo: 'http://nrodrigues.net/italbox/img/catalogo3.png',
-                            name: 'Tommy',
-                            age: 24
+                            capa: 'http://nrodrigues.net/italbox/img/catalogo3.png',
+                            cor: 'azul',
+                            nome: 'Catalogo 3'
                         }, {
-                            photo: 'http://nrodrigues.net/italbox/img/catalogo1.png',
-                            name: 'Jacky',
-                            age: 24
+                            capa: 'http://nrodrigues.net/italbox/img/catalogo1.png',
+                            cor: 'azul',
+                            nome: 'Catalogo 4'
                        }]
                     },
 
-                    itemTpl: '<img src="{photo}" style="margin-right:30px;">',
-                    //itemTpl: '<img src="{photo}" style="margin-right:30px; height:100%;"><div>{name} {age}</div>',
+                    itemTpl: '<img src="{capa}" style="margin-right:30px;">',
+                    //itemTpl: '<img src="{capa}" style="margin-right:30px; height:100%;"><div>{cor} {nome}</div>',
+                    listeners: {
+                        itemtap: function(list, index, target, record) {
+                            Ext.Msg.confirm(
+                            "Open",
+                            "Open "+record.get('nome')+"?",
+                            function(buttonId) {
+                            if (buttonId === 'yes') {
+                                //window.location.reload();
+                                 Ext.getCmp('myList').hide();
+                                 Ext.getCmp('myCarroucel').show();
+                                 Ext.getCmp('back').show()
+                                }
+                            }
+                        );
+                        }
+                    }
                 }
             ],
-         
-            
+          
     },
-        initialize : function(){
-        var me = this;
-             this.element.on('tap', function(e, el){
-                 // Here you will get the target element
-                 //console.log(e.target, el);
-                 //alert(e.target, el);
-             //    Ext.Msg.alert('teste',e);
-                 Ext.Msg.confirm(
-            "Download",
-            "Donwnload Catalog?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    //window.location.reload();
-                    Ext.getCmp('myList').hide();
-                    Ext.getCmp('myCarroucel').show();
-                    Ext.getCmp('back').show()
-                }
-            }
-        );
-             }, this);
-    }
+    //    initialize : function(){
+    //    var me = this;
+    //         this.element.on('tap', function(e, el){
+    //             // Here you will get the target element
+    //             //console.log(e.target, el);
+    //             //alert(e.target, el);
+    //         //    Ext.Msg.alert('teste',e);
+    //             Ext.Msg.confirm(
+    //        "Download",
+    //        "Donwnload Catalog?",
+    //        function(buttonId) {
+    //            if (buttonId === 'yes') {
+    //                //window.location.reload();
+    //                Ext.getCmp('myList').hide();
+    //                Ext.getCmp('myCarroucel').show();
+    //                Ext.getCmp('back').show()
+    //            }
+    //        }
+    //    );
+    //         }, this);
+    //}
 });
 
 Ext.define('Italbox.ViewportPanel', {
@@ -438,9 +490,55 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:      'plain',
                     xtype: 'button',
                     cls: 'open-menu',
-                     handler: function () {
-            //Ext.Msg.alert('You clicked the button');
-            //window.location.href=window.location.href;
+                   handler: function() {
+                
+                        //add a hidden panel with showAnimation and hideAnimation
+                         var panel = Ext.Viewport.add({ 
+                            xtype: 'container',  
+                            modal: {
+                                style: 'opacity: 0.8; background-color: #ffffff;'
+                            },
+                            height    : 200,
+                            width     : 240,
+                            floating  : true,                               
+                            top       : 50,
+                            cls: 'menu',
+                            hideOnMaskTap: true,
+                            showAnimation: 
+                            {
+                                type: 'slideIn',
+                                duration: 1000,
+                                direction: 'up',
+                                easing: 'easeOut'
+                            },  
+                            hideAnimation: 
+                            {
+                                //TweenMax.to(this, 1, {autoAlpha:0});
+                                type: 'slideOut',
+                                duration: 700,
+                                direction: 'down',
+                                easing: 'easeIn'
+                            }, 
+                            items     : [
+                                {
+                                    html  : '<li class="menu-italbox">ITALBOX</li>'
+                                },
+                                {
+                                    html  : '<li class="menu-favoritos">FAVARITOS</li>'
+                                },
+                                {
+                                    html  : '<li class="menu-language">LANGUAGE</li>'
+                                },
+                                {
+                                    html  : '<li class="menu-ajuda">AJUDA</li>'
+                                }
+                            ]
+                        });
+
+                        
+                        //show the panel
+                        panel.show();
+                    
         }, // handler
         //renderTo: Ext.getBody()
                 },
@@ -514,4 +612,4 @@ Ext.application({
         });
     }
 });
-});
+//});

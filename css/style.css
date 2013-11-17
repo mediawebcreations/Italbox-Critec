@@ -23,7 +23,7 @@
 	background: transparent;
 	border-bottom-width:0!important;
 	position: absolute;
-        z-index: 998;
+        z-index: 2;
 }
 
 .teste{
@@ -180,11 +180,9 @@
 
 .menu {
 	position: absolute;
-	width: 240px;
-	height: 200px;
 	font-size: 12px;
 	left: 0;
-	top: 1200px;
+	/*top: 1200px;*/
 	right: 0;
 	bottom: 0;
 	margin:auto;
@@ -201,9 +199,9 @@
 }
 
 
-.menu li:last-child{
+/*.menu li:last-child{
 	border-bottom: solid; 1px;
-}
+}*/
 
 .menu li.menu-italbox {
 	background: url(../imgs/icons/italbox.png) no-repeat ;
@@ -216,9 +214,15 @@
 }
 .menu li.menu-ajuda {
 	background: url(../imgs/icons/ajuda.png) no-repeat ;
+	border-bottom: solid; 1px;
 }
 
-
+.menu li:hover {
+	background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
 
 
 @media  
