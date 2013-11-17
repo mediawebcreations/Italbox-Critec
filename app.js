@@ -1,6 +1,6 @@
 window.dao =  {
-    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
+    syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
+    //syncURL: "http://localhost:8080/GitHub/connect_base64.php?test=1",
     //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
     //syncURL: "http://192.168.1.2:8080/GitHub/connect.php?test=1",
     initialize: function(callback) {
@@ -167,8 +167,8 @@ dao.initialize(function() {
     console.log('database initialized');
 });
 
-dao.sync(renderList);
-renderList();
+//dao.sync(renderList);
+//renderList();
 //renderImagens();
 
 $('#reset').on('click', function() {
@@ -270,7 +270,7 @@ function log(msg) {
 //    }
 //});
 
-//renderImages(function(arr){
+renderImages(function(arr){
     //alert(arr);
 
 Ext.Loader.setConfig({
@@ -286,37 +286,37 @@ Ext.define('Italbox.Viewport2', {
     
     config: {
         showAnimation: 
-                            {
-                                type: 'slideIn',
-                                duration: 1000,
-                                direction: 'up',
-                                easing: 'easeOut'
-                            },  
-                            hideAnimation: 
-                            {
-                                //TweenMax.to(this, 1, {autoAlpha:0});
-                                type: 'slideOut',
-                                duration: 700,
-                                direction: 'down',
-                                easing: 'easeIn'
-                            }, 
+            {
+                type: 'slideIn',
+                duration: 1000,
+                direction: 'up',
+                easing: 'easeOut'
+            },  
+            hideAnimation: 
+            {
+                //TweenMax.to(this, 1, {autoAlpha:0});
+                type: 'slideOut',
+                duration: 700,
+                direction: 'down',
+                easing: 'easeIn'
+            }, 
         //height: '80%',
         //margin: '60px 0 0 0',
-        items: //arr
-        [
-           
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag2.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag3.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag4.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag5.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag6.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag7.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag8.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag9.jpeg'},
-            {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag10.jpeg'}
-            
-           
-        ]
+        items: arr
+        //[
+        //   
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag2.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag3.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag4.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag5.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag6.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag7.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag8.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag9.jpeg'},
+        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag10.jpeg'}
+        //    
+        //   
+        //]
         ,
         listeners: {
             activeitemchange: function(container, value, oldValue, eOpts) {
@@ -355,20 +355,19 @@ Ext.define('Italbox.Viewport', {
     //id:'teste2',
     config: {
         showAnimation: 
-                            {
-                                type: 'slideIn',
-                                duration: 1000,
-                                direction: 'up',
-                                easing: 'easeOut'
-                            },  
-                            hideAnimation: 
-                            {
-                                //TweenMax.to(this, 1, {autoAlpha:0});
-                                type: 'slideOut',
-                                duration: 700,
-                                direction: 'down',
-                                easing: 'easeIn'
-                            }, 
+                    {
+                        type: 'slideIn',
+                        duration: 1000,
+                        direction: 'up',
+                        easing: 'easeOut'
+                    },  
+                    hideAnimation: 
+                    {
+                        type: 'slideOut',
+                        duration: 700,
+                        direction: 'down',
+                        easing: 'easeIn'
+                    }, 
             //cls: 'teste',
             layout: {
                 type: 'vbox',
@@ -384,8 +383,10 @@ Ext.define('Italbox.Viewport', {
                     height: '400px',
                     //margin: '50px 0 0 0', 
                     //flex: 1,
-                    scrollable: 'horizontal',
-
+                    scrollable: {
+                        direction: 'horizontal',
+                        indicators: false
+                    },
                     inline: {
                         wrap: false
                     },
@@ -394,19 +395,19 @@ Ext.define('Italbox.Viewport', {
                      store: {
                         fields: ['capa','cor', 'nome'],
                         data: [{
-                            capa: 'http://nrodrigues.net/italbox/img/catalogo1.png',
+                            capa: 'imgs/catalogo1.png',
                             cor: 'azul',
                             nome: 'Catalogo 1'
                         }, {
-                            capa: 'http://nrodrigues.net/italbox/img/catalogo2.png',
+                            capa: 'imgs/catalogo2.png',
                             cor: 'azul',
                             nome: 'Catalogo 2'
                         }, {
-                            capa: 'http://nrodrigues.net/italbox/img/catalogo3.png',
+                            capa: 'imgs/catalogo3.png',
                             cor: 'azul',
                             nome: 'Catalogo 3'
                         }, {
-                            capa: 'http://nrodrigues.net/italbox/img/catalogo1.png',
+                            capa: 'imgs/catalogo1.png',
                             cor: 'azul',
                             nome: 'Catalogo 4'
                        }]
@@ -554,6 +555,28 @@ Ext.define('Italbox.ViewportPanel', {
             function(buttonId) {
                 if (buttonId === 'yes') {
                     //window.location.reload();
+                    dao.sync(renderList);
+                    renderList();
+                    //window.location.href=window.location.href;
+                }
+            }
+        );
+            
+        }, // handler
+        //renderTo: Ext.getBody()
+                },
+                {
+                    align: 'right',
+                    ui:      'plain',
+                    xtype: 'button',
+                    cls: 'open-menu3',
+                     handler: function () {
+               Ext.Msg.confirm(
+            "Restart",
+            "Restart Application?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    //window.location.reload();
                     window.location.href=window.location.href;
                 }
             }
@@ -612,4 +635,4 @@ Ext.application({
         });
     }
 });
-//});
+});
