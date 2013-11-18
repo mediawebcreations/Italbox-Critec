@@ -1,8 +1,9 @@
 window.dao =  {
     syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    //syncURL: "http://localhost:8080/GitHub/connect_base64.php?test=1",
-    //syncURL: "http://10.0.2.2:8080/server-app/connect.php?test=1",
+    //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
+    //syncURL: "http://10.0.2.2:8080/GitHub/connect.php?test=1",
     //syncURL: "http://192.168.1.2:8080/GitHub/connect.php?test=1",
+    //syncURL: "http://192.168.23.132:8080/GitHub/connect.php?test=1",
     initialize: function(callback) {
         var self = this;
         this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 3000000);
@@ -42,8 +43,8 @@ window.dao =  {
             },
             this.txErrorHandler,
             function() {
-                log('Table Catalogos successfully CREATED in local SQLite database');
-                callback();
+               log('Table Catalogos successfully CREATED in local SQLite database');
+               callback();
             }
         );
     },
@@ -163,13 +164,34 @@ window.dao =  {
 };
 
 
-dao.initialize(function() {
-    console.log('database initialized');
+$(document).ready(function() {
+    setTimeout('runApp()',1000);
+    setTimeout('runApp2()',2000);
+    setTimeout('runApp3()',3000);
+    setTimeout('runApp4()',4000);
 });
 
+function runApp() {
+dao.initialize(function(){
+    console.log('database initialized');
+});
+};
+
+function runApp2() {
+dao.sync(renderList);
+};
+
+function runApp3() {
+renderList();
+};
+
+function runApp4() {
+$.when(dao.initialize()).then(dao.sync(renderList)).then(renderList()).then(teste());
 //dao.sync(renderList);
 //renderList();
+//teste();
 //renderImagens();
+};
 
 $('#reset').on('click', function() {
     dao.dropTable(function() {
@@ -239,8 +261,8 @@ function renderImages(callback) {
                    //title: catalogo.nome,
                    //html: "<img style=' margin:auto; width: 100%;' src='"+catalogo.capa+"'/>"
                    xtype: 'imageviewer',
-                   imageSrc: 'data:image/jpg;base64,'+catalogo.capa
-                    //imageSrc: catalogo.capa
+                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+                    imageSrc: catalogo.capa
               };
               arr.push(listaImagens); 
             }
@@ -270,6 +292,8 @@ function log(msg) {
 //    }
 //});
 
+
+function teste(){
 renderImages(function(arr){
     //alert(arr);
 
@@ -555,28 +579,6 @@ Ext.define('Italbox.ViewportPanel', {
             function(buttonId) {
                 if (buttonId === 'yes') {
                     //window.location.reload();
-                    dao.sync(renderList);
-                    renderList();
-                    //window.location.href=window.location.href;
-                }
-            }
-        );
-            
-        }, // handler
-        //renderTo: Ext.getBody()
-                },
-                {
-                    align: 'right',
-                    ui:      'plain',
-                    xtype: 'button',
-                    cls: 'open-menu3',
-                     handler: function () {
-               Ext.Msg.confirm(
-            "Restart",
-            "Restart Application?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    //window.location.reload();
                     window.location.href=window.location.href;
                 }
             }
@@ -636,3 +638,4 @@ Ext.application({
     }
 });
 });
+};
