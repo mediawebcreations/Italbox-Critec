@@ -187,11 +187,12 @@ renderList();
 
 function runApp4() {
 $.when(dao.initialize()).then(dao.sync(renderList)).then(renderList()).then(teste());
+};
+
 //dao.sync(renderList);
 //renderList();
 //teste();
 //renderImagens();
-};
 
 $('#reset').on('click', function() {
     dao.dropTable(function() {
@@ -212,10 +213,6 @@ $('#render').on('click', function() {
 $('#clearLog').on('click', function() {
     $('#log').val('');
 });
-
-//function reload() {
-//    location.reload();
-//};
 
 function renderList(catalogos) {
     log('Rendering list using local SQLite data...');
@@ -252,6 +249,7 @@ function renderList(catalogos) {
 function renderImages(callback) {
     log('Rendering list using local SQLite data...');
     var arr = [];
+    var arr2 = {xtype: 'imageviewer', imageSrc: 'http://orcamentos.eu/wp-content/uploads/2011/05/Italbox.png' };
     dao.findAll(function(catalogos) {
         var l = catalogos.length;
         for (var i = 0; i < l; i++) {
@@ -265,8 +263,8 @@ function renderImages(callback) {
                     imageSrc: catalogo.capa
               };
               arr.push(listaImagens); 
-            }
-         callback(arr);
+         }
+         callback(arr,arr2);
     });
 };
 
@@ -274,28 +272,9 @@ function log(msg) {
     $('#log').val($('#log').val() + msg + '\n');
 };
 
-//Ext.application({
-//    name: 'Italbox',
-//    launch: function() {
-//        renderImages(function(arr){
-//            //var x = arr.length;
-//            //for (var i = 0; i < x; i++) {
-//              //var catalogo = catalogos[i];
-//              //window.alert(arr[i].html);
-//            //}
-//            Italbox.container = Ext.create('Ext.Carousel', {
-//                fullscreen: true,
-//                items: arr
-//        });
-//     });
-//       
-//    }
-//});
-
-
 function teste(){
-renderImages(function(arr){
-    //alert(arr);
+renderImages(function(arr,arr2){
+    //alert(arr2);
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -307,7 +286,6 @@ Ext.Loader.setConfig({
 Ext.define('Italbox.Viewport2', {
     extend: 'Ext.Carousel',
     xtype : 'my-viewport2',
-    
     config: {
         showAnimation: 
             {
@@ -324,8 +302,8 @@ Ext.define('Italbox.Viewport2', {
                 direction: 'down',
                 easing: 'easeIn'
             }, 
-        //height: '80%',
-        //margin: '60px 0 0 0',
+        height: '80%',
+        margin: '60px 0 0 0',
         items: arr
         //[
         //   
@@ -342,18 +320,17 @@ Ext.define('Italbox.Viewport2', {
         //   
         //]
         ,
-        listeners: {
-            activeitemchange: function(container, value, oldValue, eOpts) {
-                if (oldValue) {
-                    oldValue.resetZoom();
-                    this.getActiveItem().resize();
-                }
-            },
-            resize: function(component, eOpts) {
-                this.getActiveItem().resize();
-            }
-        }
-        
+        //listeners: {
+        //    activeitemchange: function(container, value, oldValue, eOpts) {
+        //        if (oldValue) {
+        //            oldValue.resetZoom();
+        //            this.getActiveItem().resize();
+        //        }
+        //    },
+        //    resize: function(component, eOpts) {
+        //        this.getActiveItem().resize();
+        //    }
+        //}
     },
     onDragStart: function(e) {
         var scroller = this.getActiveItem().getScrollable().getScroller();
@@ -376,7 +353,7 @@ Ext.define('Italbox.Viewport2', {
 Ext.define('Italbox.Viewport', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport',
-    //id:'teste2',
+    //id:'myCarroucel',
     config: {
         showAnimation: 
                     {
@@ -403,7 +380,6 @@ Ext.define('Italbox.Viewport', {
                 {
                     //give it an xtype of list for the list component
                     xtype: 'dataview',
-
                     height: '400px',
                     //margin: '50px 0 0 0', 
                     //flex: 1,
@@ -441,6 +417,7 @@ Ext.define('Italbox.Viewport', {
                     //itemTpl: '<img src="{capa}" style="margin-right:30px; height:100%;"><div>{cor} {nome}</div>',
                     listeners: {
                         itemtap: function(list, index, target, record) {
+                            
                             Ext.Msg.confirm(
                             "Open",
                             "Open "+record.get('nome')+"?",
@@ -448,8 +425,36 @@ Ext.define('Italbox.Viewport', {
                             if (buttonId === 'yes') {
                                 //window.location.reload();
                                  Ext.getCmp('myList').hide();
+                                 
+                                 Ext.getCmp('myCarroucel').removeAll(false);
+                                 if (index === 0) {
+                                 Ext.getCmp('myCarroucel').setItems(arr);
+                                 }
+                                 if (index === 1) {
+                                    Ext.getCmp('myCarroucel').setItems(arr2);
+                                 }
+                                  if (index === 2) {
+                                    Ext.getCmp('myCarroucel').setItems(arr3);
+                                 }
+                                  if (index === 3) {
+                                    Ext.getCmp('myCarroucel').setItems(arr4);
+                                 }
+                                 Ext.getCmp('myCarroucel').setActiveItem(0);
                                  Ext.getCmp('myCarroucel').show();
                                  Ext.getCmp('back').show()
+                                 //alert(index);
+                       
+                        //var panel = Ext.Viewport.add({
+                                    
+                        //    extend: 'Ext.Carousel',
+                        //    xtype : 'my-viewport2',
+                        //    id: 'myCarroucel',
+                        //    
+                        //});
+                        //
+                        //
+                        ////show the panel
+                        //panel.show();
                                 }
                             }
                         );
@@ -457,29 +462,7 @@ Ext.define('Italbox.Viewport', {
                     }
                 }
             ],
-          
-    },
-    //    initialize : function(){
-    //    var me = this;
-    //         this.element.on('tap', function(e, el){
-    //             // Here you will get the target element
-    //             //console.log(e.target, el);
-    //             //alert(e.target, el);
-    //         //    Ext.Msg.alert('teste',e);
-    //             Ext.Msg.confirm(
-    //        "Download",
-    //        "Donwnload Catalog?",
-    //        function(buttonId) {
-    //            if (buttonId === 'yes') {
-    //                //window.location.reload();
-    //                Ext.getCmp('myList').hide();
-    //                Ext.getCmp('myCarroucel').show();
-    //                Ext.getCmp('back').show()
-    //            }
-    //        }
-    //    );
-    //         }, this);
-    //}
+    }
 });
 
 Ext.define('Italbox.ViewportPanel', {
@@ -504,6 +487,7 @@ Ext.define('Italbox.ViewportPanel', {
                     hidden: true,
                     handler: function () {
                     Ext.getCmp('myCarroucel').hide();
+                    //Ext.getCmp('myCarroucel').removeAll(true);
                     Ext.getCmp('back').hide();
                     Ext.getCmp('myList').show();
                     //Ext.Msg.alert('You clicked the button');
@@ -634,6 +618,7 @@ Ext.application({
         Ext.Viewport.add({
             xtype: 'my-viewport-panel',
             cls: 'body_bg',
+            id: 'painel'
         });
     }
 });
