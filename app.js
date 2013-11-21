@@ -186,7 +186,7 @@ renderList();
 };
 
 function runApp4() {
-$.when(dao.initialize()).then(dao.sync(renderList)).then(renderList()).then(teste());
+$.when(dao.initialize()).then(dao.sync(renderList)).then(renderList()).then(sencha());
 };
 
 //dao.sync(renderList);
@@ -272,7 +272,7 @@ function log(msg) {
     $('#log').val($('#log').val() + msg + '\n');
 };
 
-function teste(){
+function sencha(){
 renderImages(function(arr,arr2){
     //alert(arr2);
 
@@ -286,6 +286,7 @@ Ext.Loader.setConfig({
 Ext.define('Italbox.Viewport2', {
     extend: 'Ext.Carousel',
     xtype : 'my-viewport2',
+    id:'myCarroucel',
     config: {
         showAnimation: 
             {
@@ -302,9 +303,7 @@ Ext.define('Italbox.Viewport2', {
                 direction: 'down',
                 easing: 'easeIn'
             }, 
-        height: '80%',
-        margin: '60px 0 0 0',
-        items: arr
+        //items: arr
         //[
         //   
         //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag2.jpeg'},
@@ -319,24 +318,35 @@ Ext.define('Italbox.Viewport2', {
         //    
         //   
         //]
-        ,
-        //listeners: {
-        //    activeitemchange: function(container, value, oldValue, eOpts) {
-        //        if (oldValue) {
-        //            oldValue.resetZoom();
-        //            this.getActiveItem().resize();
-        //        }
-        //    },
-        //    resize: function(component, eOpts) {
-        //        this.getActiveItem().resize();
-        //    }
-        //}
+        //,
+        listeners: {
+            activeitemchange: function(container, value, oldValue, eOpts) {
+                try{
+                    if (oldValue) {
+                    oldValue.resetZoom();
+                    this.getActiveItem().resize();
+                }
+                }
+                catch(err){}
+            },
+            resize: function(component, eOpts) {
+                try{
+                this.getActiveItem().resize();
+                }
+                catch(err){}
+            },
+          
+        }
     },
     onDragStart: function(e) {
         var scroller = this.getActiveItem().getScrollable().getScroller();
         if (e.targetTouches.length === 1 && (e.deltaX < 0 && scroller.getMaxPosition().x === scroller.position.x) || (e.deltaX > 0 && scroller.position.x === 0)) {
             this.callParent(arguments);
         }
+         var barra = Ext.getCmp('barra');
+            barra.hide();
+            var barra2 = Ext.getCmp('barra2');
+            barra2.show();
     },
     onDrag: function(e) {
         if (e.targetTouches.length == 1)
@@ -346,14 +356,21 @@ Ext.define('Italbox.Viewport2', {
         if (e.targetTouches.length < 2)
             this.callParent(arguments);
     },
-    
+    initialize: function() {
+        this.element.on('tap',function() {
+            var barra = Ext.getCmp('barra');
+            barra.show();
+            var barra2 = Ext.getCmp('barra2');
+            barra2.hide();
+        });
+    },
 });
 
 
 Ext.define('Italbox.Viewport', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport',
-    //id:'myCarroucel',
+    id:'myList',
     config: {
         showAnimation: 
                     {
@@ -423,9 +440,7 @@ Ext.define('Italbox.Viewport', {
                             "Open "+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                //window.location.reload();
                                  Ext.getCmp('myList').hide();
-                                 
                                  Ext.getCmp('myCarroucel').removeAll(false);
                                  if (index === 0) {
                                  Ext.getCmp('myCarroucel').setItems(arr);
@@ -434,14 +449,16 @@ Ext.define('Italbox.Viewport', {
                                     Ext.getCmp('myCarroucel').setItems(arr2);
                                  }
                                   if (index === 2) {
-                                    Ext.getCmp('myCarroucel').setItems(arr3);
+                                    Ext.getCmp('myCarroucel').setItems(arr);
                                  }
                                   if (index === 3) {
-                                    Ext.getCmp('myCarroucel').setItems(arr4);
+                                    Ext.getCmp('myCarroucel').setItems(arr2);
                                  }
                                  Ext.getCmp('myCarroucel').setActiveItem(0);
                                  Ext.getCmp('myCarroucel').show();
-                                 Ext.getCmp('back').show()
+                                 Ext.getCmp('barra').hide();
+                                 Ext.getCmp('barra2').show();
+                                 Ext.getCmp('back').show();
                                  //alert(index);
                        
                         //var panel = Ext.Viewport.add({
@@ -472,25 +489,40 @@ Ext.define('Italbox.ViewportPanel', {
         fullscreen: true,
         layout: 'fit',
         items: [{
-            xtype: 'titlebar',
+            xtype: 'toolbar',
             title: '<div class="logotipo"></div>',
+            id: 'barra',
             cls: 'header',
             docked: 'top',
+            showAnimation:  
+                {
+                    type: 'slideIn',
+                    duration: 1000,
+                    direction: 'down',
+                    easing: 'easeIn'
+                },  
+                hideAnimation: 
+                {
+                    //TweenMax.to(this, 1, {autoAlpha:0});
+                    type: 'slideOut',
+                    duration: 1000,
+                    direction: 'up',
+                    easing: 'easeOut'
+                }, 
             items: [
                 {
-                   // align: 'left',
-                    //ui:    'plain',
+                    align: 'left',
+                    ui:    'plain',
                     xtype: 'button',
-                    text: 'back',
                     id: 'back',
-                    //cls: 'back',
+                    cls: 'back',
                     hidden: true,
                     handler: function () {
                     Ext.getCmp('myCarroucel').hide();
-                    //Ext.getCmp('myCarroucel').removeAll(true);
                     Ext.getCmp('back').hide();
                     Ext.getCmp('myList').show();
-                    //Ext.Msg.alert('You clicked the button');
+                   
+                    
         }, // handler
         ////renderTo: Ext.getBody()
                 },
@@ -500,7 +532,6 @@ Ext.define('Italbox.ViewportPanel', {
                     xtype: 'button',
                     cls: 'open-menu',
                    handler: function() {
-                
                         //add a hidden panel with showAnimation and hideAnimation
                          var panel = Ext.Viewport.add({ 
                             xtype: 'container',  
@@ -543,8 +574,6 @@ Ext.define('Italbox.ViewportPanel', {
                                 }
                             ]
                         });
-
-                        
                         //show the panel
                         panel.show();
                     
@@ -572,7 +601,63 @@ Ext.define('Italbox.ViewportPanel', {
         //renderTo: Ext.getBody()
                 }
             ]
-        }, {
+        },
+        {
+            xtype: 'toolbar',
+            //title: '<div class="logotipo"></div>',
+            id: 'barra2',
+            cls: 'header2',
+            docked: 'top',
+            hidden: true,
+            layout: {
+                    type: 'hbox',
+                    pack: 'center'
+            },
+            showAnimation:  
+                {
+                    type: 'slideIn',
+                    duration: 1000,
+                    direction: 'down',
+                    easing: 'easeIn'
+                },  
+                hideAnimation: 
+                {
+                    //TweenMax.to(this, 1, {autoAlpha:0});
+                    type: 'slideOut',
+                    duration: 1000,
+                    direction: 'up',
+                    easing: 'easeOut'
+                }, 
+            items: [
+              {
+                    align: 'center', 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu3',
+                    //hidden: true,
+                    handler: function () {
+                    Ext.getCmp('barra2').hide();
+                    Ext.getCmp('barra').show();
+                    }
+                },
+        //        {
+        //            align: 'center', 
+        //            ui:    'plain',
+        //            xtype: 'button',
+        //            id: 'teste',
+        //            cls: 'open-menu3',
+        //            //hidden: true,
+        //            handler: function () {
+        //            Ext.getCmp('barra2').hide();
+        //            Ext.getCmp('barra').show();
+        //           
+        //}, // handler
+        //////renderTo: Ext.getBody()
+                //}
+           ]    
+        },
+        {
             xtype: 'my-viewport',
             id: 'myList'
         },

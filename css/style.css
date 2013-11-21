@@ -26,6 +26,15 @@
         z-index: 2;
 }
 
+.header2 {
+	height: 50px;
+	width: 100%;
+	background: transparent;
+        border-bottom-width:0!important;
+	position: absolute;
+        z-index: 2;
+}
+
 .teste{
    height:  80%;
   /* background:#ffffff url(../imgs/fundo-web.jpg) top center no-repeat;*/     
@@ -56,17 +65,20 @@
 	position: absolute;
 	width: 45px;
 	height: 45px;
-	background-image: url(../imgs/icons/language.png)!important;
+	background-image: url(../imgs/icons/language.png) !important;
 
 }
 
 .open-menu3{
-	top: 0;
-	right: 90px;
-	position: absolute;
-	width: 45px;
-	height: 45px;
-	background-image: url(../imgs/icons/seta-baixo.png)!important;
+	top: -4px !important;
+	/*position: absolute !important;*/
+        right: 0 !important;
+        left: 0 !important;
+	width: 45px !important;
+	height: 45px !important;
+        margin: 0;
+        background-color: white;
+	background-image: url(../imgs/icons/seta-baixo2.png)!important;
 
 }
 
