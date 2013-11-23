@@ -17,6 +17,21 @@
 	     url('font/roboto-medium-webfont.svg#webfont') format('svg');
 }
 
+.capa{
+       /* -moz-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.5);*/
+        margin-right:30px;
+        height:370px;
+}
+
+.texto-capa{
+      margin-right:30px;
+      text-align:center;
+      font-size:14px;
+      text-transform:uppercase;           
+}
+
 .header {
 	height: 50px;
 	width: 100%;

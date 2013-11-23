@@ -288,6 +288,7 @@ Ext.define('Italbox.Viewport2', {
     xtype : 'my-viewport2',
     id:'myCarroucel',
     config: {
+          indicator: false,
         showAnimation: 
             {
                 type: 'slideIn',
@@ -343,12 +344,13 @@ Ext.define('Italbox.Viewport2', {
         if (e.targetTouches.length === 1 && (e.deltaX < 0 && scroller.getMaxPosition().x === scroller.position.x) || (e.deltaX > 0 && scroller.position.x === 0)) {
             this.callParent(arguments);
         }
-         var barra = Ext.getCmp('barra');
-            barra.hide();
-            var barra2 = Ext.getCmp('barra2');
-            barra2.show();
+       
     },
     onDrag: function(e) {
+          var barra = Ext.getCmp('barra');
+          var barra2 = Ext.getCmp('barra2');
+            barra.hide();
+            barra2.show();
         if (e.targetTouches.length == 1)
             this.callParent(arguments);
     },
@@ -359,8 +361,8 @@ Ext.define('Italbox.Viewport2', {
     initialize: function() {
         this.element.on('tap',function() {
             var barra = Ext.getCmp('barra');
-            barra.show();
             var barra2 = Ext.getCmp('barra2');
+            barra.show();
             barra2.hide();
         });
     },
@@ -429,9 +431,8 @@ Ext.define('Italbox.Viewport', {
                             nome: 'Catalogo 4'
                        }]
                     },
-
-                    itemTpl: '<img src="{capa}" style="margin-right:30px;">',
-                    //itemTpl: '<img src="{capa}" style="margin-right:30px; height:100%;"><div>{cor} {nome}</div>',
+                    
+                    itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                     listeners: {
                         itemtap: function(list, index, target, record) {
                             
@@ -595,8 +596,7 @@ Ext.define('Italbox.ViewportPanel', {
                     window.location.href=window.location.href;
                 }
             }
-        );
-            
+        );  
         }, // handler
         //renderTo: Ext.getBody()
                 }
