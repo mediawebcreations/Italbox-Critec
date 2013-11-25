@@ -250,6 +250,17 @@ function renderImages(callback) {
     log('Rendering list using local SQLite data...');
     var arr = [];
     var arr2 = {xtype: 'imageviewer', imageSrc: 'http://orcamentos.eu/wp-content/uploads/2011/05/Italbox.png' };
+    var arr3 = {fields: ['capa','cor', 'nome'],
+                       data: [{
+                           capa: 'imgs/produto1.jpg',
+                           cor: 'azul',
+                           nome: 'Produto 1'
+                       }, {
+                           capa: 'imgs/produto2.jpg',
+                           cor: 'azul',
+                           nome: 'Produto 2'
+                       },
+                ]};
     dao.findAll(function(catalogos) {
         var l = catalogos.length;
         for (var i = 0; i < l; i++) {
@@ -264,7 +275,7 @@ function renderImages(callback) {
               };
               arr.push(listaImagens); 
          }
-         callback(arr,arr2);
+         callback(arr,arr2,arr3,catalogos);
     });
 };
 
@@ -273,9 +284,8 @@ function log(msg) {
 };
 
 function sencha(){
-renderImages(function(arr,arr2){
-    //alert(arr2);
-
+renderImages(function(arr,arr2, arr3,catalogos){
+    alert(arr3);
 Ext.Loader.setConfig({
     enabled: true,
     paths: {
@@ -307,14 +317,14 @@ Ext.define('Italbox.Viewport3', {
                     type: 'vbox',
                     pack: 'bottom',
                     height: '120px',
-                    
+                    //text-align: 'center',
                 },
                 items     : [
-             
                    {   
                 //give it an xtype of list for the list component
                    xtype: 'dataview',
                    height: '120px',
+                   cls: 'lista2',
                    //cls: 'menu3',
                    //margin: '50px 0 0 0', 
                    //flex: 1,
@@ -327,7 +337,7 @@ Ext.define('Italbox.Viewport3', {
                    },
 
                    //set the itemtpl to show the fields for the store
-                    store: {
+                    store: arr3,/*{
                        fields: ['capa','cor', 'nome'],
                        data: [{
                            capa: 'imgs/produto1.jpg',
@@ -338,89 +348,81 @@ Ext.define('Italbox.Viewport3', {
                            cor: 'azul',
                            nome: 'Produto 2'
                        },
-                       {
-                           capa: 'imgs/produto1.jpg',
-                           cor: 'azul',
-                           nome: 'Produto 1'
-                       }, {
-                           capa: 'imgs/produto2.jpg',
-                           cor: 'azul',
-                           nome: 'Produto 2'
-                       },
-                       {
-                           capa: 'imgs/produto1.jpg',
-                           cor: 'azul',
-                           nome: 'Produto 1'
-                       }, {
-                           capa: 'imgs/produto2.jpg',
-                           cor: 'azul',
-                           nome: 'Produto 2'
-                       },{
-                           capa: 'imgs/produto1.jpg',
-                           cor: 'azul',
-                           nome: 'Produto 3'
-                       }, {
-                           capa: 'imgs/produto2.jpg',
-                           cor: 'azul',
-                           nome: 'Produto 4'
-                      }]
-                   },
-                    itemTpl: '<img style="margin-right:10px;" src="{capa}">',
+                     ]
+                   },*/
+                    itemTpl: '<img style="margin-right:10px; height:75px;" src="{capa}">',
                    //itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                    listeners: {
                         itemtap: function(list, index, target, record)
                         {
-                               var panel2 = Ext.Viewport.add({ 
-                            xtype: 'container',
-                            height: '50%',
-                            id: 'pop-image',
-                            cls: 'pop-image',
-                            //modal: {
-                            //    style: 'opacity: 0.8; background-color: #ffffff;'
-                            //},
-                            //height    : 200,
-                            //width     : 240,
-                            //floating  : true,                               
-                            //top       : 50,
-                            //cls: 'menu',
-                            //hideOnMaskTap: true,
-                            showAnimation: 
-                            {
-                                type: 'pop',
-                                duration: 500,
-                                //direction: 'up',
-                                //easing: 'easeOut'
-                            },  
-                            hideAnimation: 
-                            {
-                                //TweenMax.to(this, 1, {autoAlpha:0});
-                                type: 'popOut',
-                                duration: 700,
-                                //direction: 'down',
-                                //easing: 'easeIn'
-                            }, 
-                            items     : [
-                                                {
-                    align: 'right', 
-                    ui:    'plain',
-                    xtype: 'button',
-                   /* text: 'teste',*/
-                    cls: 'close',
-                    //hidden: true,
-                    handler: function () {
-                            Ext.getCmp('pop-image').hide();
-                               }
-                           },
+                            if( typeof panel2 !== 'undefined' ) {
+                                 panel2.destroy();
+                            }
+                            panel2 = Ext.Viewport.add({ 
+                                xtype: 'container',
+                                height: '70%',
+                                id: 'pop-image',
+                                cls: 'pop-image',
+                                
+                                showAnimation: 
                                 {
-                                    html  : '<div style="margin:20px;"><img src="imgs/produto1_big.jpg" style="margin-top:20px;"><br\><font size="2px">Ana<br/>Ref<br/>Quatro portas de abrir // Fecho Magnetico // Puxador aço inox</font></div>'
+                                    type: 'pop',
+                                    duration: 300,
+                                    //direction: 'up',
+                                    //easing: 'easeOut'
+                                },  
+                                hideAnimation: 
+                                {
+                                    //TweenMax.to(this, 1, {autoAlpha:0});
+                                    type: 'popOut',
+                                    duration: 300,
+                                    //direction: 'down',
+                                    //easing: 'easeIn'
                                 },
-                            ]
-                        });
+                                layout : {
+                                    type : 'vbox',
+                                     /*align: 'left'*/
+                                    },
+                                items: [
+                                    {
+                                    align: 'right', 
+                                    ui:    'plain',
+                                    xtype: 'button',
+                                    cls: 'close',
+                                    //hidden: true,
+                                    handler: function () {
+                                        Ext.getCmp('pop-image').hide();
+                                        /*panel2.destroy();*/
+                                    }
+                                    },
+                                    {
+                                        html  : '<div style="margin:20px;"><img src="'+record.get('capa')+'" style="margin-top:20px; height:203px;"><br\><font size="2px">Ana<br/>Ref<br/>Quatro portas de abrir // Fecho Magnetico // Puxador aço inox</font></div>'
+                                  
+                                    },
+                                ],
+                                //listeners: {
+                                //    tap: {
+                                //     element: 'element',
+                                //      fn: function() {
+                                //        panel2.destroy();
+                                //        }
+                                //    }
+                                //},
+                                initialize: function() {
+                                    this.callParent(arguments);
+                                // Destroy this component when it is hidden, but only after
+                                // the hide animation has ended.
+                                this.getHideAnimation().on({
+                                    animationend: this.destroy,
+                                    scope: this
+                                });
+                                }
+                            });
                         //show the panel
                         panel2.show();
                         },
-                        //hide : function(panel2) {
-                        //        panel2.destroy();
+                        //hide : function() {
+                        //        Ext.getCmp('pop-image').destroy();
                         //}
                    },
            }
@@ -467,6 +469,7 @@ Ext.define('Italbox.Viewport2', {
         //,
         listeners: {
             activeitemchange: function(container, value, oldValue, eOpts) {
+                 Ext.getCmp('open-menu4').setText('Produtos '+Ext.getCmp('myCarroucel').getActiveIndex().toString());
                 try{
                     if (oldValue) {
                     oldValue.resetZoom();
@@ -492,12 +495,18 @@ Ext.define('Italbox.Viewport2', {
        
     },
     onDrag: function(e) {
-          var barra = Ext.getCmp('barra');
+        if (e.targetTouches.length == 1){
+            this.callParent(arguments);
+        }
+         var barra = Ext.getCmp('barra');
           var barra2 = Ext.getCmp('barra2');
+          var myList2 =  Ext.getCmp('myList2');
+          var footer = Ext.getCmp('footer');
+            myList2.hide();
+            footer.show();
             barra.hide();
             barra2.show();
-        if (e.targetTouches.length == 1)
-            this.callParent(arguments);
+           
     },
     onDragEnd: function(e) {
         if (e.targetTouches.length < 2)
@@ -545,6 +554,7 @@ Ext.define('Italbox.Viewport', {
                     //give it an xtype of list for the list component
                     xtype: 'dataview',
                     height: '400px',
+                    cls: 'lista',
                     //margin: '50px 0 0 0', 
                     //flex: 1,
                     scrollable: {
@@ -815,7 +825,7 @@ Ext.define('Italbox.ViewportPanel', {
                     type: 'hbox',
                     pack: 'center'
                     },
-             showAnimation:  
+                showAnimation:  
                 {
                     type: 'slideIn',
                     duration: 1000,
@@ -835,8 +845,10 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
-                   /* text: 'teste',*/
+                    text: 'Produtos 0',
+                    textAlign: 'left',
                     cls: 'open-menu4',
+                    id: 'open-menu4',
                     //hidden: true,
                     handler: function () {
                       Ext.getCmp('footer').hide();
