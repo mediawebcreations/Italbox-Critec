@@ -68,13 +68,18 @@ body{
 	width:100%;
 }
 .menu3 {
-	background: #FFFFFF;
-        border-top: 3px solid black;
-        position:absolute;
+	/*background: #FFFFFF;*/
+        /*border-top: 3px solid black;*/
+       /* position:absolute;
 	bottom:0px;
-	left:0px;
-	top:auto;
+	left:0px;*/
+	/*top: auto !important;*/
 	width:100%;
+        bottom:0px !important;
+}
+
+.x-container .x-floating .menu3{
+        top: auto !important;
 }
 
 .menu4 {
@@ -86,7 +91,7 @@ body{
 .pop-image{
         background: rgba(255,255,255, 0.6);
         position:absolute;
-	bottom:150px;
+	bottom:100px;
 	left:0px;
 	top:auto;
 	width:100%;
@@ -103,7 +108,14 @@ body{
 }
 
 .lista2{
-    text-align: center;            
+        background: #FFFFFF;
+        border-top: 3px solid black;
+       /* position:absolute;
+	bottom:0px;
+	left:0px;
+	top:auto;*/
+	width:100%;
+        text-align: center;            
 }
 
 .logotipo{

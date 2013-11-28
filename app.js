@@ -1120,7 +1120,7 @@ Ext.define('Italbox.ViewportPanel', {
             id: 'footer',
             cls: 'foot',
             docked: 'bottom',
-            hidden: true,
+            //hidden: true,
               layout: {
                     type: 'hbox',
                     pack: 'center'
@@ -1148,22 +1148,31 @@ Ext.define('Italbox.ViewportPanel', {
                     textAlign: 'left',
                     cls: 'open-menu4',
                     id: 'open-menu4',
+                    align: 'bottom',
                     //hidden: true,
                     handler: function () {
-                       if (contador > 0) { 
-                            //code
+                       /*if (contador > 0) { */
+                           
                         
                         Ext.getCmp('footer').hide();
                          if( typeof panel1 !== 'undefined' ) {
                                  panel1.destroy();
                         }
                         panel1 = Ext.Viewport.add({
-                        xtype : 'panel',
+                        xtype : 'container',
                         id: 'myList2',
                         cls: 'menu3',
-                        height: '150px',
+                        top: 'auto !important',
+                        /*modal: {
+                                style: 'opacity: 0.1; background-color: #ffffff;'
+                            },*/
+                         /*floating: true,*/
+                         modal: true,
+                          hideOnMaskTap: true,
+                        /*height: '150px',*/
                          /*hidden: true,*/
-                        docked: 'bottom',
+                        //docked: 'bottom',
+                        
                         showAnimation:  
                 {
                     type: 'slideIn',
@@ -1178,17 +1187,19 @@ Ext.define('Italbox.ViewportPanel', {
                     direction: 'down',
                     easing: 'easeOut'
                 }, 
-                layout: {
-                    type: 'vbox',
-                    pack: 'bottom',
-                    height: '120px',
-                    //text-align: 'center',
-                },
+                //layout: {
+                //   type:'vbox',
+                //    align:'bottom',
+                //    docked:'bottom'
+                ////    height: '100px',
+                ////    text: 'teste',
+                ////    //text-align: 'center',
+                //},
                 items     : [
                    {   
                 //give it an xtype of list for the list component
                    xtype: 'dataview',
-                   height: '120px',
+                   height: '100px',
                    cls: 'lista2',
                    //cls: 'menu3',
                    //margin: '50px 0 0 0', 
@@ -1204,7 +1215,7 @@ Ext.define('Italbox.ViewportPanel', {
                    //set the itemtpl to show the fields for the store
                     store: {
                        fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina','lastModified'],
-                       data: $.grep(tprodutos, function(e) { return e.id_pagina == idpagina && e.id_catalogo == idcatalogo })
+                       data: $.grep(tprodutos, function(e) { return e.id_pagina ==  3/*idpagina && e.id_catalogo == idcatalogo*/ })
                      //  [{
                      //      capa: 'imgs/produto1.jpg',
                      //      cor: 'azul',
@@ -1216,7 +1227,7 @@ Ext.define('Italbox.ViewportPanel', {
                      //  },
                      //]
                    },
-                    itemTpl: '<img style="margin-right:10px; width:100px;" src="{foto}">',
+                    itemTpl: '<img style="margin-right:10px;margin-top:10px; width:100px;" src="{foto}">',
                     //itemTpl: new Ext.XTemplate('<img style="margin-right:10px; height:75px;" src="{capa}">'),
                    //itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                    listeners: {
@@ -1227,10 +1238,14 @@ Ext.define('Italbox.ViewportPanel', {
                             }
                             panel2 = Ext.Viewport.add({ 
                                 xtype: 'container',
-                                height: '70%',
+                                /*height: '70%',*/
                                 id: 'pop-image',
                                 cls: 'pop-image',
-                                
+                                modal: {
+                                style: 'opacity: 0; background-color: #ffffff;'
+                                },
+                                float: true,
+                                 //modal: true,
                                 showAnimation: 
                                 {
                                     type: 'pop',
@@ -1292,14 +1307,13 @@ Ext.define('Italbox.ViewportPanel', {
                         //}
                    },
            }
-                           ]
-   
+                           ],
 });
    panel1.show();
-                    } 
+                   /* } 
                     else{
                          Ext.Msg.alert('', 'Existem 0 produtos nesta pagina', Ext.emptyFn);
-                    }
+                    }*/
                                }
                            },
         //        {
