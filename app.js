@@ -517,10 +517,10 @@ window.dao =  {
 
 
 $(document).ready(function() {
-    setTimeout('runApp()',1000);
-    setTimeout('runApp2()',2000);
+    setTimeout('runApp()',2000);
+    setTimeout('runApp2()',4000);
     //setTimeout('runApp3()',3000);
-    setTimeout('runApp4()',3000);
+    setTimeout('runApp4()',6000);
 });
 
 function runApp() {
