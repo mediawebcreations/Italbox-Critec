@@ -1,7 +1,9 @@
+body{
+   font-family: 'robotomedium' !important;
+}
 .body_bg {
 		background:#ffffff url(../imgs/fundo-web.jpg) top center no-repeat;
 		margin: 0;
-		font-family: robotomedium;
 		position: fixed;
 		width: 100%;
 		height: 100%;
@@ -29,7 +31,9 @@
       margin-right:30px;
       text-align:center;
       font-size:14px;
-      text-transform:uppercase;           
+      text-transform:uppercase;
+      font-family: 'robotomedium';
+      
 }
 
 .header {
@@ -345,6 +349,10 @@ only screen and ( min-device-pixel-ratio: 2),
 only screen and ( min-resolution: 192dpi),  
 only screen and ( min-resolution: 2dppx) {
     /* Retina-specific stuff here */
+    
+    .body_bg {
+                background-size: 384px 512px;
+    }
 
     .header > .logotipo{
 		background: url(../imgs/logotipo.png) no-repeat center;
