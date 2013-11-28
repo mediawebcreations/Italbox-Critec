@@ -1120,7 +1120,7 @@ Ext.define('Italbox.ViewportPanel', {
             id: 'footer',
             cls: 'foot',
             docked: 'bottom',
-            //hidden: true,
+            hidden: true,
               layout: {
                     type: 'hbox',
                     pack: 'center'
@@ -1148,12 +1148,12 @@ Ext.define('Italbox.ViewportPanel', {
                     textAlign: 'left',
                     cls: 'open-menu4',
                     id: 'open-menu4',
-                    align: 'bottom',
+                    //align: 'bottom',
                     //hidden: true,
                     handler: function () {
-                       /*if (contador > 0) { */
+                       
+                       if (contador > 0) { 
                            
-                        
                         Ext.getCmp('footer').hide();
                          if( typeof panel1 !== 'undefined' ) {
                                  panel1.destroy();
@@ -1215,7 +1215,7 @@ Ext.define('Italbox.ViewportPanel', {
                    //set the itemtpl to show the fields for the store
                     store: {
                        fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina','lastModified'],
-                       data: $.grep(tprodutos, function(e) { return e.id_pagina ==  3/*idpagina && e.id_catalogo == idcatalogo*/ })
+                       data: $.grep(tprodutos, function(e) { return e.id_pagina ==  idpagina && e.id_catalogo == idcatalogo})
                      //  [{
                      //      capa: 'imgs/produto1.jpg',
                      //      cor: 'azul',
@@ -1266,18 +1266,33 @@ Ext.define('Italbox.ViewportPanel', {
                                     },
                                 items: [
                                     {
-                                    align: 'right', 
-                                    ui:    'plain',
-                                    xtype: 'button',
-                                    cls: 'close',
-                                    //hidden: true,
-                                    handler: function () {
-                                        Ext.getCmp('pop-image').hide();
-                                        /*panel2.destroy();*/
-                                    }
+                                        xtype: 'toolbar',
+                                        //title: '<div class="logotipo"></div>',
+                                        /*id: 'barra2',*/
+                                        cls: 'header3',
+                                        /*docked: 'top',*/
+                                        /*hidden: true,*/
+                                        layout: {
+                                                type: 'hbox',
+                                                pack: 'right'
+                                        },
+                                       
+                                        items: [
+                                            {
+                                            align: 'right', 
+                                            ui:    'plain',
+                                            xtype: 'button',
+                                            cls: 'close',
+                                            //hidden: true,
+                                            handler: function () {
+                                                Ext.getCmp('pop-image').hide();
+                                                /*panel2.destroy();*/
+                                                }
+                                            },
+                                        ]    
                                     },
                                     {
-                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:20px;"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
+                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:40px;"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
                                   
                                     },
                                 ],
@@ -1310,10 +1325,10 @@ Ext.define('Italbox.ViewportPanel', {
                            ],
 });
    panel1.show();
-                   /* } 
+                    } 
                     else{
                          Ext.Msg.alert('', 'Existem 0 produtos nesta pagina', Ext.emptyFn);
-                    }*/
+                    }
                                }
                            },
         //        {

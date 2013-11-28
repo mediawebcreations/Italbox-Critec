@@ -54,6 +54,15 @@ body{
         z-index: 2;
 }
 
+.header3 {
+	height: 100px;
+	width: 100%;
+	background: transparent;
+        border-bottom-width:0!important;
+	position: absolute;
+       
+}
+
 .foot {
 	height: 50px;
 	/*width: 100%;*/
@@ -129,7 +138,7 @@ body{
 
 .close{
 	top: 0;
-	right: 10px;
+	/*right: 10px;*/
 	/*position: absolute;*/
 	width: 45px;
 	height: 45px;
