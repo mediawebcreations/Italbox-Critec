@@ -971,7 +971,11 @@ Ext.define('Italbox.ViewportPanel', {
                     Ext.getCmp('myCarroucel').hide();
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
-                    Ext.getCmp('myList2').hide();
+                    try {
+                    var myList2 =  Ext.getCmp('myList2');
+                        myList2.hide();
+                    }
+                    catch(err) {}
                     Ext.getCmp('back').hide();
                     Ext.getCmp('myList').show();
                     
@@ -1146,7 +1150,7 @@ Ext.define('Italbox.ViewportPanel', {
                     id: 'open-menu4',
                     //hidden: true,
                     handler: function () {
-                       if (contador > 0) { {
+                       if (contador > 0) { 
                             //code
                         
                         Ext.getCmp('footer').hide();
@@ -1292,8 +1296,7 @@ Ext.define('Italbox.ViewportPanel', {
    
 });
    panel1.show();
-                    }
-                       }
+                    } 
                     else{
                          Ext.Msg.alert('', 'Existem 0 produtos nesta pagina', Ext.emptyFn);
                     }
