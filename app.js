@@ -1,3 +1,5 @@
+var connect = 0;
+
 window.dao =  {
     //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
     syncURL:  "http://nrodrigues.net/italbox/connect.php?table=catalogos",
@@ -45,6 +47,7 @@ window.dao =  {
                     "nome VARCHAR(50), " +
                     "capa VARCHAR(50), " +
                     "cor VARCHAR(50), " +
+                    "estado VARCHAR(50), " +
                     "lastModified VARCHAR(50))";
                 tx.executeSql(sql);
             },
@@ -65,6 +68,7 @@ window.dao =  {
                     "foto VARCHAR(50), " +
                     "id_categoria VARCHAR(50), " +
                     "id_catalogo VARCHAR(50), " +
+                    "estado VARCHAR(50), " +
                     "lastModified VARCHAR(50))";
                 tx.executeSql(sql);
             },
@@ -88,6 +92,7 @@ window.dao =  {
                     "ref VARCHAR(50), " +
                     "id_catalogo VARCHAR(50), " +
                     "id_pagina VARCHAR(50), " +
+                    "estado VARCHAR(50), " +
                     "lastModified VARCHAR(50))";
                 tx.executeSql(sql);
             },
@@ -106,6 +111,7 @@ window.dao =  {
                     "CREATE TABLE IF NOT EXISTS categorias ( " +
                     "id_categoria INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "nome VARCHAR(50), " +
+                    "estado VARCHAR(50), " +
                     "lastModified VARCHAR(50))";
                 tx.executeSql(sql);
             },
@@ -133,7 +139,7 @@ window.dao =  {
     findAll: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT * FROM CATALOGOS";
+                var sql = "SELECT * FROM CATALOGOS WHERE ESTADO=1";
                 log('Local SQLite database: "SELECT * FROM CATALOGOS"');
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
@@ -154,7 +160,7 @@ window.dao =  {
     findAll2: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT * FROM PAGINAS";
+                var sql = "SELECT * FROM PAGINAS WHERE ESTADO=1";
                 log('Local SQLite database: "SELECT * FROM PAGINAS"');
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
@@ -175,7 +181,7 @@ window.dao =  {
      findAll3: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT * FROM PRODUTOS";
+                var sql = "SELECT * FROM PRODUTOS WHERE ESTADO=1";
                 log('Local SQLite database: "SELECT * FROM PRODUTOS"');
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
@@ -196,7 +202,7 @@ window.dao =  {
      findAll4: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT * FROM CATEGORIAS";
+                var sql = "SELECT * FROM CATEGORIAS WHERE ESTADO=1";
                 log('Local SQLite database: "SELECT * FROM CATEGORIAS"');
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
@@ -351,9 +357,11 @@ window.dao =  {
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
                 //alert(modifiedSince);
+                connect = 1;
                 callback(data);
             },
             error: function(model, response) {
+                connect = 0;
                 //alert("A trabalhar em modo offline");
             }
         });
@@ -419,14 +427,14 @@ window.dao =  {
             function(tx) {
                 var l = catalogos.length;
                 var sql =
-                    "INSERT OR REPLACE INTO catalogos (id_catalogo, nome, capa, cor, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO catalogos (id_catalogo, nome, capa, cor, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = catalogos[i];
-                    log(e.id_catalogo + ' ' + e.nome + ' ' + e.capa + ' ' + e.cor + ' ' + e.lastModified);
-                    var params = [e.id_catalogo, e.nome, e.capa , e.cor , e.lastModified];
+                    log(e.id_catalogo + ' ' + e.nome + ' ' + e.capa + ' ' + e.cor + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_catalogo, e.nome, e.capa , e.cor , e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -443,14 +451,14 @@ window.dao =  {
             function(tx) {
                 var l = paginas.length;
                 var sql =
-                    "INSERT OR REPLACE INTO paginas (id_pagina, foto, id_categoria, id_catalogo, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO paginas (id_pagina, foto, id_categoria, id_catalogo, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = paginas[i];
-                    log(e.id_pagina + ' ' + e.foto + ' ' + e.id_categoria + ' ' + e.id_catalogo + ' ' + e.lastModified);
-                    var params = [e.id_pagina, e.foto, e.id_categoria , e.id_catalogo, e.lastModified];
+                    log(e.id_pagina + ' ' + e.foto + ' ' + e.id_categoria + ' ' + e.id_catalogo + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_pagina, e.foto, e.id_categoria , e.id_catalogo, e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -467,14 +475,14 @@ window.dao =  {
             function(tx) {
                 var l = produtos.length;
                 var sql =
-                    "INSERT OR REPLACE INTO produtos (id_produto, nome, descricao, foto, ref, id_catalogo, id_pagina, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO produtos (id_produto, nome, descricao, foto, ref, id_catalogo, id_pagina, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = produtos[i];
-                    log(e.id_produto + ' ' + e.nome + ' ' + e.descricao + ' ' + e.foto + ' ' + e.ref + ' ' + e.id_catalogo + ' ' + e.id_pagina + ' ' + e.lastModified);
-                    var params = [e.id_produto, e.nome, e.descricao , e.foto, e.ref, e.id_catalogo, e.id_pagina, e.lastModified];
+                    log(e.id_produto + ' ' + e.nome + ' ' + e.descricao + ' ' + e.foto + ' ' + e.ref + ' ' + e.id_catalogo + ' ' + e.id_pagina + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_produto, e.nome, e.descricao , e.foto, e.ref, e.id_catalogo, e.id_pagina, e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -491,14 +499,14 @@ window.dao =  {
             function(tx) {
                 var l = categorias.length;
                 var sql =
-                    "INSERT OR REPLACE INTO categorias (id_categoria, nome, lastModified) " +
-                    "VALUES (?, ?, ?)";
+                    "INSERT OR REPLACE INTO categorias (id_categoria, nome, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = categorias[i];
-                    log(e.id_categoria + ' ' + e.nome + ' ' + e.lastModified);
-                    var params = [e.id_categoria, e.nome, e.lastModified];
+                    log(e.id_categoria + ' ' + e.nome + ' ' + ' ' + e.estado + e.lastModified);
+                    var params = [e.id_categoria, e.nome, e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -1413,12 +1421,35 @@ Ext.application({
             cls: 'body_bg',
             id: 'painel'
         });
-        if (window.navigator.onLine === false) {
+        
+       // if (Ext.os.is('Android')) {
+       //   document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
+       //
+       //   function onBackKeyDown(e) {
+       //       e.preventDefault();
+       //
+       //       // you are at the home screen
+       //       if (Ext.Viewport.getActiveItem().xtype == my-viewport-panel.xtype ) {
+       //          Ext.Msg.confirm(
+       //                     "Sair",
+       //                     "Deseja sair da aplicação?",
+       //                     function(buttonId) {
+       //                     if (buttonId === 'yes') {
+       //           navigator.app.exitApp();}});
+       //       } else {
+       //           this.getApplication().getHistory().add(Ext.create('Ext.app.Action', {
+       //               url: 'noteslistcontainer'
+       //           }));
+       //       }
+       //   }
+       //}
+        
+        if (connect = 1) {
             
-            Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+            Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
         }
         else{
-             Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+             Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
         }
     }
 });
