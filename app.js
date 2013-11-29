@@ -1172,11 +1172,11 @@ Ext.define('Italbox.ViewportPanel', {
                         id: 'myList2',
                         cls: 'menu3',
                         top: 'auto !important',
-                        /*modal: {
-                                style: 'opacity: 0.1; background-color: #ffffff;'
-                            },*/
+                        modal: {
+                                style: 'opacity: 0.3; background-color: #ffffff;'
+                        },
                          /*floating: true,*/
-                         modal: true,
+                         //modal: true,
                           hideOnMaskTap: true,
                         /*height: '150px',*/
                          /*hidden: true,*/
@@ -1339,7 +1339,7 @@ Ext.define('Italbox.ViewportPanel', {
 });
                     } 
                     else{
-                         Ext.Msg.alert('', 'Existem 0 produtos nesta pagina', Ext.emptyFn);
+                         Ext.Msg.alert('', 'Não existem produtos nesta pagina', Ext.emptyFn);
                     }
                                }
                            },
