@@ -1032,18 +1032,7 @@ Ext.define('Italbox.ViewportPanel', {
                                     html  : '<li class="menu-ajuda">AJUDA</li>'
                                 }
                             ],
-                            listeners: {
-                                
-                                hide:function(e){
-                                    alert('teste');
-                                    Ext.getCmp('foot').show();
-                                }
-                            },
-                            initialize: function() {
-        this.element.on('hide',function() {
-            
-        });
-    },
+                            
                         });
                         //show the panel
                         panel.show();
