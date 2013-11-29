@@ -354,7 +354,7 @@ window.dao =  {
                 callback(data);
             },
             error: function(model, response) {
-                alert("A trabalhar em modo offline");
+                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -511,7 +511,7 @@ window.dao =  {
     },
 
     txErrorHandler: function(tx) {
-        alert(tx.message);
+        //alert(tx.message);
     }
 };
 
@@ -765,17 +765,7 @@ Ext.define('Italbox.Viewport2', {
                 contador = ($.grep(tprodutos, function(e) { return e.id_pagina == idpagina })).length;
                 Ext.getCmp('open-menu4').setText('Produtos '+contador);
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
-                var barra = Ext.getCmp('barra');
-                var barra2 = Ext.getCmp('barra2');
-                var footer = Ext.getCmp('footer');
-                try {
-                    var myList2 =  Ext.getCmp('myList2');
-                     myList2.hide();
-                }
-                catch(err) {}
-                footer.show();
-                barra.hide();
-                barra2.show();
+               
             },
             resize: function(component, eOpts) {
                 try{
@@ -791,11 +781,21 @@ Ext.define('Italbox.Viewport2', {
         if (e.targetTouches.length === 1 && (e.deltaX < 0 && scroller.getMaxPosition().x === scroller.position.x) || (e.deltaX > 0 && scroller.position.x === 0)) {
             this.callParent(arguments);
         }
-       
     },
     onDrag: function(e) {
         if (e.targetTouches.length == 1){
             this.callParent(arguments);
+            var barra = Ext.getCmp('barra');
+        var barra2 = Ext.getCmp('barra2');
+        var footer = Ext.getCmp('footer');
+        try {
+            var myList2 =  Ext.getCmp('myList2');
+            myList2.hide();
+        }
+        catch(err) {}
+        footer.show();
+        barra.hide();
+        barra2.show();
         }
     },
     onDragEnd: function(e) {
@@ -808,7 +808,7 @@ Ext.define('Italbox.Viewport2', {
             var barra2 = Ext.getCmp('barra2');
             barra.show();
             barra2.hide();
-        });
+    });
     },
 });
 
@@ -1031,7 +1031,19 @@ Ext.define('Italbox.ViewportPanel', {
                                 {
                                     html  : '<li class="menu-ajuda">AJUDA</li>'
                                 }
-                            ]
+                            ],
+                            listeners: {
+                                
+                                hide:function(e){
+                                    alert('teste');
+                                    Ext.getCmp('foot').show();
+                                }
+                            },
+                            initialize: function() {
+        this.element.on('hide',function() {
+            
+        });
+    },
                         });
                         //show the panel
                         panel.show();
@@ -1292,7 +1304,7 @@ Ext.define('Italbox.ViewportPanel', {
                                         ]    
                                     },
                                     {
-                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:40px;"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
+                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:40px; max-width:50%"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
                                   
                                     },
                                 ],
@@ -1325,6 +1337,9 @@ Ext.define('Italbox.ViewportPanel', {
                            ],
 });
    panel1.show();
+   panel1.on('hide', function() {
+     Ext.getCmp('footer').show();
+});
                     } 
                     else{
                          Ext.Msg.alert('', 'Existem 0 produtos nesta pagina', Ext.emptyFn);
@@ -1400,12 +1415,22 @@ Ext.application({
     tabletStartupScreen: 'resources/startup/italboxStartUp.jpg',
     
     launch: function() {
-
+        
+        // Destroy the #appLoadingIndicator element
+        Ext.fly('loading').destroy();
+    
         Ext.Viewport.add({
             xtype: 'my-viewport-panel',
             cls: 'body_bg',
             id: 'painel'
         });
+        if (window.navigator.onLine === false) {
+            
+            Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+        }
+        else{
+             Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+        }
     }
 });
 });
