@@ -1205,6 +1205,33 @@ Ext.define('Italbox.ViewportPanel', {
                 ////    //text-align: 'center',
                 //},
                 items     : [
+                     {
+                                        xtype: 'toolbar',
+                                        //title: '<div class="logotipo"></div>',
+                                        /*id: 'barra2',*/
+                                        cls: 'header4',
+                                        docked: 'top',
+                                        /*hidden: true,*/
+                                        layout: {
+                                                type: 'hbox',
+                                                pack: 'center'
+                                        },
+                                       
+                                        items: [
+                                            {
+                                           // align: 'right', 
+                                            ui:    'plain',
+                                            xtype: 'button',
+                                            cls: 'close-menu4',
+                                            text:  Ext.getCmp('open-menu4').getText(),
+                                            //hidden: true,
+                                            handler: function () {
+                                             //   Ext.getCmp('pop-image').hide();
+                                                panel1.hide();
+                                                }
+                                            },
+                                        ]    
+                                    },
                    {   
                 //give it an xtype of list for the list component
                    xtype: 'dataview',

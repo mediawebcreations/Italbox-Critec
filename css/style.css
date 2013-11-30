@@ -63,6 +63,15 @@ body{
        
 }
 
+.header4 {
+	/*height: 100px;
+	width: 100%;*/
+	background: transparent;
+        border-bottom-width:0!important;
+	/*position: absolute;*/
+       
+}
+
 .foot {
 	height: 50px;
 	/*width: 100%;*/
@@ -87,9 +96,6 @@ body{
         bottom:0px !important;
 }
 
-.x-container .x-floating .menu3{
-        top: auto !important;
-}
 
 .menu4 {
 	
@@ -194,6 +200,23 @@ body{
         background-color: #000000 !important;*/
         /*text-align: left;*/
 	background-image: url(../imgs/icons/seta-cima3.png)!important;
+
+}
+
+.close-menu4{
+	bottom: -4px !important;*/
+	/*position: absolute !important;*/
+        /*bottom: -4px !important;*/
+        right: 0 !important;
+        left: 0 !important;
+	width: 200px !important;
+	height: 45px !important;
+        margin: 0;
+        color: #000000 !important;
+        /*background: #000000 !important;
+        background-color: #000000 !important;*/
+        /*text-align: left;*/
+	background-image: url(../imgs/icons/seta-baixo3.png)!important;
 
 }
 
