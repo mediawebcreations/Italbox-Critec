@@ -726,6 +726,41 @@ Ext.Loader.setConfig({
     }
 });
 
+Ext.define('Italbox.Viewport3', {
+    extend: 'Ext.Panel',
+    xtype : 'my-viewport3',
+    id:'italbox',
+    config: {
+        showAnimation: 
+            {
+                type: 'slideIn',
+                duration: 1000,
+                direction: 'up',
+                easing: 'easeOut'
+            },  
+            hideAnimation: 
+            {
+                type: 'slideOut',
+                duration: 700,
+                direction: 'down',
+                easing: 'easeIn'
+            }, 
+            //cls: 'teste',
+            layout: {
+                type: 'vbox',
+                //pack: 'center',
+                //height: '400px',
+                
+            },
+           items : [
+                    {
+                        html  : '<div style="margin:20px;"><img src="imgs/company.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/>EMPRESA</div>',
+                    },
+                               
+            ],
+    }
+});
+
 Ext.define('Italbox.Viewport2', {
     extend: 'Ext.Carousel',
     xtype : 'my-viewport2',
@@ -811,6 +846,9 @@ Ext.define('Italbox.Viewport2', {
             this.callParent(arguments);
     },
     initialize: function() {
+        Ext.Viewport.on('orientationchange', 'handleOrientationChange', this, {buffer: 50 });
+        this.callParent(arguments);
+        
         this.element.on('tap',function() {
             var barra = Ext.getCmp('barra');
             var barra2 = Ext.getCmp('barra2');
@@ -818,6 +856,21 @@ Ext.define('Italbox.Viewport2', {
             barra2.hide();
     });
     },
+    
+    handleOrientationChange: function(viewport, orientation, width, height){
+         /*var carr = Ext.getCmp('myCarroucel');
+         ind = carr.getActiveIndex();
+         if (orientation === 'landscape') {
+            carr.setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+            carr.setActiveItem(ind); //code
+            //alert('landscape');
+         }
+         if (orientation === 'portrait') {
+            carr.setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+            carr.setActiveItem(ind);
+            //alert('portrait');
+         }*/
+    }
 });
 
 
@@ -985,6 +1038,7 @@ Ext.define('Italbox.ViewportPanel', {
                     }
                     catch(err) {}
                     Ext.getCmp('back').hide();
+                    Ext.getCmp('italbox').hide();
                     Ext.getCmp('myList').show();
                     
                     
@@ -999,9 +1053,9 @@ Ext.define('Italbox.ViewportPanel', {
                    handler: function() {
                         //add a hidden panel with showAnimation and hideAnimation
                         if( typeof panel !== 'undefined' ) {
-                                 panel.destroy();
+                                 panel_menu.destroy();
                         }
-                         var panel = Ext.Viewport.add({ 
+                         var panel_menu = Ext.Viewport.add({ 
                             xtype: 'container',  
                             modal: {
                                 style: 'opacity: 0.8; background-color: #ffffff;'
@@ -1028,7 +1082,7 @@ Ext.define('Italbox.ViewportPanel', {
                             }, 
                             items     : [
                                 {
-                                    html  : '<li class="menu-italbox">ITALBOX</li>'
+                                    html  : '<li class="menu-italbox" id="menu-italbox">ITALBOX</li>',
                                 },
                                 {
                                     html  : '<li class="menu-favoritos">FAVARITOS</li>'
@@ -1040,10 +1094,30 @@ Ext.define('Italbox.ViewportPanel', {
                                     html  : '<li class="menu-ajuda">AJUDA</li>'
                                 }
                             ],
-                            
+                            listeners: {
+                                tap: {
+                                fn: function(event, el){
+                                     panel_menu.hide();
+                                     Ext.getCmp('myCarroucel').hide();
+                                     Ext.getCmp('myList').hide();
+                                     Ext.getCmp('footer').hide();
+                                     /*Ext.getCmp('myList').hide();
+                                     Ext.getCmp('myList').hide();*/
+                                     Ext.getCmp('back').show();
+                                     Ext.getCmp('italbox').show();
+                                },
+                                element: 'element',
+                                delegate: '#menu-italbox'
+                                },
+                               
+                            }
                         });
                         //show the panel
-                        panel.show();
+                        panel_menu.show();
+                        panel_menu.on('hide', function() {
+                            panel_menu.destroy();
+
+                        });
                     
         }, 
         
@@ -1153,7 +1227,7 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
-                    text: 'Produtos 0',
+                    text: 'Produtos <font style="color:#FF0000 !important;">0</font>',
                     textAlign: 'left',
                     cls: 'open-menu4',
                     id: 'open-menu4',
@@ -1277,11 +1351,11 @@ Ext.define('Italbox.ViewportPanel', {
                                 /*height: '70%',*/
                                 id: 'pop-image',
                                 cls: 'pop-image',
-                                modal: {
-                                style: 'opacity: 0; background-color: #ffffff;'
-                                },
+                                /*modal: {
+                                    style: 'opacity: 0; background-color: #ffffff;'
+                                },*/
                                 float: true,
-                                 //modal: true,
+                                // modal: true,
                                 showAnimation: 
                                 {
                                     type: 'pop',
@@ -1289,13 +1363,13 @@ Ext.define('Italbox.ViewportPanel', {
                                     //direction: 'up',
                                     //easing: 'easeOut'
                                 },  
-                                hideAnimation: 
-                                {
-                                    type: 'popOut',
-                                    duration: 300,
-                                    //direction: 'down',
-                                    //easing: 'easeIn'
-                                },
+                                //hideAnimation: 
+                                //{
+                                //    type: 'popOut',
+                                //    duration: 300,
+                                //    //direction: 'down',
+                                //    //easing: 'easeIn'
+                                //},
                                 layout : {
                                     type : 'vbox',
                                      /*align: 'left'*/
@@ -1328,7 +1402,7 @@ Ext.define('Italbox.ViewportPanel', {
                                         ]    
                                     },
                                     {
-                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:40px; max-width:50%"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
+                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:40px; max-width:50%; max-height:25%"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
                                   
                                     },
                                 ],
@@ -1340,7 +1414,20 @@ Ext.define('Italbox.ViewportPanel', {
                                 //        }
                                 //    }
                                 //},
-                                initialize: function() {
+                            });
+                        //show the panel
+                        panel2.show();
+                        panel2.on('hide', function() {
+                           panel2.destroy();
+                        });
+                        },
+                        //hide : function() {
+                        //        Ext.getCmp('pop-image').destroy();
+                        //}
+                   },
+           }
+                           ],
+                 initialize: function() {
                                     this.callParent(arguments);
                                 // Destroy this component when it is hidden, but only after
                                 // the hide animation has ended.
@@ -1349,20 +1436,16 @@ Ext.define('Italbox.ViewportPanel', {
                                     scope: this
                                 });
                                 }
-                            });
-                        //show the panel
-                        panel2.show();
-                        },
-                        //hide : function() {
-                        //        Ext.getCmp('pop-image').destroy();
-                        //}
-                   },
-           }
-                           ],
 });
    panel1.show();
    panel1.on('hide', function() {
      Ext.getCmp('footer').show();
+     try
+     {
+        Ext.getCmp('pop-image').destroy();
+     }
+     catch(e){}
+     panel1.destroy();
 });
                     } 
                     else{
@@ -1389,12 +1472,16 @@ Ext.define('Italbox.ViewportPanel', {
         {
             xtype: 'my-viewport',
             id: 'myList',
-            
         },
          {
             xtype: 'my-viewport2',
             hidden: true,
             id: 'myCarroucel'
+        },
+         {
+            xtype: 'my-viewport3',
+            hidden: true,
+            id: 'italbox'
         },
         //{
         //    xtype: 'panel',
