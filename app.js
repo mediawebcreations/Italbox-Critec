@@ -66,6 +66,8 @@ window.dao =  {
                     "CREATE TABLE IF NOT EXISTS paginas ( " +
                     "id_pagina INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "foto VARCHAR(50), " +
+                    "foto2 VARCHAR(50), " +
+                    "foto3 VARCHAR(50), " +
                     "id_categoria VARCHAR(50), " +
                     "id_catalogo VARCHAR(50), " +
                     "estado VARCHAR(50), " +
@@ -451,14 +453,14 @@ window.dao =  {
             function(tx) {
                 var l = paginas.length;
                 var sql =
-                    "INSERT OR REPLACE INTO paginas (id_pagina, foto, id_categoria, id_catalogo, estado, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO paginas (id_pagina, foto, foto2, foto3, id_categoria, id_catalogo, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = paginas[i];
-                    log(e.id_pagina + ' ' + e.foto + ' ' + e.id_categoria + ' ' + e.id_catalogo + ' ' + e.estado + ' ' + e.lastModified);
-                    var params = [e.id_pagina, e.foto, e.id_categoria , e.id_catalogo, e.estado, e.lastModified];
+                    log(e.id_pagina + ' ' + e.foto + ' ' + e.foto2 + ' ' + e.foto3 + ' ' + e.id_categoria + ' ' + e.id_catalogo + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_pagina, e.foto, e.foto2, e.foto3, e.id_categoria , e.id_catalogo, e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -640,6 +642,7 @@ function renderTables(callback) {
     log('Rendering list using local SQLite data...');
     var tcatalogos = [];
     var tpaginas = [];
+    var tpaginas2 = [];
     var tprodutos = [];
     var tcategorias = [];
     //var arr = [];
@@ -676,7 +679,15 @@ function renderTables(callback) {
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
-              tpaginas.push(listaPaginas); 
+              var listaPaginas2 = {
+                   xtype: 'imageviewer',
+                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+                   imageSrc: pagina.foto2,
+                   id_pagina: pagina.id_pagina,
+                   id_catalogo: pagina.id_catalogo
+              };
+              tpaginas.push(listaPaginas);
+              tpaginas2.push(listaPaginas2); 
          }
          //callback(arr,arr2,arr3);
     });
@@ -704,7 +715,7 @@ function renderTables(callback) {
               //tcategorias.push(listaCategorias); 
          //}
          tcategorias = categorias;
-         callback(tcatalogos,tpaginas,tprodutos,tcategorias);
+         callback(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias);
     });
 };
 
@@ -713,7 +724,7 @@ function log(msg) {
 };
 
 function sencha(){
-renderTables(function(tcatalogos,tpaginas,tprodutos,tcategorias){
+renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias){
 var idcatalogo = 0;
 var idpagina = 0;
 var ind = 0;
@@ -725,6 +736,42 @@ Ext.Loader.setConfig({
         'Ext.ux': 'sencha-touch-2.0.1.1/ux'
     }
 });
+
+Ext.define('Italbox.Viewport4', {
+    extend: 'Ext.Panel',
+    xtype : 'my-viewport4',
+    id:'favorites',
+    config: {
+        showAnimation: 
+            {
+                type: 'slideIn',
+                duration: 1000,
+                direction: 'up',
+                easing: 'easeOut'
+            },  
+            hideAnimation: 
+            {
+                type: 'slideOut',
+                duration: 700,
+                direction: 'down',
+                easing: 'easeIn'
+            }, 
+            //cls: 'teste',
+            layout: {
+                type: 'vbox',
+                //pack: 'center',
+                //height: '400px',
+                
+            },
+           items : [
+                    {
+                        html  : '<div style="margin:20px;"><img src="imgs/company.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/>EMPRESA</div>',
+                    },
+                               
+            ],
+    }
+});
+
 
 Ext.define('Italbox.Viewport3', {
     extend: 'Ext.Panel',
@@ -858,18 +905,18 @@ Ext.define('Italbox.Viewport2', {
     },
     
     handleOrientationChange: function(viewport, orientation, width, height){
-         /*var carr = Ext.getCmp('myCarroucel');
+         var carr = Ext.getCmp('myCarroucel');
          ind = carr.getActiveIndex();
-         if (orientation === 'landscape') {
-            carr.setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+         if (Ext.Viewport.getOrientation() === 'portrait') {
+            carr.setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
             carr.setActiveItem(ind); //code
-            //alert('landscape');
+            //alert(Ext.Viewport.getOrientation());
          }
-         if (orientation === 'portrait') {
+         if (Ext.Viewport.getOrientation() === 'landscape') {
             carr.setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
             carr.setActiveItem(ind);
-            //alert('portrait');
-         }*/
+            //alert(Ext.Viewport.getOrientation());
+         }
     }
 });
 
@@ -947,11 +994,17 @@ Ext.define('Italbox.Viewport', {
                             "Open "+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
+                                 var ori = Ext.Viewport.getOrientation();
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(false);
                                  idcatalogo = record.get('id_catalogo');
+                             if (ori === 'portrait') {
+                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
+                             }
+                            if (ori === 'landscape') {
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
-                                
+                             }
+                             
                                  /*if (index === 0) {
                                  Ext.getCmp('myCarroucel').setItems(tpaginas);
                                  }
@@ -1085,7 +1138,7 @@ Ext.define('Italbox.ViewportPanel', {
                                     html  : '<li class="menu-italbox" id="menu-italbox">ITALBOX</li>',
                                 },
                                 {
-                                    html  : '<li class="menu-favoritos">FAVARITOS</li>'
+                                    html  : '<li class="menu-favoritos" id="menu-favoritos">FAVARITOS</li>'
                                 },
                                 {
                                     html  : '<li class="menu-language">LANGUAGE</li>'
@@ -1109,6 +1162,7 @@ Ext.define('Italbox.ViewportPanel', {
                                 element: 'element',
                                 delegate: '#menu-italbox'
                                 },
+                              
                                
                             }
                         });
@@ -1482,6 +1536,11 @@ Ext.define('Italbox.ViewportPanel', {
             xtype: 'my-viewport3',
             hidden: true,
             id: 'italbox'
+        },
+         {
+            xtype: 'my-viewport4',
+            hidden: true,
+            id: 'favorites'
         },
         //{
         //    xtype: 'panel',

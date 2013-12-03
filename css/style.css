@@ -397,7 +397,7 @@ only screen and ( min-resolution: 2dppx) {
     /* Retina-specific stuff here */
     
     .body_bg {
-                background-size: 384px 512px;
+               /* background-size: 384px 512px;*/
     }
 
     .header > .logotipo{
