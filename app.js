@@ -686,8 +686,16 @@ function renderTables(callback) {
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
+               var listaPaginas3 = {
+                   xtype: 'imageviewer',
+                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
+                   imageSrc: pagina.foto3,
+                   id_pagina: pagina.id_pagina,
+                   id_catalogo: pagina.id_catalogo
+              };
               tpaginas.push(listaPaginas);
-              tpaginas2.push(listaPaginas2); 
+              tpaginas2.push(listaPaginas2);
+              tpaginas2.push(listaPaginas3); 
          }
          //callback(arr,arr2,arr3);
     });
@@ -723,12 +731,20 @@ function log(msg) {
     $('#log').val($('#log').val() + msg + '\n');
 };
 
+function isEven(value){
+    if (value%2 == 0)
+        return true;
+    else
+        return false;
+};
+
 function sencha(){
 renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias){
 var idcatalogo = 0;
 var idpagina = 0;
 var ind = 0;
 var contador = 0;
+var tamanho = 0;
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -855,7 +871,6 @@ Ext.define('Italbox.Viewport2', {
                 contador = ($.grep(tprodutos, function(e) { return e.id_pagina == idpagina })).length;
                 Ext.getCmp('open-menu4').setText('Produtos '+contador);
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
-               
             },
             resize: function(component, eOpts) {
                 try{
@@ -909,13 +924,14 @@ Ext.define('Italbox.Viewport2', {
          ind = carr.getActiveIndex();
          if (Ext.Viewport.getOrientation() === 'portrait') {
             carr.setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
-            carr.setActiveItem(ind); //code
-            //alert(Ext.Viewport.getOrientation());
+            carr.setActiveItem(Math.round(ind*2)); 
          }
-         if (Ext.Viewport.getOrientation() === 'landscape') {
+         else {
+            if ((ind > 0) && (ind%2 != 0)) {
+                ind = ind-1;
+            }
             carr.setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
-            carr.setActiveItem(ind);
-            //alert(Ext.Viewport.getOrientation());
+            carr.setActiveItem(Math.round(ind/2));
          }
     }
 });
@@ -998,6 +1014,8 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(false);
                                  idcatalogo = record.get('id_catalogo');
+                                 tamanho = ($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo })).length;
+                                 //alert(tamanho);
                              if (ori === 'portrait') {
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
                              }

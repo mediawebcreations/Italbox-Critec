@@ -39,15 +39,15 @@
         
     <!-- SPLASH SCREENS -->
         
-    <gap:splash src="splash.jpg" /> <!-- default 320x480 pixels -->
+    <gap:splash src="splash.png" /> <!-- default 320x480 pixels -->
         
-    <gap:splash src="res/splash/ios/splash320x480.jpg" gap:platform="ios" width="320" height="480" /> <!-- iPhone & iPod Touch non retina -->
-    <gap:splash src="res/splash/ios/splash640x960.jpg" gap:platform="ios" width="640" height="960" /> <!-- iPhone & iPod Touch retina 4- -->
-    <gap:splash src="res/splash/ios/splash640x1136.jpg" gap:platform="ios" width="640" height="1136" /> <!-- iPhone & iPod Touch retina 5+ -->
-    <gap:splash src="res/splash/ios/splash1024x768.jpg" gap:platform="ios" width="1024" height="768" /> <!-- iPad non retina -->
-    <gap:splash src="res/splash/ios/splash768x1024.jpg" gap:platform="ios" width="768" height="1024" /> <!-- iPad non retina -->
-    <gap:splash src="res/splash/ios/splash2048x1496.jpg" gap:platform="ios" width="2048" height="1496" /> <!-- iPad retina -->
-    <gap:splash src="res/splash/ios/splash1536x2008.jpg" gap:platform="ios" width="1536" height="2008" /> <!-- iPad retina -->
+    <gap:splash src="res/splash/ios/splash320x480.png" gap:platform="ios" width="320" height="480" /> <!-- iPhone & iPod Touch non retina -->
+    <gap:splash src="res/splash/ios/splash640x960.png" gap:platform="ios" width="640" height="960" /> <!-- iPhone & iPod Touch retina 4- -->
+    <gap:splash src="res/splash/ios/splash640x1136.png" gap:platform="ios" width="640" height="1136" /> <!-- iPhone & iPod Touch retina 5+ -->
+    <gap:splash src="res/splash/ios/splash1024x768.png" gap:platform="ios" width="1024" height="768" /> <!-- iPad non retina -->
+    <gap:splash src="res/splash/ios/splash768x1024.png" gap:platform="ios" width="768" height="1024" /> <!-- iPad non retina -->
+    <gap:splash src="res/splash/ios/splash2048x1496.png" gap:platform="ios" width="2048" height="1496" /> <!-- iPad retina -->
+    <gap:splash src="res/splash/ios/splash1536x2008.png" gap:platform="ios" width="1536" height="2008" /> <!-- iPad retina -->
         
     <gap:splash src="res/splash/android/ldpi.jpg" gap:platform="android" gap:density="ldpi" /> <!-- 200x320 -->
     <gap:splash src="res/splash/android/mdpi.jpg" gap:platform="android" gap:density="mdpi" /> <!-- 320x480 -->
@@ -85,7 +85,7 @@
         
     <preference name="android-minSdkVersion" value="7" /> <!-- minimum Android 2.1 -->
     <!-- <preference name="android-maxSdkVersion" value="19" /> maximum Android 4.4 -->
-    <preference name="android-targetSdkVersion" value="19" /> <!-- targeting Android 4.4 -->
+    <preference name="android-targetSdkVersion" value="15" /> <!-- targeting Android 4.0 -->
     <preference name="android-installLocation" value="auto" />
     <!--<preference name="android-windowSoftInputMode" value="stateVisible|adjustResize" />-->
     <preference name="splash-screen-duration" value="5000" />

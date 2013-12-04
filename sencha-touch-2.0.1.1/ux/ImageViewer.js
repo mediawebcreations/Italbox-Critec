@@ -53,10 +53,10 @@ Ext.define('Ext.ux.ImageViewer', {
     },
 
     initViewer: function() {
+        try{
         var me = this,
             scroller = me.getScrollable().getScroller(),
             element = me.element;
-
         //disable scroller
         scroller.setDisabled(true);
 
@@ -109,8 +109,10 @@ Ext.define('Ext.ux.ImageViewer', {
         if (me.getImageSrc()) {
             me.loadImage(me.getImageSrc());
         }
+        }
+        catch(e){}
     },
-
+    
     loadImage: function(src) {
         var me = this;
         if (me.imgEl) {
