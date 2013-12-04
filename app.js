@@ -733,11 +733,13 @@ function log(msg) {
 
 function sencha(){
 renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias){
+var tpaginas_temp = [];
+var tpaginas2_temp = [];
 var idcatalogo = 0;
 var idpagina = 0;
 var ind = 0;
 var contador = 0;
-var tamanho = 0;
+//var tamanho = 0;
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -915,15 +917,16 @@ Ext.define('Italbox.Viewport2', {
     handleOrientationChange: function(viewport, orientation, width, height){
          var carr = Ext.getCmp('myCarroucel');
          ind = carr.getActiveIndex();
+         //carr.removeAll(true);
          if (Ext.Viewport.getOrientation() === 'portrait') {
-            carr.setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
+            carr.setItems(tpaginas2_temp);
             carr.setActiveItem(Math.round(ind*2)); 
          }
          else {
             if ((ind > 0) && (ind%2 != 0)) {
                 ind = ind-1;
             }
-            carr.setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+            carr.setItems(tpaginas_temp);
             carr.setActiveItem(Math.round(ind/2));
          }
     }
@@ -1007,13 +1010,15 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(false);
                                  idcatalogo = record.get('id_catalogo');
-                                 tamanho = ($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo })).length;
+                                 tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
+                                 tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
+                                 //tamanho = ($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo })).length;
                                  //alert(tamanho);
                              if (ori === 'portrait') {
-                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
+                                 Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
                              }
                              else{
-                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+                                 Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
                              }
                              
                                  /*if (index === 0) {
