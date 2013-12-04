@@ -731,13 +731,6 @@ function log(msg) {
     $('#log').val($('#log').val() + msg + '\n');
 };
 
-function isEven(value){
-    if (value%2 == 0)
-        return true;
-    else
-        return false;
-};
-
 function sencha(){
 renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias){
 var idcatalogo = 0;
@@ -1019,7 +1012,7 @@ Ext.define('Italbox.Viewport', {
                              if (ori === 'portrait') {
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
                              }
-                            if (ori === 'landscape') {
+                             else{
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
                              }
                              
