@@ -751,7 +751,7 @@ Ext.Loader.setConfig({
 Ext.define('Italbox.Viewport4', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport4',
-    id:'favorites',
+    id:'help',
     config: {
         showAnimation: 
             {
@@ -776,7 +776,7 @@ Ext.define('Italbox.Viewport4', {
             },
            items : [
                     {
-                        html  : '<div style="margin:20px;"><img src="imgs/company.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/>EMPRESA</div>',
+                        html  : '<div style="margin:20px;"><img src="imgs/company2.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
                     },
                                
             ],
@@ -812,7 +812,7 @@ Ext.define('Italbox.Viewport3', {
             },
            items : [
                     {
-                        html  : '<div style="margin:20px;"><img src="imgs/company.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/>EMPRESA</div>',
+                        html  : '<div style="margin:20px;"><img src="imgs/company.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/>EMPRESA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
                     },
                                
             ],
@@ -1110,6 +1110,7 @@ Ext.define('Italbox.ViewportPanel', {
                     catch(err) {}
                     Ext.getCmp('back').hide();
                     Ext.getCmp('italbox').hide();
+                    Ext.getCmp('help').hide();
                     Ext.getCmp('myList').show();
                     
                     
@@ -1155,23 +1156,24 @@ Ext.define('Italbox.ViewportPanel', {
                                 {
                                     html  : '<li class="menu-italbox" id="menu-italbox">ITALBOX</li>',
                                 },
-                                {
+                               /* {
                                     html  : '<li class="menu-favoritos" id="menu-favoritos">FAVARITOS</li>'
                                 },
                                 {
                                     html  : '<li class="menu-language">LANGUAGE</li>'
-                                },
+                                },*/
                                 {
-                                    html  : '<li class="menu-ajuda">AJUDA</li>'
+                                    html  : '<li class="menu-ajuda" id="menu-help">AJUDA</li>'
                                 }
                             ],
                             listeners: {
-                                tap: {
+                                click: {
                                 fn: function(event, el){
                                      panel_menu.hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
+                                     Ext.getCmp('help').hide();
                                      /*Ext.getCmp('myList').hide();
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
@@ -1179,6 +1181,21 @@ Ext.define('Italbox.ViewportPanel', {
                                 },
                                 element: 'element',
                                 delegate: '#menu-italbox'
+                                },
+                            tap: {
+                                fn: function(event, el){
+                                     panel_menu.hide();
+                                     Ext.getCmp('myCarroucel').hide();
+                                     Ext.getCmp('myList').hide();
+                                     Ext.getCmp('footer').hide();
+                                     Ext.getCmp('italbox').hide();
+                                     /*Ext.getCmp('myList').hide();
+                                     Ext.getCmp('myList').hide();*/
+                                     Ext.getCmp('back').show();
+                                     Ext.getCmp('help').show();
+                                },
+                                element: 'element',
+                                delegate: '#menu-help'
                                 },
                               
                                
@@ -1194,25 +1211,25 @@ Ext.define('Italbox.ViewportPanel', {
         }, 
         
                 },
-                    {
-                    align: 'right',
-                    ui:      'plain',
-                    xtype: 'button',
-                    cls: 'open-menu2',
-                     handler: function () {
-               Ext.Msg.confirm(
-            "Update",
-            "Update Catalog List?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    //window.location.reload();
-                    window.location.href=window.location.href;
-                }
-            }
-        );  
-        }, // handler
-        //renderTo: Ext.getBody()
-                }
+        //            {
+        //            align: 'right',
+        //            ui:      'plain',
+        //            xtype: 'button',
+        //            cls: 'open-menu2',
+        //             handler: function () {
+        //       Ext.Msg.confirm(
+        //    "Update",
+        //    "Update Catalog List?",
+        //    function(buttonId) {
+        //        if (buttonId === 'yes') {
+        //            //window.location.reload();
+        //            window.location.href=window.location.href;
+        //        }
+        //    }
+        //);  
+        //}, // handler
+        ////renderTo: Ext.getBody()
+        //        }
             ]
         },
         {
@@ -1558,7 +1575,7 @@ Ext.define('Italbox.ViewportPanel', {
          {
             xtype: 'my-viewport4',
             hidden: true,
-            id: 'favorites'
+            id: 'help'
         },
         //{
         //    xtype: 'panel',
@@ -1613,10 +1630,10 @@ Ext.application({
             id: 'painel'
         });
         
-        
+       /* if (Ext.os.is('Android')) {
         document.addEventListener("deviceready", onDeviceReady, false);
         
-        //if (Ext.os.is('Android')) {
+        
         function onDeviceReady() {
             //if(device.platform == "Android"){
                 document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
@@ -1635,9 +1652,9 @@ Ext.application({
                     } 
                 });
             }
-        //}
+        }*/
         
-        if (connect === 1) {
+        if (connect = 1) {
             Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
         }
         else{
