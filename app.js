@@ -1098,7 +1098,9 @@ Ext.define('Italbox.ViewportPanel', {
                     cls: 'back',
                     hidden: true,
                     handler: function () {
-                    Ext.getCmp('myCarroucel').hide();
+                    var carr = Ext.getCmp('myCarroucel');    
+                    carr.hide();
+                    carr.removeAll(true,true);
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
                     try {
@@ -1611,30 +1613,22 @@ Ext.application({
             id: 'painel'
         });
         
-       // if (Ext.os.is('Android')) {
-       //   document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
-       //
-       //   function onBackKeyDown(e) {
-       //       e.preventDefault();
-       //
-       //       // you are at the home screen
-       //       if (Ext.Viewport.getActiveItem().xtype == my-viewport-panel.xtype ) {
-       //          Ext.Msg.confirm(
-       //                     "Sair",
-       //                     "Deseja sair da aplicação?",
-       //                     function(buttonId) {
-       //                     if (buttonId === 'yes') {
-       //           navigator.app.exitApp();}});
-       //       } else {
-       //           this.getApplication().getHistory().add(Ext.create('Ext.app.Action', {
-       //               url: 'noteslistcontainer'
-       //           }));
-       //       }
-       //   }
-       //}
+        if (Ext.os.is('Android')) {
+            document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
+
+            function onBackKeyDown(eve) {
+                eve.preventDefault();
+                Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
+                    if ( answer == 'yes') { 
+                        navigator.app.exitApp();
+                    } else { 
+                    //do nothing
+                    } 
+                });
+            }
+        }
         
         if (connect = 1) {
-            
             Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
         }
         else{
