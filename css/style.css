@@ -416,7 +416,7 @@ only screen and ( min-resolution: 2dppx) {
     	background-size: 45px 45px;
     }
 
-    .menu li.menu-italbox {
+   /* .menu li.menu-italbox {
 		background: url(../imgs/icons/italbox-retina.png) no-repeat ;
 		background-size: 45px 45px;
 	}
@@ -431,7 +431,7 @@ only screen and ( min-resolution: 2dppx) {
 	.menu li.menu-ajuda {
 		background: url(../imgs/icons/ajuda-retina.png) no-repeat ;
 		background-size: 45px 45px;
-	}
+	}*/
 
 	.seta-baixo {
 		background: url(../imgs/icons/seta-baixo-retina.png) #ffffff;

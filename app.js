@@ -1132,10 +1132,10 @@ Ext.define('Italbox.ViewportPanel', {
                             modal: {
                                 style: 'opacity: 0.8; background-color: #ffffff;'
                             },
-                            height    : 200,
+                            height    : 100,
                             width     : 240,
                             floating  : true,                               
-                            top       : 50,
+                            top       : 0,
                             cls: 'menu',
                             hideOnMaskTap: true,
                             showAnimation: 
