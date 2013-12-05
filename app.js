@@ -1613,8 +1613,17 @@ Ext.application({
             id: 'painel'
         });
         
-        if (Ext.os.is('Android')) {
-            document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
+        
+        document.addEventListener("deviceready", onDeviceReady, false);
+        
+        //if (Ext.os.is('Android')) {
+        function onDeviceReady() {
+            if(device.platform == "Android"){
+                document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
+            }
+        }
+        
+            //document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
 
             function onBackKeyDown(eve) {
                 eve.preventDefault();
@@ -1626,7 +1635,7 @@ Ext.application({
                     } 
                 });
             }
-        }
+        //}
         
         if (connect = 1) {
             Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
