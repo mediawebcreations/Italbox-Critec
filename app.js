@@ -1211,25 +1211,25 @@ Ext.define('Italbox.ViewportPanel', {
         }, 
         
                 },
-        //            {
-        //            align: 'right',
-        //            ui:      'plain',
-        //            xtype: 'button',
-        //            cls: 'open-menu2',
-        //             handler: function () {
-        //       Ext.Msg.confirm(
-        //    "Update",
-        //    "Update Catalog List?",
-        //    function(buttonId) {
-        //        if (buttonId === 'yes') {
-        //            //window.location.reload();
-        //            window.location.href=window.location.href;
-        //        }
-        //    }
-        //);  
-        //}, // handler
-        ////renderTo: Ext.getBody()
-        //        }
+                    {
+                    align: 'right',
+                    ui:      'plain',
+                    xtype: 'button',
+                    cls: 'open-menu2',
+                     handler: function () {
+               Ext.Msg.confirm(
+            "Update",
+            "Update Catalog List?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    //window.location.reload();
+                    window.location.href=window.location.href;
+                }
+            }
+        );  
+        }, // handler
+        //renderTo: Ext.getBody()
+                }
             ]
         },
         {
@@ -1630,36 +1630,100 @@ Ext.application({
             id: 'painel'
         });
         
-       /* if (Ext.os.is('Android')) {
+     _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
+        
+    function onLoad() {
+        if(_IS_RIPPLE_EMULATOR) cordova.addDocumentEventHandler('backbutton'); 
+        document.addEventListener("online", onOnline, false);
+        document.addEventListener("offline", onOffline, false);
         document.addEventListener("deviceready", onDeviceReady, false);
-        
-        
-        function onDeviceReady() {
-            //if(device.platform == "Android"){
+         if(device.platform == "Android"){
                 document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
-            //}
-        }
-        
-            //document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
-
-            function onBackKeyDown(eve) {
-                eve.preventDefault();
+         }
+         if(navigator.network.connection.type == Connection.NONE) {
+		//navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
+               Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn); 
+	} else {
+		//setupButtonHandler();
+                Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+	}
+    }
+ 
+    // Cordova is loaded and it is now safe to make calls Cordova methods
+    //
+    function onDeviceReady() {
+        console.log("onDeviceReady");
+    }
+ 
+    // Handle the online event
+    //
+    function onOnline() {
+        Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+    }
+ 
+    function onOffline() {
+        Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+    }
+    
+    function onBackKeyDown(eve) {
+            eve.preventDefault();
                 Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
                     if ( answer == 'yes') { 
                         navigator.app.exitApp();
                     } else { 
-                    //do nothing
+                   
                     } 
                 });
-            }
-        }*/
+        }
+    
+    onLoad();
         
-        if (connect = 1) {
+        
+        
+        
+        //if (Ext.os.is('Android')) {
+     /*   document.addEventListener("deviceready", onDeviceReady, false);
+          // Call onDeviceReady when PhoneGap is loaded.
+  
+    
+        
+        function onDeviceReady() {
+            if(device.platform == "Android"){
+                document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
+            }
+         document.addEventListener("online", onOnline, false);
+         document.addEventListener("offline", onOffline, false);
+        }
+        
+        function onOnline() {
             Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
         }
-        else{
+        
+        function onOffline() {
              Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+            
         }
+        
+        //document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
+
+        function onBackKeyDown(eve) {
+            eve.preventDefault();
+                Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
+                    if ( answer == 'yes') { 
+                        navigator.app.exitApp();
+                    } else { 
+                   
+                    } 
+                });
+        }*/
+        //}
+        
+        //if (connect = 1) {
+        //    Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+        //}
+        //else{
+        //     Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+        //}
     }
 });
 });
