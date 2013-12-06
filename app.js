@@ -1633,7 +1633,7 @@ Ext.application({
      _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
         
     function onLoad() {
-        if(_IS_RIPPLE_EMULATOR) cordova.addDocumentEventHandler('backbutton'); 
+        if(_IS_RIPPLE_EMULATOR) {cordova.addDocumentEventHandler('backbutton'); }
         document.addEventListener("online", onOnline, false);
         document.addEventListener("offline", onOffline, false);
         document.addEventListener("deviceready", onDeviceReady, false);
