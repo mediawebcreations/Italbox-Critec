@@ -2,10 +2,10 @@ var connect = 0;
 
 window.dao =  {
     //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
-    syncURL:  "http://nrodrigues.net/italbox/connect.php?table=catalogos",
-    syncURL2: "http://nrodrigues.net/italbox/connect.php?table=paginas",
-    syncURL3: "http://nrodrigues.net/italbox/connect.php?table=produtos",
-    syncURL4: "http://nrodrigues.net/italbox/connect.php?table=categorias",
+    syncURL:  "http://www.critecns.com/italbox/connect.php?table=catalogos",
+    syncURL2: "http://www.critecns.com/italbox/connect.php?table=paginas",
+    syncURL3: "http://www.critecns.com/italbox/connect.php?table=produtos",
+    syncURL4: "http://www.critecns.com/italbox/connect.php?table=categorias",
     //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
     //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/GitHub/connect.php?test=1",
@@ -645,6 +645,7 @@ function renderTables(callback) {
     var tpaginas2 = [];
     var tprodutos = [];
     var tcategorias = [];
+    var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
     //var arr = [];
     //var arr2 = {xtype: 'imageviewer', imageSrc: 'http://orcamentos.eu/wp-content/uploads/2011/05/Italbox.png' };
     //var arr3 = [{id: 0, capa: 'imgs/produto1.jpg',nome: 'Produto 1'}, {id: 1, capa: 'imgs/produto2.jpg', nome: 'Produto 2'},{id: 2, capa: 'imgs/produto2.jpg', nome: 'Produto 2'}];
@@ -675,21 +676,21 @@ function renderTables(callback) {
             var listaPaginas = {
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
-                   imageSrc: pagina.foto,
+                   imageSrc: caminho+pagina.foto,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
               var listaPaginas2 = {
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
-                   imageSrc: pagina.foto2,
+                   imageSrc: caminho+pagina.foto2,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
                var listaPaginas3 = {
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
-                   imageSrc: pagina.foto3,
+                   imageSrc: caminho+pagina.foto3,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
@@ -739,6 +740,7 @@ var idcatalogo = 0;
 var idpagina = 0;
 var ind = 0;
 var contador = 0;
+var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
 //var tamanho = 0;
 
 Ext.Loader.setConfig({
@@ -997,7 +999,7 @@ Ext.define('Italbox.Viewport', {
                        }]*/
                     },
                     
-                    itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
+                    itemTpl: '<img src="'+caminho+'{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                     listeners: {
                         itemtap: function(list, index, target, record) {
                             
@@ -1211,7 +1213,7 @@ Ext.define('Italbox.ViewportPanel', {
         }, 
         
                 },
-                    {
+                /*{
                     align: 'right',
                     ui:      'plain',
                     xtype: 'button',
@@ -1229,7 +1231,7 @@ Ext.define('Italbox.ViewportPanel', {
         );  
         }, // handler
         //renderTo: Ext.getBody()
-                }
+                }*/
             ]
         },
         {
@@ -1426,7 +1428,7 @@ Ext.define('Italbox.ViewportPanel', {
                      //  },
                      //]
                    },
-                    itemTpl: '<img style="margin-right:10px;margin-top:10px; width:100px;" src="{foto}">',
+                   itemTpl: '<img style="margin-right:10px;margin-top:10px; width:100px;" src="'+caminho+'{foto}">',
                     //itemTpl: new Ext.XTemplate('<img style="margin-right:10px; height:75px;" src="{capa}">'),
                    //itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                    listeners: {
@@ -1633,6 +1635,7 @@ Ext.application({
      _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
         
     function onLoad() {
+        try{
         if(_IS_RIPPLE_EMULATOR) {cordova.addDocumentEventHandler('backbutton'); }
         document.addEventListener("online", onOnline, false);
         document.addEventListener("offline", onOffline, false);
@@ -1642,11 +1645,19 @@ Ext.application({
          }
          if(navigator.network.connection.type == Connection.NONE) {
 		//navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
-               Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn); 
+               Ext.Msg.alert("", "A trabalhar em modo offline!",  function ( answer ) { 
+                    if ( answer == 'ok') { 
+                        navigator.app.exitApp();
+                    } else { 
+                   
+                    } 
+                }); 
 	} else {
 		//setupButtonHandler();
                 Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
 	}
+        }
+         catch(e){}
     }
  
     // Cordova is loaded and it is now safe to make calls Cordova methods
@@ -1667,20 +1678,40 @@ Ext.application({
     
     function onBackKeyDown(eve) {
             eve.preventDefault();
-                Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
+            var lista = Ext.getCmp('myList');
+            console.dir(lista);
+            if(lista._hidden === true)
+	    {
+	    	 var carr = Ext.getCmp('myCarroucel');    
+                    carr.hide();
+                    carr.removeAll(true,true);
+                    Ext.getCmp('barra2').hide();
+                    Ext.getCmp('footer').hide();
+                    try {
+                    var myList2 =  Ext.getCmp('myList2');
+                        myList2.hide();
+                    }
+                    catch(err) {}
+                    Ext.getCmp('back').hide();
+                    Ext.getCmp('italbox').hide();
+                    Ext.getCmp('help').hide();
+                    Ext.getCmp('barra').show();
+                    lista.show();	
+	    }
+	    else
+	    {
+            Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
                     if ( answer == 'yes') { 
                         navigator.app.exitApp();
                     } else { 
                    
                     } 
                 });
+	    }
         }
     
     onLoad();
-        
-        
-        
-        
+    
         //if (Ext.os.is('Android')) {
      /*   document.addEventListener("deviceready", onDeviceReady, false);
           // Call onDeviceReady when PhoneGap is loaded.
