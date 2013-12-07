@@ -24,11 +24,12 @@ body{
         -webkit-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
         box-shadow: 10px 10px 5px rgba(0,0,0,0.5);*/
         margin-right:30px;
-        height:370px;
+        max-height:90%;
 }
 
 .texto-capa{
       margin-right:30px;
+      width: 250px;
       text-align:center;
       font-size:14px;
       text-transform:uppercase;
@@ -121,8 +122,28 @@ body{
 
 .lista{
     margin-top: 45px;
-    text-align: center;            
+    text-align: center;
+    height: 400px;
 }
+
+@media (min-height: 200px) and (max-height: 320px){ 
+
+.lista{
+    margin-top: 45px;
+    text-align: center;
+    height: 250px;
+}
+.texto-capa{
+      margin-right:30px;
+      width: 170px;
+      text-align:center;
+      font-size:12px;
+      text-transform:uppercase;
+      font-family: 'robotomedium';
+      
+}
+}
+
 
 .lista2{
         background: #FFFFFF;

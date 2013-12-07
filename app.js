@@ -958,14 +958,14 @@ Ext.define('Italbox.Viewport', {
             layout: {
                 type: 'vbox',
                 pack: 'center',
-                height: '400px',
+                //height: '400px',
                 
             },
             items: [
                 {
                     //give it an xtype of list for the list component
                     xtype: 'dataview',
-                    height: '400px',
+                    //max-height: '400px',
                     cls: 'lista',
                     //margin: '50px 0 0 0', 
                     //flex: 1,
