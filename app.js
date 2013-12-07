@@ -1,5 +1,3 @@
-var connect = 0;
-
 window.dao =  {
     //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
     syncURL:  "http://www.critecns.com/italbox/connect.php?table=catalogos",
@@ -359,11 +357,9 @@ window.dao =  {
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
                 //alert(modifiedSince);
-                connect = 1;
                 callback(data);
             },
             error: function(model, response) {
-                connect = 0;
                 //alert("A trabalhar em modo offline");
             }
         });
@@ -759,6 +755,7 @@ Ext.define('Italbox.Viewport4', {
             {
                 type: 'slideIn',
                 duration: 1000,
+                delay: 700,
                 direction: 'up',
                 easing: 'easeOut'
             },  
@@ -795,6 +792,7 @@ Ext.define('Italbox.Viewport3', {
             {
                 type: 'slideIn',
                 duration: 1000,
+                delay: 700,
                 direction: 'up',
                 easing: 'easeOut'
             },  
@@ -831,6 +829,7 @@ Ext.define('Italbox.Viewport2', {
             {
                 type: 'slideIn',
                 duration: 1000,
+                delay: 500,
                 direction: 'up',
                 easing: 'easeOut'
             },  
@@ -944,6 +943,7 @@ Ext.define('Italbox.Viewport', {
             {
                 type: 'slideIn',
                 duration: 1000,
+                delay: 500,
                 direction: 'up',
                 easing: 'easeOut'
             },  
@@ -1010,7 +1010,7 @@ Ext.define('Italbox.Viewport', {
                             if (buttonId === 'yes') {
                                  var ori = Ext.Viewport.getOrientation();
                                  Ext.getCmp('myList').hide();
-                                 Ext.getCmp('myCarroucel').removeAll(false);
+                                 Ext.getCmp('myCarroucel').removeAll(true,true);
                                  idcatalogo = record.get('id_catalogo');
                                  tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
                                  tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
@@ -1102,7 +1102,10 @@ Ext.define('Italbox.ViewportPanel', {
                     handler: function () {
                     var carr = Ext.getCmp('myCarroucel');    
                     carr.hide();
-                    carr.removeAll(true,true);
+                    carr.on('hide', function() {
+                         carr.removeAll(true,true);
+                    });
+                    //carr.removeAll(true,true);
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
                     try {
@@ -1493,7 +1496,7 @@ Ext.define('Italbox.ViewportPanel', {
                                         ]    
                                     },
                                     {
-                                        html  : '<div style="margin:20px;"><img src="'+record.get('foto')+'" style="margin-top:40px; max-width:50%; max-height:25%"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
+                                        html  : '<div style="margin:20px;"><img src="'+caminho+record.get('foto')+'" style="margin-top:40px; max-width:50%; max-height:25%"><br\><font size="2px">'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</font></div>'
                                   
                                     },
                                 ],
@@ -1644,14 +1647,14 @@ Ext.application({
                 document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
          }
          if(navigator.network.connection.type == Connection.NONE) {
-		//navigator.notification.alert("Sorry, you are offline.", function() {}, "Offline!");
-               Ext.Msg.alert("", "A trabalhar em modo offline!",  function ( answer ) { 
-                    if ( answer == 'ok') { 
-                        navigator.app.exitApp();
-                    } else { 
-                   
-                    } 
-                }); 
+		 Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+               //Ext.Msg.alert("", "A trabalhar em modo offline!",  function ( answer ) { 
+               //     if ( answer == 'ok') { 
+               //         navigator.app.exitApp();
+               //     } else { 
+               //    
+               //     } 
+               // }); 
 	} else {
 		//setupButtonHandler();
                 Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
@@ -1684,7 +1687,9 @@ Ext.application({
 	    {
 	    	 var carr = Ext.getCmp('myCarroucel');    
                     carr.hide();
-                    carr.removeAll(true,true);
+                    carr.on('hide', function() {
+                         carr.removeAll(true,true);
+                    });
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
                     try {
