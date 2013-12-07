@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Italbox</title>
+     <style type="text/css">
+         /**
+         * Example of an initial loading indicator.
+         * It is recommended to keep this as minimal as possible to provide instant feedback
+         * while other resources are still being loaded for the first time
+         */
+        #loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash768x1024.png') top center no-repeat;
+           
+        }
+
+        #appLoadingIndicator {
+            position: absolute;
+            top: 50%;
+            margin-top: -15px;
+            text-align: center;
+            width: 100%;
+            height: 30px;
+            -webkit-animation-name: appLoadingIndicator;
+            -webkit-animation-duration: 0.5s;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-direction: linear;
+        }
+
+        #appLoadingIndicator > * {
+            background-color: #b69a59;
+            display: inline-block;
+            height: 30px;
+            -webkit-border-radius: 15px;
+            margin: 0 5px;
+            width: 30px;
+            opacity: 1;
+        }
+
+        @-webkit-keyframes appLoadingIndicator{
+            0% {
+                opacity: 0.8
+            }
+            50% {
+                opacity: 0
+            }
+            100% {
+                opacity: 0.8
+            }
+        }
+        
+        @media (min-width: 320px) and (max-width: 350px) and (min-height: 460px) and (max-height: 479px)  { 
+
+	#loading {
+                height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash320x460.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 320px) and (max-width: 350px) and (min-height: 480px) and (max-height: 482px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash320x480.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 320px) and (max-width: 350px) and (min-height: 568px) and (max-height: 580px) { 
+
+	#loading {
+           
+            background-color: #000000;
+            background: url('res/splash/ios/splash640x1136.png') top center no-repeat !important;
+            background-size: contain !important;
+	}
+        }
+        
+        @media (min-width: 1024px) and (max-width: 1100px) and (min-height 483px) and (max-height: 500px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash1024x768.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 640px) and (max-width: 650px) and (min-height: 920px) and (max-height: 959px) { 
+
+	#loading {
+                height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash640x920.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 640px) and (max-width: 650px) and (min-height: 960px) and (max-height: 1095px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash640x960.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 640px) and (max-width: 650px) and (min-height: 1096px) and (max-height: 1135px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash640x1096.png') top center no-repeat !important;
+           
+	}
+        }
+        
+         @media (min-width: 640px) and (max-width: 650px) and (min-height: 1136px) and (max-height: 1150px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash640x1136.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 1279px) and (max-width: 1920px) and (min-height: 719px) and (max-height: 1080px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash1024x768.png') top center no-repeat !important;
+           
+	}
+        }
+        
+        @media (min-width: 1536px) and (max-width: 1538px) and (min-height: 2008px) and (max-height: 2047px) { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash1536x2008.png') top center no-repeat !important;
+           
+	}
+        }
+        
+         @media (min-width: 1536px) and (max-width: 1538px) and (min-height: 2048px) and (max-height: 2050px)  { 
+
+	#loading {
+            height: 100%;
+            background-color: #000000;
+            background: url('res/splash/ios/splash1496x2048.png') top center no-repeat !important;
+           
+	}
+        }
+    </style>
+    <link href="sencha-touch-2.0.1.1/resources/css/sencha-touch.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="cordova.js"></script>
+    <!--<script type="text/javascript" src="cordova2.0.js"></script>-->
+    <!--<script type="text/javascript" src="js/SQLitePlugin.js"></script>-->
+     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script src="sencha-touch-2.0.1.1/sencha-touch-all.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+</head>
+<body>
+     <div id="loading">
+     <div id="appLoadingIndicator">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+     </div>
+</body>
+</html>
