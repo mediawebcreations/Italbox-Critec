@@ -1,9 +1,9 @@
 window.dao =  {
     //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
-    syncURL:  "http://www.critecns.com/italbox/connect.php?table=catalogos",
-    syncURL2: "http://www.critecns.com/italbox/connect.php?table=paginas",
-    syncURL3: "http://www.critecns.com/italbox/connect.php?table=produtos",
-    syncURL4: "http://www.critecns.com/italbox/connect.php?table=categorias",
+    syncURL:  "../../italbox/connect.php?table=catalogos",
+    syncURL2: "../../italbox/connect.php?table=paginas",
+    syncURL3: "../../italbox/connect.php?table=produtos",
+    syncURL4: "../../italbox/connect.php?table=categorias",
     //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
     //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/GitHub/connect.php?test=1",
