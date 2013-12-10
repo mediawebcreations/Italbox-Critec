@@ -754,6 +754,95 @@ Ext.Loader.setConfig({
     }
 });
 
+Ext.define('Italbox.Viewport5', {
+    extend: 'Ext.Panel',
+    xtype : 'my-viewport5',
+    id:'favorites',
+    config: {
+        showAnimation: 
+            {
+                type: 'slideIn',
+                duration: 1000,
+                delay: 700,
+                direction: 'up',
+                easing: 'easeOut'
+            },  
+            hideAnimation: 
+            {
+                type: 'slideOut',
+                duration: 700,
+                direction: 'down',
+                easing: 'easeIn'
+            }, 
+            //cls: 'teste',
+            layout: {
+                type: 'vbox',
+                //pack: 'center',
+                //height: '400px',
+                
+            },
+            //   scrollable: {
+            //    direction: 'vertical'
+            //},
+           items: [
+                {
+                    //give it an xtype of list for the list component
+                    xtype: 'dataview',
+                    //max-height: '400px',
+                    cls: 'favoritos',
+                    margin: '50px 0 0 0',
+                    flex: 1,
+                    scrollable: {
+                        direction: 'vertical',
+                        //indicators: false
+                    },
+                    inline: {
+                        wrap: true
+                    },
+
+                    //set the itemtpl to show the fields for the store
+                     store: {
+                        id: 'loja',
+                        fields: ['imag','nome'],
+                        data: [{
+                            imag: 'imgs/fav1.jpg',
+                            nome: 'Favorito 1'
+                        }, {
+                            imag: 'imgs/fav2.jpg',
+                            nome: 'Favorito 2'
+                        }, {
+                            imag: 'imgs/fav3.jpg',
+                            nome: 'Favorito 3'
+                       },
+                       {
+                            imag: 'imgs/fav2.jpg',
+                            nome: 'Favorito 4'
+                        }, {
+                            imag: 'imgs/fav3.jpg',
+                            nome: 'Favorito 5'
+                        }, {
+                            imag: 'imgs/fav1.jpg',
+                            nome: 'Favorito 6'
+                       }]
+                    },
+                    
+                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><div style="margin-left:20px; font-size:14px;">{nome}</div>',
+                    
+                    listeners: {
+                        itemtap: function(list, index, target, record) {
+                            Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
+                            var fav =  Ext.StoreManager.get('loja');
+                            fav.remove(record);
+                            console.dir(fav); 
+                        }
+                           
+                    }
+                }
+            ],
+           
+    }
+});
+
 Ext.define('Italbox.Viewport4', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport4',
@@ -1020,8 +1109,8 @@ Ext.define('Italbox.Viewport', {
                         itemtap: function(list, index, target, record) {
                             
                             Ext.Msg.confirm(
-                            "Open",
-                            "Open "+record.get('nome')+"?",
+                            "",
+                            "Abrir "+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
                                  var ori = Ext.Viewport.getOrientation();
@@ -1131,6 +1220,7 @@ Ext.define('Italbox.ViewportPanel', {
                     catch(err) {}
                     Ext.getCmp('back').hide();
                     Ext.getCmp('italbox').hide();
+                    Ext.getCmp('favorites').hide();
                     Ext.getCmp('help').hide();
                     Ext.getCmp('myList').show();
                     
@@ -1177,10 +1267,10 @@ Ext.define('Italbox.ViewportPanel', {
                                 {
                                     html  : '<li class="menu-italbox" id="menu-italbox">ITALBOX</li>',
                                 },
-                               /* {
-                                    html  : '<li class="menu-favoritos" id="menu-favoritos">FAVARITOS</li>'
-                                },
                                 {
+                                    html  : '<li class="menu-favoritos" id="menu-favoritos">FAVORITOS</li>'
+                                },
+                                /*{
                                     html  : '<li class="menu-language">LANGUAGE</li>'
                                 },*/
                                 {
@@ -1202,6 +1292,23 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('italbox').show();
+                                    }
+                                },
+                                 {
+                                    element: 'element',
+                                    delegate: '#menu-favoritos',
+                                    event: 'tap',
+                                    fn: function() {
+                                         panel_menu.hide();
+                                     Ext.getCmp('myCarroucel').hide();
+                                     Ext.getCmp('myList').hide();
+                                     Ext.getCmp('footer').hide();
+                                     Ext.getCmp('italbox').hide();
+                                     Ext.getCmp('help').hide();
+                                     /*Ext.getCmp('myList').hide();
+                                     Ext.getCmp('myList').hide();*/
+                                     Ext.getCmp('back').show();
+                                     Ext.getCmp('favorites').show();
                                     }
                                 },
                                 {
@@ -1232,25 +1339,25 @@ Ext.define('Italbox.ViewportPanel', {
         }, 
         
                 },
-                /*{
-                    align: 'right',
-                    ui:      'plain',
-                    xtype: 'button',
-                    cls: 'open-menu2',
-                     handler: function () {
-               Ext.Msg.confirm(
-            "Update",
-            "Update Catalog List?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    //window.location.reload();
-                    window.location.href=window.location.href;
-                }
-            }
-        );  
-        }, // handler
-        //renderTo: Ext.getBody()
-                }*/
+        //        {
+        //            align: 'right',
+        //            ui:      'plain',
+        //            xtype: 'button',
+        //            cls: 'open-menu2',
+        //             handler: function () {
+        //       Ext.Msg.confirm(
+        //    "Update",
+        //    "Update Catalog List?",
+        //    function(buttonId) {
+        //        if (buttonId === 'yes') {
+        //            //window.location.reload();
+        //            window.location.href=window.location.href;
+        //        }
+        //    }
+        //);  
+        //}, // handler
+        ////renderTo: Ext.getBody()
+        //        }
             ]
         },
         {
@@ -1512,7 +1619,7 @@ Ext.define('Italbox.ViewportPanel', {
                                         ]    
                                     },
                                     {
-                                        html  : '<div class="pop-up" style=""><img src="'+caminho+record.get('foto')+'" style=""><br\>'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                        html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'"><br\>'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
                                   
                                     },
                                 ],
@@ -1582,6 +1689,7 @@ Ext.define('Italbox.ViewportPanel', {
         {
             xtype: 'my-viewport',
             id: 'myList',
+            //hidden: true,
         },
          {
             xtype: 'my-viewport2',
@@ -1597,6 +1705,11 @@ Ext.define('Italbox.ViewportPanel', {
             xtype: 'my-viewport4',
             hidden: true,
             id: 'help'
+        },
+             {
+            xtype: 'my-viewport5',
+            hidden: true,
+            id: 'favorites'
         },
         //{
         //    xtype: 'panel',

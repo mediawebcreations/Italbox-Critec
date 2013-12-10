@@ -37,6 +37,11 @@ body{
       
 }
 
+.favoritos{
+   top: 50px !important;
+}
+
+
 .header {
 	height: 50px;
 	width: 100%;
