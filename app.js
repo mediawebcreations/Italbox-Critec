@@ -931,7 +931,6 @@ Ext.define('Italbox.Viewport2', {
             carr.setItems(tpaginas2_temp);
             var round1 = Math.round(ind*2);
             carr.setActiveItem(round1-1);
-            //alert(round1+' 1º')
          }
          else {
             /*if ((ind > 0) && (ind%2 != 0)) {
@@ -940,7 +939,6 @@ Ext.define('Italbox.Viewport2', {
             carr.setItems(tpaginas_temp);
             var round2 = Math.round(ind/2);
             carr.setActiveItem(round2);
-            //alert(round2+' 2º');
          }
     }
 });
@@ -1183,10 +1181,13 @@ Ext.define('Italbox.ViewportPanel', {
                                     html  : '<li class="menu-ajuda" id="menu-help">AJUDA</li>'
                                 }
                             ],
-                            listeners: {
-                                click: {
-                                fn: function(event, el){
-                                     panel_menu.hide();
+                            listeners: [
+                                {
+                                    element: 'element',
+                                    delegate: '#menu-italbox',
+                                    event: 'tap',
+                                    fn: function() {
+                                         panel_menu.hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
@@ -1195,13 +1196,14 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('italbox').show();
+                                    }
                                 },
-                                element: 'element',
-                                delegate: '#menu-italbox'
-                                },
-                            tap: {
-                                fn: function(event, el){
-                                     panel_menu.hide();
+                                {
+                                    element: 'element',
+                                    delegate: '#menu-help',
+                                    event: 'tap',
+                                    fn: function() {
+                                        panel_menu.hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
@@ -1210,13 +1212,9 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('help').show();
-                                },
-                                element: 'element',
-                                delegate: '#menu-help'
-                                },
-                              
-                               
-                            }
+                                    }
+                                }
+                            ]
                         });
                         //show the panel
                         panel_menu.show();
