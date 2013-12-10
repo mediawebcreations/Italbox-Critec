@@ -63,11 +63,13 @@ window.dao =  {
                 var sql =
                     "CREATE TABLE IF NOT EXISTS paginas ( " +
                     "id_pagina INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "numero VARCHAR(50), " +
                     "foto VARCHAR(50), " +
                     "foto2 VARCHAR(50), " +
                     "foto3 VARCHAR(50), " +
                     "id_categoria VARCHAR(50), " +
                     "id_catalogo VARCHAR(50), " +
+                    "capa VARCHAR(50), " +
                     "estado VARCHAR(50), " +
                     "lastModified VARCHAR(50))";
                 tx.executeSql(sql);
@@ -160,7 +162,7 @@ window.dao =  {
     findAll2: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT * FROM PAGINAS WHERE ESTADO=1";
+                var sql = "SELECT * FROM PAGINAS WHERE ESTADO=1 ORDER BY CAST(NUMERO AS INT)";
                 log('Local SQLite database: "SELECT * FROM PAGINAS"');
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
@@ -449,14 +451,14 @@ window.dao =  {
             function(tx) {
                 var l = paginas.length;
                 var sql =
-                    "INSERT OR REPLACE INTO paginas (id_pagina, foto, foto2, foto3, id_categoria, id_catalogo, estado, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO paginas (id_pagina, numero, foto, foto2, foto3, id_categoria, id_catalogo, estado, capa, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = paginas[i];
-                    log(e.id_pagina + ' ' + e.foto + ' ' + e.foto2 + ' ' + e.foto3 + ' ' + e.id_categoria + ' ' + e.id_catalogo + ' ' + e.estado + ' ' + e.lastModified);
-                    var params = [e.id_pagina, e.foto, e.foto2, e.foto3, e.id_categoria , e.id_catalogo, e.estado, e.lastModified];
+                    log(e.id_pagina + ' ' + e.numero + ' ' + e.foto + ' ' + e.foto2 + ' ' + e.foto3 + ' ' + e.id_categoria + ' ' + e.id_catalogo + ' ' + e.estado + ' ' + e.capa + ' ' + e.lastModified);
+                    var params = [e.id_pagina, e.numero, e.foto, e.foto2, e.foto3, e.id_categoria , e.id_catalogo, e.estado, e.capa, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -673,6 +675,7 @@ function renderTables(callback) {
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                    imageSrc: caminho+pagina.foto,
+                   numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
@@ -680,6 +683,7 @@ function renderTables(callback) {
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                    imageSrc: caminho+pagina.foto2,
+                   numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
@@ -687,12 +691,16 @@ function renderTables(callback) {
                    xtype: 'imageviewer',
                    //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                    imageSrc: caminho+pagina.foto3,
+                   numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo
               };
               tpaginas.push(listaPaginas);
               tpaginas2.push(listaPaginas2);
-              tpaginas2.push(listaPaginas3); 
+              if (pagina.capa != 1) {
+                tpaginas2.push(listaPaginas3); 
+              }
+
          }
          //callback(arr,arr2,arr3);
     });
@@ -737,7 +745,7 @@ var idpagina = 0;
 var ind = 0;
 var contador = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
-//var tamanho = 0;
+var tamanho = 0;
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -921,14 +929,18 @@ Ext.define('Italbox.Viewport2', {
          //carr.removeAll(true);
          if (Ext.Viewport.getOrientation() === 'portrait') {
             carr.setItems(tpaginas2_temp);
-            carr.setActiveItem(Math.round(ind*2)); 
+            var round1 = Math.round(ind*2);
+            carr.setActiveItem(round1-1);
+            //alert(round1+' 1º')
          }
          else {
-            if ((ind > 0) && (ind%2 != 0)) {
+            /*if ((ind > 0) && (ind%2 != 0)) {
                 ind = ind-1;
-            }
+            }*/
             carr.setItems(tpaginas_temp);
-            carr.setActiveItem(Math.round(ind/2));
+            var round2 = Math.round(ind/2);
+            carr.setActiveItem(round2);
+            //alert(round2+' 2º');
          }
     }
 });
@@ -979,7 +991,7 @@ Ext.define('Italbox.Viewport', {
 
                     //set the itemtpl to show the fields for the store
                      store: {
-                        fields: ['id_catalogo','nome','capa','cor','lastModified'],
+                        fields: ['id_catalogo','nome','capa','cor','estado','lastModified'],
                         data: tcatalogos/*[{
                             capa: 'imgs/catalogo1.png',
                             cor: 'azul',
@@ -1014,7 +1026,7 @@ Ext.define('Italbox.Viewport', {
                                  idcatalogo = record.get('id_catalogo');
                                  tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
                                  tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 //tamanho = ($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo })).length;
+                                 tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
                              if (ori === 'portrait') {
                                  Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
@@ -1341,7 +1353,7 @@ Ext.define('Italbox.ViewportPanel', {
                         cls: 'menu3',
                         top: 'auto !important',
                         modal: {
-                                style: 'opacity: 0.3; background-color: #ffffff;'
+                                style: 'opacity: 0.6; background-color: #ffffff;'
                         },
                          /*floating: true,*/
                          //modal: true,
@@ -1418,7 +1430,7 @@ Ext.define('Italbox.ViewportPanel', {
 
                    //set the itemtpl to show the fields for the store
                     store: {
-                       fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina','lastModified'],
+                       fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
                        data: $.grep(tprodutos, function(e) { return e.id_pagina ==  idpagina && e.id_catalogo == idcatalogo})
                      //  [{
                      //      capa: 'imgs/produto1.jpg',
