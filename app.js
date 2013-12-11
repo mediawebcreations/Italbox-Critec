@@ -790,7 +790,8 @@ Ext.define('Italbox.Viewport5', {
                     xtype: 'dataview',
                     //max-height: '400px',
                     cls: 'favoritos',
-                    margin: '50px 0 0 0',
+                    //top: '50px !important',
+                    //margin: '50px 0 0 0',
                     flex: 1,
                     scrollable: {
                         direction: 'vertical',
@@ -830,10 +831,16 @@ Ext.define('Italbox.Viewport5', {
                     
                     listeners: {
                         itemtap: function(list, index, target, record) {
-                            Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
+                             Ext.Msg.confirm(
+                            "",
+                            "Remover "+record.get('nome')+"?",
+                            function(buttonId) {
+                            if (buttonId === 'yes') {
+                            //Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
                             var fav =  Ext.StoreManager.get('loja');
                             fav.remove(record);
-                            console.dir(fav); 
+                            console.dir(fav);
+                            }});
                         }
                            
                     }
@@ -915,7 +922,7 @@ Ext.define('Italbox.Viewport3', {
             },
            items : [
                     {
-                        html  : '<div style="margin:20px;"><img src="imgs/company.jpg" style="margin-top:45px;max-width:100%; max-height:50% "></img><br/>EMPRESA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+                        html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>EMPRESA<br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999, é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo, e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores, a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume de negócios de 20% por ano, nos últimos 5 anos.<br/>Em 2011 lançou o novo catalogo com uma nova linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio, no sentido de complementar a oferta.<br/>Para que possam verificar os modelos que produzimos, queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
                     },
                                
             ],
@@ -1270,9 +1277,9 @@ Ext.define('Italbox.ViewportPanel', {
                                 {
                                     html  : '<li class="menu-favoritos" id="menu-favoritos">FAVORITOS</li>'
                                 },
-                                /*{
+                                {
                                     html  : '<li class="menu-language">LANGUAGE</li>'
-                                },*/
+                                },
                                 {
                                     html  : '<li class="menu-ajuda" id="menu-help">AJUDA</li>'
                                 }
@@ -1287,6 +1294,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
+                                     Ext.getCmp('favorites').hide();
                                      Ext.getCmp('help').hide();
                                      /*Ext.getCmp('myList').hide();
                                      Ext.getCmp('myList').hide();*/
@@ -1321,6 +1329,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
                                      Ext.getCmp('italbox').hide();
+                                     Ext.getCmp('favorites').hide();
                                      /*Ext.getCmp('myList').hide();
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
