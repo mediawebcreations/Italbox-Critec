@@ -1301,7 +1301,7 @@ Ext.define('Italbox.ViewportPanel', {
                             height    : 100,
                             width     : 240,
                             floating  : true,                               
-                            top       : 0,
+                            top       : -70,
                             cls: 'menu',
                             hideOnMaskTap: true,
                             showAnimation: 
@@ -1958,6 +1958,8 @@ Ext.application({
                     Ext.getCmp('back').hide();
                     Ext.getCmp('italbox').hide();
                     Ext.getCmp('help').hide();
+                    Ext.getCmp('favorites').hide();
+                    Ext.getCmp('barra5').hide();
                     Ext.getCmp('barra').show();
                     lista.show();	
 	    }
