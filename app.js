@@ -817,25 +817,25 @@ Ext.define('Italbox.Viewport5', {
                                 id  : 'lojaKey'
                         },
                         fields: ['imag','nome','id_pagina','id_catalogo','numero'],
-                        data: [{
-                            imag: 'imgs/fav1.jpg',
-                            nome: 'Catalogo 1 Pagina 16',
-                            id_pagina: '15',
-                            id_catalogo: '1',
-                            numero: '16'
-                        }, {
-                            imag: 'imgs/fav2.jpg',
-                            nome: 'Catalogo 1 Pagina 5',
-                            id_pagina: '4',
-                            id_catalogo: '1',
-                            numero: '5'
-                        }, {
-                            imag: 'imgs/fav3.jpg',
-                            nome: 'Catalogo 1 Pagina 4',
-                            id_pagina: '3',
-                            id_catalogo: '1',
-                            numero: '4'
-                       }]
+                       // data: [{
+                       //     imag: 'imgs/fav1.jpg',
+                       //     nome: 'Catalogo 1 Pagina 16',
+                       //     id_pagina: '15',
+                       //     id_catalogo: '1',
+                       //     numero: '16'
+                       // }, {
+                       //     imag: 'imgs/fav2.jpg',
+                       //     nome: 'Catalogo 1 Pagina 5',
+                       //     id_pagina: '4',
+                       //     id_catalogo: '1',
+                       //     numero: '5'
+                       // }, {
+                       //     imag: 'imgs/fav3.jpg',
+                       //     nome: 'Catalogo 1 Pagina 4',
+                       //     id_pagina: '3',
+                       //     id_catalogo: '1',
+                       //     numero: '4'
+                       //}]
                     },
                     
                     itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><div style="margin-left:20px; font-size:12px;">{nome}</div>',
