@@ -85,7 +85,9 @@ body{
         bottom: auto;
         position: absolute;
         right: 0;
-        top: 38%;
+        top: 0;
+        bottom: 0;
+        margin: auto;
 	background: transparent;
 	border-left-width:0!important;
 	/*position: absolute;
