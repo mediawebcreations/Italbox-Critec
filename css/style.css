@@ -78,6 +78,28 @@ body{
        
 }
 
+.right_bar {
+	height: 50px !important;
+        width: 60px !important;
+        bottom: auto;
+        position: absolute;
+        right: 0;
+        top: 50%;
+	background: transparent;
+	border-left-width:0!important;
+	/*position: absolute;
+        z-index: 2;*/
+        
+}
+
+.open-menu5{
+	position: absolute;
+	width: 45px;
+	height: 45px !important;
+	background-image: url(../imgs/icons/favoritos2.png) !important;
+
+}
+
 .foot {
 	height: 50px;
 	/*width: 100%;*/
@@ -121,7 +143,7 @@ body{
 
 .pop-up{
    margin:20px;
-   font-size: 13px;
+   font-size: 14px;
 }
 
 .pop-up img{
@@ -236,7 +258,7 @@ body{
 	position: absolute;
 	width: 45px;
 	height: 45px;
-	background-image: url(../imgs/icons/language.png) !important;
+	background-image: url(../imgs/icons/search.png) !important;
 
 }
 
@@ -445,12 +467,12 @@ body{
 	border-bottom: solid; 1px;
 }
 
-.menu li:hover {
+/*.menu li:hover {
 	background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
 	-webkit-transition: 0.5s;
-}
+}*/
 
 .menu li.menu-italbox:hover {
 	background: url(../imgs/icons/italbox_white.png) no-repeat ;

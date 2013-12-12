@@ -677,7 +677,8 @@ function renderTables(callback) {
                    imageSrc: caminho+pagina.foto,
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
-                   id_catalogo: pagina.id_catalogo
+                   id_catalogo: pagina.id_catalogo,
+                   thumb: caminho+pagina.foto,
               };
               var listaPaginas2 = {
                    xtype: 'imageviewer',
@@ -685,7 +686,8 @@ function renderTables(callback) {
                    imageSrc: caminho+pagina.foto2,
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
-                   id_catalogo: pagina.id_catalogo
+                   id_catalogo: pagina.id_catalogo,
+                   thumb: caminho+pagina.foto,
               };
                var listaPaginas3 = {
                    xtype: 'imageviewer',
@@ -693,7 +695,8 @@ function renderTables(callback) {
                    imageSrc: caminho+pagina.foto3,
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
-                   id_catalogo: pagina.id_catalogo
+                   id_catalogo: pagina.id_catalogo,
+                   thumb: caminho+pagina.foto,
               };
               tpaginas.push(listaPaginas);
               tpaginas2.push(listaPaginas2);
@@ -742,6 +745,8 @@ var tpaginas_temp = [];
 var tpaginas2_temp = [];
 var idcatalogo = 0;
 var idpagina = 0;
+var numero = 0;
+var source = '';
 var ind = 0;
 var contador = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
@@ -763,7 +768,7 @@ Ext.define('Italbox.Viewport5', {
             {
                 type: 'slideIn',
                 duration: 1000,
-                delay: 700,
+                delay: 1000,
                 direction: 'up',
                 easing: 'easeOut'
             },  
@@ -804,34 +809,71 @@ Ext.define('Italbox.Viewport5', {
                     //set the itemtpl to show the fields for the store
                      store: {
                         id: 'loja',
-                        fields: ['imag','nome'],
+                        autoLoad: true,
+                        proxy: {
+                            //use sessionstorage if need to save data for that
+                            //specific session only
+                                type: 'localstorage',
+                                id  : 'lojaKey'
+                        },
+                        fields: ['imag','nome','id_pagina','id_catalogo','numero'],
                         data: [{
                             imag: 'imgs/fav1.jpg',
-                            nome: 'Favorito 1'
+                            nome: 'Catalogo 1 Pagina 16',
+                            id_pagina: '15',
+                            id_catalogo: '1',
+                            numero: '16'
                         }, {
                             imag: 'imgs/fav2.jpg',
-                            nome: 'Favorito 2'
+                            nome: 'Catalogo 1 Pagina 5',
+                            id_pagina: '4',
+                            id_catalogo: '1',
+                            numero: '5'
                         }, {
                             imag: 'imgs/fav3.jpg',
-                            nome: 'Favorito 3'
-                       },
-                       {
-                            imag: 'imgs/fav2.jpg',
-                            nome: 'Favorito 4'
-                        }, {
-                            imag: 'imgs/fav3.jpg',
-                            nome: 'Favorito 5'
-                        }, {
-                            imag: 'imgs/fav1.jpg',
-                            nome: 'Favorito 6'
+                            nome: 'Catalogo 1 Pagina 4',
+                            id_pagina: '3',
+                            id_catalogo: '1',
+                            numero: '4'
                        }]
                     },
                     
-                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><div style="margin-left:20px; font-size:14px;">{nome}</div>',
+                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><div style="margin-left:20px; font-size:12px;">{nome}</div>',
                     
                     listeners: {
                         itemtap: function(list, index, target, record) {
                              Ext.Msg.confirm(
+                            "",
+                            "Abrir Favorito "+record.get('nome')+"?",
+                            function(buttonId) {
+                            if (buttonId === 'yes') {
+                                 var carr = Ext.getCmp('myCarroucel');
+                                 var ori = Ext.Viewport.getOrientation();
+                                 Ext.getCmp('favorites').hide();
+                                 carr.removeAll(true,true);
+                                 idcatalogo = record.get('id_catalogo');
+                                 tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
+                                 tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
+                                 tamanho = tpaginas2_temp.length;
+                                 //alert(tamanho);
+                             if (ori === 'portrait') {
+                                 carr.setItems(tpaginas2_temp);
+                                 carr.setActiveItem((record.get('numero')*2)-3);
+                             }
+                             else{
+                                 carr.setItems(tpaginas_temp);
+                                 carr.setActiveItem(record.get('numero')-1);
+                             }
+                             Ext.getCmp('footer').show();
+                             Ext.getCmp('barra5').show();
+                             carr.show();
+                            //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
+                      
+                            }});
+                             
+                             
+                            /////Remover
+                            /* Ext.Msg.confirm(
                             "",
                             "Remover "+record.get('nome')+"?",
                             function(buttonId) {
@@ -839,8 +881,8 @@ Ext.define('Italbox.Viewport5', {
                             //Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
                             var fav =  Ext.StoreManager.get('loja');
                             fav.remove(record);
-                            console.dir(fav);
-                            }});
+                            //console.dir(fav);
+                            }});*/
                         }
                            
                     }
@@ -973,6 +1015,9 @@ Ext.define('Italbox.Viewport2', {
                 
                 //console.dir(value.initialConfig.id_pagina);
                 idpagina = value.initialConfig.id_pagina;
+                idcatalogo = value.initialConfig.id_catalogo;
+                numero = value.initialConfig.numero;
+                source = value.initialConfig.thumb;
                 contador = 0;
                 contador = ($.grep(tprodutos, function(e) { return e.id_pagina == idpagina })).length;
                 Ext.getCmp('open-menu4').setText('Produtos '+contador);
@@ -1028,6 +1073,7 @@ Ext.define('Italbox.Viewport2', {
     handleOrientationChange: function(viewport, orientation, width, height){
          var carr = Ext.getCmp('myCarroucel');
          ind = carr.getActiveIndex();
+         //console.dir(carr.getActiveItem());
          //carr.removeAll(true);
          if (Ext.Viewport.getOrientation() === 'portrait') {
             carr.setItems(tpaginas2_temp);
@@ -1152,6 +1198,7 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('myCarroucel').show();
                                  Ext.getCmp('barra').hide();
                                  Ext.getCmp('barra2').show();
+                                 Ext.getCmp('barra5').show();
                                  Ext.getCmp('footer').show();
                                  Ext.getCmp('back').show();
                                  
@@ -1220,6 +1267,7 @@ Ext.define('Italbox.ViewportPanel', {
                     //carr.removeAll(true,true);
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
+                    Ext.getCmp('barra5').hide();
                     try {
                     var myList2 =  Ext.getCmp('myList2');
                         myList2.hide();
@@ -1294,6 +1342,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
+                                     Ext.getCmp('barra5').hide();
                                      Ext.getCmp('favorites').hide();
                                      Ext.getCmp('help').hide();
                                      /*Ext.getCmp('myList').hide();
@@ -1307,10 +1356,12 @@ Ext.define('Italbox.ViewportPanel', {
                                     delegate: '#menu-favoritos',
                                     event: 'tap',
                                     fn: function() {
-                                         panel_menu.hide();
+                                        panel_menu.hide();
+                                     Ext.getStore('loja').sync();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
+                                     Ext.getCmp('barra5').hide();
                                      Ext.getCmp('italbox').hide();
                                      Ext.getCmp('help').hide();
                                      /*Ext.getCmp('myList').hide();
@@ -1328,6 +1379,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
+                                     Ext.getCmp('barra5').hide();
                                      Ext.getCmp('italbox').hide();
                                      Ext.getCmp('favorites').hide();
                                      /*Ext.getCmp('myList').hide();
@@ -1348,25 +1400,25 @@ Ext.define('Italbox.ViewportPanel', {
         }, 
         
                 },
-        //        {
-        //            align: 'right',
-        //            ui:      'plain',
-        //            xtype: 'button',
-        //            cls: 'open-menu2',
-        //             handler: function () {
-        //       Ext.Msg.confirm(
-        //    "Update",
-        //    "Update Catalog List?",
-        //    function(buttonId) {
-        //        if (buttonId === 'yes') {
-        //            //window.location.reload();
-        //            window.location.href=window.location.href;
-        //        }
-        //    }
-        //);  
-        //}, // handler
-        ////renderTo: Ext.getBody()
-        //        }
+                {
+                    align: 'right',
+                    ui:      'plain',
+                    xtype: 'button',
+                    cls: 'open-menu2',
+                     handler: function () {
+               Ext.Msg.confirm(
+            "Update",
+            "Update Catalog List?",
+            function(buttonId) {
+                if (buttonId === 'yes') {
+                    //window.location.reload();
+                    window.location.href=window.location.href;
+                }
+            }
+        );  
+        }, // handler
+        //renderTo: Ext.getBody()
+                }
             ]
         },
         {
@@ -1651,7 +1703,7 @@ Ext.define('Italbox.ViewportPanel', {
                         //        Ext.getCmp('pop-image').destroy();
                         //}
                    },
-           }
+                }
                            ],
                  initialize: function() {
                                     this.callParent(arguments);
@@ -1662,17 +1714,17 @@ Ext.define('Italbox.ViewportPanel', {
                                     scope: this
                                 });
                                 }
-});
-   panel1.show();
-   panel1.on('hide', function() {
-     Ext.getCmp('footer').show();
-     try
-     {
-        Ext.getCmp('pop-image').destroy();
-     }
-     catch(e){}
-     panel1.destroy();
-});
+                    });
+                       panel1.show();
+                       panel1.on('hide', function() {
+                         Ext.getCmp('footer').show();
+                         try
+                         {
+                            Ext.getCmp('pop-image').destroy();
+                         }
+                         catch(e){}
+                         panel1.destroy();
+                    });
                     } 
                     else{
                          Ext.Msg.alert('', 'Não existem produtos nesta pagina', Ext.emptyFn);
@@ -1694,6 +1746,51 @@ Ext.define('Italbox.ViewportPanel', {
         //////renderTo: Ext.getBody()
                 //}
            ]    
+        },
+        {
+            xtype: 'toolbar',
+            //title: '<div class="logotipo"></div>',
+            id: 'barra5',
+            cls: 'right_bar',
+            docked: 'right',
+            hidden: true,
+            layout: {
+                    type: 'vbox',
+                    pack: 'center',
+                    //align: 'middle'
+            },
+            showAnimation:  
+                {
+                    type: 'slideIn',
+                    duration: 1000,
+                    direction: 'left',
+                    easing: 'easeIn'
+                },  
+                hideAnimation: 
+                {
+                    type: 'slideOut',
+                    duration: 1000,
+                    direction: 'right',
+                    easing: 'easeOut'
+                }, 
+            items: [
+              {
+                    /*align: 'middle',*/ 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu5',
+                    handler: function () {
+                       var carr = Ext.getCmp('myCarroucel');
+                       //console.dir(carr.getActiveItem())
+                       //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
+                       var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: idpagina, id_catalogo: idcatalogo,numero: numero};
+                       Ext.getStore('loja').add(newRecord);
+                       Ext.Msg.alert('', 'Pagina adicionada aos favoritos', Ext.emptyFn);
+                       Ext.getStore('loja').sync();
+                    }
+                },
+        ]
         },
         {
             xtype: 'my-viewport',
@@ -1820,7 +1917,7 @@ Ext.application({
     function onBackKeyDown(eve) {
             eve.preventDefault();
             var lista = Ext.getCmp('myList');
-            console.dir(lista);
+            //console.dir(lista);
             if(lista._hidden === true)
 	    {
 	    	 var carr = Ext.getCmp('myCarroucel');    
