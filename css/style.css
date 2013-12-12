@@ -39,6 +39,7 @@ body{
 
 .favoritos{
    margin-top: 50px !important;
+   margin-left: 10px !important;
 }
 
 
@@ -79,12 +80,12 @@ body{
 }
 
 .right_bar {
-	height: 50px !important;
+	height: 150px !important;
         width: 60px !important;
         bottom: auto;
         position: absolute;
         right: 0;
-        top: 50%;
+        top: 38%;
 	background: transparent;
 	border-left-width:0!important;
 	/*position: absolute;
@@ -92,11 +93,29 @@ body{
         
 }
 
-.open-menu5{
+.open-menu6{
 	position: absolute;
 	width: 45px;
 	height: 45px !important;
+	background-image: url(../imgs/icons/menu2.png) !important;
+
+}
+
+.open-menu5{
+	position: absolute;
+        top: 47px;
+	width: 45px;
+	height: 45px !important;
 	background-image: url(../imgs/icons/favoritos2.png) !important;
+
+}
+
+.open-menu7{
+	position: absolute;
+        top: 94px;
+	width: 45px;
+	height: 45px !important;
+	background-image: url(../imgs/icons/menu3.png) !important;
 
 }
 
@@ -244,7 +263,7 @@ body{
 
 .open-menu{
 	top: 0;
-	right: 10px;
+	right: 0px;
 	position: absolute;
 	width: 45px;
 	height: 45px;
@@ -254,7 +273,7 @@ body{
 
 .open-menu2{
 	top: 0;
-	right: 50px;
+	right: 40px;
 	position: absolute;
 	width: 45px;
 	height: 45px;
@@ -669,4 +688,13 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 1300px)
     color:#000 !important;
     font-size: 20px !important;
     font-family: 'robotomedium' !important;
+}
+
+.x-button {
+  border-radius:0em !important;
+}
+
+x-msgbox.x-floating {
+-webkit-border-radius: 0em !important; 
+border-radius: 0em !important;
 }

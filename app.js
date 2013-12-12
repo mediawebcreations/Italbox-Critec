@@ -1357,7 +1357,7 @@ Ext.define('Italbox.ViewportPanel', {
                                     event: 'tap',
                                     fn: function() {
                                         panel_menu.hide();
-                                     Ext.getStore('loja').sync();
+                                     //Ext.getStore('loja').sync();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
@@ -1782,12 +1782,35 @@ Ext.define('Italbox.ViewportPanel', {
                     cls: 'open-menu5',
                     handler: function () {
                        var carr = Ext.getCmp('myCarroucel');
-                       //console.dir(carr.getActiveItem())
+                       var loja = Ext.getStore('loja');
+                       loja.load();
                        //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
-                       var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: idpagina, id_catalogo: idcatalogo,numero: numero};
-                       Ext.getStore('loja').add(newRecord);
+                       var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
+                       console.dir(newRecord);
+                       loja.add(newRecord);
+                       loja.sync();
                        Ext.Msg.alert('', 'Pagina adicionada aos favoritos', Ext.emptyFn);
-                       Ext.getStore('loja').sync();
+                       
+                    }
+                },
+                  {
+                    /*align: 'middle',*/ 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu6',
+                    handler: function () {
+                       
+                    }
+                },
+                 {
+                    /*align: 'middle',*/ 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu7',
+                    handler: function () {
+                       
                     }
                 },
         ]
