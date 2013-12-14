@@ -807,7 +807,8 @@ Ext.define('Italbox.Viewport5', {
                     },
 
                     //set the itemtpl to show the fields for the store
-                     store: {
+                     store: 'Favorites',
+                     /*{
                         id: 'loja',
                         autoLoad: true,
                         proxy: {
@@ -816,7 +817,7 @@ Ext.define('Italbox.Viewport5', {
                                 type: 'localstorage',
                                 id  : 'lojaKey'
                         },
-                        fields: ['imag','nome','id_pagina','id_catalogo','numero'],
+                        fields: ['imag','nome','id_pagina','id_catalogo','numero'],*/
                        // data: [{
                        //     imag: 'imgs/fav1.jpg',
                        //     nome: 'Catalogo 1 Pagina 16',
@@ -836,7 +837,7 @@ Ext.define('Italbox.Viewport5', {
                        //     id_catalogo: '1',
                        //     numero: '4'
                        //}]
-                    },
+                    /*},*/
                     
                     itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><div style="margin-left:20px; font-size:12px;">{nome}</div>',
                     
@@ -1228,6 +1229,8 @@ Ext.define('Italbox.ViewportPanel', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport-panel',
     config: {
+        //stores : ['Favorites2'],
+        //models : ['Favorite2'],
         fullscreen: true,
         layout: 'fit',
         items: [{
@@ -1782,7 +1785,7 @@ Ext.define('Italbox.ViewportPanel', {
                     cls: 'open-menu5',
                     handler: function () {
                        var carr = Ext.getCmp('myCarroucel');
-                       var loja = Ext.getStore('loja');
+                       var loja = Ext.getStore('Favorites');
                        loja.load();
                        //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
                        var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
@@ -1857,9 +1860,15 @@ Ext.define('Italbox.ViewportPanel', {
 Ext.application({
 
     name  : 'ItalboxCatalog',
+    appFolder: 'app',
+    
     views : [
         'Ext.ux.ImageViewer'
     ],
+  
+    models : ['Favorite'],
+    stores : ['Favorites'],
+    
     icon: {
         '57': 'resources/icons/Icon.png',
         '72': 'resources/icons/Icon~ipad.png',
@@ -1896,6 +1905,7 @@ Ext.application({
      _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
         
     function onLoad() {
+        console.dir(Ext.getStore('Favorites2'));
         try{
         if(_IS_RIPPLE_EMULATOR) {cordova.addDocumentEventHandler('backbutton'); }
         document.addEventListener("online", onOnline, false);
