@@ -38,7 +38,7 @@ body{
 }
 
 .favoritos{
-   margin-top: 50px !important;
+   /*margin-top: 50px !important;*/
    margin-left: 10px !important;
 }
 
@@ -95,14 +95,6 @@ body{
         
 }
 
-.open-menu6{
-	position: absolute;
-	width: 45px;
-	height: 45px !important;
-	background-image: url(../imgs/icons/menu2.png) !important;
-
-}
-
 .open-menu5{
 	position: absolute;
         top: 47px;
@@ -112,6 +104,16 @@ body{
 
 }
 
+.open-menu6{
+	position: absolute;
+	width: 45px;
+	height: 45px !important;
+	background-image: url(../imgs/icons/menu2.png) !important;
+
+}
+
+
+
 .open-menu7{
 	position: absolute;
         top: 94px;
@@ -119,6 +121,37 @@ body{
 	height: 45px !important;
 	background-image: url(../imgs/icons/menu3.png) !important;
 
+}
+
+.open-menu8{
+	position: absolute;
+	width: 45px;
+	height: 45px !important;
+	background-image: url(../imgs/icons/menu4.png) !important;
+
+}
+
+.open-menu9{
+	position: absolute;
+        top: 47px;
+	width: 45px;
+	height: 45px !important;
+	background-image: url(../imgs/icons/favoritos3.png) !important;
+
+}
+
+.open-menu10{
+	position: absolute;
+        top: 94px;
+	width: 45px;
+	height: 45px !important;
+	background-image: url(../imgs/icons/menu5.png) !important;
+
+}
+
+.myBox
+{
+  z-index: 20 !important;              
 }
 
 .foot {
@@ -164,6 +197,7 @@ body{
 
 .pop-up{
    margin:20px;
+   margin-right: 45px !important;
    font-size: 14px;
 }
 
@@ -195,6 +229,19 @@ body{
    height:  80%;
   /* background:#ffffff url(../imgs/fundo-web.jpg) top center no-repeat;*/     
 }
+
+.barraTab
+{
+   margin-top: 50px !important;
+   border-bottom: 3px solid #000000 !important;
+   background: transparent !important;
+   height: 35px !important;
+}
+
+.tabPaginas{
+  background: transparent !important;
+}
+
 
 .lista{
     margin-top: 45px;
@@ -337,6 +384,18 @@ body{
 	width: 45px;
 	height: 45px;
 	background-image: url(../imgs/icons/back.png)!important;
+}
+
+.remove
+{
+  width: 25px;
+  height: 25px;
+  border: none;
+  background-image: url(../imgs/icons/remove.png)!important;
+  background: transparent;
+  position: absolute;
+  margin-top: 5px;
+  margin-left: -30px;
 }
 
 .header > .search{
@@ -699,4 +758,16 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 1300px)
 x-msgbox.x-floating {
 -webkit-border-radius: 0em !important; 
 border-radius: 0em !important;
+}
+
+.x-tabbar-dark.x-docked-top .x-tab-active {
+   color: #000000 !important;
+   background: transparent;
+   border: none !important;
+   border-bottom: 4px solid #000000 !important;
+   border-radius: 0px !important;
+}
+
+.x-tabbar-dark .x-tab {
+color: #000000 !important;
 }

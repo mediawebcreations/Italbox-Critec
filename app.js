@@ -760,9 +760,11 @@ Ext.Loader.setConfig({
 });
 
 Ext.define('Italbox.Viewport5', {
-    extend: 'Ext.Panel',
+    extend: 'Ext.tab.Panel',
     xtype : 'my-viewport5',
     id:'favorites',
+    cls: 'favorites',
+    top: '50px !important',
     config: {
         showAnimation: 
             {
@@ -778,19 +780,37 @@ Ext.define('Italbox.Viewport5', {
                 duration: 700,
                 direction: 'down',
                 easing: 'easeIn'
-            }, 
-            //cls: 'teste',
-            layout: {
-                type: 'vbox',
-                //pack: 'center',
-                //height: '400px',
-                
             },
+            tabBar:    {
+                cls: 'barraTab',
+                layout: {
+                    //type : 'hbox',
+                    //align: 'right',
+                    //pack : 'right'
+                },
+            },
+            //cls: 'teste',
+            //layout: {
+            //    type: 'vbox',
+            //    //pack: 'center',
+            //    //height: '400px',
+            //    
+            //},
             //   scrollable: {
             //    direction: 'vertical'
             //},
            items: [
                 {
+                    
+                      //each item in a tabpanel requires the title configuration. this is displayed
+                    //on the tab for this item
+                    title: 'PÁGINAS',
+                    layout : 'fit',
+                    cls: 'tabPaginas',
+                    //next we give it some simple html
+                    items: [
+                    {
+                    
                     //give it an xtype of list for the list component
                     xtype: 'dataview',
                     //max-height: '400px',
@@ -839,10 +859,25 @@ Ext.define('Italbox.Viewport5', {
                        //}]
                     /*},*/
                     
-                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><div style="margin-left:20px; font-size:12px;">{nome}</div>',
+                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
                     listeners: {
-                        itemtap: function(list, index, target, record) {
+                        itemtap: function(list, index, target, record,e) {
+                            if (e.getTarget('button.remove')) {
+                                Ext.Msg.confirm(
+                            "",
+                            "Remover Favorito "+record.get('nome')+"?",
+                            function(buttonId) {
+                            if (buttonId === 'yes') {
+                                var loja = Ext.getStore('Favorites');
+                                //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
+                                //console.dir(newRecord);
+                                loja.remove(record);
+                                loja.sync();
+                                }});
+                                
+                            }
+                            else{
                              Ext.Msg.confirm(
                             "",
                             "Abrir Favorito "+record.get('nome')+"?",
@@ -885,9 +920,142 @@ Ext.define('Italbox.Viewport5', {
                             //console.dir(fav);
                             }});*/
                         }
-                           
+                        }  
                     }
-                }
+                    
+                    }
+                    ],
+
+                    
+                },
+                {
+                    
+                      //each item in a tabpanel requires the title configuration. this is displayed
+                    //on the tab for this item
+                    title: 'PRODUTOS',
+                    layout : 'fit',
+                    cls: 'tabPaginas',
+                    //next we give it some simple html
+                    items: [
+                    {
+                    
+                    //give it an xtype of list for the list component
+                    xtype: 'dataview',
+                    //max-height: '400px',
+                    cls: 'favoritos',
+                    //top: '50px !important',
+                    //margin: '50px 0 0 0',
+                    flex: 1,
+                    scrollable: {
+                        direction: 'vertical',
+                        //indicators: false
+                    },
+                    inline: {
+                        wrap: true
+                    },
+
+                    //set the itemtpl to show the fields for the store
+                     store: 'Favorites2',
+                     /*{
+                        id: 'loja',
+                        autoLoad: true,
+                        proxy: {
+                            //use sessionstorage if need to save data for that
+                            //specific session only
+                                type: 'localstorage',
+                                id  : 'lojaKey'
+                        },
+                        fields: ['imag','nome','id_pagina','id_catalogo','numero'],*/
+                       // data: [{
+                       //     imag: 'imgs/fav1.jpg',
+                       //     nome: 'Catalogo 1 Pagina 16',
+                       //     id_pagina: '15',
+                       //     id_catalogo: '1',
+                       //     numero: '16'
+                       // }, {
+                       //     imag: 'imgs/fav2.jpg',
+                       //     nome: 'Catalogo 1 Pagina 5',
+                       //     id_pagina: '4',
+                       //     id_catalogo: '1',
+                       //     numero: '5'
+                       // }, {
+                       //     imag: 'imgs/fav3.jpg',
+                       //     nome: 'Catalogo 1 Pagina 4',
+                       //     id_pagina: '3',
+                       //     id_catalogo: '1',
+                       //     numero: '4'
+                       //}]
+                    /*},*/
+                    
+                    itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome} {ref}</div>',
+                    
+                    listeners: {
+                        itemtap: function(list, index, target, record,e) {
+                            if (e.getTarget('button.remove')) {
+                                Ext.Msg.confirm(
+                            "",
+                            "Remover Favorito "+record.get('nome')+"?",
+                            function(buttonId) {
+                            if (buttonId === 'yes') {
+                                var loja2 = Ext.getStore('Favorites2');
+                                //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
+                                //console.dir(newRecord);
+                                loja2.remove(record);
+                                loja2.sync();
+                                }});
+                                
+                            }
+                            else{
+                            // Ext.Msg.confirm(
+                            //"",
+                            //"Abrir Favorito "+record.get('nome')+"?",
+                            //function(buttonId) {
+                            //if (buttonId === 'yes') {
+                            //     var carr = Ext.getCmp('myCarroucel');
+                            //     var ori = Ext.Viewport.getOrientation();
+                            //     Ext.getCmp('favorites').hide();
+                            //     carr.removeAll(true,true);
+                            //     idcatalogo = record.get('id_catalogo');
+                            //     tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
+                            //     tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
+                            //     tamanho = tpaginas2_temp.length;
+                            //     //alert(tamanho);
+                            // if (ori === 'portrait') {
+                            //     carr.setItems(tpaginas2_temp);
+                            //     carr.setActiveItem((record.get('numero')*2)-3);
+                            // }
+                            // else{
+                            //     carr.setItems(tpaginas_temp);
+                            //     carr.setActiveItem(record.get('numero')-1);
+                            // }
+                            // Ext.getCmp('footer').show();
+                            // Ext.getCmp('barra5').show();
+                            // carr.show();
+                            ////var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
+                            //
+                            //}});
+                             
+                             
+                            /////Remover
+                            /* Ext.Msg.confirm(
+                            "",
+                            "Remover "+record.get('nome')+"?",
+                            function(buttonId) {
+                            if (buttonId === 'yes') {
+                            //Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
+                            var fav =  Ext.StoreManager.get('loja');
+                            fav.remove(record);
+                            //console.dir(fav);
+                            }});*/
+                        }
+                        }  
+                    }
+                    
+                    }
+                    ],
+
+                    
+                },
             ],
            
     }
@@ -1519,6 +1687,7 @@ Ext.define('Italbox.ViewportPanel', {
                        if (contador > 0) { 
                            
                         Ext.getCmp('footer').hide();
+                        Ext.getCmp('barra5').hide();
                          if( typeof panel1 !== 'undefined' ) {
                                  panel1.destroy();
                         }
@@ -1656,6 +1825,88 @@ Ext.define('Italbox.ViewportPanel', {
                                      /*align: 'left'*/
                                     },
                                 items: [
+                                     {
+            xtype: 'toolbar',
+            //title: '<div class="logotipo"></div>',
+            //id: 'barra5',
+            cls: 'right_bar',
+            docked: 'right',
+            //hidden: true,
+            layout: {
+                    type: 'vbox',
+                    pack: 'center',
+                    //align: 'middle'
+            },
+            //showAnimation:  
+            //    {
+            //        type: 'slideIn',
+            //        duration: 1000,
+            //        direction: 'left',
+            //        easing: 'easeIn'
+            //    },  
+            //    hideAnimation: 
+            //    {
+            //        type: 'slideOut',
+            //        duration: 1000,
+            //        direction: 'right',
+            //        easing: 'easeOut'
+            //    }, 
+            items: [
+              {
+                    /*align: 'middle',*/ 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu9',
+                    handler: function () {
+                       // alert('teste');
+                       //var carr = Ext.getCmp('myCarroucel');
+                       var loja2 = Ext.getStore('Favorites2');
+                       loja2.load();
+                        //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
+                       var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_catalogo: record.get('id_pagina')};
+                       ////console.dir(newRecord);
+                       loja2.add(newRecord2);
+                       loja2.sync();
+                       
+                        Ext.Msg.show({
+                            title: '',
+                            message: 'Produto adicionado aos favoritos',
+                            cls: 'myBox',
+                            zIndex: '20 !important',
+                            buttons: [
+                            { text : 'Ok', ui : 'confirm' }
+                            ],
+                        });
+                       //console.dir(msgb);
+                       //Ext.Msg.alert('', 'Produto adicionado aos favoritos', Ext.emptyFn);
+                       
+                    }
+                },
+                  {
+                    /*align: 'middle',*/ 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu8',
+                    handler: function () {
+                       
+                    }
+                },
+                 {
+                    /*align: 'middle',*/ 
+                    ui:    'plain',
+                    xtype: 'button',
+                   /* text: 'teste',*/
+                    cls: 'open-menu10',
+                    handler: function () {
+                       
+                    }
+                },
+        ]
+        },
+                                    
+                                    
                                     {
                                         xtype: 'toolbar',
                                         //title: '<div class="logotipo"></div>',
@@ -1721,6 +1972,7 @@ Ext.define('Italbox.ViewportPanel', {
                        panel1.show();
                        panel1.on('hide', function() {
                          Ext.getCmp('footer').show();
+                         Ext.getCmp('barra5').show();
                          try
                          {
                             Ext.getCmp('pop-image').destroy();
@@ -1789,7 +2041,7 @@ Ext.define('Italbox.ViewportPanel', {
                        loja.load();
                        //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
                        var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
-                       console.dir(newRecord);
+                       //console.dir(newRecord);
                        loja.add(newRecord);
                        loja.sync();
                        Ext.Msg.alert('', 'Pagina adicionada aos favoritos', Ext.emptyFn);
@@ -1866,8 +2118,15 @@ Ext.application({
         'Ext.ux.ImageViewer'
     ],
   
-    models : ['Favorite'],
-    stores : ['Favorites'],
+    models : [
+        'Favorite',
+        'Favorite2'
+              
+    ],
+    stores : [
+        'Favorites',
+        'Favorites2'
+    ],
     
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -1905,7 +2164,6 @@ Ext.application({
      _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
         
     function onLoad() {
-        console.dir(Ext.getStore('Favorites2'));
         try{
         if(_IS_RIPPLE_EMULATOR) {cordova.addDocumentEventHandler('backbutton'); }
         document.addEventListener("online", onOnline, false);
