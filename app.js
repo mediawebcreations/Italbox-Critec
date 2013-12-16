@@ -1369,6 +1369,7 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('barra2').show();
                                  Ext.getCmp('barra5').show();
                                  Ext.getCmp('footer').show();
+                                 Ext.getCmp('open-menu4').show();
                                  Ext.getCmp('back').show();
                                  
                        
@@ -1465,7 +1466,8 @@ Ext.define('Italbox.ViewportPanel', {
                                  panel_menu.destroy();
                         }
                          var panel_menu = Ext.Viewport.add({ 
-                            xtype: 'container',  
+                            xtype: 'container',
+                            id: 'menuP',
                             modal: {
                                 style: 'opacity: 0.8; background-color: #ffffff;'
                             },
@@ -1971,8 +1973,12 @@ Ext.define('Italbox.ViewportPanel', {
                     });
                        panel1.show();
                        panel1.on('hide', function() {
+                        var lista = Ext.getCmp('myList');
+                        if(lista._hidden === true)
+                        {
                          Ext.getCmp('footer').show();
                          Ext.getCmp('barra5').show();
+                        }
                          try
                          {
                             Ext.getCmp('pop-image').destroy();
@@ -2209,27 +2215,34 @@ Ext.application({
             eve.preventDefault();
             var lista = Ext.getCmp('myList');
             //console.dir(lista);
+            try {
+                Ext.getCmp('menuP').hide();
+            }
+            catch(err) {}
             if(lista._hidden === true)
 	    {
-	    	 var carr = Ext.getCmp('myCarroucel');    
-                    carr.hide();
-                    carr.on('hide', function() {
-                         carr.removeAll(true,true);
-                    });
-                    Ext.getCmp('barra2').hide();
-                    Ext.getCmp('footer').hide();
-                    try {
+                contador = 0;
+                try {
                     var myList2 =  Ext.getCmp('myList2');
-                        myList2.hide();
-                    }
-                    catch(err) {}
-                    Ext.getCmp('back').hide();
-                    Ext.getCmp('italbox').hide();
-                    Ext.getCmp('help').hide();
-                    Ext.getCmp('favorites').hide();
-                    Ext.getCmp('barra5').hide();
-                    Ext.getCmp('barra').show();
-                    lista.show();	
+                    myList2.hide();
+                    Ext.getCmp('pop-image').hide();
+                }
+                catch(err) {}
+	    	var carr = Ext.getCmp('myCarroucel');    
+                carr.hide();
+                carr.on('hide', function() {
+                    carr.removeAll(true,true);
+                });
+                Ext.getCmp('back').hide();
+                Ext.getCmp('italbox').hide();
+                Ext.getCmp('help').hide();
+                Ext.getCmp('favorites').hide();
+                Ext.getCmp('barra2').hide();
+                Ext.getCmp('footer').hide();
+                Ext.getCmp('barra').show();
+                Ext.getCmp('open-menu4').hide();
+                Ext.getCmp('barra5').hide();
+                lista.show();	
 	    }
 	    else
 	    {
