@@ -95,6 +95,11 @@ body{
         
 }
 
+.search{
+   top: 50px !important;
+   background: transparent;
+}
+
 .open-menu5{
 	position: absolute;
         top: 47px;
@@ -236,6 +241,16 @@ body{
    border-bottom: 3px solid #000000 !important;
    background: transparent !important;
    height: 35px !important;
+}
+
+.barraPesquisa
+{
+  background: transparent !important;
+  border-bottom: 3px solid #000000 !important;
+}
+
+.search{
+   border-radius: 0px !important;             
 }
 
 .tabPaginas{
@@ -770,4 +785,24 @@ border-radius: 0em !important;
 
 .x-tabbar-dark .x-tab {
 color: #000000 !important;
+}
+
+.x-toolbar .x-field-search .x-component-outer {
+-webkit-border-radius: 0px !important;
+border-radius: 0px !important;
+-webkit-box-shadow: none !important;
+border: 2px solid #000 !important;
+}
+
+.x-toolbar .x-field-search .x-component-outer {
+-webkit-border-radius: 0px !important;
+border-radius: 0px !important;
+}
+
+.x-list .x-list-item.x-item-selected .x-list-item-label {
+background-image: #FFFFFF !important;
+background: #FFFFFF !important;
+color : #000000 !important;
+border-top-color: #dedede !important;
+border-bottom-color: #dedede !important;
 }
