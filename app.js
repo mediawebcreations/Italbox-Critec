@@ -784,11 +784,12 @@ Ext.define('Italbox.Viewport6', {
             direction: 'down',
             easing: 'easeIn'
         }, 
-                //cls: 'teste',
-        store: {id: 'produtos',
-                 data:tprodutos
-               },
-            
+        store:
+        {
+            id: 'produtos',
+            data:tprodutos
+        },
+        
         itemTpl:  '<div class="myContent">'+
             '<img src="'+caminho+'{foto}" style="float:left; width:60px; margin-right:20px;"></img>' +
             '<div>Nome: <b>{nome}</b></div>' +
