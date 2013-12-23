@@ -767,8 +767,10 @@ Ext.define('Italbox.Viewport7', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport7',
     id:'menuI',
+    cls: 'menuI',
     config: {
-        showAnimation: 
+            
+            showAnimation: 
             {
                 type: 'slideIn',
                 duration: 1000,
@@ -984,7 +986,6 @@ Ext.define('Italbox.Viewport5', {
     xtype : 'my-viewport5',
     id:'favorites',
     cls: 'favorites',
-    top: '50px !important',
     config: {
         showAnimation: 
             {
@@ -1494,7 +1495,7 @@ Ext.define('Italbox.Viewport', {
             {
                 type: 'slideIn',
                 duration: 1000,
-                delay: 500,
+                delay: 700,
                 direction: 'up',
                 easing: 'easeOut'
             },  
@@ -2399,7 +2400,7 @@ Ext.define('Italbox.ViewportPanel', {
             xtype: 'my-viewport7',
             //hidden: true,
             id: 'menuI',
-            //cls: 'pesquisa',
+            cls: 'menuI',
         },
         //{
         //    xtype: 'panel',

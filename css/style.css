@@ -19,23 +19,6 @@ body{
 	     url('font/roboto-medium-webfont.svg#webfont') format('svg');
 }
 
-.menuI {
-	height: 250px !important;
-        width: 90px !important;
-        bottom: auto;
-        position: absolute;
-        right: 0;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-	background: transparent;
-	border-left-width:0!important;
-	/*position: absolute;
-        z-index: 2;*/
-        
-}
-
 .start-menu{
 	margin-right: 5px;
         margin-left: 5px;
@@ -193,6 +176,10 @@ body{
 .pesquisa{
    top: 50px !important;
    background: transparent;
+}
+
+.menuI{
+   top: 10px !important;
 }
 
 .open-menu5{
