@@ -4,6 +4,7 @@ window.dao =  {
     syncURL2: "http://www.critecns.com/italbox/connect.php?table=paginas",
     syncURL3: "http://www.critecns.com/italbox/connect.php?table=produtos",
     syncURL4: "http://www.critecns.com/italbox/connect.php?table=categorias",
+    syncURL5: "http://www.critecns.com/italbox/connect.php?table=produtos_paginas",
     //syncURL:  "../../italbox/connect.php?table=catalogos",
     //syncURL2: "../../italbox/connect.php?table=paginas",
     //syncURL3: "../../italbox/connect.php?table=produtos",
@@ -22,9 +23,9 @@ window.dao =  {
         // does not already exist.
         this.db.transaction(
             function(tx) {
-                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos' OR name='paginas' OR name='produtos' OR name='categorias'", this.txErrorHandler,
+                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos' OR name='paginas' OR name='produtos' OR name='categorias' OR name='produtos_paginas'", this.txErrorHandler,
                     function(tx, results) {
-                        if (results.rows.length == 4) {
+                        if (results.rows.length == 5) {
                             log('Using existing Catalogos table in local SQLite database');
                         }
                         else
@@ -34,6 +35,7 @@ window.dao =  {
                             self.createTable2(callback);
                             self.createTable3(callback);
                             self.createTable4(callback);
+                            self.createTable5(callback);
                         }
                     });
             }
@@ -129,6 +131,26 @@ window.dao =  {
         );
     },
 
+    createTable5: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql =
+                    "CREATE TABLE IF NOT EXISTS produtos_paginas ( " +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "produto_id VARCHAR(50), " +
+                    "pagina_id VARCHAR(50), " +
+                    "priority VARCHAR(50), " +
+                    "lastModified VARCHAR(50))";
+                tx.executeSql(sql);
+            },
+            this.txErrorHandler,
+            function() {
+                log('Table produtos_paginas successfully CREATED in local SQLite database');
+                callback();
+            }
+        );
+    },
+    
     dropTable: function(callback) {
         this.db.transaction(
             function(tx) {
@@ -225,6 +247,27 @@ window.dao =  {
             }
         );
     },
+    
+    findAll5: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT * FROM PRODUTOS_PAGINAS PP INNER JOIN PRODUTOS P ON P.id_produto=PP.produto_id;";
+                log('Local SQLite database: "SELECT * FROM PRODUTOS_PAGINAS"');
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var len = results.rows.length,
+                            produtos_paginas = [],
+                            i = 0;
+                        for (; i < len; i = i + 1) {
+                            produtos_paginas[i] = results.rows.item(i);
+                        }
+                        log(len + ' rows found');
+                        callback(produtos_paginas);
+                    }
+                );
+            }
+        );
+    },
 
     getLastSync: function(callback) {
         this.db.transaction(
@@ -275,6 +318,21 @@ window.dao =  {
         this.db.transaction(
             function(tx) {
                 var sql = "SELECT MAX(lastModified) as lastSync FROM categorias";
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var lastSync = results.rows.item(0).lastSync;
+                        log('Last local timestamp is ' + lastSync);
+                        callback(lastSync);
+                    }
+                );
+            }
+        );
+    },
+    
+     getLastSync5: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT MAX(lastModified) as lastSync FROM produtos_paginas";
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
                         var lastSync = results.rows.item(0).lastSync;
@@ -353,6 +411,23 @@ window.dao =  {
             );
         });
     },
+    
+    sync5: function(callback) {
+        var self = this;
+        log('Starting synchronization...');
+        this.getLastSync5(function(lastSync){
+            self.getChanges5(self.syncURL5, lastSync,
+                function (changes) {
+                    if (changes.length > 0) {
+                        self.applyChanges5(changes, callback);
+                    } else {
+                        log('Nothing to synchronize');
+                        callback();
+                    }
+                }
+            );
+        });
+    },
 
     getChanges: function(syncURL, modifiedSince, callback) {
 
@@ -412,6 +487,24 @@ window.dao =  {
 
         $.ajax({
             url: syncURL4,
+            data: {modifiedSince: modifiedSince},
+            dataType:"json",
+            success:function (data) {
+                log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+                //alert(modifiedSince);
+                callback(data);
+            },
+            error: function(model, response) {
+                //alert("A trabalhar em modo offline");
+            }
+        });
+
+    },
+    
+    getChanges5: function(syncURL5, modifiedSince, callback) {
+
+        $.ajax({
+            url: syncURL5,
             data: {modifiedSince: modifiedSince},
             dataType:"json",
             success:function (data) {
@@ -509,8 +602,32 @@ window.dao =  {
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = categorias[i];
-                    log(e.id_categoria + ' ' + e.nome + ' ' + ' ' + e.estado + e.lastModified);
+                    log(e.id_categoria + ' ' + e.nome + ' ' + e.estado + ' '  + e.lastModified);
                     var params = [e.id_categoria, e.nome, e.estado, e.lastModified];
+                    tx.executeSql(sql, params);
+                }
+                log('Synchronization complete (' + l + ' items synchronized)');
+            },
+            this.txErrorHandler,
+            function(tx) {
+                callback();
+            }
+        );
+    },
+    
+    applyChanges5: function(produtos_paginas, callback) {
+        this.db.transaction(
+            function(tx) {
+                var l = produtos_paginas.length;
+                var sql =
+                    "INSERT OR REPLACE INTO produtos_paginas (id , produto_id , pagina_id , priority , lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+                log('Inserting or Updating in local database:');
+                var e;
+                for (var i = 0; i < l; i++) {
+                    e = produtos_paginas[i];
+                    log(e.id + ' ' + e.produto_id + ' ' + e.pagina_id + ' ' + e.priority + ' ' + e.lastModified);
+                    var params = [e.id, e.produto_id, e.pagina_id,e.priority, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -546,6 +663,7 @@ dao.sync(renderList);
 dao.sync2(renderList2);
 dao.sync3(renderList3);
 dao.sync4(renderList4);
+dao.sync5(renderList5);
 };
 
 function runApp3() {
@@ -553,7 +671,7 @@ renderList();
 };
 
 function runApp4() {
-$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync(renderList2)).then(dao.sync(renderList3)).then(dao.sync(renderList4)).then(sencha());
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(sencha());
 };
 
 //dao.sync(renderList);
@@ -625,6 +743,17 @@ function renderList4(categorias) {
     });
 };
 
+function renderList5(produtos_paginas) {
+    log('Rendering list using local SQLite data...');
+    dao.findAll5(function(produtos_paginas) {
+        $('#list').empty();
+        var l = produtos_paginas.length;
+        for (var i = 0; i < l; i++) {
+            var produtos_pagina = produtos_paginas[i];
+        }
+    });
+};
+
 //function renderImagens(catalogos) {
 //    log('Rendering list using local SQLite data...');
 //    dao.findAll(function(catalogos) {
@@ -647,6 +776,7 @@ function renderTables(callback) {
     var tpaginas2 = [];
     var tprodutos = [];
     var tcategorias = [];
+    var tprodutos_paginas = [];
     var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
     //var arr = [];
     //var arr2 = {xtype: 'imageviewer', imageSrc: 'http://orcamentos.eu/wp-content/uploads/2011/05/Italbox.png' };
@@ -726,6 +856,19 @@ function renderTables(callback) {
          
     });
     dao.findAll4(function(categorias) {
+        //var l = produtos.length;
+        //for (var i = 0; i < l; i++) {
+          //  var produto = produtos[i];
+            //var listaProdutos = {
+                  
+              //};
+              //tprodutos.push(listaProdutos); 
+         //}
+         tcategorias = categorias;
+         //callback(arr,arr2,arr3);
+         
+    });
+    dao.findAll5(function(produtos_paginas) {
         //var l = categorias.length;
         //for (var i = 0; i < l; i++) {
             //var categoria = categorias[i];
@@ -734,8 +877,9 @@ function renderTables(callback) {
               //};
               //tcategorias.push(listaCategorias); 
          //}
-         tcategorias = categorias;
-         callback(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias);
+         tprodutos_paginas = produtos_paginas;
+         //console.dir(tprodutos_paginas);
+         callback(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias,tprodutos_paginas);
     });
 };
 
@@ -744,7 +888,7 @@ function log(msg) {
 };
 
 function sencha(){
-renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias){
+renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias,tprodutos_paginas){
 var tpaginas_temp = [];
 var tpaginas2_temp = [];
 var idcatalogo = 0;
@@ -769,7 +913,6 @@ Ext.define('Italbox.Viewport7', {
     id:'menuI',
     cls: 'menuI',
     config: {
-            
             showAnimation: 
             {
                 type: 'slideIn',
@@ -897,7 +1040,7 @@ Ext.define('Italbox.Viewport6', {
                },
             
         itemTpl:  '<div class="myContent">'+
-            '<img src="'+caminho+'{foto}" style="float:left; width:60px; margin-right:20px;"></img>' +
+            '<img src="'+caminho+'{foto}" style="float:left; height:45px; margin-right:20px;"></img>' +
             '<div>Nome: <b>{nome}</b></div>' +
             '<div>Ref: <b>{ref}</b></div>' +
             '</div>',
@@ -1413,7 +1556,7 @@ Ext.define('Italbox.Viewport2', {
                 numero = value.initialConfig.numero;
                 source = value.initialConfig.thumb;
                 contador = 0;
-                contador = ($.grep(tprodutos, function(e) { return e.id_pagina == idpagina })).length;
+                contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
                 Ext.getCmp('open-menu4').setText('Produtos '+contador);
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
             },
@@ -2020,32 +2163,32 @@ Ext.define('Italbox.ViewportPanel', {
                 //},
                 items     : [
                      {
-                                        xtype: 'toolbar',
-                                        //title: '<div class="logotipo"></div>',
-                                        /*id: 'barra2',*/
-                                        cls: 'header4',
-                                        docked: 'top',
-                                        /*hidden: true,*/
-                                        layout: {
-                                                type: 'hbox',
-                                                pack: 'center'
-                                        },
-                                       
-                                        items: [
-                                            {
-                                           // align: 'right', 
-                                            ui:    'plain',
-                                            xtype: 'button',
-                                            cls: 'close-menu4',
-                                            text:  Ext.getCmp('open-menu4').getText(),
-                                            //hidden: true,
-                                            handler: function () {
-                                             //   Ext.getCmp('pop-image').hide();
-                                                panel1.hide();
-                                                }
-                                            },
-                                        ]    
-                                    },
+                        xtype: 'toolbar',
+                        //title: '<div class="logotipo"></div>',
+                        /*id: 'barra2',*/
+                        cls: 'header4',
+                        docked: 'top',
+                        /*hidden: true,*/
+                        layout: {
+                                type: 'hbox',
+                                pack: 'center'
+                        },
+                       
+                        items: [
+                            {
+                           // align: 'right', 
+                            ui:    'plain',
+                            xtype: 'button',
+                            cls: 'close-menu4',
+                            text:  Ext.getCmp('open-menu4').getText(),
+                            //hidden: true,
+                            handler: function () {
+                             //   Ext.getCmp('pop-image').hide();
+                                panel1.hide();
+                                }
+                            },
+                        ]    
+                    },
                    {   
                 //give it an xtype of list for the list component
                    xtype: 'dataview',
@@ -2064,8 +2207,8 @@ Ext.define('Italbox.ViewportPanel', {
 
                    //set the itemtpl to show the fields for the store
                     store: {
-                       fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
-                       data: $.grep(tprodutos, function(e) { return e.id_pagina ==  idpagina && e.id_catalogo == idcatalogo})
+                       fields: ['descricao','estado','foto','id','id_catalogo','id_pagina','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
+                       data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
                      //  [{
                      //      capa: 'imgs/produto1.jpg',
                      //      cor: 'azul',
@@ -2077,7 +2220,7 @@ Ext.define('Italbox.ViewportPanel', {
                      //  },
                      //]
                    },
-                   itemTpl: '<img style="margin-right:10px;margin-top:10px; width:100px;" src="'+caminho+'{foto}">',
+                   itemTpl: '<img style="margin-right:10px;margin-top:10px; height:75px;" src="'+caminho+'{foto}">',
                     //itemTpl: new Ext.XTemplate('<img style="margin-right:10px; height:75px;" src="{capa}">'),
                    //itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                    listeners: {
@@ -2154,7 +2297,7 @@ Ext.define('Italbox.ViewportPanel', {
                        var loja2 = Ext.getStore('Favorites2');
                        loja2.load();
                         //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
-                       var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('id_pagina')};
+                       var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
                        ////console.dir(newRecord);
                        loja2.add(newRecord2);
                        loja2.sync();
