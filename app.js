@@ -945,25 +945,25 @@ Ext.define('Italbox.Viewport7', {
                    
            items : [
               {
-               html:  '<div style="display: flex;"><div id="start-italbox" class="start-menu"; style="">'+
+               html:  '<div style="display: -webkit-box;"><div id="start-italbox" class="start-menu"; style="margin-left: 0px !important">'+
                '<img src="imgs/icons/italbox_menu2.png" style=""></div>'+
-               '<div id="start-catalogos"  class="start-menu"; style="">'+
+               '<div id="start-catalogos"  class="start-menu"; style="margin-right: 0px !important">'+
                '<img id="start-catalogos" src="imgs/icons/catalogos_menu.png" style=""></div></div>',
-                margin: '5px',
+                //margin: '5px',
               },
                {
-               html:  '<div style="display: flex;"><div id="start-favoritos" class="start-menu" style="">'+
+               html:  '<div style="display: -webkit-box;"><div id="start-favoritos" class="start-menu" style="margin-left: 0px !important">'+
                '<img src="imgs/icons/favoritos_menu.png" style=""></div>'+
-               '<div class="start-menu";  style="">'+
+               '<div class="start-menu";  style="margin-right: 0px !important">'+
                '<img src="imgs/icons/language_menu.png" style=""></div></div>',
-                margin: '5px',
+                //margin: '5px',
               },
               
                {
-               html:  '<div style="display: flex;"><div class="start-menu"; id="start-help" style="width:100% !important;">'+
+               html:  '<div style="display: -webkit-box;"><div class="start-menu"; id="start-help" style="width:100% !important; margin-left: 0px !important; margin-right: 0px !important;">'+
                '<img src="imgs/icons/ajuda_menu.png" style=""></div>'
                 /*'<div style="margin-left: 5px; text-align: center; font-size:12px; width:100px; height:100px;</div></div>'*/,
-                margin: '5px',
+                //margin: '5px',
               },
            
                                
