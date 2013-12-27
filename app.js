@@ -9,6 +9,7 @@ window.dao =  {
     //syncURL2: "../../italbox/connect.php?table=paginas",
     //syncURL3: "../../italbox/connect.php?table=produtos",
     //syncURL4: "../../italbox/connect.php?table=categorias",
+    //syncURL5: "../../italbox/connect.php?table=produtos_paginas",
     //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
     //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/GitHub/connect.php?test=1",
@@ -1089,7 +1090,7 @@ Ext.define('Italbox.Viewport6', {
         listeners: {
             itemtap: function(list, index, target, record) {
                 //Ext.Msg.alert('', ''+record.get('nome'), Ext.emptyFn);
-                Ext.Msg.confirm(
+                /*Ext.Msg.confirm(
                             "",
                             "Abrir Pagina do Produto "+record.get('nome')+"?",
                             function(buttonId) {
@@ -1118,7 +1119,7 @@ Ext.define('Italbox.Viewport6', {
                              carr.show();
                             //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
                       
-                            }});
+                            }});*/
             }
         }
     }
@@ -1370,7 +1371,7 @@ Ext.define('Italbox.Viewport5', {
                                 
                             }
                             else{
-                             Ext.Msg.confirm(
+                            /* Ext.Msg.confirm(
                             "",
                             "Abrir Favorito "+record.get('nome')+"?",
                             function(buttonId) {
@@ -1401,7 +1402,7 @@ Ext.define('Italbox.Viewport5', {
                              carr.show();
                             //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
                             
-                            }});
+                            }});*/
                              
                              
                             /////Remover
