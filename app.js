@@ -1,5 +1,4 @@
 window.dao =  {
-    //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
     syncURL:  "http://www.critecns.com/italbox/connect.php?table=catalogos",
     syncURL2: "http://www.critecns.com/italbox/connect.php?table=paginas",
     syncURL3: "http://www.critecns.com/italbox/connect.php?table=produtos",
@@ -10,6 +9,7 @@ window.dao =  {
     //syncURL3: "../../italbox/connect.php?table=produtos",
     //syncURL4: "../../italbox/connect.php?table=categorias",
     //syncURL5: "../../italbox/connect.php?table=produtos_paginas",
+    //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
     //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
     //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
     //syncURL: "http://10.0.2.2:8080/GitHub/connect.php?test=1",
@@ -942,7 +942,7 @@ Ext.define('Italbox.Viewport7', {
                     },
                     inline: {
                         wrap: true
-                    },*/
+            },*/
                    
            items : [
               {
@@ -1038,8 +1038,7 @@ Ext.define('Italbox.Viewport6', {
                 //cls: 'teste',
         store: {id: 'produtos',
                  data:tprodutos
-               },
-            
+        },
         itemTpl:  '<div class="myContent">'+
             '<img src="'+caminho+'{foto}" style="float:left; height:45px; margin-right:20px;"></img>' +
             '<div>Nome: <b>{nome}</b></div>' +
@@ -1090,36 +1089,85 @@ Ext.define('Italbox.Viewport6', {
         listeners: {
             itemtap: function(list, index, target, record) {
                 //Ext.Msg.alert('', ''+record.get('nome'), Ext.emptyFn);
-                /*Ext.Msg.confirm(
+                Ext.Msg.confirm(
                             "",
                             "Abrir Pagina do Produto "+record.get('nome')+"?",
                             function(buttonId) {
+                           
                             if (buttonId === 'yes') {
-                                 var carr = Ext.getCmp('myCarroucel');
-                                 var ori = Ext.Viewport.getOrientation();
-                                 Ext.getCmp('search').hide();
-                                 carr.removeAll(true,true);
-                                 idcatalogo = record.get('id_catalogo');
-                                 tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
-                                 tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 tamanho = tpaginas2_temp.length;
-                                 //alert(tamanho);
-                             if (ori === 'portrait') {
-                                 carr.setItems(tpaginas2_temp);
-                                 //carr.setActiveItem((record.get('numero')*2)-3);
-                                 carr.setActiveItem(0);
-                             }
-                             else{
-                                 carr.setItems(tpaginas_temp);
-                                 //carr.setActiveItem(record.get('numero')-1);
-                                 carr.setActiveItem(0);
-                             }
-                             Ext.getCmp('footer').show();
-                             Ext.getCmp('barra5').show();
-                             carr.show();
-                            //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
-                      
-                            }});*/
+                                if( typeof panel_produto !== 'undefined' ) {
+                                 panel_produto.destroy();
+                            }
+                            panel_produto = Ext.Viewport.add({ 
+                                xtype: 'container',
+                                /*height: '70%',*/
+                                id: 'pop-produto',
+                                cls: 'pop-produto',
+                                /*modal: {
+                                    style: 'opacity: 0; background-color: #ffffff;'
+                                },*/
+                                float: true,
+                                // modal: true,
+                                showAnimation: 
+                                {
+                                    type: 'pop',
+                                    duration: 300,
+                                },  
+                                //hideAnimation: 
+                                //{
+                                //    type: 'popOut',
+                                //    duration: 300,
+                                //    //direction: 'down',
+                                //    //easing: 'easeIn'
+                                //},
+                                layout : {
+                                    type : 'vbox',
+                                     /*align: 'left'*/
+                                },
+                                items: [
+                                    {
+                                        xtype: 'toolbar',
+                                        //title: '<div class="logotipo"></div>',
+                                        /*id: 'barra2',*/
+                                        cls: 'header3',
+                                        /*docked: 'top',*/
+                                        /*hidden: true,*/
+                                        layout: {
+                                                type: 'hbox',
+                                                pack: 'right'
+                                        },
+                                       
+                                        items: [
+                                            {
+                                            align: 'right', 
+                                            ui:    'plain',
+                                            xtype: 'button',
+                                            cls: 'close',
+                                            //hidden: true,
+                                            handler: function () {
+                                                Ext.getCmp('pop-produto').hide();
+                                                /*panel2.destroy();*/
+                                                }
+                                            },
+                                        ]    
+                                    },
+                                    {
+                                        html  : '<div class="pop-up">'+
+                                        '<img src="'+caminho+record.get('foto')+'">'+
+                                        '<br\>'+record.get('nome')+'<br/>'+
+                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                  
+                                    },
+                                ],
+                               
+                            });
+                        //show the panel
+                        panel_produto.show();
+                        panel_produto.on('hide', function() {
+                           panel_produto.destroy();
+                        });
+                              
+                        }});
             }
         }
     }
@@ -1371,51 +1419,84 @@ Ext.define('Italbox.Viewport5', {
                                 
                             }
                             else{
-                            /* Ext.Msg.confirm(
+                            Ext.Msg.confirm(
                             "",
                             "Abrir Favorito "+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                 var carr = Ext.getCmp('myCarroucel');
-                                 var ori = Ext.Viewport.getOrientation();
-                                 Ext.getCmp('favorites').hide();
-                                 carr.removeAll(true,true);
-                                 idcatalogo = record.get('id_catalogo');
-                                 tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
-                                 tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 tamanho = tpaginas2_temp.length;
-                                 Ext.Msg.alert('', ''+idcatalogo, Ext.emptyFn);
-                                 //alert(tamanho);
-                             if (ori === 'portrait') {
-                                 carr.setItems(tpaginas2_temp);
-                                 carr.setActiveItem(0);
-                                 //carr.setActiveItem((record.get('numero')*2)-3);
-                             }
-                             else{
-                                 carr.setItems(tpaginas_temp);
-                                 carr.setActiveItem(0);
-                                 //carr.setActiveItem(record.get('numero')-1);
-                             }
-                             
-                             Ext.getCmp('footer').show();
-                             Ext.getCmp('barra5').show();
-                             carr.show();
-                            //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
-                            
-                            }});*/
-                             
-                             
-                            /////Remover
-                            /* Ext.Msg.confirm(
-                            "",
-                            "Remover "+record.get('nome')+"?",
-                            function(buttonId) {
-                            if (buttonId === 'yes') {
-                            //Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
-                            var fav =  Ext.StoreManager.get('loja');
-                            fav.remove(record);
-                            //console.dir(fav);
-                            }});*/
+                                
+                            if( typeof panel_produto !== 'undefined' ) {
+                                 panel_produto.destroy();
+                            }
+                            panel_produto = Ext.Viewport.add({ 
+                                xtype: 'container',
+                                /*height: '70%',*/
+                                id: 'pop-produto',
+                                cls: 'pop-produto',
+                                /*modal: {
+                                    style: 'opacity: 0; background-color: #ffffff;'
+                                },*/
+                                float: true,
+                                // modal: true,
+                                showAnimation: 
+                                {
+                                    type: 'pop',
+                                    duration: 300,
+                                },  
+                                //hideAnimation: 
+                                //{
+                                //    type: 'popOut',
+                                //    duration: 300,
+                                //    //direction: 'down',
+                                //    //easing: 'easeIn'
+                                //},
+                                layout : {
+                                    type : 'vbox',
+                                     /*align: 'left'*/
+                                },
+                                items: [
+                                    {
+                                        xtype: 'toolbar',
+                                        //title: '<div class="logotipo"></div>',
+                                        /*id: 'barra2',*/
+                                        cls: 'header3',
+                                        /*docked: 'top',*/
+                                        /*hidden: true,*/
+                                        layout: {
+                                                type: 'hbox',
+                                                pack: 'right'
+                                        },
+                                       
+                                        items: [
+                                            {
+                                            align: 'right', 
+                                            ui:    'plain',
+                                            xtype: 'button',
+                                            cls: 'close',
+                                            //hidden: true,
+                                            handler: function () {
+                                                Ext.getCmp('pop-produto').hide();
+                                                /*panel2.destroy();*/
+                                                }
+                                            },
+                                        ]    
+                                    },
+                                    {
+                                        html  : '<div class="pop-up">'+
+                                        '<img src="'+record.get('foto')+'">'+
+                                        '<br\>'+record.get('nome')+'<br/>'+
+                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                  
+                                    },
+                                ],
+                               
+                            });
+                            //show the panel
+                            panel_produto.show();
+                            panel_produto.on('hide', function() {
+                               panel_produto.destroy();
+                            });
+                        }});
                         }
                         }  
                     }
@@ -2004,7 +2085,7 @@ Ext.define('Italbox.ViewportPanel', {
                         Ext.getCmp('footer').hide();
                         Ext.getCmp('open-menu4').hide();
                         Ext.getCmp('barra5').hide();
-                        Ext.getCmp('barra').show();
+                        /*Ext.getCmp('barra').show();*/
                         Ext.getCmp('back').show();
                         Ext.getCmp('search').show();
                         
@@ -2685,6 +2766,7 @@ Ext.application({
                     var myList2 =  Ext.getCmp('myList2');
                     myList2.hide();
                     Ext.getCmp('myList').hide();
+                    Ext.getCmp('pop-produto').hide();
                 }
                 catch(err) {}
                 italbox.hide();
@@ -2740,42 +2822,6 @@ Ext.application({
                 });
 	    }
             
-            /*if(lista._hidden === true)
-	    {
-                contador = 0;
-                try {
-                    var myList2 =  Ext.getCmp('myList2');
-                    myList2.hide();
-                    Ext.getCmp('pop-image').hide();
-                }
-                catch(err) {}
-	    	var carr = Ext.getCmp('myCarroucel');    
-                carr.hide();
-                carr.on('hide', function() {
-                    carr.removeAll(true,true);
-                });
-                Ext.getCmp('back').hide();
-                Ext.getCmp('italbox').hide();
-                Ext.getCmp('search').hide();
-                Ext.getCmp('help').hide();
-                Ext.getCmp('favorites').hide();
-                Ext.getCmp('barra2').hide();
-                Ext.getCmp('footer').hide();
-                Ext.getCmp('barra').show();
-                Ext.getCmp('open-menu4').hide();
-                Ext.getCmp('barra5').hide();
-                lista.show();	
-	    }
-	    else
-	    {
-            Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
-                    if ( answer == 'yes') { 
-                        navigator.app.exitApp();
-                    } else { 
-                   
-                    } 
-                });
-	    }*/
         }
     
     onLoad();
