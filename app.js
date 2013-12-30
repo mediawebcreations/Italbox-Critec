@@ -2729,6 +2729,7 @@ Ext.application({
          }
          if(navigator.network.connection.type == Connection.NONE) {
 		 Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+                 connect = 0;
                //Ext.Msg.alert("", "A trabalhar em modo offline!",  function ( answer ) { 
                //     if ( answer == 'ok') { 
                //         navigator.app.exitApp();
@@ -2738,7 +2739,8 @@ Ext.application({
                // }); 
 	} else {
 		//setupButtonHandler();
-                Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+                //Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+                connect = 1;
 	}
         }
          catch(e){}
