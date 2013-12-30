@@ -2760,8 +2760,59 @@ Ext.application({
     }
  
     function onOffline() {
-        Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
         connect = 0;
+        Ext.Msg.alert(
+            "",
+            "A trabalhar em modo offline",
+        function(buttonId) {
+              if (buttonId === 'ok') {
+              var lista = Ext.getCmp('myList');
+            //console.dir(lista);
+        try {
+            Ext.getCmp('menuP').hide();
+        }
+        catch(err) {}
+        var carr = Ext.getCmp('myCarroucel');
+        var italbox = Ext.getCmp('italbox');
+        var favorites = Ext.getCmp('favorites');
+        var help = Ext.getCmp('help');
+        var search = Ext.getCmp('search');
+        var menuI = Ext.getCmp('menuI');
+        carr.hide();
+        carr.on('hide', function() {
+        carr.removeAll(true,true);
+        });
+        //carr.removeAll(true,true);
+        Ext.getCmp('barra2').hide();
+        Ext.getCmp('footer').hide();
+        Ext.getCmp('barra5').hide();
+        try {
+           var myList2 =  Ext.getCmp('myList2');
+           myList2.hide();
+           Ext.getCmp('myList').hide();
+           Ext.getCmp('pop-produto').hide();
+        }
+        catch(err) {}
+        italbox.hide();
+        favorites.hide();
+        help.hide();
+        search.hide();
+        lista.hide();
+        Ext.getCmp('back').hide();
+        Ext.getCmp('barra').show();
+        menuI.show();                 
+                               
+                               
+                               
+        }});
+        
+        
+        
+        
+        
+        
+        //Ext.Msg.alert('', 'A trabalhar em modo offline', Ext.emptyFn);
+        
     }
     
     function onBackKeyDown(eve) {
