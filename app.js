@@ -651,6 +651,7 @@ $(document).ready(function() {
     setTimeout('runApp2()',4000);
     //setTimeout('runApp3()',3000);
     setTimeout('runApp4()',6000);
+    setTimeout('runApp5()',8000);
 });
 
 function runApp() {
@@ -672,6 +673,10 @@ renderList();
 };
 
 function runApp4() {
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5));
+};
+
+function runApp5() {
 $.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(sencha());
 };
 
@@ -890,6 +895,7 @@ function log(msg) {
 
 function sencha(){
 renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias,tprodutos_paginas){
+var connect = 1;
 var tpaginas_temp = [];
 var tpaginas2_temp = [];
 var idcatalogo = 0;
@@ -899,7 +905,7 @@ var source = '';
 var ind = 0;
 var contador = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
-var tamanho = 0;
+//var tamanho = 0;
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -975,9 +981,14 @@ Ext.define('Italbox.Viewport7', {
                 delegate: '#start-catalogos',
                 event: 'tap',
                 fn: function() {
-                  Ext.getCmp('menuI').hide();
-                  Ext.getCmp('back').show();
-                  Ext.getCmp('myList').show();
+                    if (connect === 1) {
+                        Ext.getCmp('menuI').hide();
+                        Ext.getCmp('back').show();
+                        Ext.getCmp('myList').show();
+                    }
+                    else{
+                        Ext.Msg.alert('Offline', 'Necessita de estar Online para aceder aos Catalogos', Ext.emptyFn);
+                    }
                 }
             },
             {
@@ -985,9 +996,9 @@ Ext.define('Italbox.Viewport7', {
                 delegate: '#start-italbox',
                 event: 'tap',
                 fn: function() {
-                 Ext.getCmp('menuI').hide();
-                 Ext.getCmp('back').show();
-                 Ext.getCmp('italbox').show();
+                    Ext.getCmp('menuI').hide();
+                    Ext.getCmp('back').show();
+                    Ext.getCmp('italbox').show();
                 }
             },
              {
@@ -995,9 +1006,14 @@ Ext.define('Italbox.Viewport7', {
                 delegate: '#start-favoritos',
                 event: 'tap',
                 fn: function() {
-                 Ext.getCmp('menuI').hide();
-                 Ext.getCmp('back').show();
-                 Ext.getCmp('favorites').show();
+                    if (connect === 1) {
+                        Ext.getCmp('menuI').hide();
+                        Ext.getCmp('back').show();
+                        Ext.getCmp('favorites').show();
+                    }
+                    else{
+                        Ext.Msg.alert('Offline', 'Necessita de estar Online para aceder aos Favoritos', Ext.emptyFn);
+                    }
                 }
             },
             {
@@ -1010,7 +1026,7 @@ Ext.define('Italbox.Viewport7', {
                  Ext.getCmp('help').show();
                 }
             },
-             ]
+            ]
     }
 });
 
@@ -1303,7 +1319,7 @@ Ext.define('Italbox.Viewport5', {
                                  idcatalogo = record.get('id_catalogo');
                                  tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
                                  tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 tamanho = tpaginas2_temp.length;
+                                 //tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
                              if (ori === 'portrait') {
                                  carr.setItems(tpaginas2_temp);
@@ -2019,20 +2035,25 @@ Ext.define('Italbox.ViewportPanel', {
                                     delegate: '#menu-favoritos',
                                     event: 'tap',
                                     fn: function() {
-                                        panel_menu.hide();
-                                     //Ext.getStore('loja').sync();
-                                     Ext.getCmp('menuI').hide();
-                                     Ext.getCmp('myCarroucel').hide();
-                                     Ext.getCmp('myList').hide();
-                                     Ext.getCmp('footer').hide();
-                                     Ext.getCmp('barra5').hide();
-                                     Ext.getCmp('italbox').hide();
-                                     Ext.getCmp('help').hide();
-                                     Ext.getCmp('search').hide();
-                                     /*Ext.getCmp('myList').hide();
-                                     Ext.getCmp('myList').hide();*/
-                                     Ext.getCmp('back').show();
-                                     Ext.getCmp('favorites').show();
+                                       if (connect === 1) {
+                                            panel_menu.hide();
+                                            //Ext.getStore('loja').sync();
+                                            Ext.getCmp('menuI').hide();
+                                            Ext.getCmp('myCarroucel').hide();
+                                            Ext.getCmp('myList').hide();
+                                            Ext.getCmp('footer').hide();
+                                            Ext.getCmp('barra5').hide();
+                                            Ext.getCmp('italbox').hide();
+                                            Ext.getCmp('help').hide();
+                                            Ext.getCmp('search').hide();
+                                            /*Ext.getCmp('myList').hide();
+                                            Ext.getCmp('myList').hide();*/
+                                            Ext.getCmp('back').show();
+                                            Ext.getCmp('favorites').show();
+                                        }
+                                        else{
+                                            Ext.Msg.alert('Offline', 'Necessita de estar Online para aceder aos Favoritos', Ext.emptyFn);
+                                        }  
                                     }
                                 },
                                 {
@@ -2073,24 +2094,26 @@ Ext.define('Italbox.ViewportPanel', {
                     xtype: 'button',
                     cls: 'open-menu2',
                     handler: function () {
-                         //Ext.getCmp('back').hide();
-                        Ext.getCmp('menuI').hide();
-                        Ext.getCmp('myList').hide();
-                        Ext.getCmp('myCarroucel').hide();
-                        Ext.getCmp('italbox').hide();
-                        //Ext.getCmp('search').hide();
-                        Ext.getCmp('help').hide();
-                        Ext.getCmp('favorites').hide();
-                        Ext.getCmp('barra2').hide();
-                        Ext.getCmp('footer').hide();
-                        Ext.getCmp('open-menu4').hide();
-                        Ext.getCmp('barra5').hide();
-                        /*Ext.getCmp('barra').show();*/
-                        Ext.getCmp('back').show();
-                        Ext.getCmp('search').show();
-                        
-                       
-                        
+                       if (connect === 1) {
+                            //Ext.getCmp('back').hide();
+                            Ext.getCmp('menuI').hide();
+                            Ext.getCmp('myList').hide();
+                            Ext.getCmp('myCarroucel').hide();
+                            Ext.getCmp('italbox').hide();
+                            //Ext.getCmp('search').hide();
+                            Ext.getCmp('help').hide();
+                            Ext.getCmp('favorites').hide();
+                            Ext.getCmp('barra2').hide();
+                            Ext.getCmp('footer').hide();
+                            Ext.getCmp('open-menu4').hide();
+                            Ext.getCmp('barra5').hide();
+                            //Ext.getCmp('barra').show();
+                            Ext.getCmp('back').show();
+                            Ext.getCmp('search').show();
+                        }
+                        else{
+                            Ext.Msg.alert('Offline', 'Necessita de estar Online para aceder à Pesquisa', Ext.emptyFn);
+                        }
                         
               /* Ext.Msg.confirm(
             "Update",
@@ -2730,11 +2753,13 @@ Ext.application({
     // Handle the online event
     //
     function onOnline() {
-        Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+        //Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
+        connect = 1;
     }
  
     function onOffline() {
         Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
+        connect = 0;
     }
     
     function onBackKeyDown(eve) {
