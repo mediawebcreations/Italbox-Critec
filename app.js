@@ -2778,7 +2778,7 @@ Ext.application({
         else{
             Ext.Msg.alert(
                 "",
-                "A trabalhar offline, necessita de estar online para aceder a este conteudo",
+                "A trabalhar offline, necessita de estar online para aceder a este conteúdo",
             function(buttonId) {
                   if (buttonId === 'ok') {
                   var lista = Ext.getCmp('myList');
