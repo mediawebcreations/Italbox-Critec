@@ -1795,12 +1795,11 @@ Ext.define('Italbox.Viewport', {
                     itemTpl: '<img src="'+caminho+'{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                     listeners: {
                         itemtap: function(list, index, target, record) {
-                            
-                            Ext.Msg.confirm(
+                           /* Ext.Msg.confirm(
                             "",
                             "Abrir "+record.get('nome')+"?",
                             function(buttonId) {
-                            if (buttonId === 'yes') {
+                            if (buttonId === 'yes') {*/
                                  var ori = Ext.Viewport.getOrientation();
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(true,true);
@@ -1815,20 +1814,6 @@ Ext.define('Italbox.Viewport', {
                              else{
                                  Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
                              }
-                             
-                                 /*if (index === 0) {
-                                 Ext.getCmp('myCarroucel').setItems(tpaginas);
-                                 }
-                                 if (index === 1) {
-                                    Ext.getCmp('myCarroucel').setItems(arr2);
-                                 }
-                                  if (index === 2) {
-                                    Ext.getCmp('myCarroucel').setItems(tpaginas);
-                                 }
-                                  if (index === 3) {
-                                    Ext.getCmp('myCarroucel').setItems(arr2);
-                                 }*/
-                                 
                                  Ext.getCmp('myCarroucel').setActiveItem(0);
                                  Ext.getCmp('myCarroucel').show();
                                  Ext.getCmp('barra').hide();
@@ -1837,22 +1822,9 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('footer').show();
                                  Ext.getCmp('open-menu4').show();
                                  Ext.getCmp('back').show();
-                                 
-                       
-                        //var panel = Ext.Viewport.add({
-                                    
-                        //    extend: 'Ext.Carousel',
-                        //    xtype : 'my-viewport2',
-                        //    id: 'myCarroucel',
-                        //    
-                        //});
-                        //
-                        //
-                        ////show the panel
-                        //panel.show();
-                                }
-                            }
-                        );
+                               /* }
+                            //}
+                        );*/
                         }
                     }
                 }
