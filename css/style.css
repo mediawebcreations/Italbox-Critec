@@ -55,14 +55,14 @@ body{
 }         
 }
 
-.start-menu:hover {
-	/*background: url(../imgs/icons/italbox_white.png) no-repeat ;*/
+/*.start-menu:hover {
+	//background: url(../imgs/icons/italbox_white.png) no-repeat ;
         background: rgba(255, 255, 255, 1) !important;
 	color: #000000;
 	transition: 0.5s;
 	-webkit-transition: 0.5s;
         
-}
+}*/
 
 
 .open-favoritos{

@@ -1796,11 +1796,11 @@ Ext.define('Italbox.Viewport', {
                     itemTpl: '<img src="'+caminho+'{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                     listeners: {
                         itemtap: function(list, index, target, record) {
-                           /* Ext.Msg.confirm(
+                            Ext.Msg.confirm(
                             "",
                             "Abrir "+record.get('nome')+"?",
                             function(buttonId) {
-                            if (buttonId === 'yes') {*/
+                            if (buttonId === 'yes') {
                                  var ori = Ext.Viewport.getOrientation();
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(true,true);
@@ -1823,9 +1823,9 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('footer').show();
                                  Ext.getCmp('open-menu4').show();
                                  Ext.getCmp('back').show();
-                               /* }
-                            //}
-                        );*/
+                                }
+                            }
+                        );
                         }
                     }
                 }
