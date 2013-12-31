@@ -1053,7 +1053,8 @@ Ext.define('Italbox.Viewport6', {
         }, 
                 //cls: 'teste',
         store: {id: 'produtos',
-                 data:tprodutos
+                fields: ['id_produto', 'nome', 'descricao', 'foto', 'ref', 'id_catalogo', 'id_pagina', 'estado', 'lastModified'],
+                data:tprodutos
         },
         itemTpl:  '<div class="myContent">'+
             '<img src="'+caminho+'{foto}" style="float:left; height:45px; margin-right:20px;"></img>' +
@@ -2605,7 +2606,7 @@ Ext.define('Italbox.ViewportPanel', {
             hidden: true,
             id: 'help'
         },
-             {
+        {
             xtype: 'my-viewport5',
             hidden: true,
             id: 'favorites'
