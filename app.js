@@ -1332,6 +1332,7 @@ Ext.define('Italbox.Viewport5', {
                              }
                              Ext.getCmp('footer').show();
                              Ext.getCmp('barra5').show();
+                             Ext.getCmp('footer').show();
                              carr.show();
                             //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
                       

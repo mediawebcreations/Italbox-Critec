@@ -340,7 +340,7 @@ body{
 
 .barraPesquisa
 {
-  background: transparent !important;
+  background: #000000 !important;
   border-bottom: 3px solid #000000 !important;
 }
 
@@ -958,3 +958,47 @@ color : #000000 !important;
 border-top-color: #dedede !important;
 border-bottom-color: #dedede !important;
 }
+
+.x-toolbar .x-field {
+width: 98% !important;
+margin: .5em;
+min-height: 0;
+border-bottom: 0;
+background: #000000 !important;
+}
+
+.x-toolbar .x-form-field {
+height: 1.6em;
+color: #FFFFFF !important;
+background: transparent;
+min-height: 0;
+-webkit-appearance: none;
+padding: 0em .3em;
+margin: 0;
+}
+
+.x-toolbar .x-field-search .x-component-outer {
+
+background-color: #000000 !important;
+}
+
+.x-toolbar .x-field .x-clear-icon {
+
+left: auto !important;
+right: -0.8em !important;
+
+}
+
+/*.x-field-search .x-field-input:before {
+content: "";
+position: absolute;
+width: 20px !important;
+height: 20px !important;
+top: 50%;
+left: 0.5em;
+-webkit-mask-image: url(../imgs/icons/front.png) !important;
+-webkit-mask-size: .86em;
+background-color: #ccc;
+-webkit-mask-repeat: no-repeat;
+margin-top: -0.43em;
+}*/
