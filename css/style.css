@@ -348,6 +348,10 @@ body{
    border-radius: 0px !important;             
 }
 
+.search input::-webkit-input-placeholder {
+    color: #FFFFFF !important;
+}  
+
 .tabPaginas{
   background: transparent !important;
 }
@@ -955,8 +959,12 @@ border-radius: 0px !important;
 background-image: #FFFFFF !important;
 background: #FFFFFF !important;
 color : #000000 !important;
-border-top-color: #dedede !important;
-border-bottom-color: #dedede !important;
+border-top-color: #000000 !important;
+border-bottom-color: #000000 !important;
+}
+
+.x-list-normal .x-list-item .x-list-item-label {
+border-top: 1px solid #000000;
 }
 
 .x-toolbar .x-field {
@@ -989,16 +997,17 @@ right: -0.8em !important;
 
 }
 
-/*.x-field-search .x-field-input:before {
-content: "";
-position: absolute;
-width: 20px !important;
-height: 20px !important;
-top: 50%;
-left: 0.5em;
--webkit-mask-image: url(../imgs/icons/front.png) !important;
--webkit-mask-size: .86em;
-background-color: #ccc;
--webkit-mask-repeat: no-repeat;
-margin-top: -0.43em;
-}*/
+.x-field-search .x-field-input:before {
+background-color: #FFFFFF;
+left: 0.2em;
+}
+
+.x-field-input .x-clear-icon {
+
+background: url(../imgs/icons/delete2.png) no-repeat !important;
+background-position: center center;
+
+top: 65% !important;
+
+
+}
