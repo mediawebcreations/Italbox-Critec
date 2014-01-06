@@ -954,25 +954,17 @@ Ext.define('Italbox.Viewport7', {
                    
            items : [
               {
-               html:  '<div style="display: -webkit-box;"><div id="start-italbox" class="start-menu"; style="margin-left: 0px !important">'+
+                id: 'menuHtml',
+                html:  '<div style="display: -webkit-box;"><div id="start-italbox" class="start-menu"; style="margin-left: 0px !important">'+
                '<img src="imgs/icons/italbox_menu2.png" style=""></div>'+
                '<div id="start-catalogos"  class="start-menu"; style="margin-right: 0px !important">'+
-               '<img id="start-catalogos" src="imgs/icons/catalogos_menu.png" style=""></div></div>',
-                //margin: '5px',
-              },
-               {
-               html:  '<div style="display: -webkit-box;"><div id="start-favoritos" class="start-menu" style="margin-left: 0px !important">'+
+               '<img id="start-catalogos" src="imgs/icons/catalogos_menu.png" style=""></div></div>'+
+               '<div style="display: -webkit-box;"><div id="start-favoritos" class="start-menu" style="margin-left: 0px !important">'+
                '<img src="imgs/icons/favoritos_menu.png" style=""></div>'+
-               '<div class="start-menu";  style="margin-right: 0px !important">'+
-               '<img src="imgs/icons/language_menu.png" style=""></div></div>',
-                //margin: '5px',
-              },
-              
-               {
-               html:  '<div style="display: -webkit-box;"><div class="start-menu"; id="start-help" style="width:100% !important; margin-left: 0px !important; margin-right: 0px !important;">'+
+               '<div id="start-language" class="start-menu";  style="margin-right: 0px !important">'+
+               '<img src="imgs/icons/language_menu.png" style=""></div></div>'+
+               '<div style="display: -webkit-box;"><div class="start-menu"; id="start-help" style="width:100% !important; margin-left: 0px !important; margin-right: 0px !important;">'+
                '<img src="imgs/icons/ajuda_menu.png" style=""></div>'
-                /*'<div style="margin-left: 5px; text-align: center; font-size:12px; width:100px; height:100px;</div></div>'*/,
-                //margin: '5px',
               },
            
                                
@@ -1018,6 +1010,41 @@ Ext.define('Italbox.Viewport7', {
                     }
                 }
             },
+            {
+                element: 'element',
+                delegate: '#start-language',
+                event: 'tap',
+                fn: function() {
+                 /*Ext.getCmp('menuI').hide();
+                 Ext.getCmp('back').show();
+                 Ext.getCmp('help').show();*/
+                    if (idioma === '1') {                    
+                       var valor = { id_setting: '1', lang: '2'};
+                       Ext.getStore('Settings').getAt(0).set(valor);
+                       Ext.getStore('Settings').sync();
+                       idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                       Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                       Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                       Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                       Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                       Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                       Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                   }
+                   else{
+                       var valor = { id_setting: '1', lang: '1'};
+                       Ext.getStore('Settings').getAt(0).set(valor);
+                       Ext.getStore('Settings').sync();
+                       idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                       Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                       Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                       Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                       Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                       Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                       Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                   }
+                }
+            },
+            
             {
                 element: 'element',
                 delegate: '#start-help',
@@ -1215,6 +1242,7 @@ Ext.define('Italbox.Viewport5', {
             },
             tabBar:    {
                 cls: 'barraTab',
+                id: 'barraTab',
                 layout: {
                     //type : 'hbox',
                     //align: 'right',
@@ -1562,43 +1590,16 @@ Ext.define('Italbox.Viewport4', {
                 //height: '400px',
                 
             },
-             /*  scrollable: {
+               scrollable: {
                 direction: 'vertical'
-            },*/
-          /* items : [
+            },
+           items : [
                     {
-                        html  : '<div style="margin:20px;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+                        id: 'helpHtml',
+                        html  : '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="margin-top:45px;max-width:100%;"></img><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
                     },
-                               
-            ],*/
-            items : [
-                    {
-                    //give it an xtype of list for the list component
-                    xtype: 'dataview',
-                    //max-height: '400px',
-                    flex: 1,
-                    scrollable: {
-                        direction: 'vertical',
-                        //indicators: false
-                    },
-
-                    //set the itemtpl to show the fields for the store
-                    store: {
-                        id: 'storeHelp'
-                    },
-                    
-                    itemTpl: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>{help_title}<br/><br/>{help_text}</div>',
-                    
-                }
-                    
                                
             ],
-            listeners : {
-                show : function() {
-                     Ext.getStore('storeHelp').removeAll();
-                     Ext.getStore('storeHelp').add(Ext.getStore('Languages').getById(idioma));
-                }
-            }
     }
 });
 
@@ -1630,40 +1631,17 @@ Ext.define('Italbox.Viewport3', {
                 //height: '400px',
                 
             },
-            /* scrollable: {
+             scrollable: {
                 direction: 'vertical'
-            },*/
+            },
            items : [
                     {
-                    //give it an xtype of list for the list component
-                    xtype: 'dataview',
-                    //max-height: '400px',
-                    flex: 1,
-                    scrollable: {
-                        direction: 'vertical',
-                        //indicators: false
+                        id: 'italboxHtml',
+                        html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>EMPRESA<br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999, é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo, e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores, a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume de negócios de 20% por ano, nos últimos 5 anos.<br/>Em 2011 lançou o novo catalogo com uma nova linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio, no sentido de complementar a oferta.<br/>Para que possam verificar os modelos que produzimos, queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
                     },
-
-                    //set the itemtpl to show the fields for the store
-                    store: {
-                        id: 'storeCompany'
-                    },
-                    
-                   
-                    itemTpl: '<div class="italbox"><img src="imgs/company.jpg"></img><br/>{company_title}<br/><br/><p>{company_text}</p></div>',
-                    
-                }
-                    
                                
             ],
-            listeners : {
-                show : function() {
-                     Ext.getStore('storeCompany').removeAll();
-                     Ext.getStore('storeCompany').add(Ext.getStore('Languages').getById(idioma));
-                }
-            }
-    },
-    
+    }
 });
 
 Ext.define('Italbox.Viewport2', {
@@ -1715,7 +1693,7 @@ Ext.define('Italbox.Viewport2', {
                 source = value.initialConfig.thumb;
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
-                Ext.getCmp('open-menu4').setText('Produtos '+contador);
+                Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product')+' '+contador);
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
             },
             resize: function(component, eOpts) {
@@ -2123,14 +2101,26 @@ Ext.define('Italbox.ViewportPanel', {
                                         Ext.getStore('Settings').getAt(0).set(valor);
                                         Ext.getStore('Settings').sync();
                                         idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                        Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                        Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
                                     }
                                     else{
                                         var valor = { id_setting: '1', lang: '1'};
                                         Ext.getStore('Settings').getAt(0).set(valor);
                                         Ext.getStore('Settings').sync();
                                         idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                        Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                        Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
                                     }
-                                     Ext.getCmp('help').hide();
+                                     /*Ext.getCmp('help').hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
                                      Ext.getCmp('footer').hide();
@@ -2142,7 +2132,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      /*Ext.getCmp('myList').hide();
                                      Ext.getCmp('myList').hide();*/
                                      //Ext.getCmp('back').show();
-                                     Ext.getCmp('menuI').show();
+                                     /*Ext.getCmp('menuI').show();*/
                                      panel_menu.hide();
                                      
                                     }
@@ -2834,13 +2824,22 @@ Ext.application({
               Ext.getStore('Settings').add(valor);
               Ext.getStore('Settings').sync();
               idioma = Ext.getStore('Settings').getAt(0).get('lang');
+             // console.dir(Ext.getCmp('barraTab'));
+             // Ext.getCmp('barraTab').getAt(0).setTitle("emoh");
         }
         else{
             //var valor = { id_setting: '1', lang: '2'};
             //Ext.getStore('Settings').getAt(0).set(valor);
             //Ext.getStore('Settings').sync();
             //alert('Existe!');
+            //console.dir(Ext.getCmp('menuI'));
             idioma = Ext.getStore('Settings').getAt(0).get('lang');
+            Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+            Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+            Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+            Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+            Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+            Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
         }
         console.dir(Ext.getStore('Settings').getAt(0).get('lang'));
         
