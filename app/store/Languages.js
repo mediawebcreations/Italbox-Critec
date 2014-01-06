@@ -16,6 +16,10 @@ Ext.define('ItalboxCatalog.store.Languages', {
             { name: 'pages', type: 'string' },
             { name: 'products', type: 'string' },
             { name: 'product', type: 'string' },
+            { name: 'favorites_empty', type: 'string' },
+            { name: 'products_empty', type: 'string' },
+            { name: 'search', type: 'string' },
+            { name: 'search_list', type: 'string' },
         ],
         data : [
         {
@@ -41,6 +45,14 @@ Ext.define('ItalboxCatalog.store.Languages', {
         pages: 'PÁGINAS',
         products : 'PRODUTOS',
         product : 'Produtos',
+        favorites_empty: 'Sem Favoritos',
+        products_empty: 'Sem Resultados',
+        search : 'Pesquisa...',
+        search_list : '<div class="lista-pesquisa">'+
+            '<img src="http://www.critecns.com/italbox/assets/uploads/imgs/{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
+            '<div><b>Nome:</b> <span>{nome}</span></div>' +
+            '<div><b>Ref:</b> <span>{ref}</span></div>' +
+            '</div>',
         },
         {
         id : 2,
@@ -65,6 +77,14 @@ Ext.define('ItalboxCatalog.store.Languages', {
         pages: 'PAGES',
         products : 'PRODUCTS',
         product : 'Products',
+        favorites_empty: 'Without Favorites',
+        products_empty: 'Without Results',
+        search : 'Search...',
+        search_list : '<div class="lista-pesquisa">'+
+            '<img src="http://www.critecns.com/italbox/assets/uploads/imgs/{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
+            '<div><b>Name:</b> <span>{nome}</span></div>' +
+            '<div><b>Ref:</b> <span>{ref}</span></div>' +
+            '</div>',
         },
         ]
     }
