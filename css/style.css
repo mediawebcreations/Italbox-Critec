@@ -101,9 +101,17 @@ body{
       
 }
 
+.about{
+   padding-top: 45px !important;             
+}
+
 .favoritos{
    /*margin-top: 50px !important;*/
    margin-left: 10px !important;
+}
+
+.help{
+   padding-top: 45px !important;             
 }
 
 
@@ -309,6 +317,7 @@ body{
 
 .italbox{
    margin:20px;
+   margin-top: 0px !important;
    
 }
 
@@ -319,7 +328,7 @@ body{
 }
 
 .italbox img{
-    margin-top:45px;
+    /*margin-top:45px;*/
     max-width:100%;
     /*max-height:50%;*/
 }
@@ -421,9 +430,9 @@ body{
 }
 
 .start-menu img{
-	width:120px;
-        height:120px;
-        margin-top:10px;
+	width:100px;
+        height:100px;
+        margin-top:25px;
 }         
 
 .lista{
@@ -569,6 +578,18 @@ body{
   margin-left: -30px;
 }
 
+.lista-pesquisa div {
+	font-size:14px;
+        text-transform:uppercase;
+        font-family: 'robotomedium';
+}
+
+.lista-pesquisa span {
+	font-size:13px;
+        /*text-transform:uppercase;*/
+        font-family: 'robotomedium';
+}
+
 .header > .search{
 	top: 0;
 	right: 55px;
@@ -707,6 +728,9 @@ body{
 .menu li.menu-italbox {
 	background: url(../imgs/icons/italbox.png) no-repeat ;
 }
+.menu li.menu-catalogos {
+	background: url(../imgs/icons/catalogos.png) no-repeat ;
+}
 .menu li.menu-favoritos {
 	background: url(../imgs/icons/favoritos.png) no-repeat ;
 }
@@ -727,6 +751,14 @@ body{
 
 .menu li.menu-italbox:hover {
 	background: url(../imgs/icons/italbox_white.png) no-repeat ;
+        background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
+
+.menu li.menu-catalogos:hover {
+	background: url(../imgs/icons/catalogos_white.png) no-repeat ;
         background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
@@ -901,11 +933,12 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 1300px)
 }
 
 .x-msgbox
- {
-    background-color: #fff !important;
+{
+    background-color: transparent !important;
     border: 0 !important;
+    -webkit-box-shadow: none !important;
 
- }
+}
 
 // To change messagebox text properties
 .x-msgbox-dark .x-msgbox-text {
@@ -926,9 +959,13 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 1300px)
   border-radius:0em !important;
 }
 
-x-msgbox.x-floating {
+.x-msgbox.x-floating {
 -webkit-border-radius: 0em !important; 
 border-radius: 0em !important;
+}
+
+.x-mask {
+background: rgba(255, 255, 255, 0.8) center center no-repeat !important;
 }
 
 .x-tabbar-dark.x-docked-top .x-tab-active {
@@ -1003,11 +1040,11 @@ left: 0.2em;
 }
 
 .x-field-input .x-clear-icon {
-
 background: url(../imgs/icons/delete2.png) no-repeat !important;
 background-position: center center;
-
 top: 65% !important;
+}
 
-
+.x-list-normal .x-list-item:last-child .x-list-item-label {
+border-bottom: 1px solid #000000 !important;
 }

@@ -906,6 +906,8 @@ var ind = 0;
 var contador = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
 //var tamanho = 0;
+var idioma = 0;
+
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -1056,13 +1058,13 @@ Ext.define('Italbox.Viewport6', {
                 fields: ['id_produto', 'nome', 'descricao', 'foto', 'ref', 'id_catalogo', 'id_pagina', 'estado', 'lastModified'],
                 data:tprodutos
         },
-        itemTpl:  '<div class="myContent">'+
-            '<img src="'+caminho+'{foto}" style="float:left; height:45px; margin-right:20px;"></img>' +
-            '<div>Nome: <b>{nome}</b></div>' +
-            '<div>Ref: <b>{ref}</b></div>' +
+        itemTpl:  '<div class="lista-pesquisa">'+
+            '<img src="'+caminho+'{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
+            '<div><b>Nome:</b> <span>{nome}</span></div>' +
+            '<div><b>Ref:</b> <span>{ref}</span></div>' +
             '</div>',
          
-        emptyText: '<div class="myContent">Sem resultados</div>',
+        emptyText: '<div class="lista-pesquisa">Sem resultados</div>',
               
         items: [
                {
@@ -1291,6 +1293,8 @@ Ext.define('Italbox.Viewport5', {
                     
                     itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
+                    emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
+                    
                     listeners: {
                         itemtap: function(list, index, target, record,e) {
                             if (e.getTarget('button.remove')) {
@@ -1419,6 +1423,8 @@ Ext.define('Italbox.Viewport5', {
                     /*},*/
                     
                     itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome} {ref}</div>',
+                    
+                    emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
                     
                     listeners: {
                         itemtap: function(list, index, target, record,e) {
@@ -1556,15 +1562,43 @@ Ext.define('Italbox.Viewport4', {
                 //height: '400px',
                 
             },
-               scrollable: {
+             /*  scrollable: {
                 direction: 'vertical'
-            },
-           items : [
+            },*/
+          /* items : [
                     {
-                        html  : '<div style="margin:20px;"><img src="imgs/company2.jpg" style="margin-top:45px;max-width:100%;"></img><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+                        html  : '<div style="margin:20px;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
                     },
                                
+            ],*/
+            items : [
+                    {
+                    //give it an xtype of list for the list component
+                    xtype: 'dataview',
+                    //max-height: '400px',
+                    flex: 1,
+                    scrollable: {
+                        direction: 'vertical',
+                        //indicators: false
+                    },
+
+                    //set the itemtpl to show the fields for the store
+                    store: {
+                        id: 'storeHelp'
+                    },
+                    
+                    itemTpl: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>{help_title}<br/><br/>{help_text}</div>',
+                    
+                }
+                    
+                               
             ],
+            listeners : {
+                show : function() {
+                     Ext.getStore('storeHelp').removeAll();
+                     Ext.getStore('storeHelp').add(Ext.getStore('Languages').getById(idioma));
+                }
+            }
     }
 });
 
@@ -1596,16 +1630,40 @@ Ext.define('Italbox.Viewport3', {
                 //height: '400px',
                 
             },
-             scrollable: {
+            /* scrollable: {
                 direction: 'vertical'
-            },
+            },*/
            items : [
                     {
-                        html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>EMPRESA<br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999, é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo, e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores, a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume de negócios de 20% por ano, nos últimos 5 anos.<br/>Em 2011 lançou o novo catalogo com uma nova linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio, no sentido de complementar a oferta.<br/>Para que possam verificar os modelos que produzimos, queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
+                    //give it an xtype of list for the list component
+                    xtype: 'dataview',
+                    //max-height: '400px',
+                    flex: 1,
+                    scrollable: {
+                        direction: 'vertical',
+                        //indicators: false
                     },
+
+                    //set the itemtpl to show the fields for the store
+                    store: {
+                        id: 'storeCompany'
+                    },
+                    
+                   
+                    itemTpl: '<div class="italbox"><img src="imgs/company.jpg"></img><br/>{company_title}<br/><br/><p>{company_text}</p></div>',
+                    
+                }
+                    
                                
             ],
-    }
+            listeners : {
+                show : function() {
+                     Ext.getStore('storeCompany').removeAll();
+                     Ext.getStore('storeCompany').add(Ext.getStore('Languages').getById(idioma));
+                }
+            }
+    },
+    
 });
 
 Ext.define('Italbox.Viewport2', {
@@ -1946,13 +2004,14 @@ Ext.define('Italbox.ViewportPanel', {
                          var panel_menu = Ext.Viewport.add({ 
                             xtype: 'container',
                             id: 'menuP',
-                            modal: {
+                            modal: true,
+                            /*{
                                 style: 'opacity: 0.8; background-color: #ffffff;'
-                            },
+                            */
                             height    : 100,
                             width     : 240,
                             floating  : true,                               
-                            top       : -70,
+                            top       : -130,
                             cls: 'menu',
                             hideOnMaskTap: true,
                             showAnimation: 
@@ -1971,16 +2030,19 @@ Ext.define('Italbox.ViewportPanel', {
                             }, 
                             items     : [
                                 {
-                                    html  : '<li class="menu-italbox" id="menu-italbox">ITALBOX</li>',
+                                    html  : '<li class="menu-italbox" id="menu-italbox">'+Ext.getStore('Languages').getById(idioma).get('italbox')+'</li>',
                                 },
                                 {
-                                    html  : '<li class="menu-favoritos" id="menu-favoritos">FAVORITOS</li>'
+                                    html  : '<li class="menu-catalogos" id="menu-catalogos">'+Ext.getStore('Languages').getById(idioma).get('catalogs')+'</li>',
                                 },
                                 {
-                                    html  : '<li class="menu-language">LANGUAGE</li>'
+                                    html  : '<li class="menu-favoritos" id="menu-favoritos">'+Ext.getStore('Languages').getById(idioma).get('favorites')+'</li>'
                                 },
                                 {
-                                    html  : '<li class="menu-ajuda" id="menu-help">AJUDA</li>'
+                                    html  : '<li class="menu-language" id="menu-language">'+Ext.getStore('Languages').getById(idioma).get('language')+'</li>'
+                                },
+                                {
+                                    html  : '<li class="menu-ajuda" id="menu-help">'+Ext.getStore('Languages').getById(idioma).get('help')+'</li>'
                                 }
                             ],
                             listeners: [
@@ -2002,6 +2064,27 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('italbox').show();
+                                    }
+                                },
+                                {
+                                    element: 'element',
+                                    delegate: '#menu-catalogos',
+                                    event: 'tap',
+                                    fn: function() {
+                                         panel_menu.hide();
+                                     Ext.getCmp('menuI').hide();
+                                     Ext.getCmp('myCarroucel').hide();
+                                     Ext.getCmp('italbox').hide();
+                                     Ext.getCmp('footer').hide();
+                                     Ext.getCmp('barra5').hide();
+                                     Ext.getCmp('favorites').hide();
+                                     Ext.getCmp('help').hide();
+                                     Ext.getCmp('search').hide();
+                                     /*Ext.getCmp('myList').hide();
+                                     Ext.getCmp('myList').hide();*/
+                                     Ext.getCmp('back').show();
+                                     Ext.getCmp('myList').show();
+                                     
                                     }
                                 },
                                  {
@@ -2028,6 +2111,40 @@ Ext.define('Italbox.ViewportPanel', {
                                         else{
                                             Ext.Msg.alert('Offline', 'Necessita de estar Online para aceder aos Favoritos', Ext.emptyFn);
                                         }  
+                                    }
+                                },
+                                {
+                                    element: 'element',
+                                    delegate: '#menu-language',
+                                    event: 'tap',
+                                    fn: function() {
+                                    if (idioma === '1') {
+                                        
+                                        var valor = { id_setting: '1', lang: '2'};
+                                        Ext.getStore('Settings').getAt(0).set(valor);
+                                        Ext.getStore('Settings').sync();
+                                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                    }
+                                    else{
+                                        var valor = { id_setting: '1', lang: '1'};
+                                        Ext.getStore('Settings').getAt(0).set(valor);
+                                        Ext.getStore('Settings').sync();
+                                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                    }
+                                     Ext.getCmp('help').hide();
+                                     Ext.getCmp('myCarroucel').hide();
+                                     Ext.getCmp('myList').hide();
+                                     Ext.getCmp('footer').hide();
+                                     Ext.getCmp('barra5').hide();
+                                     Ext.getCmp('italbox').hide();
+                                     Ext.getCmp('favorites').hide();
+                                     Ext.getCmp('search').hide();
+                                     /*Ext.getCmp('myList').hide();
+                                     Ext.getCmp('myList').hide();*/
+                                     //Ext.getCmp('back').show();
+                                     Ext.getCmp('menuI').show();
+                                     panel_menu.hide();
+                                     
                                     }
                                 },
                                 {
@@ -2208,9 +2325,10 @@ Ext.define('Italbox.ViewportPanel', {
                         id: 'myList2',
                         cls: 'menu3',
                         top: 'auto !important',
-                        modal: {
+                        modal: true,
+                        /*{
                                 style: 'opacity: 0.6; background-color: #ffffff;'
-                        },
+                        },*/
                          /*floating: true,*/
                          //modal: true,
                           hideOnMaskTap: true,
@@ -2381,15 +2499,20 @@ Ext.define('Italbox.ViewportPanel', {
                        loja2.add(newRecord2);
                        loja2.sync();
                        
-                        Ext.Msg.show({
+                       
+                        Ext.Msg.alert('', 'Produto adicionado aos favoritos', Ext.emptyFn);
+                       /* Ext.Msg.show({
                             title: '',
                             message: 'Produto adicionado aos favoritos',
                             cls: 'myBox',
                             zIndex: '20 !important',
+                            modal: true,
                             buttons: [
                             { text : 'Ok', ui : 'confirm' }
                             ],
-                        });
+                        });*/
+                        
+                        
                        //console.dir(msgb);
                        //Ext.Msg.alert('', 'Produto adicionado aos favoritos', Ext.emptyFn);
                        
@@ -2600,12 +2723,14 @@ Ext.define('Italbox.ViewportPanel', {
          {
             xtype: 'my-viewport3',
             hidden: true,
-            id: 'italbox'
+            id: 'italbox',
+            cls: 'about',
         },
          {
             xtype: 'my-viewport4',
             hidden: true,
-            id: 'help'
+            id: 'help',
+            cls: 'help'
         },
         {
             xtype: 'my-viewport5',
@@ -2648,13 +2773,16 @@ Ext.application({
     ],
   
     models : [
+        'Setting',
         'Favorite',
         'Favorite2'
               
     ],
     stores : [
+        'Settings',
+        'Languages',
         'Favorites',
-        'Favorites2'
+        'Favorites2',
     ],
     
     icon: {
@@ -2689,6 +2817,32 @@ Ext.application({
             cls: 'body_bg',
             id: 'painel'
         });
+        
+        Ext.Msg.setZIndex(20);
+        
+        /*var oneMoreHotel = { id: 1, lang: '1'};
+        Ext.getStore('Settings').insert(1, oneMoreHotel);    // Use insert to add records or model instances at a given index.*/
+        //Ext.getStore('Settings').removeAt(1);
+        //var languageStore = Ext.getStore('Settings').getById(1).get('company');
+        //var idioma = languageStore.getById(1);
+        try{
+            var existe = Ext.getStore('Settings').getAt(0).get('lang');
+        }
+        catch(e){}
+        if (existe === undefined) {
+              var valor = { id_setting: '1', lang: '1'};
+              Ext.getStore('Settings').add(valor);
+              Ext.getStore('Settings').sync();
+              idioma = Ext.getStore('Settings').getAt(0).get('lang');
+        }
+        else{
+            //var valor = { id_setting: '1', lang: '2'};
+            //Ext.getStore('Settings').getAt(0).set(valor);
+            //Ext.getStore('Settings').sync();
+            //alert('Existe!');
+            idioma = Ext.getStore('Settings').getAt(0).get('lang');
+        }
+        console.dir(Ext.getStore('Settings').getAt(0).get('lang'));
         
      _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
         
