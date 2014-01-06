@@ -2051,7 +2051,6 @@ Ext.define('Italbox.ViewportPanel', {
                                     delegate: '#menu-italbox',
                                     event: 'tap',
                                     fn: function() {
-                                         panel_menu.hide();
                                      Ext.getCmp('menuI').hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
@@ -2064,6 +2063,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('italbox').show();
+                                     panel_menu.hide();
                                     }
                                 },
                                 {
@@ -2071,7 +2071,6 @@ Ext.define('Italbox.ViewportPanel', {
                                     delegate: '#menu-catalogos',
                                     event: 'tap',
                                     fn: function() {
-                                         panel_menu.hide();
                                      Ext.getCmp('menuI').hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('italbox').hide();
@@ -2084,7 +2083,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('myList').show();
-                                     
+                                     panel_menu.hide();
                                     }
                                 },
                                  {
@@ -2093,7 +2092,6 @@ Ext.define('Italbox.ViewportPanel', {
                                     event: 'tap',
                                     fn: function() {
                                        if (connect === 1) {
-                                            panel_menu.hide();
                                             //Ext.getStore('loja').sync();
                                             Ext.getCmp('menuI').hide();
                                             Ext.getCmp('myCarroucel').hide();
@@ -2107,6 +2105,7 @@ Ext.define('Italbox.ViewportPanel', {
                                             Ext.getCmp('myList').hide();*/
                                             Ext.getCmp('back').show();
                                             Ext.getCmp('favorites').show();
+                                            panel_menu.hide();
                                         }
                                         else{
                                             Ext.Msg.alert('Offline', 'Necessita de estar Online para aceder aos Favoritos', Ext.emptyFn);
@@ -2139,6 +2138,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('italbox').hide();
                                      Ext.getCmp('favorites').hide();
                                      Ext.getCmp('search').hide();
+                                     Ext.getCmp('back').hide();
                                      /*Ext.getCmp('myList').hide();
                                      Ext.getCmp('myList').hide();*/
                                      //Ext.getCmp('back').show();
@@ -2152,7 +2152,6 @@ Ext.define('Italbox.ViewportPanel', {
                                     delegate: '#menu-help',
                                     event: 'tap',
                                     fn: function() {
-                                        panel_menu.hide();
                                      Ext.getCmp('menuI').hide();
                                      Ext.getCmp('myCarroucel').hide();
                                      Ext.getCmp('myList').hide();
@@ -2165,6 +2164,7 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('help').show();
+                                     panel_menu.hide();
                                     }
                                 }
                             ]
