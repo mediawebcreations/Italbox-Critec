@@ -1,0 +1,101 @@
+@font-face {
+	font-family: 'icomoon';
+	src:url('font/icomoon.eot');
+	src:url('font/icomoon.eot?#iefix') format('embedded-opentype'),
+		url('font/icomoon.svg#icomoon') format('svg'),
+		url('font/icomoon.woff') format('woff'),
+		url('font/icomoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-twitter:before {
+	content: "\e600";
+	color: #000000 !important;
+}
+.icon-star-catalogos:before {
+	content: "\e601";
+	color: #000000 !important;
+}
+
+.icon-star-catalogos-white:before {
+	content: "\e601";
+	color: #FFFFFF !important;
+}
+
+.icon-star:before {
+	content: "\e602";
+	/*color: #000000 !important;*/
+	font-size: 21px !important;
+}
+.icon-pesquisa:before {
+	content: "\e603";
+	color: #000000 !important;
+}
+.icon-mundo-catalogos:before {
+	content: "\e604";
+	/*color: #000000;*/
+	font-size: 21px !important;
+}
+.icon-menu:before {
+	content: "\e605";
+	color: #000000 !important;
+}
+.icon-italbox:before {
+	content: "\e606";
+	/*color: #000000;*/
+	font-size: 21px !important;
+}
+.icon-catalogos:before {
+	content: "\e607";
+	/*color: #000000;*/
+	font-size: 19px !important;
+}
+.icon-home:before {
+	content: "\e608";
+	color: #000000 !important;
+}
+.icon-facebook:before {
+	content: "\e609";
+	color: #000000 !important;
+}
+.icon-close2:before {
+	content: "\e60a";
+	color: #000000 !important;
+}
+.icon-close:before {
+	content: "\e60b";
+	color: #000000 !important;
+}
+.icon-cima:before {
+	content: "\e60c";
+	color: #000000 !important;
+}
+.icon-baixo:before {
+	content: "\e60d";
+	color: #000000 !important;
+}
+.icon-back:before {
+	content: "\e60e";
+	color: #000000 !important;
+}
+.icon-ajuda:before {
+	content: "\e60f";
+	/*color: #000000;*/
+	font-size: 21px !important;
+}
+

@@ -937,38 +937,71 @@ Ext.define('Italbox.Viewport7', {
                 direction: 'down',
                 easing: 'easeOut'
             }, 
-            layout: {
-                type: 'vbox',
-                pack: 'center',
-                align: 'stretch'
-                //height: '400px',
-            },
-           /* flex: 1,
-                    scrollable: {
-                        direction: 'vertical',
-                        //indicators: false
-                    },
-                    inline: {
-                        wrap: true
-            },*/
-                   
-           items : [
-              {
-                id: 'menuHtml',
-                html:  '<div style="display: -webkit-box;"><div id="start-italbox" class="start-menu"; style="margin-left: 0px !important">'+
-               '<img src="imgs/icons/italbox_menu2.png" style=""></div>'+
-               '<div id="start-catalogos"  class="start-menu"; style="margin-right: 0px !important">'+
-               '<img id="start-catalogos" src="imgs/icons/catalogos_menu.png" style=""></div></div>'+
-               '<div style="display: -webkit-box;"><div id="start-favoritos" class="start-menu" style="margin-left: 0px !important">'+
-               '<img src="imgs/icons/favoritos_menu.png" style=""></div>'+
-               '<div id="start-language" class="start-menu";  style="margin-right: 0px !important">'+
-               '<img src="imgs/icons/language_menu.png" style=""></div></div>'+
-               '<div style="display: -webkit-box;"><div class="start-menu"; id="start-help" style="width:100% !important; margin-left: 0px !important; margin-right: 0px !important;">'+
-               '<img src="imgs/icons/ajuda_menu.png" style=""></div>'
-              },
-           
-                               
-            ],
+            
+           layout: {
+        type: 'hbox',
+        align: 'stretch'
+        
+    },
+    //marginTop: '50px !important',
+    items: [
+        {
+        //width: 50,
+        
+        flex:1, // this needs to be flexy as well
+        layout: {
+            type: 'vbox',
+            align: 'stretch'
+        },
+        items: [{
+            id: 'start-italbox',
+            flex: 1,
+            style: 'margin:5px; margin-left:10px !important; background: url(imgs/icons/italbox_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+            //html: '<i class=icon-twitter style="font-size: 30vmin;"></i>'
+            //html: '<div><img src="imgs/icons/italbox_menu2.png" style=""></img></div>'
+        }, {
+            //height: 50,
+            id: 'start-favoritos',
+            flex: 1,
+            style: 'margin:5px; margin-left:10px !important; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        },
+        {
+            //height: 50,
+            id: 'start-help',
+            flex: 1,
+            style: 'margin:5px; margin-left:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        }]
+    },
+    {
+        flex:1, // this needs to be flexy as well
+        layout: {
+            type: 'vbox',
+            align: 'stretch'
+        },
+        items: [{
+            id: 'start-catalogos',
+            flex: 1,
+            style: 'margin:5px; margin-right:10px !important; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        }, {
+            id: 'start-language',
+            //height: 50,
+            flex: 1,
+            style: 'margin:5px; margin-right:10px !important; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        },
+        {
+            id: 'start-help2',
+            //height: 50,
+            flex: 1,
+            style: 'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        }]
+    },
+    ],
             listeners: [
             {
                 element: 'element',
@@ -1023,7 +1056,11 @@ Ext.define('Italbox.Viewport7', {
                         Ext.getStore('Settings').getAt(0).set(valor);
                         Ext.getStore('Settings').sync();
                         idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                        Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                        Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                         Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                         Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                         Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -1059,7 +1096,11 @@ Ext.define('Italbox.Viewport7', {
                         Ext.getStore('Settings').getAt(0).set(valor);
                         Ext.getStore('Settings').sync();
                         idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                        Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                        Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                         Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                         Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                         Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -1096,6 +1137,16 @@ Ext.define('Italbox.Viewport7', {
             {
                 element: 'element',
                 delegate: '#start-help',
+                event: 'tap',
+                fn: function() {
+                 Ext.getCmp('menuI').hide();
+                 Ext.getCmp('back').show();
+                 Ext.getCmp('help').show();
+                }
+            },
+            {
+                element: 'element',
+                delegate: '#start-help2',
                 event: 'tap',
                 fn: function() {
                  Ext.getCmp('menuI').hide();
@@ -1157,11 +1208,11 @@ Ext.define('Italbox.Viewport6', {
                         keyup: function(searchBox) {
                             queryString = searchBox.getValue();
                             //console.log(this,'Please search by: ' + queryString);
-                            var store = Ext.getStore('produtos');
-                            store.clearFilter();
+                            //var store = Ext.getStore('produtos');
+                            Ext.getStore('produtos').clearFilter();
                             if(queryString){
                                 var thisRegEx = new RegExp(queryString, "i");
-                                store.filterBy(function(record) {
+                                Ext.getStore('produtos').filterBy(function(record) {
                                 if (thisRegEx.test(record.get('nome')) ||
                                     thisRegEx.test(record.get('ref'))) {
                                     return true;
@@ -1172,8 +1223,8 @@ Ext.define('Italbox.Viewport6', {
                         },
                         clearicontap: function() {
                             //console.log('Clear icon is tapped');
-                            var store = Ext.getStore('produtos');
-                            store.clearFilter();
+                            //var store = Ext.getStore('produtos');
+                             Ext.getStore('produtos').clearFilter();
                             //store.data.clear();
                         },
                     }
@@ -1381,11 +1432,11 @@ Ext.define('Italbox.Viewport5', {
                             Ext.getStore('Languages').getById(idioma).get('remove_favorite')+' '+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                var loja = Ext.getStore('Favorites');
+                                //var loja = Ext.getStore('Favorites');
                                 //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
                                 //console.dir(newRecord);
-                                loja.remove(record);
-                                loja.sync();
+                                Ext.getStore('Favorites').remove(record);
+                                Ext.getStore('Favorites').sync();
                                 }});
                                 
                             }
@@ -1395,27 +1446,27 @@ Ext.define('Italbox.Viewport5', {
                             Ext.getStore('Languages').getById(idioma).get('open_favorite')+' '+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                 var carr = Ext.getCmp('myCarroucel');
-                                 var ori = Ext.Viewport.getOrientation();
+                                 //var carr = Ext.getCmp('myCarroucel');
+                                 //var ori = Ext.Viewport.getOrientation();
                                  Ext.getCmp('favorites').hide();
-                                 carr.removeAll(true,true);
+                                 Ext.getCmp('myCarroucel').removeAll(true,true);
                                  idcatalogo = record.get('id_catalogo');
                                  tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
                                  tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
                                  //tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
-                             if (ori === 'portrait') {
-                                 carr.setItems(tpaginas2_temp);
-                                 carr.setActiveItem((record.get('numero')*2)-3);
+                             if (Ext.Viewport.getOrientation() === 'portrait') {
+                                 Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
+                                 Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
                              }
                              else{
-                                 carr.setItems(tpaginas_temp);
-                                 carr.setActiveItem(record.get('numero')-1);
+                                 Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
+                                 Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
                              }
                              Ext.getCmp('footer').show();
                              Ext.getCmp('barra5').show();
                              Ext.getCmp('footer').show();
-                             carr.show();
+                             Ext.getCmp('myCarroucel').show();
                             //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
                       
                             }});
@@ -1513,11 +1564,11 @@ Ext.define('Italbox.Viewport5', {
                             Ext.getStore('Languages').getById(idioma).get('remove_favorite')+' '+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                var loja2 = Ext.getStore('Favorites2');
+                                //var loja2 = Ext.getStore('Favorites2');
                                 //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
                                 //console.dir(newRecord);
-                                loja2.remove(record);
-                                loja2.sync();
+                                Ext.getStore('Favorites2').remove(record);
+                                Ext.getStore('Favorites2').sync();
                                 }});
                                 
                             }
@@ -1765,17 +1816,17 @@ Ext.define('Italbox.Viewport2', {
     onDrag: function(e) {
         if (e.targetTouches.length == 1){
             this.callParent(arguments);
-            var barra = Ext.getCmp('barra');
-        var barra2 = Ext.getCmp('barra2');
-        var footer = Ext.getCmp('footer');
+        // var barra = Ext.getCmp('barra');
+        // var barra2 = Ext.getCmp('barra2');
+        // var footer = Ext.getCmp('footer');
         try {
-            var myList2 =  Ext.getCmp('myList2');
-            myList2.hide();
+            //var myList2 =  Ext.getCmp('myList2');
+            Ext.getCmp('myList2').hide();
         }
         catch(err) {}
-        footer.show();
-        barra.hide();
-        barra2.show();
+        Ext.getCmp('footer').show();
+        Ext.getCmp('barra').hide();
+        Ext.getCmp('barra2').show();
         }
     },
     onDragEnd: function(e) {
@@ -1787,30 +1838,30 @@ Ext.define('Italbox.Viewport2', {
         this.callParent(arguments);
         
         this.element.on('tap',function() {
-            var barra = Ext.getCmp('barra');
-            var barra2 = Ext.getCmp('barra2');
-            barra.show();
-            barra2.hide();
+            //var barra = Ext.getCmp('barra');
+            //var barra2 = Ext.getCmp('barra2');
+            Ext.getCmp('barra').show();
+            Ext.getCmp('barra2').hide();
     });
     },
     
     handleOrientationChange: function(viewport, orientation, width, height){
-         var carr = Ext.getCmp('myCarroucel');
-         ind = carr.getActiveIndex();
+         //var carr = Ext.getCmp('myCarroucel');
+         ind = Ext.getCmp('myCarroucel').getActiveIndex();
          //console.dir(carr.getActiveItem());
          //carr.removeAll(true);
          if (Ext.Viewport.getOrientation() === 'portrait') {
-            carr.setItems(tpaginas2_temp);
+            Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
             var round1 = Math.round(ind*2);
-            carr.setActiveItem(round1-1);
+            Ext.getCmp('myCarroucel').setActiveItem(round1-1);
          }
          else {
             /*if ((ind > 0) && (ind%2 != 0)) {
                 ind = ind-1;
             }*/
-            carr.setItems(tpaginas_temp);
+            Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
             var round2 = Math.round(ind/2);
-            carr.setActiveItem(round2);
+            Ext.getCmp('myCarroucel').setActiveItem(round2);
          }
     }
 });
@@ -1889,7 +1940,7 @@ Ext.define('Italbox.Viewport', {
                             Ext.getStore('Languages').getById(idioma).get('open')+' '+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                 var ori = Ext.Viewport.getOrientation();
+                                 //var ori = Ext.Viewport.getOrientation();
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(true,true);
                                  idcatalogo = record.get('id_catalogo');
@@ -1897,7 +1948,7 @@ Ext.define('Italbox.Viewport', {
                                  tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
                                  tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
-                             if (ori === 'portrait') {
+                             if (Ext.Viewport.getOrientation() === 'portrait') {
                                  Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
                              }
                              else{
@@ -1955,66 +2006,66 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                     id: 'back',
-                    cls: 'back',
+                    cls: 'back icon-back',
                     hidden: true,
                     handler: function () {
-                    var lista = Ext.getCmp('myList');
-                    var carr = Ext.getCmp('myCarroucel');
-                    var italbox = Ext.getCmp('italbox');
-                    var favorites = Ext.getCmp('favorites');
-                    var help = Ext.getCmp('help');
-                    var search = Ext.getCmp('search');
-                    if(lista._hidden === false || italbox._hidden === false || favorites._hidden === false || help._hidden === false || search._hidden === false )
+                    //var lista = Ext.getCmp('myList');
+                    //var carr = Ext.getCmp('myCarroucel');
+                    //var italbox = Ext.getCmp('italbox');
+                    //var favorites = Ext.getCmp('favorites');
+                    //var help = Ext.getCmp('help');
+                    //var search = Ext.getCmp('search');
+                    if(Ext.getCmp('myList')._hidden === false || Ext.getCmp('italbox')._hidden === false || Ext.getCmp('favorites')._hidden === false || Ext.getCmp('help')._hidden === false || Ext.getCmp('search')._hidden === false )
 	            {
                         Ext.getCmp('menuI').show();
-                        carr.hide();
-                        carr.on('hide', function() {
-                         carr.removeAll(true,true);
+                        Ext.getCmp('myCarroucel').hide();
+                        Ext.getCmp('myCarroucel').on('hide', function() {
+                         Ext.getCmp('myCarroucel').removeAll(true,true);
                         });
                         //carr.removeAll(true,true);
                         Ext.getCmp('barra2').hide();
                         Ext.getCmp('footer').hide();
                          Ext.getCmp('barra5').hide();
                         try {
-                        var myList2 =  Ext.getCmp('myList2');
-                        myList2.hide();
+                        //var myList2 =  Ext.getCmp('myList2');
+                        Ext.getCmp('myList2').hide();
                         Ext.getCmp('myList').hide();
                         
                          }
                          catch(err) {}
                     
                     Ext.getCmp('back').hide();
-                    italbox.hide();
-                    favorites.hide();
-                    help.hide();
-                    search.hide();
-                    lista.hide();
+                    Ext.getCmp('italbox').hide();
+                    Ext.getCmp('favorites').hide();
+                    Ext.getCmp('help').hide();
+                    Ext.getCmp('search').hide();
+                    Ext.getCmp('myList').hide();
                     }
                     else
                     {
                     
                     
-                    carr.hide();
-                    carr.on('hide', function() {
-                         carr.removeAll(true,true);
+                    Ext.getCmp('myCarroucel').hide();
+                    Ext.getCmp('myCarroucel').on('hide', function() {
+                         Ext.getCmp('myCarroucel').removeAll(true,true);
                     });
                     //carr.removeAll(true,true);
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
                     Ext.getCmp('barra5').hide();
                     try {
-                    var myList2 =  Ext.getCmp('myList2');
-                        myList2.hide();
+                    //var myList2 =  Ext.getCmp('myList2');
+                        Ext.getCmp('myList2').hide();
                         Ext.getCmp('myList').hide();
                         
                     }
                     catch(err) {}
                     //Ext.getCmp('back').hide();
-                    italbox.hide();
-                    favorites.hide();
-                    help.hide();
-                    search.hide();
-                    lista.show();
+                    Ext.getCmp('italbox').hide();
+                    Ext.getCmp('favorites').hide();
+                    Ext.getCmp('help').hide();
+                    Ext.getCmp('search').hide();
+                    Ext.getCmp('myList').show();
                     }
                     
                 }, 
@@ -2024,7 +2075,7 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'right',
                     ui:      'plain',
                     xtype: 'button',
-                    cls: 'open-menu',
+                    cls: 'open-menu icon-menu',
                    handler: function() {
                         //add a hidden panel with showAnimation and hideAnimation
                         if( typeof panel_menu !== 'undefined' ) {
@@ -2059,19 +2110,19 @@ Ext.define('Italbox.ViewportPanel', {
                             }, 
                             items     : [
                                 {
-                                    html  : '<li class="menu-italbox" id="menu-italbox">'+Ext.getStore('Languages').getById(idioma).get('italbox')+'</li>',
+                                    html  : '<li class="menu-italbox" id="menu-italbox"><span class="icon-italbox" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('italbox')+'</span></li>',
                                 },
                                 {
-                                    html  : '<li class="menu-catalogos" id="menu-catalogos">'+Ext.getStore('Languages').getById(idioma).get('catalogs')+'</li>',
+                                    html  : '<li class="menu-catalogos" id="menu-catalogos"><span class="icon-catalogos" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('catalogs')+'</span></li>',
                                 },
                                 {
-                                    html  : '<li class="menu-favoritos" id="menu-favoritos">'+Ext.getStore('Languages').getById(idioma).get('favorites')+'</li>'
+                                    html  : '<li class="menu-favoritos" id="menu-favoritos"><span class="icon-star" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('favorites')+'</span></li>'
                                 },
                                 {
-                                    html  : '<li class="menu-language" id="menu-language">'+Ext.getStore('Languages').getById(idioma).get('language')+'</li>'
+                                    html  : '<li class="menu-language" id="menu-language"><span class="icon-mundo-catalogos" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('language')+'</span></li>'
                                 },
                                 {
-                                    html  : '<li class="menu-ajuda" id="menu-help">'+Ext.getStore('Languages').getById(idioma).get('help')+'</li>'
+                                    html  : '<li class="menu-ajuda" id="menu-help"><span class="icon-ajuda" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('help')+'</span></li>'
                                 }
                             ],
                             listeners: [
@@ -2156,7 +2207,11 @@ Ext.define('Italbox.ViewportPanel', {
                                         Ext.getStore('Settings').getAt(0).set(valor);
                                         Ext.getStore('Settings').sync();
                                         idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                        Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                        Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                                         Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                                         Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                                         Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -2192,7 +2247,11 @@ Ext.define('Italbox.ViewportPanel', {
                                         Ext.getStore('Settings').getAt(0).set(valor);
                                         Ext.getStore('Settings').sync();
                                         idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                        Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+                                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                        Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                                         Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                                         Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                                         Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -2276,7 +2335,7 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'right',
                     ui:      'plain',
                     xtype: 'button',
-                    cls: 'open-menu2',
+                    cls: 'open-menu2 icon-pesquisa',
                     handler: function () {
                        if (connect === 1) {
                             //Ext.getCmp('back').hide();
@@ -2584,13 +2643,13 @@ Ext.define('Italbox.ViewportPanel', {
                     handler: function () {
                        // alert('teste');
                        //var carr = Ext.getCmp('myCarroucel');
-                       var loja2 = Ext.getStore('Favorites2');
-                       loja2.load();
+                       //var loja2 = Ext.getStore('Favorites2');
+                       Ext.getStore('Favorites2').load();
                         //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
                        var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
                        ////console.dir(newRecord);
-                       loja2.add(newRecord2);
-                       loja2.sync();
+                       Ext.getStore('Favorites2').add(newRecord2);
+                       Ext.getStore('Favorites2').sync();
                        
                        
                         Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_product'), Ext.emptyFn);
@@ -2699,8 +2758,8 @@ Ext.define('Italbox.ViewportPanel', {
                     });
                        panel1.show();
                        panel1.on('hide', function() {
-                        var lista = Ext.getCmp('myList');
-                        if(lista._hidden === true)
+                        //var lista = Ext.getCmp('myList');
+                        if(Ext.getCmp('myList')._hidden === true)
                         {
                          Ext.getCmp('footer').show();
                          Ext.getCmp('barra5').show();
@@ -2768,14 +2827,14 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu5',
                     handler: function () {
-                       var carr = Ext.getCmp('myCarroucel');
-                       var loja = Ext.getStore('Favorites');
-                       loja.load();
+                       //var carr = Ext.getCmp('myCarroucel');
+                       //var loja = Ext.getStore('Favorites');
+                       Ext.getStore('Favorites').load();
                        //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
                        var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
                        //console.dir(newRecord);
-                       loja.add(newRecord);
-                       loja.sync();
+                       Ext.getStore('Favorites').add(newRecord);
+                       Ext.getStore('Favorites').sync();
                        Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_page'), Ext.emptyFn);
                        
                     }
@@ -2956,7 +3015,11 @@ Ext.application({
             //alert('Existe!');
             //console.dir(Ext.getCmp('menuI'));
             idioma = Ext.getStore('Settings').getAt(0).get('lang');
-            Ext.getCmp('menuHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('menu'));
+            Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+            Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+            Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+            Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+            Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
             Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
             Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
             Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -3038,14 +3101,14 @@ Ext.application({
                 Ext.getCmp('menuP').hide();
             }
         catch(err) {}
-        var carr = Ext.getCmp('myCarroucel');
-        var italbox = Ext.getCmp('italbox');
-        var favorites = Ext.getCmp('favorites');
-        var help = Ext.getCmp('help');
-        var search = Ext.getCmp('search');
-        var menuI = Ext.getCmp('menuI');
+        //var carr = Ext.getCmp('myCarroucel');
+        //var italbox = Ext.getCmp('italbox');
+        //var favorites = Ext.getCmp('favorites');
+        //var help = Ext.getCmp('help');
+        //var search = Ext.getCmp('search');
+        //var menuI = Ext.getCmp('menuI');
         
-        if (menuI._hidden === false || italbox._hidden === false || help._hidden === false ) {
+        if (Ext.getCmp('menuI')._hidden === false || Ext.getCmp('italbox')._hidden === false || Ext.getCmp('help')._hidden === false ) {
             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('offline'), Ext.emptyFn);
         }
         else{
@@ -3054,32 +3117,32 @@ Ext.application({
                 Ext.getStore('Languages').getById(idioma).get('offline_error'),
             function(buttonId) {
                   if (buttonId === 'ok') {
-                  var lista = Ext.getCmp('myList');
+                  //var lista = Ext.getCmp('myList');
                 //console.dir(lista);
             
-            carr.hide();
-            carr.on('hide', function() {
-            carr.removeAll(true,true);
+            Ext.getCmp('myCarroucel').hide();
+            Ext.getCmp('myCarroucel').on('hide', function() {
+            Ext.getCmp('myCarroucel').removeAll(true,true);
             });
             //carr.removeAll(true,true);
             Ext.getCmp('barra2').hide();
             Ext.getCmp('footer').hide();
             Ext.getCmp('barra5').hide();
             try {
-               var myList2 =  Ext.getCmp('myList2');
-               myList2.hide();
+               //var myList2 =  Ext.getCmp('myList2');
+               Ext.getCmp('myList2').hide();
                Ext.getCmp('myList').hide();
                Ext.getCmp('pop-produto').hide();
             }
             catch(err) {}
-            italbox.hide();
-            favorites.hide();
-            help.hide();
-            search.hide();
-            lista.hide();
+            Ext.getCmp('italbox').hide();
+            Ext.getCmp('favorites').hide();
+            Ext.getCmp('help').hide();
+            Ext.getCmp('search').hide();
+            Ext.getCmp('myList').hide();
             Ext.getCmp('back').hide();
             Ext.getCmp('barra').show();
-            menuI.show();                 
+            Ext.getCmp('menuI').show();                 
                                                 
             }});
         } 
@@ -3087,44 +3150,44 @@ Ext.application({
     
     function onBackKeyDown(eve) {
             eve.preventDefault();
-            var lista = Ext.getCmp('myList');
+            //var lista = Ext.getCmp('myList');
             //console.dir(lista);
             try {
                 Ext.getCmp('menuP').hide();
             }
             catch(err) {}
-            var carr = Ext.getCmp('myCarroucel');
-            var italbox = Ext.getCmp('italbox');
-            var favorites = Ext.getCmp('favorites');
-            var help = Ext.getCmp('help');
-            var search = Ext.getCmp('search');
-            var menuI = Ext.getCmp('menuI');
+            //var carr = Ext.getCmp('myCarroucel');
+            //var italbox = Ext.getCmp('italbox');
+            //var favorites = Ext.getCmp('favorites');
+            //var help = Ext.getCmp('help');
+            //var search = Ext.getCmp('search');
+            //var menuI = Ext.getCmp('menuI');
             
-            if(lista._hidden === false || italbox._hidden === false || favorites._hidden === false || help._hidden === false || search._hidden === false )
+            if(Ext.getCmp('myList')._hidden === false || Ext.getCmp('italbox')._hidden === false || Ext.getCmp('favorites')._hidden === false || Ext.getCmp('help')._hidden === false || Ext.getCmp('search')._hidden === false )
             {
-                carr.hide();
-                carr.on('hide', function() {
-                carr.removeAll(true,true);
+                Ext.getCmp('myCarroucel').hide();
+                Ext.getCmp('myCarroucel').on('hide', function() {
+                Ext.getCmp('myCarroucel').removeAll(true,true);
                 });
                 //carr.removeAll(true,true);
                 Ext.getCmp('barra2').hide();
                 Ext.getCmp('footer').hide();
                 Ext.getCmp('barra5').hide();
                 try {
-                    var myList2 =  Ext.getCmp('myList2');
-                    myList2.hide();
+                    //var myList2 =  Ext.getCmp('myList2');
+                    Ext.getCmp('myList2').hide();
                     Ext.getCmp('myList').hide();
                     Ext.getCmp('pop-produto').hide();
                 }
                 catch(err) {}
-                italbox.hide();
-                favorites.hide();
-                help.hide();
-                search.hide();
-                lista.hide();
+                Ext.getCmp('italbox').hide();
+                Ext.getCmp('favorites').hide();
+                Ext.getCmp('help').hide();
+                Ext.getCmp('search').hide();
+                Ext.getCmp('myList').hide();
                 Ext.getCmp('back').hide();
                 Ext.getCmp('barra').show();
-                menuI.show();
+                Ext.getCmp('menuI').show();
             }
             /*else if (menuI._hidden === false) {
                Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
@@ -3137,27 +3200,27 @@ Ext.application({
             }*/
             else if (carr._hidden === false) 
             {
-                carr.hide();
-                carr.on('hide', function() {
-                     carr.removeAll(true,true);
+                Ext.getCmp('myCarroucel').hide();
+                Ext.getCmp('myCarroucel').on('hide', function() {
+                     Ext.getCmp('myCarroucel').removeAll(true,true);
                 });
                 //carr.removeAll(true,true);
                 Ext.getCmp('barra2').hide();
                 Ext.getCmp('footer').hide();
                 Ext.getCmp('barra5').hide();
                 try {
-                    var myList2 =  Ext.getCmp('myList2');
-                    myList2.hide();
+                    //var myList2 =  Ext.getCmp('myList2');
+                    Ext.getCmp('myList2').hide();
                     Ext.getCmp('myList').hide(); 
                 }
                 catch(err) {}
                 //Ext.getCmp('back').hide();
-                italbox.hide();
-                favorites.hide();
-                help.hide();
-                search.hide();
+                Ext.getCmp('italbox').hide();
+                Ext.getCmp('favorites').hide();
+                Ext.getCmp('help').hide();
+                Ext.getCmp('search').hide();
                 Ext.getCmp('barra').show();
-                lista.show();
+                Ext.getCmp('myList').show();
             }
             else
 	    {

@@ -192,7 +192,7 @@ body{
 }
 
 .menuI{
-   top: 10px !important;
+   padding-top: 40px !important;
 }
 
 .open-menu5{
@@ -497,8 +497,10 @@ body{
 	right: 0px;
 	position: absolute;
 	width: 45px;
-	height: 45px;
-	background-image: url(../imgs/icons/menu.png)!important;
+	height: 45px !important;
+        font-size: 19px !important;
+        text-align: -webkit-center !important;
+	/*background-image: url(../imgs/icons/menu.png)!important;*/
 
 }
 
@@ -507,9 +509,10 @@ body{
 	right: 40px;
 	position: absolute;
 	width: 45px;
-	height: 45px;
-	background-image: url(../imgs/icons/search.png) !important;
-
+	height: 45px !important;
+        font-size: 23px !important;
+        text-align: -webkit-center !important;
+	/*background-image: url(../imgs/icons/search.png) !important;*/
 }
 
 .open-menu3{
@@ -520,7 +523,7 @@ body{
 	width: 45px !important;
 	height: 45px !important;
         margin: 0;
-        background-color: white;
+        background: #FFF;
 	background-image: url(../imgs/icons/seta-baixo2.png)!important;
 
 }
@@ -564,8 +567,10 @@ body{
 	left: 20px;
 	position: absolute;
 	width: 45px;
-	height: 45px;
-	background-image: url(../imgs/icons/back.png)!important;
+	height: 45px !important;
+        font-size: 23px !important;
+        text-align: -webkit-center !important;
+	/*background-image: url(../imgs/icons/back.png)!important;*/
 }
 
 .remove
@@ -722,27 +727,34 @@ body{
 	padding: 15px 10px 13px 60px;
 }
 
+.menu li:hover {
+	color: #FFFFFF !important;
+}
+
 
 /*.menu li:last-child{
 	border-bottom: solid; 1px;
 }*/
 
 .menu li.menu-italbox {
-	background: url(../imgs/icons/italbox.png) no-repeat ;
+	/*background: url(../imgs/icons/italbox.png) no-repeat ;*/
+        
 }
 .menu li.menu-catalogos {
-	background: url(../imgs/icons/catalogos.png) no-repeat ;
+	/*background: url(../imgs/icons/catalogos.png) no-repeat ;*/
 }
+
 .menu li.menu-favoritos {
-	background: url(../imgs/icons/favoritos.png) no-repeat ;
+	/*background: url(../imgs/icons/favoritos.png) no-repeat ;*/
 }
 .menu li.menu-language {
-	background: url(../imgs/icons/language.png) no-repeat ;
+	/*background: url(../imgs/icons/language.png) no-repeat ;*/
 }
 .menu li.menu-ajuda {
-	background: url(../imgs/icons/ajuda.png) no-repeat ;
+	/*background: url(../imgs/icons/ajuda.png) no-repeat ;*/
 	border-bottom: solid; 1px;
 }
+
 
 /*.menu li:hover {
 	background-color: #000 ;
@@ -752,7 +764,7 @@ body{
 }*/
 
 .menu li.menu-italbox:hover {
-	background: url(../imgs/icons/italbox_white.png) no-repeat ;
+	/*background: url(../imgs/icons/italbox_white.png) no-repeat ;*/
         background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
@@ -760,7 +772,7 @@ body{
 }
 
 .menu li.menu-catalogos:hover {
-	background: url(../imgs/icons/catalogos_white.png) no-repeat ;
+	/*background: url(../imgs/icons/catalogos_white.png) no-repeat ;*/
         background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
@@ -768,28 +780,27 @@ body{
 }
 
 .menu li.menu-favoritos:hover {
-	background: url(../imgs/icons/favoritos_white.png) no-repeat ;
+	/*background: url(../imgs/icons/favoritos_white.png) no-repeat ;*/
         background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
 	-webkit-transition: 0.5s;
 }
 .menu li.menu-language:hover {
-	background: url(../imgs/icons/language_white.png) no-repeat ;
+	/*background: url(../imgs/icons/language_white.png) no-repeat ;*/
         background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
 	-webkit-transition: 0.5s;
 }
 .menu li.menu-ajuda:hover {
-	background: url(../imgs/icons/ajuda_white.png) no-repeat ;
+	/*background: url(../imgs/icons/ajuda_white.png) no-repeat ;*/
         background-color: #000 ;
 	color: #FFFFFF;
 	transition: 0.5s;
 	-webkit-transition: 0.5s;
         border-bottom: solid; 1px;
 }
-
 
 @media  
 only screen and (-webkit-min-device-pixel-ratio: 2),  
@@ -842,10 +853,10 @@ only screen and ( min-resolution: 2dppx) {
 		background-size: 45px 45px;
 	}
         
-        .back{
+        /*.back{
                 background-image: url(../imgs/icons/back-retina.png) no-repeat;
                 background-size: 45px 45px;
-        }
+        }*/
 } 
 
 @media screen and (max-width:960px) {
@@ -1059,4 +1070,8 @@ top: 65% !important;
 
 .x-list-normal .x-list-item:last-child .x-list-item-label {
 border-bottom: 1px solid #000000 !important;
+}
+
+.x-button.x-button-plain.x-button-pressing, .x-button.x-button-plain.x-button-pressed, .x-toolbar .x-button.x-button-plain.x-button-pressing, .x-toolbar .x-button.x-button-plain.x-button-pressed{
+ background-image: radial-gradient(rgba(192,192,192,0.4),rgba(192,192,192,0) 24px);
 }
