@@ -2096,7 +2096,7 @@ Ext.define('Italbox.ViewportPanel', {
                             height    : 100,
                             width     : 240,
                             floating  : true,                               
-                            top       : -130,
+                            top       : -160,
                             cls: 'menu',
                             hideOnMaskTap: true,
                             showAnimation: 
