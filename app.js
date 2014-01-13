@@ -652,6 +652,7 @@ $(document).ready(function() {
     //setTimeout('runApp3()',3000);
     setTimeout('runApp4()',6000);
     setTimeout('runApp5()',8000);
+    setTimeout('runApp6()',10000);
 });
 
 function runApp() {
@@ -677,6 +678,10 @@ $.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2))
 };
 
 function runApp5() {
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5));
+};
+
+function runApp6() {
 $.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(sencha());
 };
 
