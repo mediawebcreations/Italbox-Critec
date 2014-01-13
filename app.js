@@ -3198,7 +3198,7 @@ Ext.application({
                     } 
                 });
             }*/
-            else if (carr._hidden === false) 
+            else if (Ext.getCmp('myCarroucel')._hidden === false) 
             {
                 Ext.getCmp('myCarroucel').hide();
                 Ext.getCmp('myCarroucel').on('hide', function() {
