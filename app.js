@@ -1293,7 +1293,7 @@ Ext.define('Italbox.Viewport6', {
                                             align: 'right', 
                                             ui:    'plain',
                                             xtype: 'button',
-                                            cls: 'close',
+                                            cls: 'close icon-close',
                                             //hidden: true,
                                             handler: function () {
                                                 Ext.getCmp('pop-produto').hide();
@@ -1425,7 +1425,7 @@ Ext.define('Italbox.Viewport5', {
                        //}]
                     /*},*/
                     
-                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome}</div>',
+                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove icon-close2"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
                     emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
                     
@@ -1557,7 +1557,7 @@ Ext.define('Italbox.Viewport5', {
                        //}]
                     /*},*/
                     
-                    itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome} {ref}</div>',
+                    itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove icon-close2"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome} {ref}</div>',
                     
                     emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
                     
@@ -1631,7 +1631,7 @@ Ext.define('Italbox.Viewport5', {
                                             align: 'right', 
                                             ui:    'plain',
                                             xtype: 'button',
-                                            cls: 'close',
+                                            cls: 'close icon-close',
                                             //hidden: true,
                                             handler: function () {
                                                 Ext.getCmp('pop-produto').hide();
@@ -1800,7 +1800,7 @@ Ext.define('Italbox.Viewport2', {
                 source = value.initialConfig.thumb;
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
-                Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product')+' '+contador);
+                Ext.getCmp('open-menu4').setText('<font style="font-family: robotomedium !important;font-size: 13px;padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</font>');
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
             },
             resize: function(component, eOpts) {
@@ -2115,19 +2115,19 @@ Ext.define('Italbox.ViewportPanel', {
                             }, 
                             items     : [
                                 {
-                                    html  : '<li class="menu-italbox" id="menu-italbox"><span class="icon-italbox" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('italbox')+'</span></li>',
+                                    html  : '<li class="menu-italbox" id="menu-italbox"><span class="icon-italbox" style="vertical-align: middle;"></span><span style="padding-left: 20px; font-size: 13px;">'+Ext.getStore('Languages').getById(idioma).get('italbox')+'</span></li>',
                                 },
                                 {
-                                    html  : '<li class="menu-catalogos" id="menu-catalogos"><span class="icon-catalogos" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('catalogs')+'</span></li>',
+                                    html  : '<li class="menu-catalogos" id="menu-catalogos"><span class="icon-catalogos" style="vertical-align: middle;"></span><span style="padding-left: 20px; font-size: 13px;">'+Ext.getStore('Languages').getById(idioma).get('catalogs')+'</span></li>',
                                 },
                                 {
-                                    html  : '<li class="menu-favoritos" id="menu-favoritos"><span class="icon-star" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('favorites')+'</span></li>'
+                                    html  : '<li class="menu-favoritos" id="menu-favoritos"><span class="icon-star" style="vertical-align: middle;"></span><span style="padding-left: 20px; font-size: 13px;">'+Ext.getStore('Languages').getById(idioma).get('favorites')+'</span></li>'
                                 },
                                 {
-                                    html  : '<li class="menu-language" id="menu-language"><span class="icon-mundo-catalogos" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('language')+'</span></li>'
+                                    html  : '<li class="menu-language" id="menu-language"><span class="icon-mundo-catalogos" style="vertical-align: middle;"></span><span style="padding-left: 20px; font-size: 13px;">'+Ext.getStore('Languages').getById(idioma).get('language')+'</span></li>'
                                 },
                                 {
-                                    html  : '<li class="menu-ajuda" id="menu-help"><span class="icon-ajuda" style="vertical-align: middle;"></span><span style="padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('help')+'</span></li>'
+                                    html  : '<li class="menu-ajuda" id="menu-help"><span class="icon-ajuda" style="vertical-align: middle;"></span><span style="padding-left: 20px; font-size: 13px;">'+Ext.getStore('Languages').getById(idioma).get('help')+'</span></li>'
                                 }
                             ],
                             listeners: [
@@ -2409,7 +2409,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu3',
+                    cls: 'open-menu3 icon-baixo',
                     //hidden: true,
                     handler: function () {
                     Ext.getCmp('barra2').hide();
@@ -2462,9 +2462,9 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
-                    text: 'Produtos <font style="color:#FF0000 !important;">0</font>',
+                    text: '<font style="font-family: robotomedium !important;font-size: 13px;padding-left: 20px;">Produtos 0</font>',
                     textAlign: 'left',
-                    cls: 'open-menu4',
+                    cls: 'open-menu4 icon-cima2',
                     id: 'open-menu4',
                     //align: 'bottom',
                     //hidden: true,
@@ -2533,8 +2533,8 @@ Ext.define('Italbox.ViewportPanel', {
                            // align: 'right', 
                             ui:    'plain',
                             xtype: 'button',
-                            cls: 'close-menu4',
-                            text:  Ext.getCmp('open-menu4').getText(),
+                            cls: 'close-menu4 icon-baixo2',
+                            text:  '<font style="font-family: robotomedium !important;font-size: 13px;">'+Ext.getCmp('open-menu4').getText()+'</font>',
                             //hidden: true,
                             handler: function () {
                              //   Ext.getCmp('pop-image').hide();
@@ -2644,7 +2644,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu9',
+                    cls: 'open-menu9 icon-star-catalogos-white',
                     handler: function () {
                        // alert('teste');
                        //var carr = Ext.getCmp('myCarroucel');
@@ -2680,7 +2680,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu8',
+                    cls: 'open-menu8 icon-lista-white',
                     handler: function () {
                        
                     }
@@ -2690,7 +2690,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu10',
+                    cls: 'open-menu10 icon-partilha-white',
                     handler: function () {
                        
                     }
@@ -2716,7 +2716,7 @@ Ext.define('Italbox.ViewportPanel', {
                 align: 'right', 
                 ui:    'plain',
                 xtype: 'button',
-                cls: 'close',
+                cls: 'close icon-close',
                 //hidden: true,
                 handler: function () {
                     Ext.getCmp('pop-image').hide();
@@ -2830,7 +2830,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu5',
+                    cls: 'open-menu5 icon-star-catalogos',
                     handler: function () {
                        //var carr = Ext.getCmp('myCarroucel');
                        //var loja = Ext.getStore('Favorites');
@@ -2849,7 +2849,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu6',
+                    cls: 'open-menu6 icon-lista',
                     handler: function () {
                        
                     }
@@ -2859,7 +2859,7 @@ Ext.define('Italbox.ViewportPanel', {
                     ui:    'plain',
                     xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu7',
+                    cls: 'open-menu7 icon-partilha',
                     handler: function () {
                        //window.plugins.socialsharing.share('Message only');
                        window.plugins.socialsharing.share('Catalogo '+idcatalogo+' Pagina '+numero+'', null, source, null);

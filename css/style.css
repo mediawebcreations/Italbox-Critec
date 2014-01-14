@@ -200,7 +200,10 @@ body{
         top: 47px;
 	width: 45px;
 	height: 45px !important;
-	background-image: url(../imgs/icons/favoritos2.png) !important;
+        font-size: 22px !important;
+        text-align: -webkit-center !important;
+        background: #FFFFFF !important;
+	/*background-image: url(../imgs/icons/favoritos2.png) !important;*/
 
 }
 
@@ -208,7 +211,10 @@ body{
 	position: absolute;
 	width: 45px;
 	height: 45px !important;
-	background-image: url(../imgs/icons/menu2.png) !important;
+        font-size: 22px !important;
+        text-align: -webkit-center !important;
+        background: #FFFFFF !important;
+	/*background-image: url(../imgs/icons/menu2.png) !important;*/
 
 }
 
@@ -219,7 +225,10 @@ body{
         top: 94px;
 	width: 45px;
 	height: 45px !important;
-	background-image: url(../imgs/icons/menu3.png) !important;
+        font-size: 22px !important;
+        text-align: -webkit-center !important;
+        background: #FFFFFF !important;
+	/*background-image: url(../imgs/icons/menu3.png) !important;*/
 
 }
 
@@ -227,7 +236,10 @@ body{
 	position: absolute;
 	width: 45px;
 	height: 45px !important;
-	background-image: url(../imgs/icons/menu4.png) !important;
+        font-size: 22px !important;
+        text-align: -webkit-center !important;
+        background: #000000 !important;
+	/*background-image: url(../imgs/icons/menu4.png) !important;*/
 
 }
 
@@ -236,7 +248,10 @@ body{
         top: 47px;
 	width: 45px;
 	height: 45px !important;
-	background-image: url(../imgs/icons/favoritos3.png) !important;
+        font-size: 22px !important;
+        text-align: -webkit-center !important;
+        background: #000000 !important;
+	/*background-image: url(../imgs/icons/favoritos3.png) !important;*/
 
 }
 
@@ -245,7 +260,10 @@ body{
         top: 94px;
 	width: 45px;
 	height: 45px !important;
-	background-image: url(../imgs/icons/menu5.png) !important;
+        font-size: 22px !important;
+        text-align: -webkit-center !important;
+        background: #000000 !important;
+	/*background-image: url(../imgs/icons/menu5.png) !important;*/
 
 }
 
@@ -479,7 +497,8 @@ body{
 	padding: 13px;
 	width: 121px;
 	height: 24px;
-	background: url(../imgs/logotipo.png) no-repeat center;
+	background: url(../imgs/logotipo-retina.png) no-repeat center;
+        background-size: 121px 24px;
 }
 
 .close{
@@ -488,7 +507,9 @@ body{
 	/*position: absolute;*/
 	width: 45px;
 	height: 45px;
-	background: url(../imgs/icons/close.png) no-repeat center !important;
+        font-size: 21px !important;
+        text-align: -webkit-center !important;
+	/*background: url(../imgs/icons/close.png) no-repeat center !important;*/
 
 }
 
@@ -523,8 +544,10 @@ body{
 	width: 45px !important;
 	height: 45px !important;
         margin: 0;
-        background: #FFF;
-	background-image: url(../imgs/icons/seta-baixo2.png)!important;
+        font-size: 23px !important;
+        text-align: -webkit-center !important;
+        background: #FFFFFF !important;
+	/*background-image: url(../imgs/icons/seta-baixo2.png)!important;*/
 
 }
 
@@ -538,10 +561,11 @@ body{
 	height: 45px !important;
         margin: 0;
         color: #000000 !important;
+        background: #FFFFFF !important;
         /*background: #000000 !important;
         background-color: #000000 !important;*/
         /*text-align: left;*/
-	background-image: url(../imgs/icons/seta-cima3.png)!important;
+	/*background-image: url(../imgs/icons/seta-cima3.png)!important;*/
 
 }
 
@@ -555,10 +579,13 @@ body{
 	height: 45px !important;
         margin: 0;
         color: #000000 !important;
+        background: #FFFFFF !important;
+        background-image: none !important;
+        background-color: none !important;
         /*background: #000000 !important;
         background-color: #000000 !important;*/
         /*text-align: left;*/
-	background-image: url(../imgs/icons/seta-baixo3.png)!important;
+	/*background-image: url(../imgs/icons/seta-baixo3.png)!important;*/
 
 }
 
@@ -575,14 +602,16 @@ body{
 
 .remove
 {
-  width: 25px;
+  width: 35px;
   height: 25px;
   border: none;
-  background-image: url(../imgs/icons/remove.png)!important;
+  /*background-image: url(../imgs/icons/remove.png)!important;*/
   background: transparent;
   position: absolute;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
   margin-left: -30px;
+  font-size: 23px !important;
+  text-align: -webkit-center !important;
 }
 
 .lista-pesquisa div {
@@ -816,8 +845,8 @@ only screen and ( min-resolution: 2dppx) {
     }
 
     .header > .logotipo{
-		background: url(../imgs/logotipo.png) no-repeat center;
-		background-size: 121px 24px;
+		background: url(../imgs/logotipo-retina.png) no-repeat center;
+                background-size: 121px 24px;
 	}
 	   
 

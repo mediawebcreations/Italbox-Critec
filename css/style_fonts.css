@@ -85,9 +85,25 @@
 	content: "\e60c";
 	color: #000000 !important;
 }
+.icon-cima2:after {
+	content: "\e60c";
+	color: #000000 !important;
+	font-size: 23px;
+	background: transparent !important;
+	background-image: transparent !important;
+        background-color: transparent !important;
+}
 .icon-baixo:before {
 	content: "\e60d";
 	color: #000000 !important;
+}
+.icon-baixo2:after {
+	content: "\e60d";
+	color: #000000 !important;
+	font-size: 23px;
+	background: transparent !important;
+	background-image: transparent !important;
+        background-color: transparent !important;
 }
 .icon-back:before {
 	content: "\e60e";
@@ -97,5 +113,22 @@
 	content: "\e60f";
 	/*color: #000000;*/
 	font-size: 21px !important;
+}
+.icon-partilha:before {
+	content: "\e610";
+	color: #000000 !important;
+}
+.icon-lista:before {
+	content: "\e611";
+	color: #000000 !important;
+}
+
+.icon-partilha-white:before {
+	content: "\e610";
+	color: #FFFFFF !important;
+}
+.icon-lista-white:before {
+	content: "\e611";
+	color: #FFFFFF !important;
 }
 
