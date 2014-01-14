@@ -943,10 +943,9 @@ Ext.define('Italbox.Viewport7', {
                 easing: 'easeOut'
             }, 
             
-           layout: {
-        type: 'hbox',
+    layout: {
+        type: 'vbox',
         align: 'stretch'
-        
     },
     //marginTop: '50px !important',
     items: [
@@ -955,17 +954,19 @@ Ext.define('Italbox.Viewport7', {
         
         flex:1, // this needs to be flexy as well
         layout: {
-            type: 'vbox',
+            type: 'hbox',
             align: 'stretch'
         },
-        items: [{
+        items: [
+        {
             id: 'start-italbox',
             flex: 1,
             style: 'margin:5px; margin-left:10px !important; background: url(imgs/icons/italbox_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
             //html: '<i class=icon-twitter style="font-size: 30vmin;"></i>'
             //html: '<div><img src="imgs/icons/italbox_menu2.png" style=""></img></div>'
-        }, {
+        },
+        {
             //height: 50,
             id: 'start-favoritos',
             flex: 1,
@@ -978,12 +979,13 @@ Ext.define('Italbox.Viewport7', {
             flex: 1,
             style: 'margin:5px; margin-left:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        }]
+        }
+        ]
     },
     {
         flex:1, // this needs to be flexy as well
         layout: {
-            type: 'vbox',
+            type: 'hbox',
             align: 'stretch'
         },
         items: [{
@@ -1005,6 +1007,23 @@ Ext.define('Italbox.Viewport7', {
             style: 'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         }]
+    },
+    
+    {
+        flex:1, // this needs to be flexy as well
+        layout: {
+            type: 'hbox',
+            align: 'stretch'
+        },
+      items: [
+        {
+            id: 'start-help2',
+            //height: 50,
+            flex: 1,
+            style: 'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        }
+        ]
     },
     ],
             listeners: [
