@@ -61,6 +61,8 @@
     <gap:platform name="ios" />
     <gap:platform name="android" />
     <gap:platform name="winphone" />
+    
+    <gap:plugin name="nl.x-services.plugins.socialsharing" version="2.3" />
         
     <!-- GENERAL PREFERENCES -->
         
@@ -96,15 +98,7 @@
     <!-- PHONEGAP API FEATURES PREFERENCES -->
         
     <preference name="permissions" value="none"/>
-    
-    <!-- for iOS -->
-    <feature name="SocialSharing">
-      <param name="ios-package" value="SocialSharing" />
-    </feature>
-    <!-- for Android as feature -->
-    <feature name="SocialSharing">
-      <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
-    </feature>
+   
     <!--
     <feature name="http://api.phonegap.com/1.0/battery"/>
     <feature name="http://api.phonegap.com/1.0/camera"/>

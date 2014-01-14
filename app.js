@@ -2861,7 +2861,7 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu7',
                     handler: function () {
-                       
+                       window.plugins.socialsharing.share('Message only');
                     }
                 },
         ]
