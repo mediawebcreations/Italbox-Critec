@@ -1797,7 +1797,7 @@ Ext.define('Italbox.Viewport2', {
                 idpagina = value.initialConfig.id_pagina;
                 idcatalogo = value.initialConfig.id_catalogo;
                 numero = value.initialConfig.numero;
-                source = value.initialConfig.imageSrc;
+                source = value.initialConfig.thumb;
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
                 Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product')+' '+contador);
