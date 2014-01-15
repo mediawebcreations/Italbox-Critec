@@ -494,6 +494,7 @@ body{
 .logotipo{
 	display: block;
 	margin: auto;
+        margin-bottom: 2px;
 	padding: 13px;
 	width: 121px;
 	height: 24px;

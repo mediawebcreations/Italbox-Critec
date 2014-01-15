@@ -1488,10 +1488,9 @@ Ext.define('Italbox.Viewport5', {
                                  Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
                                  Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
                              }
-                             Ext.getCmp('footer').show();
+                             Ext.getCmp('myCarroucel').show();
                              Ext.getCmp('barra5').show();
                              Ext.getCmp('footer').show();
-                             Ext.getCmp('myCarroucel').show();
                             //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
                       
                             }});
@@ -1820,7 +1819,7 @@ Ext.define('Italbox.Viewport2', {
                 source = value.initialConfig.thumb;
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
-                Ext.getCmp('open-menu4').setText('<div style="text-align:right;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'<i class="icon-cima"></i></div>');
+                Ext.getCmp('open-menu4').setText('<span style="text-align:center; padding-left: 25px; line-height: 2;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</span><span style="text-align:right; float:right;"><i class="icon-cima"></i></span>');
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
             },
             resize: function(component, eOpts) {
@@ -2482,7 +2481,7 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
-                    text: '<div style="text-align:right;">Produtos 0 <i class="icon-cima"></i></div>',
+                    text: 'Produtos 0',
                     //textAlign: 'right !important',
                     cls: 'open-menu4',
                     id: 'open-menu4',
@@ -2554,7 +2553,7 @@ Ext.define('Italbox.ViewportPanel', {
                             ui:    'plain',
                             xtype: 'button',
                             cls: 'close-menu4',
-                            text:  '<div style="text-align:right;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'<i class="icon-baixo2"></i></div>',
+                            text:  '<span style="text-align:center; padding-left: 25px; line-height: 2;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</span><span style="text-align:right; float:right;"><i class="icon-baixo2"></i></span>',
                             //hidden: true,
                             handler: function () {
                              //   Ext.getCmp('pop-image').hide();
