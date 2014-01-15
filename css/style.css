@@ -544,7 +544,7 @@ body{
 	width: 45px !important;
 	height: 45px !important;
         margin: 0;
-        font-size: 23px !important;
+        font-size: 22px !important;
         text-align: -webkit-center !important;
         background: #FFFFFF !important;
 	/*background-image: url(../imgs/icons/seta-baixo2.png)!important;*/
@@ -595,7 +595,7 @@ body{
 	position: absolute;
 	width: 45px;
 	height: 45px !important;
-        font-size: 23px !important;
+        font-size: 22px !important;
         text-align: -webkit-center !important;
 	/*background-image: url(../imgs/icons/back.png)!important;*/
 }
@@ -754,6 +754,7 @@ body{
 	border-top: solid; 1px;
 	list-style-type: none;
 	padding: 15px 10px 13px 60px;
+        
 }
 
 .menu li:hover {

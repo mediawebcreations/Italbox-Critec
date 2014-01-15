@@ -45,13 +45,13 @@ Ext.define('ItalboxCatalog.store.Languages', {
         {
         id : 1,
         lang : 'pt',
-        menu_catalogs:  'margin:5px; margin-right:10px !important; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_favorites:  'margin:5px; margin-left:10px !important; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_language:  'margin:5px; margin-right:10px !important; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help:  'margin:5px; margin-left:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
@@ -93,13 +93,13 @@ Ext.define('ItalboxCatalog.store.Languages', {
         {
         id : 2,
         lang : 'en',
-        menu_catalogs:  'margin:5px; margin-right:10px !important; background: url(imgs/icons/catalogos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_favorites:  'margin:5px; margin-left:10px !important; background: url(imgs/icons/favoritos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_language:  'margin:5px; margin-right:10px !important; background: url(imgs/icons/language_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help:  'margin:5px; margin-left:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',

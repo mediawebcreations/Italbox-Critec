@@ -84,11 +84,14 @@
 .icon-cima:before {
 	content: "\e60c";
 	color: #000000 !important;
+	font-size: 22px;
+	padding-left: 30px;
+	padding-right: 5px;
 }
 .icon-cima2:after {
 	content: "\e60c";
 	color: #000000 !important;
-	font-size: 23px;
+	font-size: 22px;
 	background: transparent !important;
 	background-image: transparent !important;
         background-color: transparent !important;
@@ -96,14 +99,14 @@
 .icon-baixo:before {
 	content: "\e60d";
 	color: #000000 !important;
+	font-size: 22px;
 }
-.icon-baixo2:after {
+.icon-baixo2:before {
 	content: "\e60d";
 	color: #000000 !important;
-	font-size: 23px;
-	background: transparent !important;
-	background-image: transparent !important;
-        background-color: transparent !important;
+	font-size: 22px;
+	padding-left: 30px;
+	padding-right: 5px;
 }
 .icon-back:before {
 	content: "\e60e";

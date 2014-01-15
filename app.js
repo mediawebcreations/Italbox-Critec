@@ -961,7 +961,7 @@ Ext.define('Italbox.Viewport7', {
         {
             id: 'start-italbox',
             flex: 1,
-            style: 'margin:5px; margin-left:10px !important; background: url(imgs/icons/italbox_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            style: 'margin:5px 5px 5px 10px; background: url(imgs/icons/italbox_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
             //html: '<i class=icon-twitter style="font-size: 30vmin;"></i>'
             //html: '<div><img src="imgs/icons/italbox_menu2.png" style=""></img></div>'
@@ -969,7 +969,7 @@ Ext.define('Italbox.Viewport7', {
         {
             id: 'start-catalogos',
             flex: 1,
-            style: 'margin:5px; margin-right:10px !important; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            style: 'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         },   
         /*{
@@ -991,14 +991,14 @@ Ext.define('Italbox.Viewport7', {
            //height: 50,
             id: 'start-favoritos',
             flex: 1,
-            style: 'margin:5px; margin-left:10px !important; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            style: 'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         
         }, {
             id: 'start-language',
             //height: 50,
             flex: 1,
-            style: 'margin:5px; margin-right:10px !important; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            style: 'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         },
         /*{
@@ -1021,7 +1021,7 @@ Ext.define('Italbox.Viewport7', {
              //height: 50,
             id: 'start-help',
             flex: 1,
-            style: 'margin:5px; margin-left:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+            style: 'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
            },
         ],    
@@ -1820,7 +1820,7 @@ Ext.define('Italbox.Viewport2', {
                 source = value.initialConfig.thumb;
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
-                Ext.getCmp('open-menu4').setText('<font style="font-family: robotomedium !important;font-size: 13px;padding-left: 20px;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</font>');
+                Ext.getCmp('open-menu4').setText('<div style="text-align:right;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'<i class="icon-cima"></i></div>');
                 //ind = Ext.getCmp('myCarroucel').getActiveIndex();
             },
             resize: function(component, eOpts) {
@@ -2482,9 +2482,9 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
-                    text: '<font style="font-family: robotomedium !important;font-size: 13px;padding-left: 20px;">Produtos 0</font>',
-                    textAlign: 'left',
-                    cls: 'open-menu4 icon-cima2',
+                    text: '<div style="text-align:right;">Produtos 0 <i class="icon-cima"></i></div>',
+                    //textAlign: 'right !important',
+                    cls: 'open-menu4',
                     id: 'open-menu4',
                     //align: 'bottom',
                     //hidden: true,
@@ -2553,8 +2553,8 @@ Ext.define('Italbox.ViewportPanel', {
                            // align: 'right', 
                             ui:    'plain',
                             xtype: 'button',
-                            cls: 'close-menu4 icon-baixo2',
-                            text:  '<font style="font-family: robotomedium !important;font-size: 13px;">'+Ext.getCmp('open-menu4').getText()+'</font>',
+                            cls: 'close-menu4',
+                            text:  '<div style="text-align:right;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'<i class="icon-baixo2"></i></div>',
                             //hidden: true,
                             handler: function () {
                              //   Ext.getCmp('pop-image').hide();
