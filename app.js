@@ -1445,13 +1445,13 @@ Ext.define('Italbox.Viewport5', {
                        //}]
                     /*},*/
                     
-                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove icon-close2"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome}</div>',
+                    itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"></img><i class="remove icon-close2"  style=""></i><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
                     emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
                     
                     listeners: {
                         itemtap: function(list, index, target, record,e) {
-                            if (e.getTarget('button.remove')) {
+                            if (e.getTarget('i.remove')) {
                                 Ext.Msg.confirm(
                             "",
                             Ext.getStore('Languages').getById(idioma).get('remove_favorite')+' '+record.get('nome')+"?",
@@ -1576,13 +1576,13 @@ Ext.define('Italbox.Viewport5', {
                        //}]
                     /*},*/
                     
-                    itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"><button class="remove icon-close2"  style="position: absolute; "></button><div style="text-align: center; font-size:12px;">{nome} {ref}</div>',
+                    itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><i class="remove icon-close2"  style=""></i><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
                     emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
                     
                     listeners: {
                         itemtap: function(list, index, target, record,e) {
-                            if (e.getTarget('button.remove')) {
+                            if (e.getTarget('i.remove')) {
                                 Ext.Msg.confirm(
                             "",
                             Ext.getStore('Languages').getById(idioma).get('remove_favorite')+' '+record.get('nome')+"?",

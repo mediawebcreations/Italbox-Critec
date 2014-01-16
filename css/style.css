@@ -628,16 +628,16 @@ body{
 
 .remove
 {
-  width: 35px;
+  /*width: 35px;
   height: 25px;
-  border: none;
+  border: none;*/
   /*background-image: url(../imgs/icons/remove.png)!important;*/
-  background: transparent;
+  /*background: transparent;*/
   position: absolute;
-  /*margin-top: 5px;*/
-  margin-left: -30px;
+  margin-top: 1px;
+  margin-left: -23px;
   font-size: 23px !important;
-  text-align: -webkit-center !important;
+ /* text-align: -webkit-center !important;*/
 }
 
 .lista-pesquisa div {
