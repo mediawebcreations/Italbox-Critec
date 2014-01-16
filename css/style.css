@@ -392,7 +392,7 @@ body{
     height: 400px;
 }
 
-@media (min-height: 200px) and (max-height: 320px){ 
+@media (min-height: 1px) and (max-height: 320px){ 
 
 .lista{
     margin-top: 45px;
@@ -400,13 +400,20 @@ body{
     height: 250px;
 }
 .texto-capa{
-      margin-right:30px;
-      width: 170px;
+      margin-right:15px;
+      width: 150px;
       text-align:center;
-      font-size:12px;
+      font-size:11px;
       text-transform:uppercase;
       font-family: 'robotomedium';
       
+}
+.capa{
+       /* -moz-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.5);*/
+        margin-right:20px;
+        height:200px;
 }
 .pop-up{
    margin:20px;
@@ -418,42 +425,60 @@ body{
      max-width:50%;
      max-height:40%;
 }
-.start-menu{
-	margin: 5px;       
-	/*margin-right: 5px;
-        margin-left: 5px;*/
-        text-align: center;
-        font-size:12px;
-        width:50%;
-        height:70px;
-        background: rgba(255, 255, 255, .5);
 }
 
-.start-menu img{
-	width:60px;
-        height:60px;
-        margin-top:5px;
-}         
+@media (min-height: 321px) and (max-height: 450px){ 
 
+.lista{
+    margin-top: 45px;
+    text-align: center;
+    height: 300px;
+}
+.texto-capa{
+      margin-right:20px;
+      width: 170px;
+      text-align:center;
+      font-size:12px;
+      text-transform:uppercase;
+      font-family: 'robotomedium';
+      
+}
+.capa{
+       /* -moz-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.5);*/
+        margin-right:20px;
+        height:250px;
+}
+}
+
+@media (min-height: 580px) and (max-height: 699px){ 
+
+.lista{
+    margin-top: 45px;
+    text-align: center;
+    height: 500px;
+}
+.texto-capa{
+      margin-right:20px;
+      width: 300px;
+      text-align:center;
+      font-size:15px;
+      text-transform:uppercase;
+      font-family: 'robotomedium';
+      
+}
+.capa{
+       /* -moz-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        -webkit-box-shadow: 10px 10px 5px rgba(0,0,0,0.5);
+        box-shadow: 10px 10px 5px rgba(0,0,0,0.5);*/
+        margin-right:30px;
+        height:450px;
+}
 }
 
 @media (min-height: 700px){
-.start-menu{
-        margin: 5px;       
-	/*margin-right: 5px;
-        margin-left: 5px;*/
-        text-align: center;
-        font-size:12px;
-        width:50%;
-        height:150px;
-        background: rgba(255, 255, 255, .5);
-}
 
-.start-menu img{
-	width:100px;
-        height:100px;
-        margin-top:25px;
-}         
 
 .lista{
     margin-top: 45px;
@@ -462,9 +487,9 @@ body{
 }
 .texto-capa{
       margin-right:30px;
-      width: 350px;
+      width: 370px;
       text-align:center;
-      font-size:18px;
+      font-size:17px;
       text-transform:uppercase;
       font-family: 'robotomedium';
       
@@ -833,7 +858,7 @@ body{
         border-bottom: solid; 1px;
 }
 
-@media  
+/*@media  
 only screen and (-webkit-min-device-pixel-ratio: 2),  
 only screen and ( min--moz-device-pixel-ratio: 2),  
 only screen and ( -o-min-device-pixel-ratio: 2/1),  
@@ -842,9 +867,9 @@ only screen and ( min-resolution: 192dpi),
 only screen and ( min-resolution: 2dppx) {
     /* Retina-specific stuff here */
     
-    .body_bg {
+    /*.body_bg {
                /* background-size: 384px 512px;*/
-    }
+   /* }
 
     .header > .logotipo{
 		background: url(../imgs/logotipo-retina.png) no-repeat center;
@@ -879,22 +904,22 @@ only screen and ( min-resolution: 2dppx) {
 		background-size: 45px 45px;
 	}*/
 
-	.seta-baixo {
+	/*.seta-baixo {
 		background: url(../imgs/icons/seta-baixo-retina.png) #ffffff;
 		background-size: 45px 45px;
-	}
+	}*/
         
         /*.back{
                 background-image: url(../imgs/icons/back-retina.png) no-repeat;
                 background-size: 45px 45px;
         }*/
-} 
+/*} */
 
-@media screen and (max-width:960px) {
+/*@media screen and (max-width:960px) {
 
 	
 
-}
+}*/
 
 
 @media screen and (max-width:768px) {
@@ -916,11 +941,11 @@ only screen and ( min-resolution: 2dppx) {
 
 
 
-@media only screen and (min-width: 320px) {
+/*@media only screen and (min-width: 320px) {
 
   /* Small screen, non-retina */
 
-}
+/*}
 
 @media 
 only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 320px),
@@ -932,13 +957,13 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 320px) 
 
   /* Small screen, retina, stuff to override above media query */
 
-}
+/*}
 
 @media only screen and (min-width: 700px) {
 
   /* Medium screen, non-retina */
 
-}
+/*}
 
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 700px),
@@ -950,13 +975,13 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 700px) 
 
   /* Medium screen, retina, stuff to override above media query */
 
-}
+/*}
 
 @media only screen and (min-width: 1300px) {
 
   /* Large screen, non-retina */
 
-}
+/*}
 
 @media
 only screen and (-webkit-min-device-pixel-ratio: 2)      and (min-width: 1300px),
@@ -968,7 +993,13 @@ only screen and (                min-resolution: 2dppx)  and (min-width: 1300px)
 
   /* Large screen, retina, stuff to override above media query */
 
-}
+/*}*/
+
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* -----------------------------------sencha---------------------------------- */
+/* --------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------- */
 
 .x-msgbox .x-button {
     background-image: none !important;
