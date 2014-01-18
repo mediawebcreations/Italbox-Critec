@@ -1488,9 +1488,9 @@ Ext.define('Italbox.Viewport5', {
                                  Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
                                  Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
                              }
-                             Ext.getCmp('myCarroucel').show();
                              Ext.getCmp('barra5').show();
                              Ext.getCmp('footer').show();
+                             Ext.getCmp('myCarroucel').show();
                             //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
                       
                             }});
@@ -2851,16 +2851,20 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu5 icon-star-catalogos',
                     handler: function () {
-                       //var carr = Ext.getCmp('myCarroucel');
-                       //var loja = Ext.getStore('Favorites');
-                       Ext.getStore('Favorites').load();
-                       //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
-                       var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
-                       //console.dir(newRecord);
-                       Ext.getStore('Favorites').add(newRecord);
-                       Ext.getStore('Favorites').sync();
-                       Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_page'), Ext.emptyFn);
-                       
+                        if (Ext.getCmp('myCarroucel').getItems().length == 0) {
+                             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
+                        }
+                        else{
+                            //var carr = Ext.getCmp('myCarroucel');
+                            //var loja = Ext.getStore('Favorites');
+                            Ext.getStore('Favorites').load();
+                            //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
+                            var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
+                            //console.dir(newRecord);
+                            Ext.getStore('Favorites').add(newRecord);
+                            Ext.getStore('Favorites').sync();
+                            Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_page'), Ext.emptyFn);
+                       }
                     }
                 },
                   {
@@ -2880,9 +2884,14 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu7 icon-partilha',
                     handler: function () {
-                       //window.plugins.socialsharing.share('Message only');
-                       window.plugins.socialsharing.share('Catalogo '+idcatalogo+' Pagina '+numero+'', null, source, null);
-                       //alert('Catalogo '+idcatalogo+' Pagina '+numero+' '+source);
+                        if (Ext.getCmp('myCarroucel').getItems().length == 0) {
+                             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
+                        }
+                        else{
+                            //window.plugins.socialsharing.share('Message only');
+                            window.plugins.socialsharing.share('Catalogo '+idcatalogo+' Pagina '+numero+'', null, source, null);
+                            //alert('Catalogo '+idcatalogo+' Pagina '+numero+' '+source);
+                        }
                     }
                 },
         ]
