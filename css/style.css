@@ -128,7 +128,10 @@ body{
 
 .header2 {
 	height: 50px;
-	width: 100%;
+	width: 60px;
+        right: 0;
+        left: 0;
+        margin: auto;
 	background: transparent;
         border-bottom-width:0!important;
 	position: absolute;
@@ -274,16 +277,17 @@ body{
 
 .foot {
 	height: 50px;
-	/*width: 100%;*/
+	width:210px;
 	background: transparent;
         border-top-width:0!important;
 	/*position: absolute;*/
         z-index: 2;
         position:absolute;
-	bottom:0px;
-	left:0px;
+	bottom:0;
 	top:auto;
-	width:100%;
+        right: 0;
+        left: 0;
+        margin: auto;
 }
 .menu3 {
 	/*background: #FFFFFF;*/
