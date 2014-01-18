@@ -1231,11 +1231,11 @@ Ext.define('Italbox.Viewport6', {
                     cls: 'search',
                     listeners: {
                         keyup: function(searchBox) {
-                            queryString = searchBox.getValue();
-                            //console.log(this,'Please search by: ' + queryString);
+                            queryString = searchBox.getValue();
+                            //console.log(this,'Please search by: ' + queryString);
                             //var store = Ext.getStore('produtos');
                             Ext.getStore('produtos').clearFilter();
-                            if(queryString){
+                            if(queryString){
                                 var thisRegEx = new RegExp(queryString, "i");
                                 Ext.getStore('produtos').filterBy(function(record) {
                                 if (thisRegEx.test(record.get('nome')) ||
@@ -1247,8 +1247,8 @@ Ext.define('Italbox.Viewport6', {
                             }
                         },
                         clearicontap: function() {
-                            //console.log('Clear icon is tapped');
-                            //var store = Ext.getStore('produtos');
+                            //console.log('Clear icon is tapped');
+                            //var store = Ext.getStore('produtos');
                              Ext.getStore('produtos').clearFilter();
                             //store.data.clear();
                         },
