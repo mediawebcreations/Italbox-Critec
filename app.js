@@ -789,6 +789,7 @@ function renderTables(callback) {
     var tcategorias = [];
     var tprodutos_paginas = [];
     var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
+    var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
     //var arr = [];
     //var arr2 = {xtype: 'imageviewer', imageSrc: 'http://orcamentos.eu/wp-content/uploads/2011/05/Italbox.png' };
     //var arr3 = [{id: 0, capa: 'imgs/produto1.jpg',nome: 'Produto 1'}, {id: 1, capa: 'imgs/produto2.jpg', nome: 'Produto 2'},{id: 2, capa: 'imgs/produto2.jpg', nome: 'Produto 2'}];
@@ -823,7 +824,7 @@ function renderTables(callback) {
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo,
-                   thumb: caminho+pagina.foto,
+                   thumb: caminho2+pagina.foto,
               };
               var listaPaginas2 = {
                    xtype: 'imageviewer',
@@ -832,7 +833,7 @@ function renderTables(callback) {
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo,
-                   thumb: caminho+pagina.foto,
+                   thumb: caminho2+pagina.foto,
               };
                var listaPaginas3 = {
                    xtype: 'imageviewer',
@@ -841,7 +842,7 @@ function renderTables(callback) {
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo,
-                   thumb: caminho+pagina.foto,
+                   thumb: caminho2+pagina.foto,
               };
               tpaginas.push(listaPaginas);
               tpaginas2.push(listaPaginas2);
@@ -910,6 +911,7 @@ var source = '';
 var ind = 0;
 var contador = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
+var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
 //var tamanho = 0;
 var idioma = 0;
 
@@ -1371,7 +1373,7 @@ Ext.define('Italbox.Viewport6', {
                 data:tprodutos
         },
         itemTpl:  '<div class="lista-pesquisa">'+
-            '<img src="'+caminho+'{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
+            '<img src="'+caminho2+'{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
             '<div><b>Nome:</b> <span>{nome}</span></div>' +
             '<div><b>Ref:</b> <span>{ref}</span></div>' +
             '</div>',
@@ -1737,7 +1739,7 @@ Ext.define('Italbox.Viewport5', {
                        //}]
                     /*},*/
                     
-                    itemTpl: '<img src="{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><i class="remove icon-close2"  style=""></i><div style="text-align: center; font-size:12px;">{nome}</div>',
+                    itemTpl: '<img src="{thumb}" style="width:130px; margin:10px 10px 0 10px;"></img><i class="remove icon-close2"  style=""></i><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
                     emptyText: '<div style="margin-left: 10px; margin-top: 10px; font-size: 19px;">Sem Favoritos</div>',
                     
@@ -2394,7 +2396,7 @@ Ext.define('Italbox.ViewportPanel', {
                             /*{
                                 style: 'opacity: 0.8; background-color: #ffffff;'
                             */
-                            height    : '220px',
+                            height    : '230px',
                             width     : '100%',
                             floating  : true,                               
                             top       : '0px',
@@ -2418,16 +2420,16 @@ Ext.define('Italbox.ViewportPanel', {
                             }, 
                             items     : [
                                 {
-                                    html  : '<li class="menu-portugues" id="menu-portugues"></span><span style="padding-left: 20px; font-size: 14px;">PORTUGUÊS</span><span class="icon-back2" style="vertical-align: middle; float: right;padding:3px 20px 0px 0px;"></li>',
+                                    html  : '<li class="menu-portugues" id="menu-portugues"></span><span style="padding-left: 20px; font-size: 14px;">PORTUGUÊS</span><span class="icon-front" style="vertical-align: middle; float: right;padding:3px 20px 0px 0px;"></li>',
                                 },
                                 {
-                                    html  : '<li class="menu-english" id="menu-english"><span style="padding-left: 20px; font-size: 14px;">ENGLISH</span><span class="icon-back2" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></span></li>',
+                                    html  : '<li class="menu-english" id="menu-english"><span style="padding-left: 20px; font-size: 14px;">ENGLISH</span><span class="icon-front" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></span></li>',
                                 },
                                 {
-                                    html  : '<li class="menu-francais" id="menu-francais"></span><span style="padding-left: 20px; font-size: 14px;">FRANÇAIS</span><span class="icon-back2" style="vertical-align: middle;float: right; padding:3px 20px 0px 0px;"></li>'
+                                    html  : '<li class="menu-francais" id="menu-francais"></span><span style="padding-left: 20px; font-size: 14px;">FRANÇAIS</span><span class="icon-front" style="vertical-align: middle;float: right; padding:3px 20px 0px 0px;"></li>'
                                 },
                                 {
-                                    html  : '<li class="menu-castellano" id="menu-castellano"></span><span style="padding-left: 20px; font-size: 14px;">CASTELLANO</span><span class="icon-back2" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></li>'
+                                    html  : '<li class="menu-castellano" id="menu-castellano"></span><span style="padding-left: 20px; font-size: 14px;">CASTELLANO</span><span class="icon-front" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></li>'
                                 }
                             ],
                             listeners: [
@@ -2821,7 +2823,7 @@ Ext.define('Italbox.ViewportPanel', {
                      //  },
                      //]
                    },
-                   itemTpl: '<img style="margin-right:10px;margin-top:10px; height:75px;" src="'+caminho+'{foto}">',
+                   itemTpl: '<img style="margin-right:10px;margin-top:10px; height:75px;" src="'+caminho2+'{foto}">',
                     //itemTpl: new Ext.XTemplate('<img style="margin-right:10px; height:75px;" src="{capa}">'),
                    //itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
                    listeners: {
@@ -2898,7 +2900,7 @@ Ext.define('Italbox.ViewportPanel', {
                        //var loja2 = Ext.getStore('Favorites2');
                        Ext.getStore('Favorites2').load();
                         //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
-                       var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
+                       var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
                        ////console.dir(newRecord);
                        Ext.getStore('Favorites2').add(newRecord2);
                        Ext.getStore('Favorites2').sync();

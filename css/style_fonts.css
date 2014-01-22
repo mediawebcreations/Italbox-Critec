@@ -112,10 +112,7 @@
 	content: "\e60e";
 	color: #000000 !important;
 }
-.icon-back2:before {
-	content: "\e60e";
-	/*color: #000000 !important;*/
-}
+
 .icon-ajuda:before {
 	content: "\e60f";
 	/*color: #000000;*/
@@ -137,5 +134,8 @@
 .icon-lista-white:before {
 	content: "\e611";
 	color: #FFFFFF !important;
+}
+.icon-front:before {
+	content: "\e612";
 }
 

@@ -5,6 +5,7 @@ Ext.define('ItalboxCatalog.model.Favorite2', {
         'nome',
         'descricao',
         'foto',
+        'thumb',
         'ref',
         'id_catalogo',
         'id_pagina'
