@@ -1076,7 +1076,168 @@ Ext.define('Italbox.Viewport7', {
                  /*Ext.getCmp('menuI').hide();
                  Ext.getCmp('back').show();
                  Ext.getCmp('help').show();*/
-                    if (idioma === '1') {                    
+                                   
+                var panel_language = Ext.Viewport.add({ 
+                    xtype: 'container',
+                    id: 'menuL',
+                    modal: true,
+                    /*{
+                        style: 'opacity: 0.8; background-color: #ffffff;'
+                    */
+                    height    : '220px',
+                    width     : '100%',
+                    floating  : true,                               
+                    top       : '0px',
+                    bottom : 'auto',
+                    cls: 'menuL',
+                    hideOnMaskTap: true,
+                    showAnimation: 
+                    {
+                        type: 'slideIn',
+                        duration: 1000,
+                        direction: 'up',
+                        easing: 'easeOut'
+                    },  
+                    hideAnimation: 
+                    {
+                        type: 'slideOut',
+                        duration: 700,
+                        direction: 'down',
+                        easing: 'easeIn'
+                    }, 
+                    items     : [
+                        {
+                            html  : '<li class="menu-portugues" id="menu-portugues"></span><span style="padding-left: 20px; font-size: 14px;">PORTUGUÊS</span><span class="icon-back2" style="vertical-align: middle; float: right;padding:3px 20px 0px 0px;"></li>',
+                        },
+                        {
+                            html  : '<li class="menu-english" id="menu-english"><span style="padding-left: 20px; font-size: 14px;">ENGLISH</span><span class="icon-back2" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></span></li>',
+                        },
+                        {
+                            html  : '<li class="menu-francais" id="menu-francais"></span><span style="padding-left: 20px; font-size: 14px;">FRANÇAIS</span><span class="icon-back2" style="vertical-align: middle;float: right; padding:3px 20px 0px 0px;"></li>'
+                        },
+                        {
+                            html  : '<li class="menu-castellano" id="menu-castellano"></span><span style="padding-left: 20px; font-size: 14px;">CASTELLANO</span><span class="icon-back2" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></li>'
+                        }
+                    ],
+                    listeners: [
+                        {
+                            element: 'element',
+                            delegate: '#menu-portugues',
+                            event: 'tap',
+                            fn: function() {
+                                var valor = { id_setting: '1', lang: '1'};
+                                Ext.getStore('Settings').getAt(0).set(valor);
+                                Ext.getStore('Settings').sync();
+                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
+                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                Ext.MessageBox.override({
+                                        confirm: function(title, message, fn, scope) {
+                                        return this.show({
+                                            title       : title || null,
+                                            message     : message || null,
+                                            buttons     : [
+                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                        ],
+                                            promptConfig: false,
+                                            scope       : scope,
+                                            fn: function() {
+                                                if (fn) {
+                                                    fn.apply(scope, arguments);
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                                panel_language.hide();
+                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
+                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                            }
+                        },
+                        {
+                            element: 'element',
+                            delegate: '#menu-english',
+                            event: 'tap',
+                            fn: function() {
+                                var valor = { id_setting: '1', lang: '2'};
+                                Ext.getStore('Settings').getAt(0).set(valor);
+                                Ext.getStore('Settings').sync();
+                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
+                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                Ext.MessageBox.override({
+                                        confirm: function(title, message, fn, scope) {
+                                        return this.show({
+                                            title       : title || null,
+                                            message     : message || null,
+                                            buttons     : [
+                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                        ],
+                                            promptConfig: false,
+                                            scope       : scope,
+                                            fn: function() {
+                                                if (fn) {
+                                                    fn.apply(scope, arguments);
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                                panel_language.hide();
+                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
+                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                            }
+                        },
+                         {
+                            element: 'element',
+                            delegate: '#menu-francais',
+                            event: 'tap',
+                            fn: function() {
+                               
+                            }
+                        },
+                        {
+                            element: 'element',
+                            delegate: '#menu-castellano',
+                            event: 'tap',
+                            fn: function() {
+                             
+                            }
+                        }
+                    ]
+                });
+                //show the panel
+                panel_language.show();
+                panel_language.on('hide', function() {
+                    panel_language.destroy();
+
+                });
+                       
+                       /* if (idioma === '1') {    
                        var valor = { id_setting: '1', lang: '2'};
                         Ext.getStore('Settings').getAt(0).set(valor);
                         Ext.getStore('Settings').sync();
@@ -1155,7 +1316,7 @@ Ext.define('Italbox.Viewport7', {
                         });
                         //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
                         //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                   }
+                   }*/
                 }
             },
             
@@ -2150,177 +2311,244 @@ Ext.define('Italbox.ViewportPanel', {
                                 }
                             ],
                             listeners: [
-                                {
-                                    element: 'element',
-                                    delegate: '#menu-italbox',
-                                    event: 'tap',
-                                    fn: function() {
-                                     Ext.getCmp('menuI').hide();
-                                     Ext.getCmp('myCarroucel').hide();
-                                     Ext.getCmp('myList').hide();
-                                     Ext.getCmp('footer').hide();
-                                     Ext.getCmp('barra5').hide();
-                                     Ext.getCmp('favorites').hide();
-                                     Ext.getCmp('help').hide();
-                                     Ext.getCmp('search').hide();
-                                     /*Ext.getCmp('myList').hide();
-                                     Ext.getCmp('myList').hide();*/
-                                     Ext.getCmp('back').show();
-                                     Ext.getCmp('italbox').show();
-                                     panel_menu.hide();
-                                    }
-                                },
-                                {
-                                    element: 'element',
-                                    delegate: '#menu-catalogos',
-                                    event: 'tap',
-                                    fn: function() {
-                                        if (connect === 1) {
-                                            Ext.getCmp('menuI').hide();
-                                            Ext.getCmp('myCarroucel').hide();
-                                            Ext.getCmp('italbox').hide();
-                                            Ext.getCmp('footer').hide();
-                                            Ext.getCmp('barra5').hide();
-                                            Ext.getCmp('favorites').hide();
-                                            Ext.getCmp('help').hide();
-                                            Ext.getCmp('search').hide();
-                                            /*Ext.getCmp('myList').hide();
-                                            Ext.getCmp('myList').hide();*/
-                                            Ext.getCmp('back').show();
-                                            Ext.getCmp('myList').show();
-                                            panel_menu.hide();
-                                      }
-                                        else{
-                                            Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_catalogs'), Ext.emptyFn);
-                                        }  
-                                    }
-                                },
-                                 {
-                                    element: 'element',
-                                    delegate: '#menu-favoritos',
-                                    event: 'tap',
-                                    fn: function() {
-                                       if (connect === 1) {
-                                            //Ext.getStore('loja').sync();
-                                            Ext.getCmp('menuI').hide();
-                                            Ext.getCmp('myCarroucel').hide();
-                                            Ext.getCmp('myList').hide();
-                                            Ext.getCmp('footer').hide();
-                                            Ext.getCmp('barra5').hide();
-                                            Ext.getCmp('italbox').hide();
-                                            Ext.getCmp('help').hide();
-                                            Ext.getCmp('search').hide();
-                                            /*Ext.getCmp('myList').hide();
-                                            Ext.getCmp('myList').hide();*/
-                                            Ext.getCmp('back').show();
-                                            Ext.getCmp('favorites').show();
-                                            panel_menu.hide();
-                                        }
-                                        else{
-                                            Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_favorites'), Ext.emptyFn);
-                                        }  
-                                    }
-                                },
-                                {
-                                    element: 'element',
-                                    delegate: '#menu-language',
-                                    event: 'tap',
-                                    fn: function() {
-                                    if (idioma === '1') {
-                                        var valor = { id_setting: '1', lang: '2'};
-                                        Ext.getStore('Settings').getAt(0).set(valor);
-                                        Ext.getStore('Settings').sync();
-                                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                        //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                        Ext.MessageBox.override({
-                                            confirm: function(title, message, fn, scope) {
-                                            return this.show({
-                                                title       : title || null,
-                                                message     : message || null,
-                                                buttons     : [
-                                                {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                                {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                            ],
-                                                promptConfig: false,
-                                                scope       : scope,
-                                                fn: function() {
-                                                    if (fn) {
-                                                        fn.apply(scope, arguments);
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    });
-                                        //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                        //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                            {
+                                element: 'element',
+                                delegate: '#menu-italbox',
+                                event: 'tap',
+                                fn: function() {
+                                 Ext.getCmp('menuI').hide();
+                                 Ext.getCmp('myCarroucel').hide();
+                                 Ext.getCmp('myList').hide();
+                                 Ext.getCmp('footer').hide();
+                                 Ext.getCmp('barra5').hide();
+                                 Ext.getCmp('favorites').hide();
+                                 Ext.getCmp('help').hide();
+                                 Ext.getCmp('search').hide();
+                                 /*Ext.getCmp('myList').hide();
+                                 Ext.getCmp('myList').hide();*/
+                                 Ext.getCmp('back').show();
+                                 Ext.getCmp('italbox').show();
+                                 panel_menu.hide();
+                                }
+                            },
+                            {
+                                element: 'element',
+                                delegate: '#menu-catalogos',
+                                event: 'tap',
+                                fn: function() {
+                                    if (connect === 1) {
+                                        Ext.getCmp('menuI').hide();
+                                        Ext.getCmp('myCarroucel').hide();
+                                        Ext.getCmp('italbox').hide();
+                                        Ext.getCmp('footer').hide();
+                                        Ext.getCmp('barra5').hide();
+                                        Ext.getCmp('favorites').hide();
+                                        Ext.getCmp('help').hide();
+                                        Ext.getCmp('search').hide();
+                                        /*Ext.getCmp('myList').hide();
+                                        Ext.getCmp('myList').hide();*/
+                                        Ext.getCmp('back').show();
+                                        Ext.getCmp('myList').show();
+                                        panel_menu.hide();
+                                  }
+                                    else{
+                                        Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_catalogs'), Ext.emptyFn);
+                                    }  
+                                }
+                            },
+                             {
+                                element: 'element',
+                                delegate: '#menu-favoritos',
+                                event: 'tap',
+                                fn: function() {
+                                   if (connect === 1) {
+                                        //Ext.getStore('loja').sync();
+                                        Ext.getCmp('menuI').hide();
+                                        Ext.getCmp('myCarroucel').hide();
+                                        Ext.getCmp('myList').hide();
+                                        Ext.getCmp('footer').hide();
+                                        Ext.getCmp('barra5').hide();
+                                        Ext.getCmp('italbox').hide();
+                                        Ext.getCmp('help').hide();
+                                        Ext.getCmp('search').hide();
+                                        /*Ext.getCmp('myList').hide();
+                                        Ext.getCmp('myList').hide();*/
+                                        Ext.getCmp('back').show();
+                                        Ext.getCmp('favorites').show();
+                                        panel_menu.hide();
                                     }
                                     else{
-                                        var valor = { id_setting: '1', lang: '1'};
-                                        Ext.getStore('Settings').getAt(0).set(valor);
-                                        Ext.getStore('Settings').sync();
-                                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                        //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                        Ext.MessageBox.override({
-                                            confirm: function(title, message, fn, scope) {
-                                            return this.show({
-                                                title       : title || null,
-                                                message     : message || null,
-                                                buttons     : [
-                                                {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                                {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                            ],
-                                                promptConfig: false,
-                                                scope       : scope,
-                                                fn: function() {
-                                                    if (fn) {
-                                                        fn.apply(scope, arguments);
-                                                    }
+                                        Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_favorites'), Ext.emptyFn);
+                                    }  
+                                }
+                            },
+                            {
+                            element: 'element',
+                            delegate: '#menu-language',
+                            event: 'tap',
+                            fn: function() {
+                            var panel_language = Ext.Viewport.add({ 
+                            xtype: 'container',
+                            id: 'menuL',
+                            modal: true,
+                            /*{
+                                style: 'opacity: 0.8; background-color: #ffffff;'
+                            */
+                            height    : '220px',
+                            width     : '100%',
+                            floating  : true,                               
+                            top       : '0px',
+                            bottom : 'auto',
+                            cls: 'menuL',
+                            hideOnMaskTap: true,
+                            showAnimation: 
+                            {
+                                type: 'slideIn',
+                                duration: 1000,
+                                delay: 1000,
+                                direction: 'up',
+                                easing: 'easeOut'
+                            },  
+                            hideAnimation: 
+                            {
+                                type: 'slideOut',
+                                duration: 700,
+                                direction: 'down',
+                                easing: 'easeIn'
+                            }, 
+                            items     : [
+                                {
+                                    html  : '<li class="menu-portugues" id="menu-portugues"></span><span style="padding-left: 20px; font-size: 14px;">PORTUGUÊS</span><span class="icon-back2" style="vertical-align: middle; float: right;padding:3px 20px 0px 0px;"></li>',
+                                },
+                                {
+                                    html  : '<li class="menu-english" id="menu-english"><span style="padding-left: 20px; font-size: 14px;">ENGLISH</span><span class="icon-back2" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></span></li>',
+                                },
+                                {
+                                    html  : '<li class="menu-francais" id="menu-francais"></span><span style="padding-left: 20px; font-size: 14px;">FRANÇAIS</span><span class="icon-back2" style="vertical-align: middle;float: right; padding:3px 20px 0px 0px;"></li>'
+                                },
+                                {
+                                    html  : '<li class="menu-castellano" id="menu-castellano"></span><span style="padding-left: 20px; font-size: 14px;">CASTELLANO</span><span class="icon-back2" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></li>'
+                                }
+                            ],
+                            listeners: [
+                                {
+                            element: 'element',
+                            delegate: '#menu-portugues',
+                            event: 'tap',
+                            fn: function() {
+                                var valor = { id_setting: '1', lang: '1'};
+                                Ext.getStore('Settings').getAt(0).set(valor);
+                                Ext.getStore('Settings').sync();
+                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
+                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                Ext.MessageBox.override({
+                                        confirm: function(title, message, fn, scope) {
+                                        return this.show({
+                                            title       : title || null,
+                                            message     : message || null,
+                                            buttons     : [
+                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                        ],
+                                            promptConfig: false,
+                                            scope       : scope,
+                                            fn: function() {
+                                                if (fn) {
+                                                    fn.apply(scope, arguments);
                                                 }
-                                            });
-                                        }
-                                    });
-                                        //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                        //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                                            }
+                                        });
                                     }
-                                     /*Ext.getCmp('help').hide();
-                                     Ext.getCmp('myCarroucel').hide();
-                                     Ext.getCmp('myList').hide();
-                                     Ext.getCmp('footer').hide();
-                                     Ext.getCmp('barra5').hide();
-                                     Ext.getCmp('italbox').hide();
-                                     Ext.getCmp('favorites').hide();
-                                     Ext.getCmp('search').hide();
-                                     Ext.getCmp('back').hide();
-                                     /*Ext.getCmp('myList').hide();
-                                     Ext.getCmp('myList').hide();*/
-                                     //Ext.getCmp('back').show();
-                                     /*Ext.getCmp('menuI').show();*/
-                                     panel_menu.hide();
-                                     
+                                });
+                                panel_language.hide();
+                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
+                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                            }
+                        },
+                        {
+                            element: 'element',
+                            delegate: '#menu-english',
+                            event: 'tap',
+                            fn: function() {
+                                var valor = { id_setting: '1', lang: '2'};
+                                Ext.getStore('Settings').getAt(0).set(valor);
+                                Ext.getStore('Settings').sync();
+                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
+                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                Ext.MessageBox.override({
+                                        confirm: function(title, message, fn, scope) {
+                                        return this.show({
+                                            title       : title || null,
+                                            message     : message || null,
+                                            buttons     : [
+                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                        ],
+                                            promptConfig: false,
+                                            scope       : scope,
+                                            fn: function() {
+                                                if (fn) {
+                                                    fn.apply(scope, arguments);
+                                                }
+                                            }
+                                        });
+                                    }
+                                });
+                                panel_language.hide();
+                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
+                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
+                            }
+                            },
+                            {
+                               element: 'element',
+                               delegate: '#menu-francais',
+                               event: 'tap',
+                               fn: function() {
+                                  
+                               }
+                           },
+                           {
+                               element: 'element',
+                               delegate: '#menu-castellano',
+                               event: 'tap',
+                               fn: function() {
+                                
+                               }
+                           }
+                            ]
+                            });
+                            //show the panel
+                            panel_language.show();
+                            panel_language.on('hide', function() {
+                                panel_language.destroy();
+            
+                            });   
+                            panel_menu.hide();        
+                                   
                                     }
                                 },
                                 {

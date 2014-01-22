@@ -862,6 +862,91 @@ body{
         border-bottom: solid; 1px;
 }
 
+.menuL {
+	position: absolute;
+	font-size: 12px;
+	left: 0;
+	/*top: 1200px;*/
+	right: 0;
+	bottom: 0;
+	margin:auto;
+}
+
+.menuL ul {
+	padding: 0px;
+}
+
+.menuL li {
+	border-top: solid; 1px;
+	list-style-type: none;
+	padding: 16px 10px 15px 0px;
+        
+}
+
+.menuL li:hover {
+	color: #FFFFFF !important;
+}
+
+
+/*.menuL li:last-child{
+	border-bottom: solid; 1px;
+}*/
+
+.menuL li.menu-portugues {
+	
+        
+}
+.menuL li.menu-english {
+	
+}
+
+.menuL li.menu-francais {
+	
+}
+.menuL li.menu-castellano {
+	
+	border-bottom: solid; 1px;
+}
+
+
+/*.menu li:hover {
+	background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}*/
+
+.menuL li.menu-portugues:hover {
+        background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
+
+.menuL li.menu-english:hover {
+	/*background: url(../imgs/icons/catalogos_white.png) no-repeat ;*/
+        background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
+
+.menuL li.menu-francais:hover {
+	/*background: url(../imgs/icons/favoritos_white.png) no-repeat ;*/
+        background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+}
+.menuL li.menu-castellano:hover {
+	/*background: url(../imgs/icons/ajuda_white.png) no-repeat ;*/
+        background-color: #000 ;
+	color: #FFFFFF;
+	transition: 0.5s;
+	-webkit-transition: 0.5s;
+        border-bottom: solid; 1px;
+}
+
 /*@media  
 only screen and (-webkit-min-device-pixel-ratio: 2),  
 only screen and ( min--moz-device-pixel-ratio: 2),  

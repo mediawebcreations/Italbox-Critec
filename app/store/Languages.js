@@ -141,6 +141,107 @@ Ext.define('ItalboxCatalog.store.Languages', {
         no: 'No',
         cancel: 'Cancel',
         },
+        
+        {
+        id : 3,
+        lang : 'fr',
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>COMPANY<br/><br/><p>ITALBOX, LDA, is a company founded in 1999 specialized in the manufacture of shower cabins being a reference in Portugal.<br/> The own and unique design, the excellent dichotomy quality/price and the focus on the clients satisfactions are our identifying characteristics.<br/> Our experience and know-how allow us to find solutions desired by the clients. So you can meet us and the models that we produce, please consult our web-site: <font color="#b69757">www.italbox.pt</font>.<br/> Beside the various ranges of the catalog products, we also produce by mesure. The various hotels which our products and solutions are applied are the recognition of our profissionalism. <br/>We inform you that we are at your disposal for any further information and additional clarification throught the e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
+        help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>HELP<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+        italbox : 'ITALBOX',
+        catalogs : 'CATALOGS',
+        favorites : 'FAVORITES',
+        language : 'LANGUAGE',
+        help : 'HELP',
+        pages: 'PAGES',
+        products : 'PRODUCTS',
+        product : 'Products',
+        favorites_empty: 'Without Favorites',
+        products_empty: 'Without Results',
+        search : 'Search...',
+        search_list : '<div class="lista-pesquisa">'+
+            '<img src="http://www.critecns.com/italbox/assets/uploads/imgs/{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
+            '<div><b>Name:</b> <span>{nome}</span></div>' +
+            '<div><b>Ref:</b> <span>{ref}</span></div>' +
+            '</div>',
+        offline_catalogs: 'You need a Internet Connection to open the Catalogs',
+        offline_favorites: 'You need a Internet Connection to open the Favorites',
+        offline_search: 'You need a Internet Connection to open the Search',
+        remove_favorite: 'Remove Favorite',
+        open_favorite: 'Open Favorite',
+        open_product: 'Open Product Page',
+        open: 'Open',
+        add_product: 'Product added to Favorites',
+        no_pages: 'Catalog without Pages',
+        no_products: 'This page doesn\'t have any Products',
+        add_page: 'Page added to Favorites',
+        offline: 'Working in Offline Mode',
+        offline_error: 'Offline, you need to be Online to view this content',
+        exit: 'Exit Application?',
+        yes: 'Yes',
+        no: 'No',
+        cancel: 'Cancel',
+        },
+        
+        {
+        id : 4,
+        lang : 'es',
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+            'background-size: contain; background-position: center;',
+        company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>COMPANY<br/><br/><p>ITALBOX, LDA, is a company founded in 1999 specialized in the manufacture of shower cabins being a reference in Portugal.<br/> The own and unique design, the excellent dichotomy quality/price and the focus on the clients satisfactions are our identifying characteristics.<br/> Our experience and know-how allow us to find solutions desired by the clients. So you can meet us and the models that we produce, please consult our web-site: <font color="#b69757">www.italbox.pt</font>.<br/> Beside the various ranges of the catalog products, we also produce by mesure. The various hotels which our products and solutions are applied are the recognition of our profissionalism. <br/>We inform you that we are at your disposal for any further information and additional clarification throught the e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
+        help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>HELP<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+        italbox : 'ITALBOX',
+        catalogs : 'CATALOGS',
+        favorites : 'FAVORITES',
+        language : 'LANGUAGE',
+        help : 'HELP',
+        pages: 'PAGES',
+        products : 'PRODUCTS',
+        product : 'Products',
+        favorites_empty: 'Without Favorites',
+        products_empty: 'Without Results',
+        search : 'Search...',
+        search_list : '<div class="lista-pesquisa">'+
+            '<img src="http://www.critecns.com/italbox/assets/uploads/imgs/{foto}" style="float:left; height:40px; margin-right:10px;"></img>' +
+            '<div><b>Name:</b> <span>{nome}</span></div>' +
+            '<div><b>Ref:</b> <span>{ref}</span></div>' +
+            '</div>',
+        offline_catalogs: 'You need a Internet Connection to open the Catalogs',
+        offline_favorites: 'You need a Internet Connection to open the Favorites',
+        offline_search: 'You need a Internet Connection to open the Search',
+        remove_favorite: 'Remove Favorite',
+        open_favorite: 'Open Favorite',
+        open_product: 'Open Product Page',
+        open: 'Open',
+        add_product: 'Product added to Favorites',
+        no_pages: 'Catalog without Pages',
+        no_products: 'This page doesn\'t have any Products',
+        add_page: 'Page added to Favorites',
+        offline: 'Working in Offline Mode',
+        offline_error: 'Offline, you need to be Online to view this content',
+        exit: 'Exit Application?',
+        yes: 'Yes',
+        no: 'No',
+        cancel: 'Cancel',
+        },
+        
         ]
     }
 });
