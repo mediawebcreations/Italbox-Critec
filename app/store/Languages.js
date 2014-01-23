@@ -46,15 +46,13 @@ Ext.define('ItalboxCatalog.store.Languages', {
         {
         id : 1,
         lang : 'pt',
-        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
-            'background-size: contain; background-position: center;',
-        menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         company_html: '<div class="italbox"><img src="imgs/company.jpg"></img><br/>EMPRESA<br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999, é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo, e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores, a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume de negócios de 20% por ano, nos últimos 5 anos.<br/>Em 2011 lançou o novo catalogo com uma nova linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio, no sentido de complementar a oferta.<br/>Para que possam verificar os modelos que produzimos, queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
         help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
@@ -95,17 +93,15 @@ Ext.define('ItalboxCatalog.store.Languages', {
         {
         id : 2,
         lang : 'en',
-        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
-            'background-size: contain; background-position: center;',
-        company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>COMPANY<br/><br/><p>ITALBOX, LDA, is a company founded in 1999 specialized in the manufacture of shower cabins being a reference in Portugal.<br/> The own and unique design, the excellent dichotomy quality/price and the focus on the clients satisfactions are our identifying characteristics.<br/> Our experience and know-how allow us to find solutions desired by the clients. So you can meet us and the models that we produce, please consult our web-site: <font color="#b69757">www.italbox.pt</font>.<br/> Beside the various ranges of the catalog products, we also produce by mesure. The various hotels which our products and solutions are applied are the recognition of our profissionalism. <br/>We inform you that we are at your disposal for any further information and additional clarification throught the e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
+        company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>COMPANY<br/><br/><p>ITALBOX, LDA, is a company founded in 1999 specialized in the manufacture of shower cabins being a reference in Portugal.<br/> The own and unique design, the excellent dichotomy quality/price and the focus on the clients satisfactions are our identifying characteristics. Our experience and know-how allow us to find solutions desired by the clients.</br> So you can meet us and the models that we produce, please consult our web-site: <font color="#b69757">www.italbox.pt</font>.<br/> Beside the various ranges of the catalog products, we also produce by mesure. The various hotels which our products and solutions are applied are the recognition of our profissionalism. <br/>We inform you that we are at your disposal for any further information and additional clarification throught the e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
         help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>HELP<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
         italbox : 'ITALBOX',
         catalogs : 'CATALOGS',
@@ -144,18 +140,16 @@ Ext.define('ItalboxCatalog.store.Languages', {
         {
         id : 3,
         lang : 'fr',
-        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu_fr.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu_fr.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu_fr.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu_fr.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3_eng.png) no-repeat, rgba(255, 255, 255, .4);'+
-            'background-size: contain; background-position: center;',
-        company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>COMPANY<br/><br/><p>ITALBOX, LDA, is a company founded in 1999 specialized in the manufacture of shower cabins being a reference in Portugal.<br/> The own and unique design, the excellent dichotomy quality/price and the focus on the clients satisfactions are our identifying characteristics.<br/> Our experience and know-how allow us to find solutions desired by the clients. So you can meet us and the models that we produce, please consult our web-site: <font color="#b69757">www.italbox.pt</font>.<br/> Beside the various ranges of the catalog products, we also produce by mesure. The various hotels which our products and solutions are applied are the recognition of our profissionalism. <br/>We inform you that we are at your disposal for any further information and additional clarification throught the e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
-        help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>HELP<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+        company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>ENTREPRISE<br/><br/><p>ITALBOX, LDA, entreprise fondée en 1999, fabrique des panneaux et des cabines en étant une réference au Portugal.</br>Le design distinctif et exclusif, l\'excellente dichotomie qualité/prix et l\'importance que nous donnons à la satisfaction du client sont nos caractéristiques d\'identication. Notre expérience et savoir-foire nos permet de rencontrer les solutions prétendu par les clients.</br>Pour que vous puissiez nous connaitre et véri er les modèles que nous produisons, voulez-vous consulter notre web-site: <font color="#b69757">www.italbox.pt</font>.<br/>Par delà des divers gammes de produits du catalogue, nous produisons aussi sur mesures. Les différents hôtels où nous avons appliqué nos produits et solutions sont la reconnaissance de notre professionalisme.<br/>Nous vous informons que nous sommes à votre service pour toutes renseignement supplémentaires à travers de notre e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
+        help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>AIDE<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
         italbox : 'ITALBOX',
         catalogs : 'CATALOGUES',
         favorites : 'FAVORIS',
@@ -193,18 +187,16 @@ Ext.define('ItalboxCatalog.store.Languages', {
         {
         id : 4,
         lang : 'es',
-        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_catalogs:  'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_favorites:  'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_language:  'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
+        menu_help:  'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu_es.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-        menu_help2:  'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
-            'background-size: contain; background-position: center;',
-        company_html: '<div class="italbox"><img src="imgs/company.jpg"></img><br/>EMPRESA<br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999, é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo, e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores, a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume de negócios de 20% por ano, nos últimos 5 anos.<br/>Em 2011 lançou o novo catalogo com uma nova linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio, no sentido de complementar a oferta.<br/>Para que possam verificar os modelos que produzimos, queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
-        help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>AJUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
+        company_html: '<div class="italbox"><img src="imgs/company.jpg"></img><br/>EMPRESA<br/><br/><p>Italbox, LDA, es una empresa fundada en 1999 especializada en la fabricación de cabinas de ducha y es una referencia en Portugal.<br/>El diseño propio y único, la dicotomía excelente relación calidad/precio y el centrarse en las satisfacciones del cliente son nuestras señas de identidad. Nuestra experiencia y conocimiento nos permiten encontrar soluciones deseadas por los clientes.<br/>Para conocernos a nosotros y los modelos que producimos, por favor consulte nuestro web-site:  <font color="#b69757">www.italbox.pt</font>.<br/>Al lado de las diferentes gamas de los productos del catálogo, también adaptamos. Los diversos hoteles en cuál nuestros productos y soluciones son aplicados son el reconocimiento de nuestro profissionalismo.<br/>Informamos que estamos a su disposición para cualquier información adicional através del correo electrónico: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
+        help_html: '<div style="margin:20px; margin-top:0px !important;"><img src="imgs/company2.jpg" style="max-width:100%;"></img><br/>AYUDA<br/><br/>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</div>',
         italbox : 'ITALBOX',
         catalogs : 'CATALOGOS',
         favorites : 'FAVORITOS',
@@ -231,7 +223,7 @@ Ext.define('ItalboxCatalog.store.Languages', {
         add_product: 'Producto añadido a Favoritos',
         no_pages: 'Sin Páginas de catálogo',
         no_products: 'No hay Productos en esta Página',
-        add_page: 'Página añadido a Favoritos',
+        add_page: 'Página añadida a Favoritos',
         offline: 'Trabajar en el modo Offline',
         offline_error: 'Offline, usted necesita estar Online para acceder a este contenido',
         exit: 'Salir de la Aplicación?',
