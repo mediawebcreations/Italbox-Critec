@@ -905,8 +905,8 @@ function log(msg) {
 function sencha(){
 renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias,tprodutos_paginas){
 var connect = 1;
-var tpaginas_temp = [];
-var tpaginas2_temp = [];
+//var tpaginas_temp = [];
+//var tpaginas2_temp = [];
 var idcatalogo = 0;
 var idpagina = 0;
 var numero = 0;
@@ -1724,11 +1724,11 @@ Ext.define('Italbox.Viewport5', {
                                  //tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
                              if (Ext.Viewport.getOrientation() === 'portrait') {
-                                 Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
+                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
                                  Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
                              }
                              else{
-                                 Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
+                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
                                  Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
                              }
                              Ext.getCmp('barra5').show();
@@ -2119,7 +2119,7 @@ Ext.define('Italbox.Viewport2', {
          //console.dir(carr.getActiveItem());
          //carr.removeAll(true);
          if (Ext.Viewport.getOrientation() === 'portrait') {
-            Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
+            Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
             var round1 = Math.round(ind*2);
             Ext.getCmp('myCarroucel').setActiveItem(round1-1);
          }
@@ -2127,7 +2127,7 @@ Ext.define('Italbox.Viewport2', {
             /*if ((ind > 0) && (ind%2 != 0)) {
                 ind = ind-1;
             }*/
-            Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
+            Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
             var round2 = Math.round(ind/2);
             Ext.getCmp('myCarroucel').setActiveItem(round2);
          }
@@ -2213,15 +2213,15 @@ Ext.define('Italbox.Viewport', {
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(true,true);
                                  idcatalogo = record.get('id_catalogo');
-                                 tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
-                                 tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
+                                 //tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
+                                 //tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
                                  tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
                              if (Ext.Viewport.getOrientation() === 'portrait') {
-                                 Ext.getCmp('myCarroucel').setItems(tpaginas2_temp);
+                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
                              }
                              else{
-                                 Ext.getCmp('myCarroucel').setItems(tpaginas_temp);
+                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
                              }
                                  Ext.getCmp('myCarroucel').setActiveItem(0);
                                  Ext.getCmp('myCarroucel').show();
