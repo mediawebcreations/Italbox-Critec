@@ -251,7 +251,6 @@ Ext.define('ItalboxCatalog.store.Languages', {
         share_product_text: 'Imagen de Produto del Catalogo ',
         share_product_text2: ' compartida a través de la aplicación Italbox',
         },
-        },
         ]
     }
 });
