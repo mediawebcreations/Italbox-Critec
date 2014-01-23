@@ -3247,7 +3247,7 @@ Ext.define('Italbox.ViewportPanel', {
                             //var loja = Ext.getStore('Favorites');
                             Ext.getStore('Favorites').load();
                             //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
-                            var newRecord = {imag: thumb ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
+                            var newRecord = {imag: thumb ,nome: 'Cat. '+idcatalogo+' Pag. '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
                             //console.dir(newRecord);
                             Ext.getStore('Favorites').add(newRecord);
                             Ext.getStore('Favorites').sync();

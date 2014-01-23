@@ -806,6 +806,7 @@ body{
 
 .menu li.menu-favoritos {
 	/*background: url(../imgs/icons/favoritos.png) no-repeat ;*/
+        padding-left: 59px !important;
 }
 .menu li.menu-language {
 	/*background: url(../imgs/icons/language.png) no-repeat ;*/
