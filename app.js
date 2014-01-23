@@ -3099,7 +3099,7 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu10 icon-partilha-white',
                     handler: function () {
-                       window.plugins.socialsharing.share('Imagem do Produto do Catalogo '+nomec+' partilhada através da aplicação Italbox', null, caminho+record.get('foto'), null);
+                       window.plugins.socialsharing.share(Ext.getStore('Languages').getById(idioma).get('share_product_text')+nomec+Ext.getStore('Languages').getById(idioma).get('share_product_text2'), null, caminho+record.get('foto'), null);
                     }
                 },
         ]
@@ -3277,7 +3277,7 @@ Ext.define('Italbox.ViewportPanel', {
                         }
                         else{
                             //window.plugins.socialsharing.share('Message only');
-                            window.plugins.socialsharing.share('Imagem do Catalogo '+nomec+' partilhada através da aplicação Italbox', null, share, null);                          
+                            window.plugins.socialsharing.share(Ext.getStore('Languages').getById(idioma).get('share_page_text')+nomec+Ext.getStore('Languages').getById(idioma).get('share_page_text2'), null, share, null);                          
                             //alert('Catalogo '+idcatalogo+' Pagina '+numero+' '+source);
                         }
                     }

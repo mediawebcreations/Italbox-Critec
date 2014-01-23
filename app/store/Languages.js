@@ -41,6 +41,10 @@ Ext.define('ItalboxCatalog.store.Languages', {
             { name: 'yes', type: 'string' },
             { name: 'no', type: 'string' },
             { name: 'cancel', type: 'string' },
+            { name: 'share_page_text', type: 'string' },
+            { name: 'share_page_text2', type: 'string' },
+            { name: 'share_product_text', type: 'string' },
+            { name: 'share_product_text2', type: 'string' },
         ],
         data : [
         {
@@ -89,6 +93,10 @@ Ext.define('ItalboxCatalog.store.Languages', {
         yes: 'Sim',
         no: 'Não',
         cancel: 'Cancelar',
+        share_page_text: 'Imagem do Catalogo ',
+        share_page_text2: ' partilhada através da aplicação Italbox',
+        share_product_text: 'Imagem do Produto do Catalogo ',
+        share_product_text2: ' partilhada através da aplicação Italbox',
         },
         {
         id : 2,
@@ -136,6 +144,10 @@ Ext.define('ItalboxCatalog.store.Languages', {
         yes: 'Yes',
         no: 'No',
         cancel: 'Cancel',
+        share_page_text: 'Image from the Catalog ',
+        share_page_text2: ' shared through the Italbox App',
+        share_product_text: 'Image of a Product from the Catalog ',
+        share_product_text2: ' shared through the Italbox App',
         },
         {
         id : 3,
@@ -183,6 +195,10 @@ Ext.define('ItalboxCatalog.store.Languages', {
         yes: 'Oui',
         no: 'Non',
         cancel: 'Annuler',
+        share_page_text: 'Image du catalogue ',
+        share_page_text2: ' partagée sur l\'App Italbox',
+        share_product_text: 'Image d\'un produit du catalogue ',
+        share_product_text2: ' partagée sur l\'App Italbox',
         },
         {
         id : 4,
@@ -230,6 +246,11 @@ Ext.define('ItalboxCatalog.store.Languages', {
         yes: 'Sí',
         no: 'No',
         cancel: 'Cancelar',
+        share_page_text: 'Imagen del Catalogo ',
+        share_page_text2: ' compartida a través de la aplicación Italbox',
+        share_product_text: 'Imagen de Produto del Catalogo ',
+        share_product_text2: ' compartida a través de la aplicación Italbox',
+        },
         },
         ]
     }
