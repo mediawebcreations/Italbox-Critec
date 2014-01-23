@@ -2215,7 +2215,7 @@ Ext.define('Italbox.Viewport', {
                                  idcatalogo = record.get('id_catalogo');
                                  //tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
                                  //tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 tamanho = tpaginas2_temp.length;
+                                 //tamanho = tpaginas2_temp.length;
                                  //alert(tamanho);
                              if (Ext.Viewport.getOrientation() === 'portrait') {
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
