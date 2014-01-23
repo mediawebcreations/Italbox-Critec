@@ -1229,3 +1229,11 @@ background-image: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 24, color-stop(0
 background-image: -webkit-radial-gradient(rgba(192,192,192,0.4),rgba(192,192,192,0) 24px);
 background-image: radial-gradient(rgba(192,192,192,0.4),rgba(192,192,192,0) 24px);
 }
+
+.x-android .x-input-el {
+-webkit-text-fill-color: #FFF !important;
+}
+
+.x-android .x-empty .x-input-el {
+-webkit-text-fill-color: #FFF !important;
+}

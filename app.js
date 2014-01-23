@@ -825,6 +825,7 @@ function renderTables(callback) {
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo,
                    thumb: caminho2+pagina.foto,
+                   share: caminho+pagina.foto,
               };
               var listaPaginas2 = {
                    xtype: 'imageviewer',
@@ -834,6 +835,7 @@ function renderTables(callback) {
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo,
                    thumb: caminho2+pagina.foto,
+                   share: caminho+pagina.foto,
               };
                var listaPaginas3 = {
                    xtype: 'imageviewer',
@@ -843,6 +845,7 @@ function renderTables(callback) {
                    id_pagina: pagina.id_pagina,
                    id_catalogo: pagina.id_catalogo,
                    thumb: caminho2+pagina.foto,
+                   share: caminho+pagina.foto,
               };
               tpaginas.push(listaPaginas);
               tpaginas2.push(listaPaginas2);
@@ -907,12 +910,13 @@ var tpaginas2_temp = [];
 var idcatalogo = 0;
 var idpagina = 0;
 var numero = 0;
-var source = '';
+var thumb = '';
+var share = '';
+var nomec = '';
 var ind = 0;
 var contador = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
 var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
-//var tamanho = 0;
 var idioma = 0;
 
 
@@ -2055,7 +2059,8 @@ Ext.define('Italbox.Viewport2', {
                 idpagina = value.initialConfig.id_pagina;
                 idcatalogo = value.initialConfig.id_catalogo;
                 numero = value.initialConfig.numero;
-                source = value.initialConfig.thumb;
+                thumb = value.initialConfig.thumb;
+                share = value.initialConfig.share;
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
                 Ext.getCmp('open-menu4').setText('<span style="text-align:center; padding-left: 25px; line-height: 2;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</span><span style="text-align:right; float:right;"><i class="icon-cima"></i></span>');
@@ -2204,6 +2209,7 @@ Ext.define('Italbox.Viewport', {
                             function(buttonId) {
                             if (buttonId === 'yes') {
                                  //var ori = Ext.Viewport.getOrientation();
+                                 nomec = record.get('nome');
                                  Ext.getCmp('myList').hide();
                                  Ext.getCmp('myCarroucel').removeAll(true,true);
                                  idcatalogo = record.get('id_catalogo');
@@ -3093,7 +3099,7 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu10 icon-partilha-white',
                     handler: function () {
-                       
+                       window.plugins.socialsharing.share('Imagem do Produto do Catalogo '+nomec+' partilhada através da aplicação Italbox', null, caminho+record.get('foto'), null);
                     }
                 },
         ]
@@ -3241,7 +3247,7 @@ Ext.define('Italbox.ViewportPanel', {
                             //var loja = Ext.getStore('Favorites');
                             Ext.getStore('Favorites').load();
                             //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
-                            var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
+                            var newRecord = {imag: thumb ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
                             //console.dir(newRecord);
                             Ext.getStore('Favorites').add(newRecord);
                             Ext.getStore('Favorites').sync();
@@ -3271,7 +3277,8 @@ Ext.define('Italbox.ViewportPanel', {
                         }
                         else{
                             //window.plugins.socialsharing.share('Message only');
-                            window.plugins.socialsharing.share('Catalogo '+idcatalogo+' Pagina '+numero+'', null, source, null);
+                            window.plugins.socialsharing.share('Imagem do Catalogo '+nomec+' partilhada através da aplicação Italbox', null, share, null);
+                            
                             //alert('Catalogo '+idcatalogo+' Pagina '+numero+' '+source);
                         }
                     }
