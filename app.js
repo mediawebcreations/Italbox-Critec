@@ -1726,10 +1726,12 @@ Ext.define('Italbox.Viewport5', {
                              if (Ext.Viewport.getOrientation() === 'portrait') {
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
                                  Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
+                                 Ext.getCmp('footer').show();
                              }
                              else{
                                  Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
                                  Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
+                                 Ext.getCmp('footer').show();
                              }
                              Ext.getCmp('barra5').show();
                              Ext.getCmp('footer').show();
@@ -3082,16 +3084,16 @@ Ext.define('Italbox.ViewportPanel', {
                        
                     }
                 },
-                  {
+               // {
                     /*align: 'middle',*/ 
-                    ui:    'plain',
-                    xtype: 'button',
+                   // ui:    'plain',
+                  //  xtype: 'button',
                    /* text: 'teste',*/
-                    cls: 'open-menu8 icon-lista-white',
-                    handler: function () {
+                  //  cls: 'open-menu8 icon-lista-white',
+                   // handler: function () {
                        
-                    }
-                },
+                  //  }
+                //},
                  {
                     /*align: 'middle',*/ 
                     ui:    'plain',
@@ -3262,7 +3264,97 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu6 icon-lista',
                     handler: function () {
-                       
+                        if (Ext.getCmp('myCarroucel').getItems().length == 0) {
+                             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
+                        }
+                        else{
+                        panel_paginas = Ext.Viewport.add({
+                        xtype : 'tabpanel',
+                        id:'listaPag',
+                        cls: 'pop-produto',
+                        float: true,
+                        // modal: true,
+                        showAnimation: 
+                        {
+                            type: 'pop',
+                            duration: 300,
+                        },  
+                        tabBar:    {
+                            cls: 'barraTab2',
+                            hidden: true,
+                        },
+                        items: [
+                        {
+                            xtype: 'toolbar',
+                            //title: "Title",
+                            docked: 'top',
+                            cls: 'barraPaginas',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    ui: 'plain',
+                                    cls: 'back icon-back',
+                                    handler: function () {
+                                        panel_paginas.hide();
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            title: Ext.getStore('Languages').getById(idioma).get('pages'),
+                            layout : 'fit',
+                            cls: 'tabPaginas',
+                            //next we give it some simple html
+                            items: [
+                            {
+                            xtype: 'dataview',
+                            cls: 'favoritos',
+                            flex: 1,
+                            scrollable: {
+                                direction: 'vertical',
+                                //indicators: false
+                            },
+                            inline: {
+                                wrap: true
+                            },
+                             store: 
+                             {
+                                fields: ['id_catalogo','id_pagina','imageSrc','numero','share','thumb','xtype'],
+                                data:  $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo })
+                             },
+                            
+                            itemTpl: '<img src="{thumb}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:12px;">Pag. {numero}</div>',
+                            
+                            listeners: {
+                                itemtap: function(list, index, target, record,e) {
+                                     Ext.Msg.confirm(
+                                    "",
+                                    Ext.getStore('Languages').getById(idioma).get('open_page')+' '+record.get('numero')+"?",
+                                    function(buttonId) {
+                                    if (buttonId === 'yes') {
+                                     if (Ext.Viewport.getOrientation() === 'portrait') {
+                                         Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
+                                     }
+                                     else{
+                                         Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
+                                     }
+                                        panel_paginas.hide();
+                                    }});
+                                }
+                            }
+                            }
+                            ],
+                            
+                        },
+                           
+                        ],       
+                        });
+                        //show the panel
+                        panel_paginas.show();
+                        panel_paginas.on('hide', function() {
+                           panel_paginas.destroy();
+                        });
+                        }
                     }
                 },
                  {
@@ -3522,8 +3614,10 @@ Ext.application({
     function onOffline() {
         connect = 0;
         try {
-                Ext.getCmp('menuP').hide();
-            }
+               Ext.getCmp('menuP').hide();
+               Ext.getCmp('menuL').hide();
+               Ext.getCmp('listaPag').hide();
+        }
         catch(err) {}
         //var carr = Ext.getCmp('myCarroucel');
         //var italbox = Ext.getCmp('italbox');
@@ -3578,6 +3672,8 @@ Ext.application({
             //console.dir(lista);
             try {
                 Ext.getCmp('menuP').hide();
+                Ext.getCmp('menuL').hide();
+                Ext.getCmp('listaPag').hide();
             }
             catch(err) {}
             //var carr = Ext.getCmp('myCarroucel');

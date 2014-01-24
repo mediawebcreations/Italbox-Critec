@@ -174,7 +174,7 @@ body{
 }
 
 .right_bar2 {
-	height: 150px !important;
+	height: 100px !important;
         width: 60px !important;
         bottom: auto;
         position: absolute;
@@ -249,7 +249,7 @@ body{
 
 .open-menu9{
 	position: absolute;
-        top: 47px;
+        /*top: 47px;*/
 	width: 45px;
 	height: 45px !important;
         font-size: 22px !important;
@@ -261,7 +261,7 @@ body{
 
 .open-menu10{
 	position: absolute;
-        top: 94px;
+        top: 47px;
 	width: 45px;
 	height: 45px !important;
         font-size: 22px !important;
@@ -372,10 +372,24 @@ body{
    height: 35px !important;
 }
 
+.barraTab2
+{
+   border-bottom: 3px solid #000000 !important;
+   background: transparent !important;
+   height: 35px !important;
+}
+
 .barraPesquisa
 {
   background: #000000 !important;
   border-bottom: 3px solid #000000 !important;
+}
+
+.barraPaginas
+{
+   background: transparent !important;
+   border-bottom: 3px solid #000000 !important;
+   height: 50px;
 }
 
 .search{
