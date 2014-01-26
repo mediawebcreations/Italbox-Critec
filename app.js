@@ -3084,16 +3084,101 @@ Ext.define('Italbox.ViewportPanel', {
                        
                     }
                 },
-               // {
+                {
                     /*align: 'middle',*/ 
-                   // ui:    'plain',
-                  //  xtype: 'button',
+                    ui:    'plain',
+                    xtype: 'button',
                    /* text: 'teste',*/
-                  //  cls: 'open-menu8 icon-lista-white',
-                   // handler: function () {
-                       
-                  //  }
-                //},
+                    cls: 'open-menu8 icon-lista-white',
+                    handler: function () {
+                       panel_extras = Ext.Viewport.add({
+                        xtype : 'tabpanel',
+                        id:'extras',
+                        cls: 'pop-produto',
+                        float: true,
+                        // modal: true,
+                        /*showAnimation: 
+                        {
+                            type: 'pop',
+                            duration: 300,
+                        }, */
+                        tabBar:    {
+                            cls: 'barraTab2',
+                            hidden: true,
+                        },
+                        items: [
+                        {
+                            xtype: 'toolbar',
+                            //title: "Title",
+                            docked: 'top',
+                            cls: 'barraPaginas',
+                            items: [
+                                {
+                                    xtype: 'button',
+                                    ui: 'plain',
+                                    cls: 'back icon-back',
+                                    handler: function () {
+                                        panel_extras.hide();
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            title: Ext.getStore('Languages').getById(idioma).get('pages'),
+                            layout : 'fit',
+                            cls: 'tabPaginas',
+                            //next we give it some simple html
+                            items: [
+                            {
+                            xtype: 'dataview',
+                            cls: 'favoritos',
+                            flex: 1,
+                            scrollable: {
+                                direction: 'vertical',
+                                //indicators: false
+                            },
+                            inline: {
+                                wrap: true
+                            },
+                             store: 
+                             {
+                                fields: ['descricao','estado','foto','id','id_catalogo','id_pagina','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
+                                data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
+                             },
+                            
+                            itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
+                            
+                            listeners: {
+                                itemtap: function(list, index, target, record,e) {
+                                    /* Ext.Msg.confirm(
+                                    "",
+                                    Ext.getStore('Languages').getById(idioma).get('open_page')+' '+record.get('numero')+"?",
+                                    function(buttonId) {
+                                    if (buttonId === 'yes') {
+                                     if (Ext.Viewport.getOrientation() === 'portrait') {
+                                         Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
+                                     }
+                                     else{
+                                         Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
+                                     }
+                                        panel_extras.hide();
+                                    }});*/
+                                }
+                            }
+                            }
+                            ],
+                            
+                        },
+                           
+                        ],       
+                        });
+                        //show the panel
+                        panel_extras.show();
+                        panel_extras.on('hide', function() {
+                           panel_extras.destroy();
+                        });
+                    }
+                },
                  {
                     /*align: 'middle',*/ 
                     ui:    'plain',
@@ -3274,11 +3359,11 @@ Ext.define('Italbox.ViewportPanel', {
                         cls: 'pop-produto',
                         float: true,
                         // modal: true,
-                        showAnimation: 
+                        /*showAnimation: 
                         {
                             type: 'pop',
                             duration: 300,
-                        },  
+                        }, */
                         tabBar:    {
                             cls: 'barraTab2',
                             hidden: true,
@@ -3617,6 +3702,7 @@ Ext.application({
                Ext.getCmp('menuP').hide();
                Ext.getCmp('menuL').hide();
                Ext.getCmp('listaPag').hide();
+               Ext.getCmp('extras').hide();
         }
         catch(err) {}
         //var carr = Ext.getCmp('myCarroucel');
@@ -3674,6 +3760,7 @@ Ext.application({
                 Ext.getCmp('menuP').hide();
                 Ext.getCmp('menuL').hide();
                 Ext.getCmp('listaPag').hide();
+                Ext.getCmp('extras').hide();
             }
             catch(err) {}
             //var carr = Ext.getCmp('myCarroucel');

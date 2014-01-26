@@ -174,7 +174,7 @@ body{
 }
 
 .right_bar2 {
-	height: 100px !important;
+	height: 150px !important;
         width: 60px !important;
         bottom: auto;
         position: absolute;
@@ -249,7 +249,7 @@ body{
 
 .open-menu9{
 	position: absolute;
-        /*top: 47px;*/
+        top: 47px;
 	width: 45px;
 	height: 45px !important;
         font-size: 22px !important;
@@ -261,7 +261,7 @@ body{
 
 .open-menu10{
 	position: absolute;
-        top: 47px;
+        top: 94px;
 	width: 45px;
 	height: 45px !important;
         font-size: 22px !important;
