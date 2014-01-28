@@ -3124,18 +3124,15 @@ Ext.define('Italbox.ViewportPanel', {
                 //hidden: true,
                 handler: function () {
                      panel2.hide();
-                    /*panel2.destroy();*/
                     }
                 },
             ]    
         },
         {
             html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'">'+
-                    '<br/><div class="" id="btn-extras" style="background:#000000; color:#FFFFFF;width: 55px;height: 20px;">EXTRAS</div>'+
-                    '<br\>'+record.get('nome')+
+                    '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+
                     '<br/>Ref '+record.get('ref')+
                     '<br/>'+record.get('descricao')+'</div>'
-      
         },
     ],
     listeners: [

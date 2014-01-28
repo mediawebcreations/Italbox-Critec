@@ -315,6 +315,15 @@ body{
       z-index: 10;
 }
 
+.btn-extras{
+    background:#000000;
+    color:#FFFFFF;
+    width: 75px;
+    padding: 5px 10px;
+    font-size: 14px !important;
+    /*height: 20px;   */         
+}
+
 .pop-produto{
         background: rgba(255,255,255, 0.9);
         position:absolute;
