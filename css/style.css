@@ -303,9 +303,16 @@ body{
 
 
 .menu4 {
-	
-        position:absolute;
-       
+     position:absolute;
+}
+
+.lista-extras{
+      background: rgba(255,255,255, 1);
+      position:absolute;
+      width: 100%;
+      height: auto !important;
+      top: 0;
+      z-index: 10;
 }
 
 .pop-produto{

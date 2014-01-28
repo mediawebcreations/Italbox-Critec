@@ -99,8 +99,6 @@ window.dao =  {
                     "descricao VARCHAR(50), " +
                     "foto VARCHAR(50), " +
                     "ref VARCHAR(50), " +
-                    "id_catalogo VARCHAR(50), " +
-                    "id_pagina VARCHAR(50), " +
                     "estado VARCHAR(50), " +
                     "lastModified VARCHAR(50))";
                 tx.executeSql(sql);
@@ -573,14 +571,14 @@ window.dao =  {
             function(tx) {
                 var l = produtos.length;
                 var sql =
-                    "INSERT OR REPLACE INTO produtos (id_produto, nome, descricao, foto, ref, id_catalogo, id_pagina, estado, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO produtos (id_produto, nome, descricao, foto, ref, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = produtos[i];
-                    log(e.id_produto + ' ' + e.nome + ' ' + e.descricao + ' ' + e.foto + ' ' + e.ref + ' ' + e.id_catalogo + ' ' + e.id_pagina + ' ' + e.estado + ' ' + e.lastModified);
-                    var params = [e.id_produto, e.nome, e.descricao , e.foto, e.ref, e.id_catalogo, e.id_pagina, e.estado, e.lastModified];
+                    log(e.id_produto + ' ' + e.nome + ' ' + e.descricao + ' ' + e.foto + ' ' + e.ref + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_produto, e.nome, e.descricao , e.foto, e.ref, e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -1449,7 +1447,7 @@ Ext.define('Italbox.Viewport6', {
         }, 
                 //cls: 'teste',
         store: {id: 'produtos',
-                fields: ['id_produto', 'nome', 'descricao', 'foto', 'ref', 'id_catalogo', 'id_pagina', 'estado', 'lastModified'],
+                fields: ['id_produto', 'nome', 'descricao', 'foto', 'ref', 'estado', 'lastModified'],
                 data:tprodutos
         },
         itemTpl:  '<div class="lista-pesquisa">'+
@@ -1559,7 +1557,7 @@ Ext.define('Italbox.Viewport6', {
                                             cls: 'close icon-close',
                                             //hidden: true,
                                             handler: function () {
-                                                Ext.getCmp('pop-produto').hide();
+                                                 panel_produto.hide();
                                                 /*panel2.destroy();*/
                                                 }
                                             },
@@ -1570,7 +1568,6 @@ Ext.define('Italbox.Viewport6', {
                                         '<img src="'+caminho+record.get('foto')+'">'+
                                         '<br\>'+record.get('nome')+'<br/>'+
                                         'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
-                                  
                                     },
                                 ],
                                
@@ -1898,7 +1895,7 @@ Ext.define('Italbox.Viewport5', {
                                             cls: 'close icon-close',
                                             //hidden: true,
                                             handler: function () {
-                                                Ext.getCmp('pop-produto').hide();
+                                                 panel_produto.hide();
                                                 /*panel2.destroy();*/
                                                 }
                                             },
@@ -2970,7 +2967,7 @@ Ext.define('Italbox.ViewportPanel', {
 
                    //set the itemtpl to show the fields for the store
                     store: {
-                       fields: ['descricao','estado','foto','id','id_catalogo','id_pagina','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
+                       fields: ['descricao','estado','foto','id','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
                        data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
                      //  [{
                      //      capa: 'imgs/produto1.jpg',
@@ -3091,92 +3088,7 @@ Ext.define('Italbox.ViewportPanel', {
                    /* text: 'teste',*/
                     cls: 'open-menu8 icon-lista-white',
                     handler: function () {
-                       panel_extras = Ext.Viewport.add({
-                        xtype : 'tabpanel',
-                        id:'extras',
-                        cls: 'pop-produto',
-                        float: true,
-                        // modal: true,
-                        /*showAnimation: 
-                        {
-                            type: 'pop',
-                            duration: 300,
-                        }, */
-                        tabBar:    {
-                            cls: 'barraTab2',
-                            hidden: true,
-                        },
-                        items: [
-                        {
-                            xtype: 'toolbar',
-                            //title: "Title",
-                            docked: 'top',
-                            cls: 'barraPaginas',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    ui: 'plain',
-                                    cls: 'back icon-back',
-                                    handler: function () {
-                                        panel_extras.hide();
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            title: Ext.getStore('Languages').getById(idioma).get('pages'),
-                            layout : 'fit',
-                            cls: 'tabPaginas',
-                            //next we give it some simple html
-                            items: [
-                            {
-                            xtype: 'dataview',
-                            cls: 'favoritos',
-                            flex: 1,
-                            scrollable: {
-                                direction: 'vertical',
-                                //indicators: false
-                            },
-                            inline: {
-                                wrap: true
-                            },
-                             store: 
-                             {
-                                fields: ['descricao','estado','foto','id','id_catalogo','id_pagina','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
-                                data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
-                             },
-                            
-                            itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
-                            
-                            listeners: {
-                                itemtap: function(list, index, target, record,e) {
-                                    /* Ext.Msg.confirm(
-                                    "",
-                                    Ext.getStore('Languages').getById(idioma).get('open_page')+' '+record.get('numero')+"?",
-                                    function(buttonId) {
-                                    if (buttonId === 'yes') {
-                                     if (Ext.Viewport.getOrientation() === 'portrait') {
-                                         Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
-                                     }
-                                     else{
-                                         Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
-                                     }
-                                        panel_extras.hide();
-                                    }});*/
-                                }
-                            }
-                            }
-                            ],
-                            
-                        },
-                           
-                        ],       
-                        });
-                        //show the panel
-                        panel_extras.show();
-                        panel_extras.on('hide', function() {
-                           panel_extras.destroy();
-                        });
+                       
                     }
                 },
                  {
@@ -3191,8 +3103,6 @@ Ext.define('Italbox.ViewportPanel', {
                 },
         ]
         },
-        
-        
         {
             xtype: 'toolbar',
             //title: '<div class="logotipo"></div>',
@@ -3213,25 +3123,169 @@ Ext.define('Italbox.ViewportPanel', {
                 cls: 'close icon-close',
                 //hidden: true,
                 handler: function () {
-                    Ext.getCmp('pop-image').hide();
+                     panel2.hide();
                     /*panel2.destroy();*/
                     }
                 },
             ]    
         },
         {
-            html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'"><br\>'+record.get('nome')+'<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+            html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'">'+
+                    '<br/><div class="" id="btn-extras" style="background:#000000; color:#FFFFFF;width: 55px;height: 20px;">EXTRAS</div>'+
+                    '<br\>'+record.get('nome')+
+                    '<br/>Ref '+record.get('ref')+
+                    '<br/>'+record.get('descricao')+'</div>'
       
         },
     ],
-                                //listeners: {
-                                //    tap: {
-                                //     element: 'element',
-                                //      fn: function() {
-                                //        panel2.destroy();
-                                //        }
-                                //    }
+    listeners: [
+    {
+        element: 'element',
+        delegate: '#btn-extras',
+        event: 'tap',
+        fn: function() {
+         panel_extras = Ext.Viewport.add({
+            xtype : 'tabpanel',
+            id:'extras',
+            cls: 'lista-extras',
+            float: true,
+            // modal: true,
+            /*showAnimation: 
+            {
+                type: 'pop',
+                duration: 300,
+            }, */
+            tabBar:    {
+                cls: 'barraTab2',
+                hidden: true,
+            },
+            items: [
+            {
+                xtype: 'toolbar',
+                //title: "Title",
+                docked: 'top',
+                cls: 'barraPaginas',
+                items: [
+                    {
+                        xtype: 'button',
+                        ui: 'plain',
+                        cls: 'back icon-back',
+                        handler: function () {
+                            panel_extras.hide();
+                        }
+                    }
+                ]
+            },
+            {
+                title: '',
+                layout : 'fit',
+                cls: 'tabPaginas',
+                //next we give it some simple html
+                items: [
+                {
+                    xtype: 'dataview',
+                    cls: 'favoritos',
+                    flex: 1,
+                    scrollable: {
+                        direction: 'vertical',
+                        //indicators: false
+                    },
+                    inline: {
+                        wrap: true
+                    },
+                     store: 
+                     {
+                        fields: ['descricao','estado','foto','id','id_catalogo','id_pagina','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
+                        data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
+                     },
+                    
+                    itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
+                    
+                    listeners: {
+                        itemtap: function(list, index, target, record,e) {
+                            panel_extra = Ext.Viewport.add({ 
+                                xtype: 'container',
+                                /*height: '70%',*/
+                                id: 'extra',
+                                cls: 'pop-produto',
+                                /*modal: {
+                                    style: 'opacity: 0; background-color: #ffffff;'
+                                },*/
+                                float: true,
+                                // modal: true,
+                                showAnimation: 
+                                {
+                                    type: 'pop',
+                                    duration: 300,
+                                },  
+                                //hideAnimation: 
+                                //{
+                                //    type: 'popOut',
+                                //    duration: 300,
+                                //    //direction: 'down',
+                                //    //easing: 'easeIn'
                                 //},
+                                layout : {
+                                    type : 'vbox',
+                                     /*align: 'left'*/
+                                },
+                                items: [
+                                    {
+                                        xtype: 'toolbar',
+                                        //title: '<div class="logotipo"></div>',
+                                        /*id: 'barra2',*/
+                                        cls: 'header3',
+                                        /*docked: 'top',*/
+                                        /*hidden: true,*/
+                                        layout: {
+                                                type: 'hbox',
+                                                pack: 'right'
+                                        },
+                                       
+                                        items: [
+                                            {
+                                            align: 'right', 
+                                            ui:    'plain',
+                                            xtype: 'button',
+                                            cls: 'close icon-close',
+                                            //hidden: true,
+                                            handler: function () {
+                                                 panel_extra.hide();
+                                                /*panel2.destroy();*/
+                                                }
+                                            },
+                                        ]    
+                                    },
+                                    {
+                                        html  : '<div class="pop-up">'+
+                                        '<img src="'+caminho+record.get('foto')+'">'+
+                                        '<br\>'+record.get('nome')+'<br/>'+
+                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                    },
+                                ],
+                               
+                            });
+                        //show the panel
+                        panel_extra.show();
+                        panel_extra.on('hide', function() {
+                           panel_extra.destroy();
+                        });
+                            
+                        }
+                    }
+                }
+                ], 
+            }, 
+            ],       
+            });
+            //show the panel
+            panel_extras.show();
+            panel_extras.on('hide', function() {
+               panel_extras.destroy();
+            });
+        }
+    },
+    ]
                             });
                         //show the panel
                         panel2.show();
@@ -3703,6 +3757,7 @@ Ext.application({
                Ext.getCmp('menuL').hide();
                Ext.getCmp('listaPag').hide();
                Ext.getCmp('extras').hide();
+               Ext.getCmp('extra').hide();
         }
         catch(err) {}
         //var carr = Ext.getCmp('myCarroucel');
@@ -3761,6 +3816,7 @@ Ext.application({
                 Ext.getCmp('menuL').hide();
                 Ext.getCmp('listaPag').hide();
                 Ext.getCmp('extras').hide();
+                Ext.getCmp('extra').hide();
             }
             catch(err) {}
             //var carr = Ext.getCmp('myCarroucel');
