@@ -3,7 +3,10 @@ Ext.define('ItalboxCatalog.model.Favorite2', {
     config: {
     fields: [
         'nome',
-        'descricao',
+        'descricao_1',
+        'descricao_2',
+        'descricao_3',
+        'descricao_4',
         'foto',
         'thumb',
         'ref',

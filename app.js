@@ -2,13 +2,15 @@ window.dao =  {
     syncURL:  "http://www.critecns.com/italbox/connect.php?table=catalogos",
     syncURL2: "http://www.critecns.com/italbox/connect.php?table=paginas",
     syncURL3: "http://www.critecns.com/italbox/connect.php?table=produtos",
-    syncURL4: "http://www.critecns.com/italbox/connect.php?table=categorias",
-    syncURL5: "http://www.critecns.com/italbox/connect.php?table=produtos_paginas",
+    syncURL4: "http://www.critecns.com/italbox/connect.php?table=produtos_paginas",
+    syncURL5: "http://www.critecns.com/italbox/connect.php?table=extras",
+    syncURL6: "http://www.critecns.com/italbox/connect.php?table=extras_produtos",
     //syncURL:  "../../italbox/connect.php?table=catalogos",
     //syncURL2: "../../italbox/connect.php?table=paginas",
     //syncURL3: "../../italbox/connect.php?table=produtos",
     //syncURL4: "../../italbox/connect.php?table=categorias",
-    //syncURL5: "../../italbox/connect.php?table=produtos_paginas",
+    //syncURL5: "../../italbox/connect.php?table=extras",
+    //syncURL6: "../../italbox/connect.php?table=extras_produtos",
     //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
     //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
     //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
@@ -24,9 +26,9 @@ window.dao =  {
         // does not already exist.
         this.db.transaction(
             function(tx) {
-                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos' OR name='paginas' OR name='produtos' OR name='categorias' OR name='produtos_paginas'", this.txErrorHandler,
+                tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos' OR name='paginas' OR name='produtos' OR name='produtos_paginas' OR name='extras' OR name='extras_produtos'", this.txErrorHandler,
                     function(tx, results) {
-                        if (results.rows.length == 5) {
+                        if (results.rows.length == 6) {
                             log('Using existing Catalogos table in local SQLite database');
                         }
                         else
@@ -37,6 +39,7 @@ window.dao =  {
                             self.createTable3(callback);
                             self.createTable4(callback);
                             self.createTable5(callback);
+                            self.createTable6(callback);
                         }
                     });
             }
@@ -96,7 +99,10 @@ window.dao =  {
                     "CREATE TABLE IF NOT EXISTS produtos ( " +
                     "id_produto INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "nome VARCHAR(50), " +
-                    "descricao VARCHAR(50), " +
+                    "descricao_1 VARCHAR(50), " +
+                    "descricao_2 VARCHAR(50), " +
+                    "descricao_3 VARCHAR(50), " +
+                    "descricao_4 VARCHAR(50), " +
                     "foto VARCHAR(50), " +
                     "ref VARCHAR(50), " +
                     "estado VARCHAR(50), " +
@@ -110,27 +116,8 @@ window.dao =  {
             }
         );
     },
-    
-    createTable4: function(callback) {
-        this.db.transaction(
-            function(tx) {
-                var sql =
-                    "CREATE TABLE IF NOT EXISTS categorias ( " +
-                    "id_categoria INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "nome VARCHAR(50), " +
-                    "estado VARCHAR(50), " +
-                    "lastModified VARCHAR(50))";
-                tx.executeSql(sql);
-            },
-            this.txErrorHandler,
-            function() {
-                log('Table Categorias successfully CREATED in local SQLite database');
-                callback();
-            }
-        );
-    },
 
-    createTable5: function(callback) {
+    createTable4: function(callback) {
         this.db.transaction(
             function(tx) {
                 var sql =
@@ -145,6 +132,51 @@ window.dao =  {
             this.txErrorHandler,
             function() {
                 log('Table produtos_paginas successfully CREATED in local SQLite database');
+                callback();
+            }
+        );
+    },
+    
+    createTable5: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql =
+                    "CREATE TABLE IF NOT EXISTS extras ( " +
+                    "id_extra INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "nome VARCHAR(50), " +
+                    "descricao_1 VARCHAR(50), " +
+                    "descricao_2 VARCHAR(50), " +
+                    "descricao_3 VARCHAR(50), " +
+                    "descricao_4 VARCHAR(50), " +
+                    "foto VARCHAR(50), " +
+                    "ref VARCHAR(50), " +
+                    "estado VARCHAR(50), " +
+                    "lastModified VARCHAR(50))";
+                tx.executeSql(sql);
+            },
+            this.txErrorHandler,
+            function() {
+                log('Table Extras successfully CREATED in local SQLite database');
+                callback();
+            }
+        );
+    },
+    
+    createTable6: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql =
+                    "CREATE TABLE IF NOT EXISTS extras_produtos ( " +
+                    "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    "extra_id VARCHAR(50), " +
+                    "produto_id VARCHAR(50), " +
+                    "priority VARCHAR(50), " +
+                    "lastModified VARCHAR(50))";
+                tx.executeSql(sql);
+            },
+            this.txErrorHandler,
+            function() {
+                log('Table Extras_Produtos successfully CREATED in local SQLite database');
                 callback();
             }
         );
@@ -226,28 +258,7 @@ window.dao =  {
         );
     },
     
-     findAll4: function(callback) {
-        this.db.transaction(
-            function(tx) {
-                var sql = "SELECT * FROM CATEGORIAS WHERE ESTADO=1";
-                log('Local SQLite database: "SELECT * FROM CATEGORIAS"');
-                tx.executeSql(sql, this.txErrorHandler,
-                    function(tx, results) {
-                        var len = results.rows.length,
-                            categorias = [],
-                            i = 0;
-                        for (; i < len; i = i + 1) {
-                            categorias[i] = results.rows.item(i);
-                        }
-                        log(len + ' rows found');
-                        callback(categorias);
-                    }
-                );
-            }
-        );
-    },
-    
-    findAll5: function(callback) {
+    findAll4: function(callback) {
         this.db.transaction(
             function(tx) {
                 var sql = "SELECT * FROM PRODUTOS_PAGINAS PP INNER JOIN PRODUTOS P ON P.id_produto=PP.produto_id;";
@@ -262,6 +273,48 @@ window.dao =  {
                         }
                         log(len + ' rows found');
                         callback(produtos_paginas);
+                    }
+                );
+            }
+        );
+    },
+    
+    findAll5: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT * FROM EXTRAS WHERE ESTADO=1";
+                log('Local SQLite database: "SELECT * FROM EXTRAS"');
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var len = results.rows.length,
+                            extras = [],
+                            i = 0;
+                        for (; i < len; i = i + 1) {
+                            extras[i] = results.rows.item(i);
+                        }
+                        log(len + ' rows found');
+                        callback(extras);
+                    }
+                );
+            }
+        );
+    },
+    
+    findAll6: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT * FROM EXTRAS_PRODUTOS EP INNER JOIN EXTRAS E ON E.id_extra=EP.extra_id;";
+                log('Local SQLite database: "SELECT * FROM EXTRAS_PRODUTOS"');
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var len = results.rows.length,
+                            extras_produtos = [],
+                            i = 0;
+                        for (; i < len; i = i + 1) {
+                            extras_produtos[i] = results.rows.item(i);
+                        }
+                        log(len + ' rows found');
+                        callback(extras_produtos);
                     }
                 );
             }
@@ -316,7 +369,7 @@ window.dao =  {
     getLastSync4: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT MAX(lastModified) as lastSync FROM categorias";
+                var sql = "SELECT MAX(lastModified) as lastSync FROM produtos_paginas";
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
                         var lastSync = results.rows.item(0).lastSync;
@@ -328,10 +381,25 @@ window.dao =  {
         );
     },
     
-     getLastSync5: function(callback) {
+    getLastSync5: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT MAX(lastModified) as lastSync FROM produtos_paginas";
+                var sql = "SELECT MAX(lastModified) as lastSync FROM extras";
+                tx.executeSql(sql, this.txErrorHandler,
+                    function(tx, results) {
+                        var lastSync = results.rows.item(0).lastSync;
+                        log('Last local timestamp is ' + lastSync);
+                        callback(lastSync);
+                    }
+                );
+            }
+        );
+    },
+    
+    getLastSync6: function(callback) {
+        this.db.transaction(
+            function(tx) {
+                var sql = "SELECT MAX(lastModified) as lastSync FROM extras_produtos";
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
                         var lastSync = results.rows.item(0).lastSync;
@@ -394,7 +462,7 @@ window.dao =  {
         });
     },
     
-      sync4: function(callback) {
+    sync4: function(callback) {
         var self = this;
         log('Starting synchronization...');
         this.getLastSync4(function(lastSync){
@@ -419,6 +487,23 @@ window.dao =  {
                 function (changes) {
                     if (changes.length > 0) {
                         self.applyChanges5(changes, callback);
+                    } else {
+                        log('Nothing to synchronize');
+                        callback();
+                    }
+                }
+            );
+        });
+    },
+    
+     sync6: function(callback) {
+        var self = this;
+        log('Starting synchronization...');
+        this.getLastSync6(function(lastSync){
+            self.getChanges6(self.syncURL6, lastSync,
+                function (changes) {
+                    if (changes.length > 0) {
+                        self.applyChanges6(changes, callback);
                     } else {
                         log('Nothing to synchronize');
                         callback();
@@ -482,7 +567,7 @@ window.dao =  {
 
     },
     
-     getChanges4: function(syncURL4, modifiedSince, callback) {
+    getChanges4: function(syncURL4, modifiedSince, callback) {
 
         $.ajax({
             url: syncURL4,
@@ -504,6 +589,24 @@ window.dao =  {
 
         $.ajax({
             url: syncURL5,
+            data: {modifiedSince: modifiedSince},
+            dataType:"json",
+            success:function (data) {
+                log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
+                //alert(modifiedSince);
+                callback(data);
+            },
+            error: function(model, response) {
+                //alert("A trabalhar em modo offline");
+            }
+        });
+
+    },
+    
+    getChanges6: function(syncURL6, modifiedSince, callback) {
+
+        $.ajax({
+            url: syncURL6,
             data: {modifiedSince: modifiedSince},
             dataType:"json",
             success:function (data) {
@@ -571,14 +674,14 @@ window.dao =  {
             function(tx) {
                 var l = produtos.length;
                 var sql =
-                    "INSERT OR REPLACE INTO produtos (id_produto, nome, descricao, foto, ref, estado, lastModified) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    "INSERT OR REPLACE INTO produtos (id_produto, nome, descricao_1 ,descricao_2 , descricao_3 , descricao_4, foto, ref, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
                 log('Inserting or Updating in local database:');
                 var e;
                 for (var i = 0; i < l; i++) {
                     e = produtos[i];
-                    log(e.id_produto + ' ' + e.nome + ' ' + e.descricao + ' ' + e.foto + ' ' + e.ref + ' ' + e.estado + ' ' + e.lastModified);
-                    var params = [e.id_produto, e.nome, e.descricao , e.foto, e.ref, e.estado, e.lastModified];
+                    log(e.id_produto + ' ' + e.nome + ' ' + e.descricao_1 + ' ' + e.descricao_2 + ' ' + e.descricao_3 + ' ' + e.descricao_4 + ' ' + e.foto + ' ' + e.ref + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_produto, e.nome, e.descricao_1 ,e.descricao_2 ,e.descricao_3 ,e.descricao_4 , e.foto, e.ref, e.estado, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -590,31 +693,7 @@ window.dao =  {
         );
     },
     
-     applyChanges4: function(categorias, callback) {
-        this.db.transaction(
-            function(tx) {
-                var l = categorias.length;
-                var sql =
-                    "INSERT OR REPLACE INTO categorias (id_categoria, nome, estado, lastModified) " +
-                    "VALUES (?, ?, ?, ?)";
-                log('Inserting or Updating in local database:');
-                var e;
-                for (var i = 0; i < l; i++) {
-                    e = categorias[i];
-                    log(e.id_categoria + ' ' + e.nome + ' ' + e.estado + ' '  + e.lastModified);
-                    var params = [e.id_categoria, e.nome, e.estado, e.lastModified];
-                    tx.executeSql(sql, params);
-                }
-                log('Synchronization complete (' + l + ' items synchronized)');
-            },
-            this.txErrorHandler,
-            function(tx) {
-                callback();
-            }
-        );
-    },
-    
-    applyChanges5: function(produtos_paginas, callback) {
+    applyChanges4: function(produtos_paginas, callback) {
         this.db.transaction(
             function(tx) {
                 var l = produtos_paginas.length;
@@ -627,6 +706,54 @@ window.dao =  {
                     e = produtos_paginas[i];
                     log(e.id + ' ' + e.produto_id + ' ' + e.pagina_id + ' ' + e.priority + ' ' + e.lastModified);
                     var params = [e.id, e.produto_id, e.pagina_id,e.priority, e.lastModified];
+                    tx.executeSql(sql, params);
+                }
+                log('Synchronization complete (' + l + ' items synchronized)');
+            },
+            this.txErrorHandler,
+            function(tx) {
+                callback();
+            }
+        );
+    },
+    
+    applyChanges5: function(extras, callback) {
+        this.db.transaction(
+            function(tx) {
+                var l = extras.length;
+                var sql =
+                    "INSERT OR REPLACE INTO extras (id_extra, nome, descricao_1, descricao_2, descricao_3, descricao_4, foto, ref, estado, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                log('Inserting or Updating in local database:');
+                var e;
+                for (var i = 0; i < l; i++) {
+                    e = extras[i];
+                    log(e.id_extra + ' ' + e.nome + ' ' + e.descricao_1 + ' ' + e.descricao_2 + ' ' + e.descricao_3 + ' ' + e.descricao_4 + ' ' + e.foto + ' ' + e.ref + ' ' + e.estado + ' ' + e.lastModified);
+                    var params = [e.id_extra, e.nome, e.descricao_1, e.descricao_2, e.descricao_3, e.descricao_4, e.foto, e.ref, e.estado, e.lastModified];
+                    tx.executeSql(sql, params);
+                }
+                log('Synchronization complete (' + l + ' items synchronized)');
+            },
+            this.txErrorHandler,
+            function(tx) {
+                callback();
+            }
+        );
+    },
+    
+    applyChanges6: function(extras_produtos, callback) {
+        this.db.transaction(
+            function(tx) {
+                var l = extras_produtos.length;
+                var sql =
+                    "INSERT OR REPLACE INTO extras_produtos (id, extra_id, produto_id, priority, lastModified) " +
+                    "VALUES (?, ?, ?, ?, ?)";
+                log('Inserting or Updating in local database:');
+                var e;
+                for (var i = 0; i < l; i++) {
+                    e = extras_produtos[i];
+                    log(e.id + ' ' + e.extra_id + ' ' + e.produto_id + ' ' + e.priority + ' '  + e.lastModified);
+                    var params = [e.id, e.extra_id, e.produto_id, e.priority, e.lastModified];
                     tx.executeSql(sql, params);
                 }
                 log('Synchronization complete (' + l + ' items synchronized)');
@@ -665,6 +792,7 @@ dao.sync2(renderList2);
 dao.sync3(renderList3);
 dao.sync4(renderList4);
 dao.sync5(renderList5);
+dao.sync6(renderList6);
 };
 
 function runApp3() {
@@ -672,15 +800,15 @@ renderList();
 };
 
 function runApp4() {
-$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5));
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(dao.sync6(renderList6));
 };
 
 function runApp5() {
-$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5));
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(dao.sync6(renderList6));
 };
 
 function runApp6() {
-$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(sencha());
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(dao.sync6(renderList6)).then(sencha());
 };
 
 //dao.sync(renderList);
@@ -741,20 +869,9 @@ function renderList3(produtos) {
     });
 };
 
-function renderList4(categorias) {
+function renderList4(produtos_paginas) {
     log('Rendering list using local SQLite data...');
-    dao.findAll4(function(categorias) {
-        $('#list').empty();
-        var l = categorias.length;
-        for (var i = 0; i < l; i++) {
-            var categoria = categorias[i];
-        }
-    });
-};
-
-function renderList5(produtos_paginas) {
-    log('Rendering list using local SQLite data...');
-    dao.findAll5(function(produtos_paginas) {
+    dao.findAll4(function(produtos_paginas) {
         $('#list').empty();
         var l = produtos_paginas.length;
         for (var i = 0; i < l; i++) {
@@ -762,6 +879,30 @@ function renderList5(produtos_paginas) {
         }
     });
 };
+
+function renderList5(extras) {
+    log('Rendering list using local SQLite data...');
+    dao.findAll5(function(extras) {
+        $('#list').empty();
+        var l = extras.length;
+        for (var i = 0; i < l; i++) {
+            var extra = extras[i];
+        }
+    });
+};
+
+function renderList6(extras_produtos) {
+    log('Rendering list using local SQLite data...');
+    dao.findAll6(function(extras_produtos) {
+        $('#list').empty();
+        var l = extras_produtos.length;
+        for (var i = 0; i < l; i++) {
+            var extras_produto = extras_produtos[i];
+        }
+    });
+};
+
+
 
 //function renderImagens(catalogos) {
 //    log('Rendering list using local SQLite data...');
@@ -784,8 +925,8 @@ function renderTables(callback) {
     var tpaginas = [];
     var tpaginas2 = [];
     var tprodutos = [];
-    var tcategorias = [];
     var tprodutos_paginas = [];
+    var textras_produtos = [];
     var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
     var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
     //var arr = [];
@@ -868,20 +1009,7 @@ function renderTables(callback) {
          //callback(arr,arr2,arr3);
          
     });
-    dao.findAll4(function(categorias) {
-        //var l = produtos.length;
-        //for (var i = 0; i < l; i++) {
-          //  var produto = produtos[i];
-            //var listaProdutos = {
-                  
-              //};
-              //tprodutos.push(listaProdutos); 
-         //}
-         tcategorias = categorias;
-         //callback(arr,arr2,arr3);
-         
-    });
-    dao.findAll5(function(produtos_paginas) {
+    dao.findAll4(function(produtos_paginas) {
         //var l = categorias.length;
         //for (var i = 0; i < l; i++) {
             //var categoria = categorias[i];
@@ -891,8 +1019,21 @@ function renderTables(callback) {
               //tcategorias.push(listaCategorias); 
          //}
          tprodutos_paginas = produtos_paginas;
-         //console.dir(tprodutos_paginas);
-         callback(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias,tprodutos_paginas);
+         //callback(arr,arr2,arr3);
+         
+    });
+    dao.findAll6(function(extras_produtos) {
+        //var l = categorias.length;
+        //for (var i = 0; i < l; i++) {
+            //var categoria = categorias[i];
+            //var listaCategorias = {
+                   
+              //};
+              //tcategorias.push(listaCategorias); 
+         //}
+         textras_produtos = extras_produtos;
+         //console.dir(textras_produtos);
+         callback(tcatalogos,tpaginas,tpaginas2,tprodutos,tprodutos_paginas,textras_produtos);
     });
 };
 
@@ -901,7 +1042,7 @@ function log(msg) {
 };
 
 function sencha(){
-renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tcategorias,tprodutos_paginas){
+renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tprodutos_paginas,textras_produtos){
 var connect = 1;
 //var tpaginas_temp = [];
 //var tpaginas2_temp = [];
@@ -913,9 +1054,10 @@ var share = '';
 var nomec = '';
 var ind = 0;
 var contador = 0;
+var idioma = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
 var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
-var idioma = 0;
+
 
 
 Ext.Loader.setConfig({
@@ -1447,7 +1589,7 @@ Ext.define('Italbox.Viewport6', {
         }, 
                 //cls: 'teste',
         store: {id: 'produtos',
-                fields: ['id_produto', 'nome', 'descricao', 'foto', 'ref', 'estado', 'lastModified'],
+                fields: ['id_produto', 'nome', 'descricao_1','descricao_2','descricao_3','descricao_4', 'foto', 'ref', 'estado', 'lastModified'],
                 data:tprodutos
         },
         itemTpl:  '<div class="lista-pesquisa">'+
@@ -1567,7 +1709,7 @@ Ext.define('Italbox.Viewport6', {
                                         html  : '<div class="pop-up">'+
                                         '<img src="'+caminho+record.get('foto')+'">'+
                                         '<br\>'+record.get('nome')+'<br/>'+
-                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
                                     },
                                 ],
                                
@@ -1905,7 +2047,7 @@ Ext.define('Italbox.Viewport5', {
                                         html  : '<div class="pop-up">'+
                                         '<img src="'+record.get('foto')+'">'+
                                         '<br\>'+record.get('nome')+'<br/>'+
-                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
                                   
                                     },
                                 ],
@@ -2967,7 +3109,7 @@ Ext.define('Italbox.ViewportPanel', {
 
                    //set the itemtpl to show the fields for the store
                     store: {
-                       fields: ['descricao','estado','foto','id','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
+                       fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','foto','id','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
                        data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
                      //  [{
                      //      capa: 'imgs/produto1.jpg',
@@ -3057,7 +3199,7 @@ Ext.define('Italbox.ViewportPanel', {
                        //var loja2 = Ext.getStore('Favorites2');
                        Ext.getStore('Favorites2').load();
                         //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
-                       var newRecord2 = {nome: record.get('nome') ,descricao: record.get('descricao') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
+                       var newRecord2 = {nome: record.get('nome') ,descricao_1: record.get('descricao_1'),descricao_2: record.get('descricao_2'), descricao_3: record.get('descricao_3'), descricao_4: record.get('descricao_4') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
                        ////console.dir(newRecord);
                        Ext.getStore('Favorites2').add(newRecord2);
                        Ext.getStore('Favorites2').sync();
@@ -3132,7 +3274,7 @@ Ext.define('Italbox.ViewportPanel', {
             html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'">'+
                     '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+
                     '<br/>Ref '+record.get('ref')+
-                    '<br/>'+record.get('descricao')+'</div>'
+                    '<br/>'+record.get('descricao_'+idioma)+'</div>'
         },
     ],
     listeners: [
@@ -3192,8 +3334,8 @@ Ext.define('Italbox.ViewportPanel', {
                     },
                      store: 
                      {
-                        fields: ['descricao','estado','foto','id','id_catalogo','id_pagina','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
-                        data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
+                        fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','extra_id','foto','id','id_extra','lastModified','nome','priority','produto_id','ref'],
+                        data: $.grep(textras_produtos, function(e) { return e.produto_id ==  record.get('id_produto')})
                      },
                     
                     itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
@@ -3257,7 +3399,7 @@ Ext.define('Italbox.ViewportPanel', {
                                         html  : '<div class="pop-up">'+
                                         '<img src="'+caminho+record.get('foto')+'">'+
                                         '<br\>'+record.get('nome')+'<br/>'+
-                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao')+'</div>'
+                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
                                     },
                                 ],
                                
