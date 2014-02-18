@@ -73,6 +73,11 @@
 	content: "\e609";
 	color: #000000 !important;
 }
+.icon-close3:before {
+	content: "\e60a";
+	color: #000000 !important;
+	font-size: 19px;
+}
 .icon-close2:before {
 	content: "\e60a";
 	color: #000000 !important;
