@@ -303,7 +303,7 @@ window.dao =  {
     findAll6: function(callback) {
         this.db.transaction(
             function(tx) {
-                var sql = "SELECT * FROM EXTRAS_PRODUTOS EP INNER JOIN EXTRAS E ON E.id_extra=EP.extra_id;";
+                var sql = "SELECT * FROM EXTRAS_PRODUTOS EP INNER JOIN EXTRAS E ON E.id_extra=EP.extra_id ORDER BY CAST(PRIORITY AS INT);";
                 log('Local SQLite database: "SELECT * FROM EXTRAS_PRODUTOS"');
                 tx.executeSql(sql, this.txErrorHandler,
                     function(tx, results) {
@@ -1708,10 +1708,158 @@ Ext.define('Italbox.Viewport6', {
                                     {
                                         html  : '<div class="pop-up">'+
                                         '<img src="'+caminho+record.get('foto')+'">'+
-                                        '<br\>'+record.get('nome')+'<br/>'+
+                                        '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+'<br/>'+
                                         'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
                                     },
                                 ],
+                                listeners: [
+                                    {
+                                        element: 'element',
+                                        delegate: '#btn-extras',
+                                        event: 'tap',
+                                        fn: function() {
+                                         panel_extras = Ext.Viewport.add({
+                                            xtype : 'tabpanel',
+                                            id:'extras',
+                                            cls: 'lista-extras',
+                                            float: true,
+                                            // modal: true,
+                                            /*showAnimation: 
+                                            {
+                                                type: 'pop',
+                                                duration: 300,
+                                            }, */
+                                            tabBar:    {
+                                                cls: 'barraTab2',
+                                                hidden: true,
+                                            },
+                                            items: [
+                                            {
+                                                xtype: 'toolbar',
+                                                //title: "Title",
+                                                docked: 'top',
+                                                cls: 'barraPaginas',
+                                                items: [
+                                                    {
+                                                        xtype: 'button',
+                                                        ui: 'plain',
+                                                        cls: 'back icon-back',
+                                                        handler: function () {
+                                                            panel_extras.hide();
+                                                        }
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                title: '',
+                                                layout : 'fit',
+                                                cls: 'tabPaginas',
+                                                //next we give it some simple html
+                                                items: [
+                                                {
+                                                    xtype: 'dataview',
+                                                    cls: 'favoritos',
+                                                    flex: 1,
+                                                    scrollable: {
+                                                        direction: 'vertical',
+                                                        //indicators: false
+                                                    },
+                                                    inline: {
+                                                        wrap: true
+                                                    },
+                                                     store: 
+                                                     {
+                                                        fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','extra_id','foto','id','id_extra','lastModified','nome','priority','produto_id','ref'],
+                                                        data: $.grep(textras_produtos, function(e) { return e.produto_id ==  record.get('id_produto')})
+                                                     },
+                                                    
+                                                    itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
+                                                    
+                                                    listeners: {
+                                                        itemtap: function(list, index, target, record,e) {
+                                                            panel_extra = Ext.Viewport.add({ 
+                                                                xtype: 'container',
+                                                                /*height: '70%',*/
+                                                                id: 'extra',
+                                                                cls: 'pop-produto',
+                                                                /*modal: {
+                                                                    style: 'opacity: 0; background-color: #ffffff;'
+                                                                },*/
+                                                                float: true,
+                                                                // modal: true,
+                                                                showAnimation: 
+                                                                {
+                                                                    type: 'pop',
+                                                                    duration: 300,
+                                                                },  
+                                                                //hideAnimation: 
+                                                                //{
+                                                                //    type: 'popOut',
+                                                                //    duration: 300,
+                                                                //    //direction: 'down',
+                                                                //    //easing: 'easeIn'
+                                                                //},
+                                                                layout : {
+                                                                    type : 'vbox',
+                                                                     /*align: 'left'*/
+                                                                },
+                                                                items: [
+                                                                    {
+                                                                        xtype: 'toolbar',
+                                                                        //title: '<div class="logotipo"></div>',
+                                                                        /*id: 'barra2',*/
+                                                                        cls: 'header3',
+                                                                        /*docked: 'top',*/
+                                                                        /*hidden: true,*/
+                                                                        layout: {
+                                                                                type: 'hbox',
+                                                                                pack: 'right'
+                                                                        },
+                                                                       
+                                                                        items: [
+                                                                            {
+                                                                            align: 'right', 
+                                                                            ui:    'plain',
+                                                                            xtype: 'button',
+                                                                            cls: 'close icon-close',
+                                                                            //hidden: true,
+                                                                            handler: function () {
+                                                                                 panel_extra.hide();
+                                                                                /*panel2.destroy();*/
+                                                                                }
+                                                                            },
+                                                                        ]    
+                                                                    },
+                                                                    {
+                                                                        html  : '<div class="pop-up">'+
+                                                                        '<img src="'+caminho+record.get('foto')+'">'+
+                                                                        '<br\>'+record.get('nome')+'<br/>'+
+                                                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
+                                                                    },
+                                                                ],
+                                                               
+                                                            });
+                                                        //show the panel
+                                                        panel_extra.show();
+                                                        panel_extra.on('hide', function() {
+                                                           panel_extra.destroy();
+                                                        });
+                                                            
+                                                        }
+                                                    }
+                                                }
+                                                ], 
+                                            }, 
+                                            ],       
+                                            });
+                                            //show the panel
+                                            panel_extras.show();
+                                            panel_extras.on('hide', function() {
+                                               panel_extras.destroy();
+                                            });
+                                        }
+                                    },
+                                    ],
                                
                             });
                         //show the panel
@@ -2046,10 +2194,158 @@ Ext.define('Italbox.Viewport5', {
                                     {
                                         html  : '<div class="pop-up">'+
                                         '<img src="'+record.get('foto')+'">'+
-                                        '<br\>'+record.get('nome')+'<br/>'+
-                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
+                                        '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+
+                                        '<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
                                   
                                     },
+                                ],
+                                listeners: [
+                                {
+                                    element: 'element',
+                                    delegate: '#btn-extras',
+                                    event: 'tap',
+                                    fn: function() {
+                                     panel_extras = Ext.Viewport.add({
+                                        xtype : 'tabpanel',
+                                        id:'extras',
+                                        cls: 'lista-extras',
+                                        float: true,
+                                        // modal: true,
+                                        /*showAnimation: 
+                                        {
+                                            type: 'pop',
+                                            duration: 300,
+                                        }, */
+                                        tabBar:    {
+                                            cls: 'barraTab2',
+                                            hidden: true,
+                                        },
+                                        items: [
+                                        {
+                                            xtype: 'toolbar',
+                                            //title: "Title",
+                                            docked: 'top',
+                                            cls: 'barraPaginas',
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    ui: 'plain',
+                                                    cls: 'back icon-back',
+                                                    handler: function () {
+                                                        panel_extras.hide();
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            title: '',
+                                            layout : 'fit',
+                                            cls: 'tabPaginas',
+                                            //next we give it some simple html
+                                            items: [
+                                            {
+                                                xtype: 'dataview',
+                                                cls: 'favoritos',
+                                                flex: 1,
+                                                scrollable: {
+                                                    direction: 'vertical',
+                                                    //indicators: false
+                                                },
+                                                inline: {
+                                                    wrap: true
+                                                },
+                                                 store: 
+                                                 {
+                                                    fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','extra_id','foto','id','id_extra','lastModified','nome','priority','produto_id','ref'],
+                                                    data: $.grep(textras_produtos, function(e) { return e.produto_id ==  record.get('id_produto')})
+                                                 },
+                                                
+                                                itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
+                                                
+                                                listeners: {
+                                                    itemtap: function(list, index, target, record,e) {
+                                                        panel_extra = Ext.Viewport.add({ 
+                                                            xtype: 'container',
+                                                            /*height: '70%',*/
+                                                            id: 'extra',
+                                                            cls: 'pop-produto',
+                                                            /*modal: {
+                                                                style: 'opacity: 0; background-color: #ffffff;'
+                                                            },*/
+                                                            float: true,
+                                                            // modal: true,
+                                                            showAnimation: 
+                                                            {
+                                                                type: 'pop',
+                                                                duration: 300,
+                                                            },  
+                                                            //hideAnimation: 
+                                                            //{
+                                                            //    type: 'popOut',
+                                                            //    duration: 300,
+                                                            //    //direction: 'down',
+                                                            //    //easing: 'easeIn'
+                                                            //},
+                                                            layout : {
+                                                                type : 'vbox',
+                                                                 /*align: 'left'*/
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'toolbar',
+                                                                    //title: '<div class="logotipo"></div>',
+                                                                    /*id: 'barra2',*/
+                                                                    cls: 'header3',
+                                                                    /*docked: 'top',*/
+                                                                    /*hidden: true,*/
+                                                                    layout: {
+                                                                            type: 'hbox',
+                                                                            pack: 'right'
+                                                                    },
+                                                                   
+                                                                    items: [
+                                                                        {
+                                                                        align: 'right', 
+                                                                        ui:    'plain',
+                                                                        xtype: 'button',
+                                                                        cls: 'close icon-close',
+                                                                        //hidden: true,
+                                                                        handler: function () {
+                                                                             panel_extra.hide();
+                                                                            /*panel2.destroy();*/
+                                                                            }
+                                                                        },
+                                                                    ]    
+                                                                },
+                                                                {
+                                                                    html  : '<div class="pop-up">'+
+                                                                    '<img src="'+caminho+record.get('foto')+'">'+
+                                                                    '<br\>'+record.get('nome')+'<br/>'+
+                                                                    'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
+                                                                },
+                                                            ],
+                                                           
+                                                        });
+                                                    //show the panel
+                                                    panel_extra.show();
+                                                    panel_extra.on('hide', function() {
+                                                       panel_extra.destroy();
+                                                    });
+                                                        
+                                                    }
+                                                }
+                                            }
+                                            ], 
+                                        }, 
+                                        ],       
+                                        });
+                                        //show the panel
+                                        panel_extras.show();
+                                        panel_extras.on('hide', function() {
+                                           panel_extras.destroy();
+                                        });
+                                    }
+                                },
                                 ],
                                
                             });
@@ -3229,7 +3525,7 @@ Ext.define('Italbox.ViewportPanel', {
                        //var loja2 = Ext.getStore('Favorites2');
                        Ext.getStore('Favorites2').load();
                         //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
-                       var newRecord2 = {nome: record.get('nome') ,descricao_1: record.get('descricao_1'),descricao_2: record.get('descricao_2'), descricao_3: record.get('descricao_3'), descricao_4: record.get('descricao_4') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_catalogo: record.get('id_catalogo'),id_pagina: record.get('pagina_id')};
+                       var newRecord2 = {nome: record.get('nome') ,descricao_1: record.get('descricao_1'),descricao_2: record.get('descricao_2'), descricao_3: record.get('descricao_3'), descricao_4: record.get('descricao_4') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_produto: record.get('id_produto'),id_pagina: record.get('pagina_id')};
                        ////console.dir(newRecord);
                        Ext.getStore('Favorites2').add(newRecord2);
                        Ext.getStore('Favorites2').sync();
