@@ -11,19 +11,11 @@ window.dao =  {
     //syncURL4: "../../italbox/connect.php?table=produtos_paginas",
     //syncURL5: "../../italbox/connect.php?table=extras",
     //syncURL6: "../../italbox/connect.php?table=extras_produtos",
-    //syncURL: "http://www.italbox.alojamentogratuito.com/connect.php?test=1",
-    //syncURL: "http://nrodrigues.net/italbox/connect.php?test=1",
-    //syncURL: "http://localhost:8080/GitHub/connect.php?test=1",
-    //syncURL: "http://10.0.2.2:8080/GitHub/connect.php?test=1",
-    //syncURL: "http://192.168.1.2:8080/GitHub/connect.php?test=1",
-    //syncURL: "http://192.168.23.132:8080/GitHub/connect.php?test=1",
+    
     initialize: function(callback) {
         var self = this;
         this.db = window.openDatabase("italboxdb", "1.0", "Italbox DB", 3000000);
 
-        // Testing if the table exists is not needed and is here for logging purpose only. We can invoke createTable
-        // no matter what. The 'IF NOT EXISTS' clause will make sure the CREATE statement is issued only if the table
-        // does not already exist.
         this.db.transaction(
             function(tx) {
                 tx.executeSql("SELECT name FROM sqlite_master WHERE type='table' AND name='catalogos' OR name='paginas' OR name='produtos' OR name='produtos_paginas' OR name='extras' OR name='extras_produtos'", this.txErrorHandler,
@@ -521,11 +513,9 @@ window.dao =  {
             dataType:"json",
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
                 callback(data);
             },
             error: function(model, response) {
-                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -539,11 +529,9 @@ window.dao =  {
             dataType:"json",
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
                 callback(data);
             },
             error: function(model, response) {
-                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -557,11 +545,9 @@ window.dao =  {
             dataType:"json",
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
                 callback(data);
             },
             error: function(model, response) {
-                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -575,11 +561,9 @@ window.dao =  {
             dataType:"json",
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
                 callback(data);
             },
             error: function(model, response) {
-                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -593,11 +577,9 @@ window.dao =  {
             dataType:"json",
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
                 callback(data);
             },
             error: function(model, response) {
-                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -611,11 +593,9 @@ window.dao =  {
             dataType:"json",
             success:function (data) {
                 log("The server returned " + data.length + " changes that occurred after " + modifiedSince);
-                //alert(modifiedSince);
                 callback(data);
             },
             error: function(model, response) {
-                //alert("A trabalhar em modo offline");
             }
         });
 
@@ -770,7 +750,6 @@ window.dao =  {
     }
 };
 
-
 $(document).ready(function() {
     setTimeout('runApp()',2000);
     setTimeout('runApp2()',4000);
@@ -810,31 +789,6 @@ $.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2))
 function runApp6() {
 $.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(dao.sync6(renderList6)).then(sencha());
 };
-
-//dao.sync(renderList);
-//renderList();
-//teste();
-//renderImagens();
-
-$('#reset').on('click', function() {
-    dao.dropTable(function() {
-       dao.createTable();
-    });
-});
-
-
-$('#sync').on('click', function() {
-    dao.sync(renderList);
-});
-
-
-$('#render').on('click', function() {
-    renderList();
-});
-
-$('#clearLog').on('click', function() {
-    $('#log').val('');
-});
 
 function renderList(catalogos) {
     log('Rendering list using local SQLite data...');
@@ -902,22 +856,9 @@ function renderList6(extras_produtos) {
     });
 };
 
-
-
-//function renderImagens(catalogos) {
-//    log('Rendering list using local SQLite data...');
-//    dao.findAll(function(catalogos) {
-//        //$('#imagens').empty();
-//        var div = document.getElementById('catalogo_front');
-//        var l = catalogos.length;
-//        for (var i = 0; i < l; i++) {
-//            var catalogo = catalogos[i];
-//            var img = document.createElement('img');
-//            img.src = catalogo.nome;
-//            div.appendChild(img);
-//        }
-//    });
-//}
+function log(msg) {
+    //$('#log').val($('#log').val() + msg + '\n');
+};
 
 function renderTables(callback) {
     log('Rendering list using local SQLite data...');
@@ -929,27 +870,9 @@ function renderTables(callback) {
     var textras_produtos = [];
     var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
     var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
-    //var arr = [];
-    //var arr2 = {xtype: 'imageviewer', imageSrc: 'http://orcamentos.eu/wp-content/uploads/2011/05/Italbox.png' };
-    //var arr3 = [{id: 0, capa: 'imgs/produto1.jpg',nome: 'Produto 1'}, {id: 1, capa: 'imgs/produto2.jpg', nome: 'Produto 2'},{id: 2, capa: 'imgs/produto2.jpg', nome: 'Produto 2'}];
-    
+
     dao.findAll(function(catalogos) {
-        //var l = catalogos.length;
-       // for (var i = 0; i < l; i++) {
-           // var catalogo = catalogos[i];
-           // var listaCatalogos = {
-                   //style: "background-color: #000000; color:black;",
-                   //title: catalogo.nome,
-                   //html: "<img style=' margin:auto; width: 100%;' src='"+catalogo.capa+"'/>"
-                   //xtype: 'imageviewer',
-                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
-                    //imageSrc: catalogo.capa
-             // };
-              //arr.push(listaCatalogos);
-              
-        // }
          tcatalogos = catalogos;
-         //callback(arr,arr2,arr3);
     });
       
     dao.findAll2(function(paginas) {
@@ -958,7 +881,6 @@ function renderTables(callback) {
             var pagina = paginas[i];
             var listaPaginas = {
                    xtype: 'imageviewer',
-                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                    imageSrc: caminho+pagina.foto,
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
@@ -968,7 +890,6 @@ function renderTables(callback) {
               };
               var listaPaginas2 = {
                    xtype: 'imageviewer',
-                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                    imageSrc: caminho+pagina.foto2,
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
@@ -978,7 +899,6 @@ function renderTables(callback) {
               };
                var listaPaginas3 = {
                    xtype: 'imageviewer',
-                   //imageSrc: 'data:image/jpg;base64,'+catalogo.capa
                    imageSrc: caminho+pagina.foto3,
                    numero: pagina.numero,
                    id_pagina: pagina.id_pagina,
@@ -991,61 +911,26 @@ function renderTables(callback) {
               if (pagina.capa != 1) {
                 tpaginas2.push(listaPaginas3); 
               }
-
          }
-         //callback(arr,arr2,arr3);
     });
-        
+    
     dao.findAll3(function(produtos) {
-        //var l = produtos.length;
-        //for (var i = 0; i < l; i++) {
-          //  var produto = produtos[i];
-            //var listaProdutos = {
-                  
-              //};
-              //tprodutos.push(listaProdutos); 
-         //}
          tprodutos = produtos;
-         //callback(arr,arr2,arr3);
-         
     });
+    
     dao.findAll4(function(produtos_paginas) {
-        //var l = categorias.length;
-        //for (var i = 0; i < l; i++) {
-            //var categoria = categorias[i];
-            //var listaCategorias = {
-                   
-              //};
-              //tcategorias.push(listaCategorias); 
-         //}
          tprodutos_paginas = produtos_paginas;
-         //callback(arr,arr2,arr3);
-         
     });
+    
     dao.findAll6(function(extras_produtos) {
-        //var l = categorias.length;
-        //for (var i = 0; i < l; i++) {
-            //var categoria = categorias[i];
-            //var listaCategorias = {
-                   
-              //};
-              //tcategorias.push(listaCategorias); 
-         //}
          textras_produtos = extras_produtos;
-         //console.dir(textras_produtos);
          callback(tcatalogos,tpaginas,tpaginas2,tprodutos,tprodutos_paginas,textras_produtos);
     });
-};
-
-function log(msg) {
-    $('#log').val($('#log').val() + msg + '\n');
 };
 
 function sencha(){
 renderTables(function(tcatalogos,tpaginas,tpaginas2,tprodutos,tprodutos_paginas,textras_produtos){
 var connect = 1;
-//var tpaginas_temp = [];
-//var tpaginas2_temp = [];
 var idcatalogo = 0;
 var idpagina = 0;
 var numero = 0;
@@ -1057,8 +942,6 @@ var contador = 0;
 var idioma = 0;
 var caminho = 'http://www.critecns.com/italbox/assets/uploads/imgs/';
 var caminho2 = 'http://www.critecns.com/italbox/assets/uploads/imgs/thumb/';
-
-
 
 Ext.Loader.setConfig({
     enabled: true,
@@ -1093,12 +976,9 @@ Ext.define('Italbox.Viewport7', {
         type: 'vbox',
         align: 'stretch'
     },
-    //marginTop: '50px !important',
     items: [
         {
-        //width: 50,
-        
-        flex:1, // this needs to be flexy as well
+        flex:1, 
         layout: {
             type: 'hbox',
             align: 'stretch'
@@ -1109,8 +989,6 @@ Ext.define('Italbox.Viewport7', {
             flex: 1,
             style: 'margin:5px 5px 5px 10px; background: url(imgs/icons/italbox_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-            //html: '<i class=icon-twitter style="font-size: 30vmin;"></i>'
-            //html: '<div><img src="imgs/icons/italbox_menu2.png" style=""></img></div>'
         },
         {
             id: 'start-catalogos',
@@ -1118,23 +996,15 @@ Ext.define('Italbox.Viewport7', {
             style: 'margin:5px 10px 5px 5px; background: url(imgs/icons/catalogos_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         },   
-        /*{
-            //height: 50,
-            id: 'start-help',
-            flex: 1,
-            style: 'margin:5px; margin-left:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
-            'background-size: contain; background-position: center;',
-        }*/
         ]
     },
     {
-        flex:1, // this needs to be flexy as well
+        flex:1,
         layout: {
             type: 'hbox',
             align: 'stretch'
         },
         items: [{
-           //height: 50,
             id: 'start-favoritos',
             flex: 1,
             style: 'margin:5px 5px 5px 10px; background: url(imgs/icons/favoritos_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
@@ -1142,364 +1012,119 @@ Ext.define('Italbox.Viewport7', {
         
         }, {
             id: 'start-language',
-            //height: 50,
             flex: 1,
             style: 'margin:5px 10px 5px 5px; background: url(imgs/icons/language_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
         },
-        /*{
-            id: 'start-help2',
-            //height: 50,
-            flex: 1,
-            style: 'margin:5px; margin-right:10px !important; margin-bottom:10px !important; background: url(imgs/icons/ajuda_menu3.png) no-repeat, rgba(255, 255, 255, .4);'+
-            'background-size: contain; background-position: center;',
-        }*/]
+        ]
     },
-    
     {
-        flex:1, // this needs to be flexy as well
+        flex:1,
         layout: {
             type: 'hbox',
             align: 'stretch'
         },
       items: [
         {
-             //height: 50,
             id: 'start-help',
             flex: 1,
             style: 'margin:5px 10px 10px 10px; background: url(imgs/icons/ajuda_menu.png) no-repeat, rgba(255, 255, 255, .4);'+
             'background-size: contain; background-position: center;',
-           },
+        },
         ],    
     },
     ],
+    listeners: [
+    {
+        element: 'element',
+        delegate: '#start-catalogos',
+        event: 'tap',
+        fn: function() {
+            if (connect === 1) {
+                Ext.getCmp('menuI').hide();
+                Ext.getCmp('back').show();
+                Ext.getCmp('myList').show();
+            }
+            else{
+                Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_catalogs'), Ext.emptyFn);
+            }
+        }
+    },
+    {
+        element: 'element',
+        delegate: '#start-italbox',
+        event: 'tap',
+        fn: function() {
+            Ext.getCmp('menuI').hide();
+            Ext.getCmp('back').show();
+            Ext.getCmp('italbox').show();
+        }
+    },
+     {
+        element: 'element',
+        delegate: '#start-favoritos',
+        event: 'tap',
+        fn: function() {
+            if (connect === 1) {
+                Ext.getCmp('menuI').hide();
+                Ext.getCmp('back').show();
+                Ext.getCmp('favorites').show();
+            }
+            else{
+                Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_favorites'), Ext.emptyFn);
+            }
+        }
+    },
+    {
+        element: 'element',
+        delegate: '#start-language',
+        event: 'tap',
+        fn: function() {
+        var panel_language = Ext.Viewport.add({ 
+            xtype: 'container',
+            id: 'menuL',
+            modal: true,
+            height    : '220px',
+            width     : '100%',
+            floating  : true,                               
+            top       : '0px',
+            bottom : 'auto',
+            cls: 'menuL',
+            hideOnMaskTap: true,
+            showAnimation: 
+            {
+                type: 'slideIn',
+                duration: 1000,
+                direction: 'up',
+                easing: 'easeOut'
+            },  
+            hideAnimation: 
+            {
+                type: 'slideOut',
+                duration: 700,
+                direction: 'down',
+                easing: 'easeIn'
+            }, 
+            items: [
+                {
+                    html  : '<li class="menu-portugues" id="menu-portugues"></span><span style="padding-left: 20px; font-size: 14px;">PORTUGUÊS</span><span class="icon-front" style="vertical-align: middle; float: right;padding:3px 20px 0px 0px;"></li>',
+                },
+                {
+                    html  : '<li class="menu-english" id="menu-english"><span style="padding-left: 20px; font-size: 14px;">ENGLISH</span><span class="icon-front" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></span></li>',
+                },
+                {
+                    html  : '<li class="menu-francais" id="menu-francais"></span><span style="padding-left: 20px; font-size: 14px;">FRANÇAIS</span><span class="icon-front" style="vertical-align: middle;float: right; padding:3px 20px 0px 0px;"></li>'
+                },
+                {
+                    html  : '<li class="menu-castellano" id="menu-castellano"></span><span style="padding-left: 20px; font-size: 14px;">CASTELLANO</span><span class="icon-front" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></li>'
+                }
+            ],
             listeners: [
-            {
-                element: 'element',
-                delegate: '#start-catalogos',
-                event: 'tap',
-                fn: function() {
-                    if (connect === 1) {
-                        Ext.getCmp('menuI').hide();
-                        Ext.getCmp('back').show();
-                        Ext.getCmp('myList').show();
-                    }
-                    else{
-                        Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_catalogs'), Ext.emptyFn);
-                    }
-                }
-            },
-            {
-                element: 'element',
-                delegate: '#start-italbox',
-                event: 'tap',
-                fn: function() {
-                    Ext.getCmp('menuI').hide();
-                    Ext.getCmp('back').show();
-                    Ext.getCmp('italbox').show();
-                }
-            },
-             {
-                element: 'element',
-                delegate: '#start-favoritos',
-                event: 'tap',
-                fn: function() {
-                    if (connect === 1) {
-                        Ext.getCmp('menuI').hide();
-                        Ext.getCmp('back').show();
-                        Ext.getCmp('favorites').show();
-                    }
-                    else{
-                        Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_favorites'), Ext.emptyFn);
-                    }
-                }
-            },
-            {
-                element: 'element',
-                delegate: '#start-language',
-                event: 'tap',
-                fn: function() {
-                 /*Ext.getCmp('menuI').hide();
-                 Ext.getCmp('back').show();
-                 Ext.getCmp('help').show();*/
-                                   
-                var panel_language = Ext.Viewport.add({ 
-                    xtype: 'container',
-                    id: 'menuL',
-                    modal: true,
-                    /*{
-                        style: 'opacity: 0.8; background-color: #ffffff;'
-                    */
-                    height    : '220px',
-                    width     : '100%',
-                    floating  : true,                               
-                    top       : '0px',
-                    bottom : 'auto',
-                    cls: 'menuL',
-                    hideOnMaskTap: true,
-                    showAnimation: 
-                    {
-                        type: 'slideIn',
-                        duration: 1000,
-                        direction: 'up',
-                        easing: 'easeOut'
-                    },  
-                    hideAnimation: 
-                    {
-                        type: 'slideOut',
-                        duration: 700,
-                        direction: 'down',
-                        easing: 'easeIn'
-                    }, 
-                    items     : [
-                        {
-                            html  : '<li class="menu-portugues" id="menu-portugues"></span><span style="padding-left: 20px; font-size: 14px;">PORTUGUÊS</span><span class="icon-front" style="vertical-align: middle; float: right;padding:3px 20px 0px 0px;"></li>',
-                        },
-                        {
-                            html  : '<li class="menu-english" id="menu-english"><span style="padding-left: 20px; font-size: 14px;">ENGLISH</span><span class="icon-front" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></span></li>',
-                        },
-                        {
-                            html  : '<li class="menu-francais" id="menu-francais"></span><span style="padding-left: 20px; font-size: 14px;">FRANÇAIS</span><span class="icon-front" style="vertical-align: middle;float: right; padding:3px 20px 0px 0px;"></li>'
-                        },
-                        {
-                            html  : '<li class="menu-castellano" id="menu-castellano"></span><span style="padding-left: 20px; font-size: 14px;">CASTELLANO</span><span class="icon-front" style="vertical-align: middle;float: right;padding:3px 20px 0px 0px;"></li>'
-                        }
-                    ],
-                    listeners: [
-                        {
-                            element: 'element',
-                            delegate: '#menu-portugues',
-                            event: 'tap',
-                            fn: function() {
-                                var valor = { id_setting: '1', lang: '1'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                            }
-                        },
-                        {
-                            element: 'element',
-                            delegate: '#menu-english',
-                            event: 'tap',
-                            fn: function() {
-                                var valor = { id_setting: '1', lang: '2'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                            }
-                        },
-                         {
-                            element: 'element',
-                            delegate: '#menu-francais',
-                            event: 'tap',
-                            fn: function() {
-                               var valor = { id_setting: '1', lang: '3'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                            }
-                        },
-                        {
-                            element: 'element',
-                            delegate: '#menu-castellano',
-                            event: 'tap',
-                            fn: function() {
-                             var valor = { id_setting: '1', lang: '4'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                            }
-                        }
-                    ]
-                });
-                //show the panel
-                panel_language.show();
-                panel_language.on('hide', function() {
-                    panel_language.destroy();
-
-                });
-                       
-                       /* if (idioma === '1') {    
-                       var valor = { id_setting: '1', lang: '2'};
-                        Ext.getStore('Settings').getAt(0).set(valor);
-                        Ext.getStore('Settings').sync();
-                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                        //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                        Ext.MessageBox.override({
-                                confirm: function(title, message, fn, scope) {
-                                return this.show({
-                                    title       : title || null,
-                                    message     : message || null,
-                                    buttons     : [
-                                    {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                    {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                ],
-                                    promptConfig: false,
-                                    scope       : scope,
-                                    fn: function() {
-                                        if (fn) {
-                                            fn.apply(scope, arguments);
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                        //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                        //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                   }
-                   else{
+                {
+                    element: 'element',
+                    delegate: '#menu-portugues',
+                    event: 'tap',
+                    fn: function() {
                         var valor = { id_setting: '1', lang: '1'};
                         Ext.getStore('Settings').getAt(0).set(valor);
                         Ext.getStore('Settings').sync();
@@ -1508,7 +1133,6 @@ Ext.define('Italbox.Viewport7', {
                         Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
                         Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
                         Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                        //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                         Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                         Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                         Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -1536,33 +1160,167 @@ Ext.define('Italbox.Viewport7', {
                                 });
                             }
                         });
-                        //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                        //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                   }*/
+                        panel_language.hide();
+                    }
+                },
+                {
+                    element: 'element',
+                    delegate: '#menu-english',
+                    event: 'tap',
+                    fn: function() {
+                        var valor = { id_setting: '1', lang: '2'};
+                        Ext.getStore('Settings').getAt(0).set(valor);
+                        Ext.getStore('Settings').sync();
+                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                        Ext.MessageBox.override({
+                                confirm: function(title, message, fn, scope) {
+                                return this.show({
+                                    title       : title || null,
+                                    message     : message || null,
+                                    buttons     : [
+                                    {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                    {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                ],
+                                    promptConfig: false,
+                                    scope       : scope,
+                                    fn: function() {
+                                        if (fn) {
+                                            fn.apply(scope, arguments);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        panel_language.hide();
+                    }
+                },
+                {
+                    element: 'element',
+                    delegate: '#menu-francais',
+                    event: 'tap',
+                    fn: function() {
+                       var valor = { id_setting: '1', lang: '3'};
+                        Ext.getStore('Settings').getAt(0).set(valor);
+                        Ext.getStore('Settings').sync();
+                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                        Ext.MessageBox.override({
+                                confirm: function(title, message, fn, scope) {
+                                return this.show({
+                                    title       : title || null,
+                                    message     : message || null,
+                                    buttons     : [
+                                    {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                    {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                ],
+                                    promptConfig: false,
+                                    scope       : scope,
+                                    fn: function() {
+                                        if (fn) {
+                                            fn.apply(scope, arguments);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        panel_language.hide();
+                    }
+                },
+                {
+                    element: 'element',
+                    delegate: '#menu-castellano',
+                    event: 'tap',
+                    fn: function() {
+                     var valor = { id_setting: '1', lang: '4'};
+                        Ext.getStore('Settings').getAt(0).set(valor);
+                        Ext.getStore('Settings').sync();
+                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                        Ext.MessageBox.override({
+                                confirm: function(title, message, fn, scope) {
+                                return this.show({
+                                    title       : title || null,
+                                    message     : message || null,
+                                    buttons     : [
+                                    {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                    {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                ],
+                                    promptConfig: false,
+                                    scope       : scope,
+                                    fn: function() {
+                                        if (fn) {
+                                            fn.apply(scope, arguments);
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                        panel_language.hide();
+                    }
                 }
-            },
-            
-            {
-                element: 'element',
-                delegate: '#start-help',
-                event: 'tap',
-                fn: function() {
-                 Ext.getCmp('menuI').hide();
-                 Ext.getCmp('back').show();
-                 Ext.getCmp('help').show();
-                }
-            },
-            {
-                element: 'element',
-                delegate: '#start-help2',
-                event: 'tap',
-                fn: function() {
-                 Ext.getCmp('menuI').hide();
-                 Ext.getCmp('back').show();
-                 Ext.getCmp('help').show();
-                }
-            },
             ]
+        });
+        panel_language.show();
+        panel_language.on('hide', function() {
+            panel_language.destroy();
+        });
+        }
+    },
+    {
+        element: 'element',
+        delegate: '#start-help',
+        event: 'tap',
+        fn: function() {
+         Ext.getCmp('menuI').hide();
+         Ext.getCmp('back').show();
+         Ext.getCmp('help').show();
+        }
+    },
+    {
+        element: 'element',
+        delegate: '#start-help2',
+        event: 'tap',
+        fn: function() {
+         Ext.getCmp('menuI').hide();
+         Ext.getCmp('back').show();
+         Ext.getCmp('help').show();
+        }
+    },
+    ]
     }
 });
 
@@ -1587,7 +1345,6 @@ Ext.define('Italbox.Viewport6', {
             direction: 'down',
             easing: 'easeIn'
         }, 
-                //cls: 'teste',
         store: {id: 'produtos',
                 fields: ['id_produto', 'nome', 'descricao_1','descricao_2','descricao_3','descricao_4', 'foto', 'ref', 'estado', 'lastModified'],
                 data:tprodutos
@@ -1615,8 +1372,6 @@ Ext.define('Italbox.Viewport6', {
                     listeners: {
                         keyup: function(searchBox) {
                             queryString = searchBox.getValue();
-                            //console.log(this,'Please search by: ' + queryString);
-                            //var store = Ext.getStore('produtos');
                             Ext.getStore('produtos').clearFilter();
                             if(queryString){
                                 var thisRegEx = new RegExp(queryString, "i");
@@ -1630,10 +1385,7 @@ Ext.define('Italbox.Viewport6', {
                             }
                         },
                         clearicontap: function() {
-                            //console.log('Clear icon is tapped');
-                            //var store = Ext.getStore('produtos');
                              Ext.getStore('produtos').clearFilter();
-                            //store.data.clear();
                         },
                     }
                 },
@@ -1642,7 +1394,6 @@ Ext.define('Italbox.Viewport6', {
         ],
         listeners: {
             itemtap: function(list, index, target, record) {
-                //Ext.Msg.alert('', ''+record.get('nome'), Ext.emptyFn);
                 Ext.Msg.confirm(
                             "",
                             Ext.getStore('Languages').getById(idioma).get('open_product')+' '+record.get('nome')+"?",
@@ -1654,38 +1405,21 @@ Ext.define('Italbox.Viewport6', {
                             }
                             panel_produto = Ext.Viewport.add({ 
                                 xtype: 'container',
-                                /*height: '70%',*/
                                 id: 'pop-produto',
                                 cls: 'pop-produto',
-                                /*modal: {
-                                    style: 'opacity: 0; background-color: #ffffff;'
-                                },*/
                                 float: true,
-                                // modal: true,
                                 showAnimation: 
                                 {
                                     type: 'pop',
                                     duration: 300,
                                 },  
-                                //hideAnimation: 
-                                //{
-                                //    type: 'popOut',
-                                //    duration: 300,
-                                //    //direction: 'down',
-                                //    //easing: 'easeIn'
-                                //},
                                 layout : {
                                     type : 'vbox',
-                                     /*align: 'left'*/
                                 },
                                 items: [
                                     {
                                         xtype: 'toolbar',
-                                        //title: '<div class="logotipo"></div>',
-                                        /*id: 'barra2',*/
                                         cls: 'header3',
-                                        /*docked: 'top',*/
-                                        /*hidden: true,*/
                                         layout: {
                                                 type: 'hbox',
                                                 pack: 'right'
@@ -1697,10 +1431,8 @@ Ext.define('Italbox.Viewport6', {
                                             ui:    'plain',
                                             xtype: 'button',
                                             cls: 'close icon-close',
-                                            //hidden: true,
                                             handler: function () {
                                                  panel_produto.hide();
-                                                /*panel2.destroy();*/
                                                 }
                                             },
                                         ]    
@@ -1723,12 +1455,6 @@ Ext.define('Italbox.Viewport6', {
                                             id:'extras',
                                             cls: 'lista-extras',
                                             float: true,
-                                            // modal: true,
-                                            /*showAnimation: 
-                                            {
-                                                type: 'pop',
-                                                duration: 300,
-                                            }, */
                                             tabBar:    {
                                                 cls: 'barraTab2',
                                                 hidden: true,
@@ -1736,7 +1462,6 @@ Ext.define('Italbox.Viewport6', {
                                             items: [
                                             {
                                                 xtype: 'toolbar',
-                                                //title: "Title",
                                                 docked: 'top',
                                                 cls: 'barraPaginas',
                                                 items: [
@@ -1754,7 +1479,6 @@ Ext.define('Italbox.Viewport6', {
                                                 title: '',
                                                 layout : 'fit',
                                                 cls: 'tabPaginas',
-                                                //next we give it some simple html
                                                 items: [
                                                 {
                                                     xtype: 'dataview',
@@ -1762,7 +1486,6 @@ Ext.define('Italbox.Viewport6', {
                                                     flex: 1,
                                                     scrollable: {
                                                         direction: 'vertical',
-                                                        //indicators: false
                                                     },
                                                     inline: {
                                                         wrap: true
@@ -1779,38 +1502,21 @@ Ext.define('Italbox.Viewport6', {
                                                         itemtap: function(list, index, target, record,e) {
                                                             panel_extra = Ext.Viewport.add({ 
                                                                 xtype: 'container',
-                                                                /*height: '70%',*/
                                                                 id: 'extra',
                                                                 cls: 'pop-produto',
-                                                                /*modal: {
-                                                                    style: 'opacity: 0; background-color: #ffffff;'
-                                                                },*/
                                                                 float: true,
-                                                                // modal: true,
                                                                 showAnimation: 
                                                                 {
                                                                     type: 'pop',
                                                                     duration: 300,
                                                                 },  
-                                                                //hideAnimation: 
-                                                                //{
-                                                                //    type: 'popOut',
-                                                                //    duration: 300,
-                                                                //    //direction: 'down',
-                                                                //    //easing: 'easeIn'
-                                                                //},
                                                                 layout : {
                                                                     type : 'vbox',
-                                                                     /*align: 'left'*/
                                                                 },
                                                                 items: [
                                                                     {
                                                                         xtype: 'toolbar',
-                                                                        //title: '<div class="logotipo"></div>',
-                                                                        /*id: 'barra2',*/
                                                                         cls: 'header3',
-                                                                        /*docked: 'top',*/
-                                                                        /*hidden: true,*/
                                                                         layout: {
                                                                                 type: 'hbox',
                                                                                 pack: 'right'
@@ -1822,10 +1528,8 @@ Ext.define('Italbox.Viewport6', {
                                                                             ui:    'plain',
                                                                             xtype: 'button',
                                                                             cls: 'close icon-close',
-                                                                            //hidden: true,
                                                                             handler: function () {
                                                                                  panel_extra.hide();
-                                                                                /*panel2.destroy();*/
                                                                                 }
                                                                             },
                                                                         ]    
@@ -1839,7 +1543,6 @@ Ext.define('Italbox.Viewport6', {
                                                                 ],
                                                                
                                                             });
-                                                        //show the panel
                                                         panel_extra.show();
                                                         panel_extra.on('hide', function() {
                                                            panel_extra.destroy();
@@ -1852,7 +1555,6 @@ Ext.define('Italbox.Viewport6', {
                                             }, 
                                             ],       
                                             });
-                                            //show the panel
                                             panel_extras.show();
                                             panel_extras.on('hide', function() {
                                                panel_extras.destroy();
@@ -1862,12 +1564,10 @@ Ext.define('Italbox.Viewport6', {
                                     ],
                                
                             });
-                        //show the panel
-                        panel_produto.show();
-                        panel_produto.on('hide', function() {
-                           panel_produto.destroy();
-                        });
-                              
+                            panel_produto.show();
+                            panel_produto.on('hide', function() {
+                                panel_produto.destroy();
+                            });   
                         }});
             }
         }
@@ -1898,82 +1598,26 @@ Ext.define('Italbox.Viewport5', {
             tabBar:    {
                 cls: 'barraTab',
                 id: 'barraTab',
-                layout: {
-                    //type : 'hbox',
-                    //align: 'right',
-                    //pack : 'right'
-                },
             },
-            //cls: 'teste',
-            //layout: {
-            //    type: 'vbox',
-            //    //pack: 'center',
-            //    //height: '400px',
-            //    
-            //},
-            //   scrollable: {
-            //    direction: 'vertical'
-            //},
            items: [
                 {
-                    
-                      //each item in a tabpanel requires the title configuration. this is displayed
-                    //on the tab for this item
                     title: 'PÁGINAS',
                     layout : 'fit',
                     cls: 'tabPaginas',
-                    //next we give it some simple html
                     items: [
                     {
-                    
-                    //give it an xtype of list for the list component
                     xtype: 'dataview',
-                    //max-height: '400px',
                     cls: 'favoritos',
                     id: 'data_paginas',
-                    //top: '50px !important',
-                    //margin: '50px 0 0 0',
                     flex: 1,
                     scrollable: {
                         direction: 'vertical',
-                        //indicators: false
                     },
                     inline: {
                         wrap: true
                     },
-
-                    //set the itemtpl to show the fields for the store
-                     store: 'Favorites',
-                     /*{
-                        id: 'loja',
-                        autoLoad: true,
-                        proxy: {
-                            //use sessionstorage if need to save data for that
-                            //specific session only
-                                type: 'localstorage',
-                                id  : 'lojaKey'
-                        },
-                        fields: ['imag','nome','id_pagina','id_catalogo','numero'],*/
-                       // data: [{
-                       //     imag: 'imgs/fav1.jpg',
-                       //     nome: 'Catalogo 1 Pagina 16',
-                       //     id_pagina: '15',
-                       //     id_catalogo: '1',
-                       //     numero: '16'
-                       // }, {
-                       //     imag: 'imgs/fav2.jpg',
-                       //     nome: 'Catalogo 1 Pagina 5',
-                       //     id_pagina: '4',
-                       //     id_catalogo: '1',
-                       //     numero: '5'
-                       // }, {
-                       //     imag: 'imgs/fav3.jpg',
-                       //     nome: 'Catalogo 1 Pagina 4',
-                       //     id_pagina: '3',
-                       //     id_catalogo: '1',
-                       //     numero: '4'
-                       //}]
-                    /*},*/
+                    
+                    store: 'Favorites',
                     
                     itemTpl: '<img src="{imag}" style="width:130px; margin:10px 10px 0 10px;"></img><i class="remove icon-close2"  style=""></i><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
@@ -1987,126 +1631,57 @@ Ext.define('Italbox.Viewport5', {
                             Ext.getStore('Languages').getById(idioma).get('remove_favorite')+' '+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                //var loja = Ext.getStore('Favorites');
-                                //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
-                                //console.dir(newRecord);
                                 Ext.getStore('Favorites').remove(record);
                                 Ext.getStore('Favorites').sync();
                                 }});
-                                
                             }
                             else{
-                             Ext.Msg.confirm(
-                            "",
-                            Ext.getStore('Languages').getById(idioma).get('open_favorite')+' '+record.get('nome')+"?",
-                            function(buttonId) {
-                            if (buttonId === 'yes') {
-                                 //var carr = Ext.getCmp('myCarroucel');
-                                 //var ori = Ext.Viewport.getOrientation();
-                                 Ext.getCmp('favorites').hide();
-                                 Ext.getCmp('myCarroucel').removeAll(true,true);
-                                 idcatalogo = record.get('id_catalogo');
-                                 //tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
-                                 //tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 //tamanho = tpaginas2_temp.length;
-                                 //alert(tamanho);
-                             if (Ext.Viewport.getOrientation() === 'portrait') {
-                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
-                                 Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
-                                 Ext.getCmp('footer').show();
-                             }
-                             else{
-                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
-                                 Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
-                                 Ext.getCmp('footer').show();
-                             }
-                             Ext.getCmp('barra5').show();
-                             Ext.getCmp('footer').show();
-                             Ext.getCmp('myCarroucel').show();
-                            //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , idpagina: idpagina, idcatalogo: idcatalogo,numero: numero};
-                      
-                            }});
-                             
-                             
-                            /////Remover
-                            /* Ext.Msg.confirm(
-                            "",
-                            "Remover "+record.get('nome')+"?",
-                            function(buttonId) {
-                            if (buttonId === 'yes') {
-                            //Ext.Msg.alert('', ''+record.get('imag'), Ext.emptyFn);
-                            var fav =  Ext.StoreManager.get('loja');
-                            fav.remove(record);
-                            //console.dir(fav);
-                            }});*/
-                        }
+                                Ext.Msg.confirm(
+                                "",
+                                Ext.getStore('Languages').getById(idioma).get('open_favorite')+' '+record.get('nome')+"?",
+                                function(buttonId) {
+                                if (buttonId === 'yes') {
+                                     Ext.getCmp('favorites').hide();
+                                     Ext.getCmp('myCarroucel').removeAll(true,true);
+                                     idcatalogo = record.get('id_catalogo');
+                                if (Ext.Viewport.getOrientation() === 'portrait') {
+                                     Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
+                                     Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
+                                     Ext.getCmp('footer').show();
+                                }
+                                else{
+                                     Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+                                     Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
+                                     Ext.getCmp('footer').show();
+                                }
+                                Ext.getCmp('barra5').show();
+                                Ext.getCmp('footer').show();
+                                Ext.getCmp('myCarroucel').show();
+                                }});
+                            }
                         }  
                     }
-                    
-                    }
-                    ],
-
-                    
+                }
+                ],
                 },
                 {
-                    
-                      //each item in a tabpanel requires the title configuration. this is displayed
-                    //on the tab for this item
                     title: 'PRODUTOS',
                     layout : 'fit',
                     cls: 'tabPaginas',
-                    //next we give it some simple html
                     items: [
                     {
-                    
-                    //give it an xtype of list for the list component
                     xtype: 'dataview',
-                    //max-height: '400px',
                     cls: 'favoritos',
                     id: 'data_produtos',
-                    //top: '50px !important',
-                    //margin: '50px 0 0 0',
                     flex: 1,
                     scrollable: {
                         direction: 'vertical',
-                        //indicators: false
                     },
                     inline: {
                         wrap: true
                     },
-
-                    //set the itemtpl to show the fields for the store
-                     store: 'Favorites2',
-                     /*{
-                        id: 'loja',
-                        autoLoad: true,
-                        proxy: {
-                            //use sessionstorage if need to save data for that
-                            //specific session only
-                                type: 'localstorage',
-                                id  : 'lojaKey'
-                        },
-                        fields: ['imag','nome','id_pagina','id_catalogo','numero'],*/
-                       // data: [{
-                       //     imag: 'imgs/fav1.jpg',
-                       //     nome: 'Catalogo 1 Pagina 16',
-                       //     id_pagina: '15',
-                       //     id_catalogo: '1',
-                       //     numero: '16'
-                       // }, {
-                       //     imag: 'imgs/fav2.jpg',
-                       //     nome: 'Catalogo 1 Pagina 5',
-                       //     id_pagina: '4',
-                       //     id_catalogo: '1',
-                       //     numero: '5'
-                       // }, {
-                       //     imag: 'imgs/fav3.jpg',
-                       //     nome: 'Catalogo 1 Pagina 4',
-                       //     id_pagina: '3',
-                       //     id_catalogo: '1',
-                       //     numero: '4'
-                       //}]
-                    /*},*/
+                    
+                    store: 'Favorites2',
                     
                     itemTpl: '<img src="{thumb}" style="width:130px; margin:10px 10px 0 10px;"></img><i class="remove icon-close2"  style=""></i><div style="text-align: center; font-size:12px;">{nome}</div>',
                     
@@ -2120,13 +1695,9 @@ Ext.define('Italbox.Viewport5', {
                             Ext.getStore('Languages').getById(idioma).get('remove_favorite')+' '+record.get('nome')+"?",
                             function(buttonId) {
                             if (buttonId === 'yes') {
-                                //var loja2 = Ext.getStore('Favorites2');
-                                //var newRecord = {imag: source ,nome: 'Catalogo '+idcatalogo+' Pagina '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
-                                //console.dir(newRecord);
                                 Ext.getStore('Favorites2').remove(record);
                                 Ext.getStore('Favorites2').sync();
-                                }});
-                                
+                                }}); 
                             }
                             else{
                             Ext.Msg.confirm(
@@ -2140,53 +1711,33 @@ Ext.define('Italbox.Viewport5', {
                             }
                             panel_produto = Ext.Viewport.add({ 
                                 xtype: 'container',
-                                /*height: '70%',*/
                                 id: 'pop-produto',
                                 cls: 'pop-produto',
-                                /*modal: {
-                                    style: 'opacity: 0; background-color: #ffffff;'
-                                },*/
                                 float: true,
-                                // modal: true,
                                 showAnimation: 
                                 {
                                     type: 'pop',
                                     duration: 300,
                                 },  
-                                //hideAnimation: 
-                                //{
-                                //    type: 'popOut',
-                                //    duration: 300,
-                                //    //direction: 'down',
-                                //    //easing: 'easeIn'
-                                //},
                                 layout : {
                                     type : 'vbox',
-                                     /*align: 'left'*/
                                 },
                                 items: [
                                     {
                                         xtype: 'toolbar',
-                                        //title: '<div class="logotipo"></div>',
-                                        /*id: 'barra2',*/
                                         cls: 'header3',
-                                        /*docked: 'top',*/
-                                        /*hidden: true,*/
                                         layout: {
                                                 type: 'hbox',
                                                 pack: 'right'
                                         },
-                                       
                                         items: [
                                             {
                                             align: 'right', 
                                             ui:    'plain',
                                             xtype: 'button',
                                             cls: 'close icon-close',
-                                            //hidden: true,
                                             handler: function () {
                                                  panel_produto.hide();
-                                                /*panel2.destroy();*/
                                                 }
                                             },
                                         ]    
@@ -2196,7 +1747,6 @@ Ext.define('Italbox.Viewport5', {
                                         '<img src="'+record.get('foto')+'">'+
                                         '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+
                                         '<br/>Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
-                                  
                                     },
                                 ],
                                 listeners: [
@@ -2210,12 +1760,6 @@ Ext.define('Italbox.Viewport5', {
                                         id:'extras',
                                         cls: 'lista-extras',
                                         float: true,
-                                        // modal: true,
-                                        /*showAnimation: 
-                                        {
-                                            type: 'pop',
-                                            duration: 300,
-                                        }, */
                                         tabBar:    {
                                             cls: 'barraTab2',
                                             hidden: true,
@@ -2223,7 +1767,6 @@ Ext.define('Italbox.Viewport5', {
                                         items: [
                                         {
                                             xtype: 'toolbar',
-                                            //title: "Title",
                                             docked: 'top',
                                             cls: 'barraPaginas',
                                             items: [
@@ -2241,7 +1784,6 @@ Ext.define('Italbox.Viewport5', {
                                             title: '',
                                             layout : 'fit',
                                             cls: 'tabPaginas',
-                                            //next we give it some simple html
                                             items: [
                                             {
                                                 xtype: 'dataview',
@@ -2249,16 +1791,15 @@ Ext.define('Italbox.Viewport5', {
                                                 flex: 1,
                                                 scrollable: {
                                                     direction: 'vertical',
-                                                    //indicators: false
                                                 },
                                                 inline: {
                                                     wrap: true
                                                 },
-                                                 store: 
-                                                 {
+                                                store: 
+                                                {
                                                     fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','extra_id','foto','id','id_extra','lastModified','nome','priority','produto_id','ref'],
                                                     data: $.grep(textras_produtos, function(e) { return e.produto_id ==  record.get('id_produto')})
-                                                 },
+                                                },
                                                 
                                                 itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
                                                 
@@ -2266,38 +1807,21 @@ Ext.define('Italbox.Viewport5', {
                                                     itemtap: function(list, index, target, record,e) {
                                                         panel_extra = Ext.Viewport.add({ 
                                                             xtype: 'container',
-                                                            /*height: '70%',*/
                                                             id: 'extra',
                                                             cls: 'pop-produto',
-                                                            /*modal: {
-                                                                style: 'opacity: 0; background-color: #ffffff;'
-                                                            },*/
                                                             float: true,
-                                                            // modal: true,
                                                             showAnimation: 
                                                             {
                                                                 type: 'pop',
                                                                 duration: 300,
                                                             },  
-                                                            //hideAnimation: 
-                                                            //{
-                                                            //    type: 'popOut',
-                                                            //    duration: 300,
-                                                            //    //direction: 'down',
-                                                            //    //easing: 'easeIn'
-                                                            //},
                                                             layout : {
                                                                 type : 'vbox',
-                                                                 /*align: 'left'*/
                                                             },
                                                             items: [
                                                                 {
                                                                     xtype: 'toolbar',
-                                                                    //title: '<div class="logotipo"></div>',
-                                                                    /*id: 'barra2',*/
                                                                     cls: 'header3',
-                                                                    /*docked: 'top',*/
-                                                                    /*hidden: true,*/
                                                                     layout: {
                                                                             type: 'hbox',
                                                                             pack: 'right'
@@ -2309,10 +1833,8 @@ Ext.define('Italbox.Viewport5', {
                                                                         ui:    'plain',
                                                                         xtype: 'button',
                                                                         cls: 'close icon-close',
-                                                                        //hidden: true,
                                                                         handler: function () {
                                                                              panel_extra.hide();
-                                                                            /*panel2.destroy();*/
                                                                             }
                                                                         },
                                                                     ]    
@@ -2326,7 +1848,6 @@ Ext.define('Italbox.Viewport5', {
                                                             ],
                                                            
                                                         });
-                                                    //show the panel
                                                     panel_extra.show();
                                                     panel_extra.on('hide', function() {
                                                        panel_extra.destroy();
@@ -2339,7 +1860,6 @@ Ext.define('Italbox.Viewport5', {
                                         }, 
                                         ],       
                                         });
-                                        //show the panel
                                         panel_extras.show();
                                         panel_extras.on('hide', function() {
                                            panel_extras.destroy();
@@ -2347,9 +1867,7 @@ Ext.define('Italbox.Viewport5', {
                                     }
                                 },
                                 ],
-                               
                             });
-                            //show the panel
                             panel_produto.show();
                             panel_produto.on('hide', function() {
                                panel_produto.destroy();
@@ -2358,14 +1876,10 @@ Ext.define('Italbox.Viewport5', {
                         }
                         }  
                     }
-                    
                     }
                     ],
-
-                    
                 },
-            ],
-           
+            ],   
     }
 });
 
@@ -2389,56 +1903,50 @@ Ext.define('Italbox.Viewport4', {
                 direction: 'down',
                 easing: 'easeIn'
             }, 
-            //cls: 'teste',
             layout: {
                 type: 'vbox',
-                //pack: 'center',
-                //height: '400px',
-                
             },
                scrollable: {
                 direction: 'vertical'
             },
-           items : [
-                    {
-                        id: 'helpHtml',
-                        html  : '<div style="margin:20px; margin-top:0px !important;">'+
-                                '<font color="#b69757">AJUDA</font><br/><br/><p><i>Aceda  em qualquer lugar aos nossos catálogos de forma rápida e intuitiva. </i><br />'+
-                                '<i>Com a  APP ITALBOX consulte todos os nossos produtos e seus detalhes. </i><br />'+
-                                '<i>Escolha  e partilhe os seus favoritos.</i></p><br/><p>Precisa  de ajuda? Siga as nossas dicas aqui.</p>'+
-                                '<p>Ao  abrir a aplicação o utilizador tem acesso aos menus que permitem explorar:<br /><br />'+
-                                '<i class="icon-italbox"></i> – menuItalbox – o perfil da empresa<br /><i class="icon-catalogos"></i> – menu catálogos – acesso aos catálogos. <br />'+
-                                '<i class="icon-star"></i> – menu favoritos – arquivo das suas páginas e/ou produtos favoritos.<br />'+
-                                '<i class="icon-mundo-catalogos"></i> – menu language– alterar idioma </p><br /><p><font color="#b69757"><strong>Dicas de navegação</strong></font><br /><br />'+
-                                'O  acesso à informação é disponibilizado através dos menus na página principal, no  entanto,'+
-                                'a qualquer momento pode trocar de menu acedendo à barra superior.Esta  barra é composta por:<br /><br />'+
-                                '<i class="icon-back"></i> – retroceder<br /><i class="icon-pesquisa"></i> – pesquisar<br /><i class="icon-menu"></i> – Menus<br /><br />'+
-                                'Se  esta estiver ocultada toque na seta <i class="icon-baixo"></i> para a fazer reaparecer.'+
-                                'O  conteúdo de cada menu é disponibilizado imediatamente abaixo desta.<br />'+
-                                'Se  já sabe o nome do produto que quer consultar, pesquise através <i class="icon-pesquisa"></i>.<br /><br />'+
-                                '<font color="#b69757"><strong>Consultar Catálogos</strong></font><br /><br />No  menu catálogos toque na capa do catálogo que pretende consultar.'+
-                                '<a name="_GoBack" id="_GoBack"></a><br />Confirme  a acesso ao catálogo.'+
-                                'De seguida navegue entre as páginas fazendo deslizar o  seu dedo para a esquerda ou para a direita.'+
-                                'Para uma melhor visualização, pode  ainda aumentar e mover a imagem da página em consulta.<br />'+
-                                'Na  barra inferior estão contabilizados os produtos existentes na página que está a  visualizar.'+
-                                'Ao tocar na seta poderá aceder aos detalhes do produto. <br />No  lado direito do ecrã encontrará,'+
-                                'ainda, as seguintes funções:<br /><br /><i class="icon-lista"></i> – Consultar páginas específicas do catálogo<br />'+
-                                '<i class="icon-star-catalogos"></i> – Definir páginas e/ou produtos como favorito<br />'+
-                                '<i class="icon-partilha"></i> – Partilhar páginas e/ou produtos com amigos</p><br /><p><font color="#b69757"><strong>Consultar produto</strong></font>'+
-                                '<br /><br />Toque  na imagem do produto da barra inferior para ter acesso ao detalhe do mesmo.'+
-                                'Para visualizar os extras do produto toque no botão EXTRAS<br />'+
-                                'Retroceda  na seta <i class="icon-back"></i> para voltar ao detalhe. Para sair toque no <i class="icon-close"></i> para fechar e  continuar a consultar o catalogo.<br /><br />'+
-                                '<font color="#b69757"><strong>Favoritos </strong></font><br /><br />Para  adicionar uma página e/ou produto como favorito utilize o <i class="icon-star-catalogos"></i> '+
-                                'apresentado à  sua direita. É notificado o êxito desta operação.<br />'+
-                                'Para  visualizar os favoritos aceda ao menu favoritos na página inicial ou na barra  superior.<br />'+
-                                'Os  favoritos encontram-se divididos por páginas e produtos, para consultar toque  no separador correspondente.<br />'+
-                                'Pode  ainda editar os seus favoritos, apagando páginas e/ou produtos tocando no  <i class="icon-close3"></i>.</p></div>',
-                            },
-                               
+            items: [
+            {
+                id:   'helpHtml',
+                html: '<div style="margin:20px; margin-top:0px !important;">'+
+                      '<font color="#b69757">AJUDA</font><br/><br/><p><i>Aceda  em qualquer lugar aos nossos catálogos de forma rápida e intuitiva. </i><br />'+
+                      '<i>Com a  APP ITALBOX consulte todos os nossos produtos e seus detalhes. </i><br />'+
+                      '<i>Escolha  e partilhe os seus favoritos.</i></p><br/><p>Precisa  de ajuda? Siga as nossas dicas aqui.</p>'+
+                      '<p>Ao  abrir a aplicação o utilizador tem acesso aos menus que permitem explorar:<br /><br />'+
+                      '<i class="icon-italbox"></i> – menuItalbox – o perfil da empresa<br /><i class="icon-catalogos"></i> – menu catálogos – acesso aos catálogos. <br />'+
+                      '<i class="icon-star"></i> – menu favoritos – arquivo das suas páginas e/ou produtos favoritos.<br />'+
+                      '<i class="icon-mundo-catalogos"></i> – menu language– alterar idioma </p><br /><p><font color="#b69757"><strong>Dicas de navegação</strong></font><br /><br />'+
+                      'O  acesso à informação é disponibilizado através dos menus na página principal, no  entanto,'+
+                      'a qualquer momento pode trocar de menu acedendo à barra superior.Esta  barra é composta por:<br /><br />'+
+                      '<i class="icon-back"></i> – retroceder<br /><i class="icon-pesquisa"></i> – pesquisar<br /><i class="icon-menu"></i> – Menus<br /><br />'+
+                      'Se  esta estiver ocultada toque na seta <i class="icon-baixo"></i> para a fazer reaparecer.'+
+                      'O  conteúdo de cada menu é disponibilizado imediatamente abaixo desta.<br />'+
+                      'Se  já sabe o nome do produto que quer consultar, pesquise através <i class="icon-pesquisa"></i>.<br /><br />'+
+                      '<font color="#b69757"><strong>Consultar Catálogos</strong></font><br /><br />No  menu catálogos toque na capa do catálogo que pretende consultar.'+
+                      '<a name="_GoBack" id="_GoBack"></a><br />Confirme  a acesso ao catálogo.'+
+                      'De seguida navegue entre as páginas fazendo deslizar o  seu dedo para a esquerda ou para a direita.'+
+                      'Para uma melhor visualização, pode  ainda aumentar e mover a imagem da página em consulta.<br />'+
+                      'Na  barra inferior estão contabilizados os produtos existentes na página que está a  visualizar.'+
+                      'Ao tocar na seta poderá aceder aos detalhes do produto. <br />No  lado direito do ecrã encontrará,'+
+                      'ainda, as seguintes funções:<br /><br /><i class="icon-lista"></i> – Consultar páginas específicas do catálogo<br />'+
+                      '<i class="icon-star-catalogos"></i> – Definir páginas e/ou produtos como favorito<br />'+
+                      '<i class="icon-partilha"></i> – Partilhar páginas e/ou produtos com amigos</p><br /><p><font color="#b69757"><strong>Consultar produto</strong></font>'+
+                      '<br /><br />Toque  na imagem do produto da barra inferior para ter acesso ao detalhe do mesmo.'+
+                      'Para visualizar os extras do produto toque no botão EXTRAS<br />'+
+                      'Retroceda  na seta <i class="icon-back"></i> para voltar ao detalhe. Para sair toque no <i class="icon-close"></i> para fechar e  continuar a consultar o catalogo.<br /><br />'+
+                      '<font color="#b69757"><strong>Favoritos </strong></font><br /><br />Para  adicionar uma página e/ou produto como favorito utilize o <i class="icon-star-catalogos"></i> '+
+                      'apresentado à  sua direita. É notificado o êxito desta operação.<br />'+
+                      'Para  visualizar os favoritos aceda ao menu favoritos na página inicial ou na barra  superior.<br />'+
+                      'Os  favoritos encontram-se divididos por páginas e produtos, para consultar toque  no separador correspondente.<br />'+
+                      'Pode  ainda editar os seus favoritos, apagando páginas e/ou produtos tocando no  <i class="icon-close3"></i>.</p></div>',
+            },            
             ],
     }
 });
-
 
 Ext.define('Italbox.Viewport3', {
     extend: 'Ext.Panel',
@@ -2446,37 +1954,43 @@ Ext.define('Italbox.Viewport3', {
     id:'italbox',
     config: {
         showAnimation: 
-            {
-                type: 'slideIn',
-                duration: 1000,
-                delay: 700,
-                direction: 'up',
-                easing: 'easeOut'
-            },  
-            hideAnimation: 
-            {
-                type: 'slideOut',
-                duration: 700,
-                direction: 'down',
-                easing: 'easeIn'
-            }, 
-            //cls: 'teste',
-            layout: {
-                type: 'vbox',
-                //pack: 'center',
-                //height: '400px',
-                
-            },
-             scrollable: {
-                direction: 'vertical'
-            },
-           items : [
-                    {
-                        id: 'italboxHtml',
-                        html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/><font color="#b69757">EMPRESA</font><br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999, é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo, e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores, a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume de negócios de 20% por ano, nos últimos 5 anos.<br/><br/>Em 2011 lançou o novo catalogo com uma nova linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio, no sentido de complementar a oferta.<br/><br/>Para que possam verificar os modelos que produzimos, queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
-                    },
-                               
-            ],
+        {
+            type: 'slideIn',
+            duration: 1000,
+            delay: 700,
+            direction: 'up',
+            easing: 'easeOut'
+        },  
+        hideAnimation: 
+        {
+            type: 'slideOut',
+            duration: 700,
+            direction: 'down',
+            easing: 'easeIn'
+        }, 
+        layout: {
+            type: 'vbox',
+        },
+        scrollable: {
+            direction: 'vertical'
+        },
+       items : [
+        {
+            id: 'italboxHtml',
+            html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>'+
+            '<font color="#b69757">EMPRESA</font><br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999,'+
+            'é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo,'+
+            'e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores,'+
+            'a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume'+
+            'de negócios de 20% por ano, nos últimos 5 anos.<br/><br/>Em 2011 lançou o novo catalogo com uma nova'+
+            'linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso'+
+            'anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio,'+
+            'no sentido de complementar a oferta.<br/><br/>Para que possam verificar os modelos que produzimos,'+
+            'queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>'+
+            'Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional'+
+            'através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
+        },                  
+        ],
     }
 });
 
@@ -2487,31 +2001,20 @@ Ext.define('Italbox.Viewport2', {
     config: {
         indicator: false,
         showAnimation: 
-            {
-                type: 'slideIn',
-                duration: 1000,
-                delay: 500,
-                direction: 'up',
-                easing: 'easeOut'
-            },  
-            hideAnimation: 
-            {
-                //TweenMax.to(this, 1, {autoAlpha:0});
-                type: 'slideOut',
-                duration: 700,
-                direction: 'down',
-                easing: 'easeIn'
-            }, 
-        //items: arr
-        //[
-        //   
-        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag2.jpeg'},
-        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag3.jpeg'},
-        //    {xtype: 'imageviewer', imageSrc: 'http://nrodrigues.net/italbox/img/pag4.jpeg'},
-        //    
-        //   
-        //]
-        //,
+        {
+            type: 'slideIn',
+            duration: 1000,
+            delay: 500,
+            direction: 'up',
+            easing: 'easeOut'
+        },  
+        hideAnimation: 
+        {
+            type: 'slideOut',
+            duration: 700,
+            direction: 'down',
+            easing: 'easeIn'
+        },
         listeners: {
             activeitemchange: function(container, value, oldValue, eOpts) {
                 try{
@@ -2521,8 +2024,6 @@ Ext.define('Italbox.Viewport2', {
                     }
                 }
                 catch(err){}
-                
-                //console.dir(value.initialConfig.id_pagina);
                 idpagina = value.initialConfig.id_pagina;
                 idcatalogo = value.initialConfig.id_catalogo;
                 numero = value.initialConfig.numero;
@@ -2531,7 +2032,6 @@ Ext.define('Italbox.Viewport2', {
                 contador = 0;
                 contador = ($.grep(tprodutos_paginas, function(e) { return e.pagina_id == idpagina })).length;
                 Ext.getCmp('open-menu4').setText('<span style="text-align:center; padding-left: 25px; line-height: 2;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</span><span style="text-align:right; float:right;"><i class="icon-cima"></i></span>');
-                //ind = Ext.getCmp('myCarroucel').getActiveIndex();
             },
             resize: function(component, eOpts) {
                 try{
@@ -2539,7 +2039,6 @@ Ext.define('Italbox.Viewport2', {
                 }
                 catch(err){}
             },
-          
         }
     },
     onDragStart: function(e) {
@@ -2551,11 +2050,7 @@ Ext.define('Italbox.Viewport2', {
     onDrag: function(e) {
         if (e.targetTouches.length == 1){
             this.callParent(arguments);
-        // var barra = Ext.getCmp('barra');
-        // var barra2 = Ext.getCmp('barra2');
-        // var footer = Ext.getCmp('footer');
         try {
-            //var myList2 =  Ext.getCmp('myList2');
             Ext.getCmp('myList2').hide();
         }
         catch(err) {}
@@ -2573,34 +2068,24 @@ Ext.define('Italbox.Viewport2', {
         this.callParent(arguments);
         
         this.element.on('tap',function() {
-            //var barra = Ext.getCmp('barra');
-            //var barra2 = Ext.getCmp('barra2');
             Ext.getCmp('barra').show();
             Ext.getCmp('barra2').hide();
-    });
+        });
     },
-    
     handleOrientationChange: function(viewport, orientation, width, height){
-         //var carr = Ext.getCmp('myCarroucel');
          ind = Ext.getCmp('myCarroucel').getActiveIndex();
-         //console.dir(carr.getActiveItem());
-         //carr.removeAll(true);
          if (Ext.Viewport.getOrientation() === 'portrait') {
             Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
             var round1 = Math.round(ind*2);
             Ext.getCmp('myCarroucel').setActiveItem(round1-1);
          }
          else {
-            /*if ((ind > 0) && (ind%2 != 0)) {
-                ind = ind-1;
-            }*/
             Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
             var round2 = Math.round(ind/2);
             Ext.getCmp('myCarroucel').setActiveItem(round2);
          }
     }
 });
-
 
 Ext.define('Italbox.Viewport', {
     extend: 'Ext.Panel',
@@ -2622,21 +2107,14 @@ Ext.define('Italbox.Viewport', {
                 direction: 'down',
                 easing: 'easeIn'
             }, 
-            //cls: 'teste',
             layout: {
                 type: 'vbox',
                 pack: 'center',
-                //height: '400px',
-                
             },
             items: [
                 {
-                    //give it an xtype of list for the list component
                     xtype: 'dataview',
-                    //max-height: '400px',
                     cls: 'lista',
-                    //margin: '50px 0 0 0', 
-                    //flex: 1,
                     scrollable: {
                         direction: 'horizontal',
                         indicators: false
@@ -2644,27 +2122,9 @@ Ext.define('Italbox.Viewport', {
                     inline: {
                         wrap: false
                     },
-
-                    //set the itemtpl to show the fields for the store
                      store: {
                         fields: ['id_catalogo','nome','capa','cor','estado','lastModified'],
-                        data: tcatalogos/*[{
-                            capa: 'imgs/catalogo1.png',
-                            cor: 'azul',
-                            nome: 'Catalogo 1'
-                        }, {
-                            capa: 'imgs/catalogo2.png',
-                            cor: 'azul',
-                            nome: 'Catalogo 2'
-                        }, {
-                            capa: 'imgs/catalogo3.png',
-                            cor: 'azul',
-                            nome: 'Catalogo 3'
-                        }, {
-                            capa: 'imgs/catalogo1.png',
-                            cor: 'azul',
-                            nome: 'Catalogo 4'
-                       }]*/
+                        data: tcatalogos
                     },
                     
                     itemTpl: '<img src="'+caminho+'{capa}" class="capa"><div class="texto-capa">{nome}</div>',
@@ -2674,33 +2134,28 @@ Ext.define('Italbox.Viewport', {
                             "",
                             Ext.getStore('Languages').getById(idioma).get('open')+' '+record.get('nome')+"?",
                             function(buttonId) {
-                            if (buttonId === 'yes') {
-                                 //var ori = Ext.Viewport.getOrientation();
-                                 nomec = record.get('nome');
-                                 Ext.getCmp('myList').hide();
-                                 Ext.getCmp('myCarroucel').removeAll(true,true);
-                                 idcatalogo = record.get('id_catalogo');
-                                 //tpaginas_temp  = $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo });
-                                 //tpaginas2_temp = $.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo });
-                                 //tamanho = tpaginas2_temp.length;
-                                 //alert(tamanho);
-                             if (Ext.Viewport.getOrientation() === 'portrait') {
-                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
-                             }
-                             else{
-                                 Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
-                             }
-                                 Ext.getCmp('myCarroucel').setActiveItem(0);
-                                 Ext.getCmp('myCarroucel').show();
-                                 Ext.getCmp('barra').hide();
-                                 Ext.getCmp('barra2').show();
-                                 Ext.getCmp('barra5').show();
-                                 Ext.getCmp('footer').show();
-                                 Ext.getCmp('open-menu4').show();
-                                 Ext.getCmp('back').show();
+                                if (buttonId === 'yes') {
+                                     nomec = record.get('nome');
+                                     Ext.getCmp('myList').hide();
+                                     Ext.getCmp('myCarroucel').removeAll(true,true);
+                                     idcatalogo = record.get('id_catalogo');
+                                 if (Ext.Viewport.getOrientation() === 'portrait') {
+                                     Ext.getCmp('myCarroucel').setItems($.grep(tpaginas2, function(e) { return e.id_catalogo == idcatalogo }));
+                                 }
+                                 else{
+                                     Ext.getCmp('myCarroucel').setItems($.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo }));
+                                 }
+                                     Ext.getCmp('myCarroucel').setActiveItem(0);
+                                     Ext.getCmp('myCarroucel').show();
+                                     Ext.getCmp('barra').hide();
+                                     Ext.getCmp('barra2').show();
+                                     Ext.getCmp('barra5').show();
+                                     Ext.getCmp('footer').show();
+                                     Ext.getCmp('open-menu4').show();
+                                     Ext.getCmp('back').show();
+                                    }
                                 }
-                            }
-                        );
+                            );
                         }
                     }
                 }
@@ -2712,8 +2167,6 @@ Ext.define('Italbox.ViewportPanel', {
     extend: 'Ext.Panel',
     xtype : 'my-viewport-panel',
     config: {
-        //stores : ['Favorites2'],
-        //models : ['Favorite2'],
         fullscreen: true,
         layout: 'fit',
         items: [{
@@ -2723,19 +2176,19 @@ Ext.define('Italbox.ViewportPanel', {
             cls: 'header',
             docked: 'top',
             showAnimation:  
-                {
-                    type: 'slideIn',
-                    duration: 1000,
-                    direction: 'down',
-                    easing: 'easeIn'
-                },  
-                hideAnimation: 
-                {
-                    type: 'slideOut',
-                    duration: 1000,
-                    direction: 'up',
-                    easing: 'easeOut'
-                }, 
+            {
+                type: 'slideIn',
+                duration: 1000,
+                direction: 'down',
+                easing: 'easeIn'
+            },  
+            hideAnimation: 
+            {
+                type: 'slideOut',
+                duration: 1000,
+                direction: 'up',
+                easing: 'easeOut'
+            }, 
             items: [
                 {
                     align: 'left',
@@ -2745,75 +2198,56 @@ Ext.define('Italbox.ViewportPanel', {
                     cls: 'back icon-back',
                     hidden: true,
                     handler: function () {
-                    //var lista = Ext.getCmp('myList');
-                    //var carr = Ext.getCmp('myCarroucel');
-                    //var italbox = Ext.getCmp('italbox');
-                    //var favorites = Ext.getCmp('favorites');
-                    //var help = Ext.getCmp('help');
-                    //var search = Ext.getCmp('search');
                     if(Ext.getCmp('myList')._hidden === false || Ext.getCmp('italbox')._hidden === false || Ext.getCmp('favorites')._hidden === false || Ext.getCmp('help')._hidden === false || Ext.getCmp('search')._hidden === false )
 	            {
                         Ext.getCmp('menuI').show();
                         Ext.getCmp('myCarroucel').hide();
                         Ext.getCmp('myCarroucel').on('hide', function() {
-                         Ext.getCmp('myCarroucel').removeAll(true,true);
+                        Ext.getCmp('myCarroucel').removeAll(true,true);
                         });
-                        //carr.removeAll(true,true);
                         Ext.getCmp('barra2').hide();
                         Ext.getCmp('footer').hide();
                          Ext.getCmp('barra5').hide();
                         try {
-                        //var myList2 =  Ext.getCmp('myList2');
                         Ext.getCmp('myList2').hide();
                         Ext.getCmp('myList').hide();
-                        
-                         }
-                         catch(err) {}
-                    
-                    Ext.getCmp('back').hide();
-                    Ext.getCmp('italbox').hide();
-                    Ext.getCmp('favorites').hide();
-                    Ext.getCmp('help').hide();
-                    Ext.getCmp('search').hide();
-                    Ext.getCmp('myList').hide();
+                        }
+                        catch(err) {}
+                        Ext.getCmp('back').hide();
+                        Ext.getCmp('italbox').hide();
+                        Ext.getCmp('favorites').hide();
+                        Ext.getCmp('help').hide();
+                        Ext.getCmp('search').hide();
+                        Ext.getCmp('myList').hide();
                     }
                     else
                     {
-                    
-                    
                     Ext.getCmp('myCarroucel').hide();
                     Ext.getCmp('myCarroucel').on('hide', function() {
                          Ext.getCmp('myCarroucel').removeAll(true,true);
                     });
-                    //carr.removeAll(true,true);
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('footer').hide();
                     Ext.getCmp('barra5').hide();
                     try {
-                    //var myList2 =  Ext.getCmp('myList2');
                         Ext.getCmp('myList2').hide();
                         Ext.getCmp('myList').hide();
-                        
                     }
                     catch(err) {}
-                    //Ext.getCmp('back').hide();
                     Ext.getCmp('italbox').hide();
                     Ext.getCmp('favorites').hide();
                     Ext.getCmp('help').hide();
                     Ext.getCmp('search').hide();
                     Ext.getCmp('myList').show();
                     }
-                    
-                }, 
-        
+                    }, 
                 },
                 {
                     align: 'right',
                     ui:      'plain',
                     xtype: 'button',
                     cls: 'open-menu icon-menu',
-                   handler: function() {
-                        //add a hidden panel with showAnimation and hideAnimation
+                    handler: function() {
                         if( typeof panel_menu !== 'undefined' ) {
                                  panel_menu.destroy();
                         }
@@ -2821,9 +2255,6 @@ Ext.define('Italbox.ViewportPanel', {
                             xtype: 'container',
                             id: 'menuP',
                             modal: true,
-                            /*{
-                                style: 'opacity: 0.8; background-color: #ffffff;'
-                            */
                             height    : 100,
                             width     : 240,
                             floating  : true,                               
@@ -2867,19 +2298,17 @@ Ext.define('Italbox.ViewportPanel', {
                                 delegate: '#menu-italbox',
                                 event: 'tap',
                                 fn: function() {
-                                 Ext.getCmp('menuI').hide();
-                                 Ext.getCmp('myCarroucel').hide();
-                                 Ext.getCmp('myList').hide();
-                                 Ext.getCmp('footer').hide();
-                                 Ext.getCmp('barra5').hide();
-                                 Ext.getCmp('favorites').hide();
-                                 Ext.getCmp('help').hide();
-                                 Ext.getCmp('search').hide();
-                                 /*Ext.getCmp('myList').hide();
-                                 Ext.getCmp('myList').hide();*/
-                                 Ext.getCmp('back').show();
-                                 Ext.getCmp('italbox').show();
-                                 panel_menu.hide();
+                                    Ext.getCmp('menuI').hide();
+                                    Ext.getCmp('myCarroucel').hide();
+                                    Ext.getCmp('myList').hide();
+                                    Ext.getCmp('footer').hide();
+                                    Ext.getCmp('barra5').hide();
+                                    Ext.getCmp('favorites').hide();
+                                    Ext.getCmp('help').hide();
+                                    Ext.getCmp('search').hide();
+                                    Ext.getCmp('back').show();
+                                    Ext.getCmp('italbox').show();
+                                    panel_menu.hide();
                                 }
                             },
                             {
@@ -2896,12 +2325,10 @@ Ext.define('Italbox.ViewportPanel', {
                                         Ext.getCmp('favorites').hide();
                                         Ext.getCmp('help').hide();
                                         Ext.getCmp('search').hide();
-                                        /*Ext.getCmp('myList').hide();
-                                        Ext.getCmp('myList').hide();*/
                                         Ext.getCmp('back').show();
                                         Ext.getCmp('myList').show();
                                         panel_menu.hide();
-                                  }
+                                    }
                                     else{
                                         Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_catalogs'), Ext.emptyFn);
                                     }  
@@ -2913,7 +2340,6 @@ Ext.define('Italbox.ViewportPanel', {
                                 event: 'tap',
                                 fn: function() {
                                    if (connect === 1) {
-                                        //Ext.getStore('loja').sync();
                                         Ext.getCmp('menuI').hide();
                                         Ext.getCmp('myCarroucel').hide();
                                         Ext.getCmp('myList').hide();
@@ -2922,8 +2348,6 @@ Ext.define('Italbox.ViewportPanel', {
                                         Ext.getCmp('italbox').hide();
                                         Ext.getCmp('help').hide();
                                         Ext.getCmp('search').hide();
-                                        /*Ext.getCmp('myList').hide();
-                                        Ext.getCmp('myList').hide();*/
                                         Ext.getCmp('back').show();
                                         Ext.getCmp('favorites').show();
                                         panel_menu.hide();
@@ -2942,9 +2366,6 @@ Ext.define('Italbox.ViewportPanel', {
                             xtype: 'container',
                             id: 'menuL',
                             modal: true,
-                            /*{
-                                style: 'opacity: 0.8; background-color: #ffffff;'
-                            */
                             height    : '230px',
                             width     : '100%',
                             floating  : true,                               
@@ -2982,203 +2403,188 @@ Ext.define('Italbox.ViewportPanel', {
                                 }
                             ],
                             listeners: [
-                                {
-                            element: 'element',
-                            delegate: '#menu-portugues',
-                            event: 'tap',
-                            fn: function() {
-                                var valor = { id_setting: '1', lang: '1'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
+                            {
+                                element: 'element',
+                                delegate: '#menu-portugues',
+                                event: 'tap',
+                                fn: function() {
+                                    var valor = { id_setting: '1', lang: '1'};
+                                    Ext.getStore('Settings').getAt(0).set(valor);
+                                    Ext.getStore('Settings').sync();
+                                    idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                    Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                    Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                    Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                    Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                    Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                    Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                    Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                    Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                    Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                    Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                    Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                    Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                    Ext.MessageBox.override({
+                                            confirm: function(title, message, fn, scope) {
+                                            return this.show({
+                                                title       : title || null,
+                                                message     : message || null,
+                                                buttons     : [
+                                                {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                                {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                            ],
+                                                promptConfig: false,
+                                                scope       : scope,
+                                                fn: function() {
+                                                    if (fn) {
+                                                        fn.apply(scope, arguments);
+                                                    }
                                                 }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                            }
-                        },
-                        {
-                            element: 'element',
-                            delegate: '#menu-english',
-                            event: 'tap',
-                            fn: function() {
-                                var valor = { id_setting: '1', lang: '2'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
-                                                }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                            }
+                                            });
+                                        }
+                                    });
+                                    panel_language.hide();
+                                }
                             },
                             {
-                               element: 'element',
-                               delegate: '#menu-francais',
-                               event: 'tap',
-                               fn: function() {
-                                  var valor = { id_setting: '1', lang: '3'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
+                                element: 'element',
+                                delegate: '#menu-english',
+                                event: 'tap',
+                                fn: function() {
+                                    var valor = { id_setting: '1', lang: '2'};
+                                    Ext.getStore('Settings').getAt(0).set(valor);
+                                    Ext.getStore('Settings').sync();
+                                    idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                    Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                    Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                    Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                    Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                    Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                    Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                    Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                    Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                    Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                    Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                    Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                    Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                    Ext.MessageBox.override({
+                                            confirm: function(title, message, fn, scope) {
+                                            return this.show({
+                                                title       : title || null,
+                                                message     : message || null,
+                                                buttons     : [
+                                                {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                                {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                            ],
+                                                promptConfig: false,
+                                                scope       : scope,
+                                                fn: function() {
+                                                    if (fn) {
+                                                        fn.apply(scope, arguments);
+                                                    }
                                                 }
-                                            }
-                                        });
-                                    }
-                                });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                               }
-                           },
-                           {
-                               element: 'element',
-                               delegate: '#menu-castellano',
-                               event: 'tap',
-                               fn: function() {
-                                var valor = { id_setting: '1', lang: '4'};
-                                Ext.getStore('Settings').getAt(0).set(valor);
-                                Ext.getStore('Settings').sync();
-                                idioma = Ext.getStore('Settings').getAt(0).get('lang');
-                                Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
-                                Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
-                                Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
-                                Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
-                                Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
-                                Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
-                                Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
-                                Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
-                                Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
-                                Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
-                                Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
-                                Ext.MessageBox.override({
-                                        confirm: function(title, message, fn, scope) {
-                                        return this.show({
-                                            title       : title || null,
-                                            message     : message || null,
-                                            buttons     : [
-                                            {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
-                                            {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
-                                        ],
-                                            promptConfig: false,
-                                            scope       : scope,
-                                            fn: function() {
-                                                if (fn) {
-                                                    fn.apply(scope, arguments);
+                                            });
+                                        }
+                                    });
+                                    panel_language.hide();
+                                }
+                            },
+                            {
+                                   element: 'element',
+                                   delegate: '#menu-francais',
+                                   event: 'tap',
+                                   fn: function() {
+                                        var valor = { id_setting: '1', lang: '3'};
+                                        Ext.getStore('Settings').getAt(0).set(valor);
+                                        Ext.getStore('Settings').sync();
+                                        idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                        Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                        Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                        Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                        Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                        Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                        Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                        Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                        Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                        Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                        Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                        Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                        Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                        Ext.MessageBox.override({
+                                            confirm: function(title, message, fn, scope) {
+                                            return this.show({
+                                                title       : title || null,
+                                                message     : message || null,
+                                                buttons     : [
+                                                {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                                {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                            ],
+                                                promptConfig: false,
+                                                scope       : scope,
+                                                fn: function() {
+                                                    if (fn) {
+                                                        fn.apply(scope, arguments);
+                                                    }
                                                 }
-                                            }
-                                        });
-                                    }
+                                            });
+                                        }
+                                    });
+                                    panel_language.hide();
+                                   }
+                            },
+                            {
+                                   element: 'element',
+                                   delegate: '#menu-castellano',
+                                   event: 'tap',
+                                   fn: function() {
+                                    var valor = { id_setting: '1', lang: '4'};
+                                    Ext.getStore('Settings').getAt(0).set(valor);
+                                    Ext.getStore('Settings').sync();
+                                    idioma = Ext.getStore('Settings').getAt(0).get('lang');
+                                    Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
+                                    Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
+                                    Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
+                                    Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
+                                    Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
+                                    Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
+                                    Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
+                                    Ext.getCmp('barraTab').getAt(1).setTitle(Ext.getStore('Languages').getById(idioma).get('products'));
+                                    Ext.getCmp('data_paginas').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                    Ext.getCmp('data_produtos').setEmptyText(Ext.getStore('Languages').getById(idioma).get('favorites_empty'));
+                                    Ext.getCmp('search').setEmptyText(Ext.getStore('Languages').getById(idioma).get('products_empty'));
+                                    Ext.getCmp('searchBox').setPlaceHolder(Ext.getStore('Languages').getById(idioma).get('search'));
+                                    Ext.MessageBox.override({
+                                            confirm: function(title, message, fn, scope) {
+                                            return this.show({
+                                                title       : title || null,
+                                                message     : message || null,
+                                                buttons     : [
+                                                {text: Ext.getStore('Languages').getById(idioma).get('no'),  itemId: 'no'},
+                                                {text: Ext.getStore('Languages').getById(idioma).get('yes'), itemId: 'yes', ui: 'action'}
+                                            ],
+                                                promptConfig: false,
+                                                scope       : scope,
+                                                fn: function() {
+                                                    if (fn) {
+                                                        fn.apply(scope, arguments);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    });
+                                    panel_language.hide();
+                                   }
+                                }
+                                ]
                                 });
-                                panel_language.hide();
-                                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
-                               }
-                           }
-                            ]
-                            });
-                            //show the panel
-                            panel_language.show();
-                            panel_language.on('hide', function() {
-                                panel_language.destroy();
-            
-                            });   
-                            panel_menu.hide();        
-                                   
-                                    }
-                                },
-                                {
+                                panel_language.show();
+                                panel_language.on('hide', function() {
+                                    panel_language.destroy();
+                                });   
+                                panel_menu.hide();        
+                                }
+                            },
+                            {
                                     element: 'element',
                                     delegate: '#menu-help',
                                     event: 'tap',
@@ -3191,8 +2597,6 @@ Ext.define('Italbox.ViewportPanel', {
                                      Ext.getCmp('italbox').hide();
                                      Ext.getCmp('favorites').hide();
                                      Ext.getCmp('search').hide();
-                                     /*Ext.getCmp('myList').hide();
-                                     Ext.getCmp('myList').hide();*/
                                      Ext.getCmp('back').show();
                                      Ext.getCmp('help').show();
                                      panel_menu.hide();
@@ -3200,15 +2604,11 @@ Ext.define('Italbox.ViewportPanel', {
                                 }
                             ]
                         });
-                        //show the panel
                         panel_menu.show();
                         panel_menu.on('hide', function() {
                             panel_menu.destroy();
-
                         });
-                    
-        }, 
-        
+                    }, 
                 },
                 {
                     align: 'right',
@@ -3217,44 +2617,28 @@ Ext.define('Italbox.ViewportPanel', {
                     cls: 'open-menu2 icon-pesquisa',
                     handler: function () {
                        if (connect === 1) {
-                            //Ext.getCmp('back').hide();
                             Ext.getCmp('menuI').hide();
                             Ext.getCmp('myList').hide();
                             Ext.getCmp('myCarroucel').hide();
                             Ext.getCmp('italbox').hide();
-                            //Ext.getCmp('search').hide();
                             Ext.getCmp('help').hide();
                             Ext.getCmp('favorites').hide();
                             Ext.getCmp('barra2').hide();
                             Ext.getCmp('footer').hide();
                             Ext.getCmp('open-menu4').hide();
                             Ext.getCmp('barra5').hide();
-                            //Ext.getCmp('barra').show();
                             Ext.getCmp('back').show();
                             Ext.getCmp('search').show();
                         }
                         else{
                             Ext.Msg.alert('Offline', Ext.getStore('Languages').getById(idioma).get('offline_search'), Ext.emptyFn);
                         }
-                        
-              /* Ext.Msg.confirm(
-            "Update",
-            "Update Catalog List?",
-            function(buttonId) {
-                if (buttonId === 'yes') {
-                    //window.location.reload();
-                    window.location.href=window.location.href;
-                }
-            }
-        );  */
-        }, // handler
-        //renderTo: Ext.getBody()
+                    }, 
                 }
             ]
         },
         {
             xtype: 'toolbar',
-            //title: '<div class="logotipo"></div>',
             id: 'barra2',
             cls: 'header2',
             docked: 'top',
@@ -3282,41 +2666,24 @@ Ext.define('Italbox.ViewportPanel', {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
-                   /* text: 'teste',*/
                     cls: 'open-menu3 icon-baixo',
-                    //hidden: true,
                     handler: function () {
                     Ext.getCmp('barra2').hide();
                     Ext.getCmp('barra').show();
                     }
                 },
-        //        {
-        //            align: 'center', 
-        //            ui:    'plain',
-        //            xtype: 'button',
-        //            id: 'teste',
-        //            cls: 'open-menu3',
-        //            //hidden: true,
-        //            handler: function () {
-        //            Ext.getCmp('barra2').hide();
-        //            Ext.getCmp('barra').show();
-        //           
-        //}, // handler
-        //////renderTo: Ext.getBody()
-                //}
            ]    
         },
         {
             xtype: 'toolbar',
-            //title: '<div class="logotipo"></div>',
             id: 'footer',
             cls: 'foot',
             docked: 'bottom',
             hidden: true,
-              layout: {
+                layout: {
                     type: 'hbox',
                     pack: 'center'
-                    },
+                },
                 showAnimation:  
                 {
                     type: 'slideIn',
@@ -3332,20 +2699,15 @@ Ext.define('Italbox.ViewportPanel', {
                     easing: 'easeOut'
                 }, 
             items: [
-              {
+            {
                     align: 'center', 
                     ui:    'plain',
                     xtype: 'button',
                     text: 'Produtos 0',
-                    //textAlign: 'right !important',
                     cls: 'open-menu4',
                     id: 'open-menu4',
-                    //align: 'bottom',
-                    //hidden: true,
                     handler: function () {
-                       
                        if (contador > 0) { 
-                           
                         Ext.getCmp('footer').hide();
                         Ext.getCmp('barra5').hide();
                          if( typeof panel1 !== 'undefined' ) {
@@ -3357,74 +2719,46 @@ Ext.define('Italbox.ViewportPanel', {
                         cls: 'menu3',
                         top: 'auto !important',
                         modal: true,
-                        /*{
-                                style: 'opacity: 0.6; background-color: #ffffff;'
-                        },*/
-                         /*floating: true,*/
-                         //modal: true,
-                          hideOnMaskTap: true,
-                        /*height: '150px',*/
-                         /*hidden: true,*/
-                        //docked: 'bottom',
-                        
+                        hideOnMaskTap: true,
                         showAnimation:  
-                {
-                    type: 'slideIn',
-                    duration: 1000,
-                    direction: 'up',
-                    easing: 'easeIn'
-                },  
-                hideAnimation: 
-                {
-                    type: 'slideOut',
-                    duration: 1000,
-                    direction: 'down',
-                    easing: 'easeOut'
-                }, 
-                //layout: {
-                //   type:'vbox',
-                //    align:'bottom',
-                //    docked:'bottom'
-                ////    height: '100px',
-                ////    text: 'teste',
-                ////    //text-align: 'center',
-                //},
-                items     : [
-                     {
-                        xtype: 'toolbar',
-                        //title: '<div class="logotipo"></div>',
-                        /*id: 'barra2',*/
-                        cls: 'header4',
-                        docked: 'top',
-                        /*hidden: true,*/
-                        layout: {
-                                type: 'hbox',
-                                pack: 'center'
-                        },
-                       
+                        {
+                            type: 'slideIn',
+                            duration: 1000,
+                            direction: 'up',
+                            easing: 'easeIn'
+                        },  
+                        hideAnimation: 
+                        {
+                            type: 'slideOut',
+                            duration: 1000,
+                            direction: 'down',
+                            easing: 'easeOut'
+                        }, 
                         items: [
-                            {
-                           // align: 'right', 
-                            ui:    'plain',
-                            xtype: 'button',
-                            cls: 'close-menu4',
-                            text:  '<span style="text-align:center; padding-left: 25px; line-height: 2;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</span><span style="text-align:right; float:right;"><i class="icon-baixo2"></i></span>',
-                            //hidden: true,
-                            handler: function () {
-                             //   Ext.getCmp('pop-image').hide();
-                                panel1.hide();
-                                }
-                            },
-                        ]    
-                    },
+                        {
+                           xtype: 'toolbar',
+                           cls: 'header4',
+                           docked: 'top',
+                           layout: {
+                                   type: 'hbox',
+                                   pack: 'center'
+                           },
+                           items: [
+                               {
+                               ui:    'plain',
+                               xtype: 'button',
+                               cls: 'close-menu4',
+                               text:  '<span style="text-align:center; padding-left: 25px; line-height: 2;">'+Ext.getStore('Languages').getById(idioma).get('product')+' '+contador+'</span><span style="text-align:right; float:right;"><i class="icon-baixo2"></i></span>',
+                               handler: function () {
+                                   panel1.hide();
+                                   }
+                               },
+                           ]    
+                        },
                    {   
-                //give it an xtype of list for the list component
                    xtype: 'dataview',
                    height: '100px',
                    cls: 'lista2',
-                   //cls: 'menu3',
-                   //margin: '50px 0 0 0', 
-                   //flex: 1,
                    scrollable: {
                        direction: 'horizontal',
                        indicators: false
@@ -3432,25 +2766,12 @@ Ext.define('Italbox.ViewportPanel', {
                    inline: {
                        wrap: false
                    },
-
-                   //set the itemtpl to show the fields for the store
                     store: {
                        fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','foto','id','id_produto', 'lastModified','nome','pagina_id','priority','produto_id','ref'],
                        data: $.grep(tprodutos_paginas, function(e) { return e.pagina_id ==  idpagina })
-                     //  [{
-                     //      capa: 'imgs/produto1.jpg',
-                     //      cor: 'azul',
-                     //      nome: 'Produto 1'
-                     //  }, {
-                     //      capa: 'imgs/produto2.jpg',
-                     //      cor: 'azul',
-                     //      nome: 'Produto 2'
-                     //  },
-                     //]
                    },
                    itemTpl: '<img style="margin-right:10px;margin-top:10px; height:75px;" src="'+caminho2+'{foto}">',
-                    //itemTpl: new Ext.XTemplate('<img style="margin-right:10px; height:75px;" src="{capa}">'),
-                   //itemTpl: '<img src="{capa}" class="capa"><div class="texto-capa">{nome}</div>',
+                  
                    listeners: {
                         itemtap: function(list, index, target, record)
                         {
@@ -3459,361 +2780,243 @@ Ext.define('Italbox.ViewportPanel', {
                             }
                             panel2 = Ext.Viewport.add({ 
                                 xtype: 'container',
-                                /*height: '70%',*/
                                 id: 'pop-image',
                                 cls: 'pop-image',
-                                /*modal: {
-                                    style: 'opacity: 0; background-color: #ffffff;'
-                                },*/
                                 float: true,
-                                // modal: true,
-                                showAnimation: 
-                                {
-                                    type: 'pop',
-                                    duration: 300,
-                                    //direction: 'up',
-                                    //easing: 'easeOut'
-                                },  
-                                //hideAnimation: 
-                                //{
-                                //    type: 'popOut',
-                                //    duration: 300,
-                                //    //direction: 'down',
-                                //    //easing: 'easeIn'
-                                //},
-                                layout : {
-                                    type : 'vbox',
-                                     /*align: 'left'*/
-                                    },
-                                items: [
-                                     {
-            xtype: 'toolbar',
-            //title: '<div class="logotipo"></div>',
-            //id: 'barra5',
-            cls: 'right_bar2',
-            docked: 'right',
-            //hidden: true,
-            layout: {
-                    type: 'vbox',
-                    pack: 'center',
-                    //align: 'middle'
-            },
-            //showAnimation:  
-            //    {
-            //        type: 'slideIn',
-            //        duration: 1000,
-            //        direction: 'left',
-            //        easing: 'easeIn'
-            //    },  
-            //    hideAnimation: 
-            //    {
-            //        type: 'slideOut',
-            //        duration: 1000,
-            //        direction: 'right',
-            //        easing: 'easeOut'
-            //    }, 
-            items: [
-              {
-                    /*align: 'middle',*/ 
-                    ui:    'plain',
-                    xtype: 'button',
-                   /* text: 'teste',*/
-                    cls: 'open-menu9 icon-star-catalogos-white',
-                    handler: function () {
-                       // alert('teste');
-                       //var carr = Ext.getCmp('myCarroucel');
-                       //var loja2 = Ext.getStore('Favorites2');
-                       Ext.getStore('Favorites2').load();
-                        //fields: ['id_produto','nome','descricao','foto','ref','id_catalogo','id_pagina', 'estado','lastModified'],
-                       var newRecord2 = {nome: record.get('nome') ,descricao_1: record.get('descricao_1'),descricao_2: record.get('descricao_2'), descricao_3: record.get('descricao_3'), descricao_4: record.get('descricao_4') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_produto: record.get('id_produto'),id_pagina: record.get('pagina_id')};
-                       ////console.dir(newRecord);
-                       Ext.getStore('Favorites2').add(newRecord2);
-                       Ext.getStore('Favorites2').sync();
-                       
-                       
-                        Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_product'), Ext.emptyFn);
-                       /* Ext.Msg.show({
-                            title: '',
-                            message: 'Produto adicionado aos favoritos',
-                            cls: 'myBox',
-                            zIndex: '20 !important',
-                            modal: true,
-                            buttons: [
-                            { text : 'Ok', ui : 'confirm' }
-                            ],
-                        });*/
-                        
-                        
-                       //console.dir(msgb);
-                       //Ext.Msg.alert('', 'Produto adicionado aos favoritos', Ext.emptyFn);
-                       
-                    }
-                },
-                {
-                    /*align: 'middle',*/ 
-                    ui:    'plain',
-                    xtype: 'button',
-                   /* text: 'teste',*/
-                    cls: 'open-menu8 icon-lista-white',
-                    handler: function () {
-                       
-                    }
-                },
-                 {
-                    /*align: 'middle',*/ 
-                    ui:    'plain',
-                    xtype: 'button',
-                   /* text: 'teste',*/
-                    cls: 'open-menu10 icon-partilha-white',
-                    handler: function () {
-                       window.plugins.socialsharing.share(Ext.getStore('Languages').getById(idioma).get('share_product_text')+nomec+Ext.getStore('Languages').getById(idioma).get('share_product_text2'), null, caminho+record.get('foto'), null);
-                    }
-                },
-        ]
-        },
-        {
-            xtype: 'toolbar',
-            //title: '<div class="logotipo"></div>',
-            /*id: 'barra2',*/
-            cls: 'header3',
-            /*docked: 'top',*/
-            /*hidden: true,*/
-            layout: {
-                    type: 'hbox',
-                    pack: 'right'
-            },
-           
-            items: [
-                {
-                align: 'right', 
-                ui:    'plain',
-                xtype: 'button',
-                cls: 'close icon-close',
-                //hidden: true,
-                handler: function () {
-                     panel2.hide();
-                    }
-                },
-            ]    
-        },
-        {
-            html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'">'+
-                    '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+
-                    '<br/>Ref '+record.get('ref')+
-                    '<br/>'+record.get('descricao_'+idioma)+'</div>'
-        },
-    ],
-    listeners: [
-    {
-        element: 'element',
-        delegate: '#btn-extras',
-        event: 'tap',
-        fn: function() {
-         panel_extras = Ext.Viewport.add({
-            xtype : 'tabpanel',
-            id:'extras',
-            cls: 'lista-extras',
-            float: true,
-            // modal: true,
-            /*showAnimation: 
-            {
-                type: 'pop',
-                duration: 300,
-            }, */
-            tabBar:    {
-                cls: 'barraTab2',
-                hidden: true,
-            },
-            items: [
-            {
-                xtype: 'toolbar',
-                //title: "Title",
-                docked: 'top',
-                cls: 'barraPaginas',
-                items: [
-                    {
-                        xtype: 'button',
-                        ui: 'plain',
-                        cls: 'back icon-back',
-                        handler: function () {
-                            panel_extras.hide();
-                        }
-                    }
-                ]
-            },
-            {
-                title: '',
-                layout : 'fit',
-                cls: 'tabPaginas',
-                //next we give it some simple html
-                items: [
-                {
-                    xtype: 'dataview',
-                    cls: 'favoritos',
-                    flex: 1,
-                    scrollable: {
-                        direction: 'vertical',
-                        //indicators: false
-                    },
-                    inline: {
-                        wrap: true
-                    },
-                     store: 
-                     {
-                        fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','extra_id','foto','id','id_extra','lastModified','nome','priority','produto_id','ref'],
-                        data: $.grep(textras_produtos, function(e) { return e.produto_id ==  record.get('id_produto')})
-                     },
-                    
-                    itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
-                    
-                    listeners: {
-                        itemtap: function(list, index, target, record,e) {
-                            panel_extra = Ext.Viewport.add({ 
-                                xtype: 'container',
-                                /*height: '70%',*/
-                                id: 'extra',
-                                cls: 'pop-produto',
-                                /*modal: {
-                                    style: 'opacity: 0; background-color: #ffffff;'
-                                },*/
-                                float: true,
-                                // modal: true,
                                 showAnimation: 
                                 {
                                     type: 'pop',
                                     duration: 300,
                                 },  
-                                //hideAnimation: 
-                                //{
-                                //    type: 'popOut',
-                                //    duration: 300,
-                                //    //direction: 'down',
-                                //    //easing: 'easeIn'
-                                //},
                                 layout : {
                                     type : 'vbox',
-                                     /*align: 'left'*/
                                 },
                                 items: [
-                                    {
-                                        xtype: 'toolbar',
-                                        //title: '<div class="logotipo"></div>',
-                                        /*id: 'barra2',*/
-                                        cls: 'header3',
-                                        /*docked: 'top',*/
-                                        /*hidden: true,*/
-                                        layout: {
-                                                type: 'hbox',
-                                                pack: 'right'
+                                {
+                                xtype: 'toolbar',
+                                cls: 'right_bar2',
+                                docked: 'right',
+                                layout: {
+                                        type: 'vbox',
+                                        pack: 'center',
+                                },
+                                items: [
+                                {
+                                      ui:    'plain',
+                                      xtype: 'button',
+                                      cls: 'open-menu9 icon-star-catalogos-white',
+                                      handler: function () {
+                                         Ext.getStore('Favorites2').load();
+                                         var newRecord2 = {nome: record.get('nome') ,descricao_1: record.get('descricao_1'),descricao_2: record.get('descricao_2'), descricao_3: record.get('descricao_3'), descricao_4: record.get('descricao_4') , foto: caminho+record.get('foto'), thumb: caminho2+record.get('foto'), ref: record.get('ref'), id_produto: record.get('id_produto'),id_pagina: record.get('pagina_id')};
+                                         Ext.getStore('Favorites2').add(newRecord2);
+                                         Ext.getStore('Favorites2').sync();
+                                          Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_product'), Ext.emptyFn);
+                                         
+                                      }
+                                  },
+                                  /*{
+                                      ui:    'plain',
+                                      xtype: 'button',
+                                      cls: 'open-menu8 icon-lista-white',
+                                      handler: function () {
+                                       /////////////////////////////////////////////////////////////////////////////////////////  
+                                      }
+                                  },*/
+                                  {
+                                      ui:    'plain',
+                                      xtype: 'button',
+                                      cls: 'open-menu10 icon-partilha-white',
+                                      handler: function () {
+                                         window.plugins.socialsharing.share(Ext.getStore('Languages').getById(idioma).get('share_product_text')+nomec+Ext.getStore('Languages').getById(idioma).get('share_product_text2'), null, caminho+record.get('foto'), null);
+                                      }
+                                  },
+                                ]
+                                },
+                                {
+                                    xtype: 'toolbar',
+                                    cls: 'header3',
+                                    layout: {
+                                            type: 'hbox',
+                                            pack: 'right'
+                                    },
+                                    items: [
+                                        {
+                                        align: 'right', 
+                                        ui:    'plain',
+                                        xtype: 'button',
+                                        cls: 'close icon-close',
+                                        handler: function () {
+                                             panel2.hide();
+                                            }
                                         },
-                                       
-                                        items: [
-                                            {
-                                            align: 'right', 
-                                            ui:    'plain',
-                                            xtype: 'button',
-                                            cls: 'close icon-close',
-                                            //hidden: true,
-                                            handler: function () {
-                                                 panel_extra.hide();
-                                                /*panel2.destroy();*/
-                                                }
-                                            },
-                                        ]    
-                                    },
-                                    {
-                                        html  : '<div class="pop-up">'+
-                                        '<img src="'+caminho+record.get('foto')+'">'+
-                                        '<br\>'+record.get('nome')+'<br/>'+
-                                        'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
-                                    },
+                                    ]    
+                                },
+                                {
+                                    html  : '<div class="pop-up"><img src="'+caminho+record.get('foto')+'">'+
+                                            '<br/><div class="btn-extras" id="btn-extras">EXTRAS</div>'+record.get('nome')+
+                                            '<br/>Ref '+record.get('ref')+
+                                            '<br/>'+record.get('descricao_'+idioma)+'</div>'
+                                },
                                 ],
-                               
+                                listeners: [
+                                {
+                                    element: 'element',
+                                    delegate: '#btn-extras',
+                                    event: 'tap',
+                                    fn: function() {
+                                     panel_extras = Ext.Viewport.add({
+                                        xtype : 'tabpanel',
+                                        id:'extras',
+                                        cls: 'lista-extras',
+                                        float: true,
+                                        tabBar:    {
+                                            cls: 'barraTab2',
+                                            hidden: true,
+                                        },
+                                        items: [
+                                        {
+                                            xtype: 'toolbar',
+                                            docked: 'top',
+                                            cls: 'barraPaginas',
+                                            items: [
+                                                {
+                                                    xtype: 'button',
+                                                    ui: 'plain',
+                                                    cls: 'back icon-back',
+                                                    handler: function () {
+                                                        panel_extras.hide();
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            title: '',
+                                            layout : 'fit',
+                                            cls: 'tabPaginas',
+                                            items: [
+                                            {
+                                                xtype: 'dataview',
+                                                cls: 'favoritos',
+                                                flex: 1,
+                                                scrollable: {
+                                                    direction: 'vertical',
+                                                },
+                                                inline: {
+                                                    wrap: true
+                                                },
+                                                 store: 
+                                                 {
+                                                    fields: ['descricao_1','descricao_2','descricao_3','descricao_4','estado','extra_id','foto','id','id_extra','lastModified','nome','priority','produto_id','ref'],
+                                                    data: $.grep(textras_produtos, function(e) { return e.produto_id ==  record.get('id_produto')})
+                                                 },
+                                                
+                                                itemTpl: '<img src="'+caminho2+'{foto}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:10px;">{nome}</div>',
+                                                
+                                                listeners: {
+                                                    itemtap: function(list, index, target, record,e) {
+                                                        panel_extra = Ext.Viewport.add({ 
+                                                            xtype: 'container',
+                                                            id: 'extra',
+                                                            cls: 'pop-produto',
+                                                            float: true,
+                                                            showAnimation: 
+                                                            {
+                                                                type: 'pop',
+                                                                duration: 300,
+                                                            },  
+                                                            layout : {
+                                                                type : 'vbox',
+                                                            },
+                                                            items: [
+                                                                {
+                                                                    xtype: 'toolbar',
+                                                                    cls: 'header3',
+                                                                    layout: {
+                                                                            type: 'hbox',
+                                                                            pack: 'right'
+                                                                    },
+                                                                   
+                                                                    items: [
+                                                                        {
+                                                                        align: 'right', 
+                                                                        ui:    'plain',
+                                                                        xtype: 'button',
+                                                                        cls: 'close icon-close',
+                                                                        handler: function () {
+                                                                             panel_extra.hide();
+                                                                            }
+                                                                        },
+                                                                    ]    
+                                                                },
+                                                                {
+                                                                    html  : '<div class="pop-up">'+
+                                                                    '<img src="'+caminho+record.get('foto')+'">'+
+                                                                    '<br\>'+record.get('nome')+'<br/>'+
+                                                                    'Ref '+record.get('ref')+'<br/>'+record.get('descricao_'+idioma)+'</div>'
+                                                                },
+                                                            ],
+                                                           
+                                                        });
+                                                    panel_extra.show();
+                                                    panel_extra.on('hide', function() {
+                                                       panel_extra.destroy();
+                                                    });
+                                                        
+                                                    }
+                                                }
+                                            }
+                                            ], 
+                                        }, 
+                                        ],       
+                                        });
+                                        panel_extras.show();
+                                        panel_extras.on('hide', function() {
+                                           panel_extras.destroy();
+                                        });
+                                    }
+                                },
+                                ]
                             });
-                        //show the panel
-                        panel_extra.show();
-                        panel_extra.on('hide', function() {
-                           panel_extra.destroy();
-                        });
-                            
-                        }
-                    }
-                }
-                ], 
-            }, 
-            ],       
-            });
-            //show the panel
-            panel_extras.show();
-            panel_extras.on('hide', function() {
-               panel_extras.destroy();
-            });
-        }
-    },
-    ]
-                            });
-                        //show the panel
                         panel2.show();
                         panel2.on('hide', function() {
                            panel2.destroy();
                         });
                         },
-                        //hide : function() {
-                        //        Ext.getCmp('pop-image').destroy();
-                        //}
-                   },
-                }
-                           ],
-                 initialize: function() {
-                                    this.callParent(arguments);
-                                // Destroy this component when it is hidden, but only after
-                                // the hide animation has ended.
-                                this.getHideAnimation().on({
-                                    animationend: this.destroy,
-                                    scope: this
-                                });
-                                }
+                    },
+                    }
+                    ],
+                    initialize: function() {
+                        this.callParent(arguments);
+                        this.getHideAnimation().on({
+                            animationend: this.destroy,
+                            scope: this
+                        });
+                    }
                     });
-                       panel1.show();
-                       panel1.on('hide', function() {
-                        //var lista = Ext.getCmp('myList');
+                    panel1.show();
+                    panel1.on('hide', function() {
                         if(Ext.getCmp('myList')._hidden === true)
                         {
-                         Ext.getCmp('footer').show();
-                         Ext.getCmp('barra5').show();
+                            Ext.getCmp('footer').show();
+                            Ext.getCmp('barra5').show();
                         }
-                         try
-                         {
+                        try
+                        {
                             Ext.getCmp('pop-image').destroy();
-                         }
-                         catch(e){}
-                         panel1.destroy();
+                        }
+                        catch(e){}
+                        panel1.destroy();
                     });
                     } 
                     else{
                          Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_products'), Ext.emptyFn);
                     }
-                               }
-                           },
-        //        {
-        //            align: 'center', 
-        //            ui:    'plain',
-        //            xtype: 'button',
-        //            id: 'teste',
-        //            cls: 'open-menu3',
-        //            //hidden: true,
-        //            handler: function () {
-        //            Ext.getCmp('barra2').hide();
-        //            Ext.getCmp('barra').show();
-        //           
-        //}, // handler
-        //////renderTo: Ext.getBody()
-                //}
-           ]    
+                    }
+            },
+            ]    
         },
         {
             xtype: 'toolbar',
-            //title: '<div class="logotipo"></div>',
             id: 'barra5',
             cls: 'right_bar',
             docked: 'right',
@@ -3821,7 +3024,6 @@ Ext.define('Italbox.ViewportPanel', {
             layout: {
                     type: 'vbox',
                     pack: 'center',
-                    //align: 'middle'
             },
             showAnimation:  
                 {
@@ -3838,166 +3040,141 @@ Ext.define('Italbox.ViewportPanel', {
                     easing: 'easeOut'
                 }, 
             items: [
-              {
-                    /*align: 'middle',*/ 
+            {
                     ui:    'plain',
                     xtype: 'button',
-                   /* text: 'teste',*/
                     cls: 'open-menu5 icon-star-catalogos',
                     handler: function () {
                         if (Ext.getCmp('myCarroucel').getItems().length == 0) {
                              Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
                         }
                         else{
-                            //var carr = Ext.getCmp('myCarroucel');
-                            //var loja = Ext.getStore('Favorites');
                             Ext.getStore('Favorites').load();
-                            //alert(idpagina+' '+idcatalogo+' '+numero+' '+ source);
                             var newRecord = {imag: thumb ,nome: 'Cat. '+idcatalogo+' Pag. '+numero , id_pagina: ''+idpagina+'', id_catalogo: idcatalogo,numero: numero};
-                            //console.dir(newRecord);
                             Ext.getStore('Favorites').add(newRecord);
                             Ext.getStore('Favorites').sync();
                             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('add_page'), Ext.emptyFn);
                        }
                     }
-                },
+            },
+            {
+              ui:    'plain',
+              xtype: 'button',
+              cls: 'open-menu6 icon-lista',
+              handler: function () {
+                  if (Ext.getCmp('myCarroucel').getItems().length == 0) {
+                       Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
+                  }
+                  else{
+                  panel_paginas = Ext.Viewport.add({
+                  xtype : 'tabpanel',
+                  id:'listaPag',
+                  cls: 'pop-produto',
+                  float: true,
+                  tabBar:    {
+                      cls: 'barraTab2',
+                      hidden: true,
+                  },
+                  items: [
                   {
-                    /*align: 'middle',*/ 
-                    ui:    'plain',
-                    xtype: 'button',
-                   /* text: 'teste',*/
-                    cls: 'open-menu6 icon-lista',
-                    handler: function () {
-                        if (Ext.getCmp('myCarroucel').getItems().length == 0) {
-                             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
-                        }
-                        else{
-                        panel_paginas = Ext.Viewport.add({
-                        xtype : 'tabpanel',
-                        id:'listaPag',
-                        cls: 'pop-produto',
-                        float: true,
-                        // modal: true,
-                        /*showAnimation: 
-                        {
-                            type: 'pop',
-                            duration: 300,
-                        }, */
-                        tabBar:    {
-                            cls: 'barraTab2',
-                            hidden: true,
-                        },
-                        items: [
-                        {
-                            xtype: 'toolbar',
-                            //title: "Title",
-                            docked: 'top',
-                            cls: 'barraPaginas',
-                            items: [
-                                {
-                                    xtype: 'button',
-                                    ui: 'plain',
-                                    cls: 'back icon-back',
-                                    handler: function () {
-                                        panel_paginas.hide();
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            title: Ext.getStore('Languages').getById(idioma).get('pages'),
-                            layout : 'fit',
-                            cls: 'tabPaginas',
-                            //next we give it some simple html
-                            items: [
-                            {
-                            xtype: 'dataview',
-                            cls: 'favoritos',
-                            flex: 1,
-                            scrollable: {
-                                direction: 'vertical',
-                                //indicators: false
-                            },
-                            inline: {
-                                wrap: true
-                            },
-                             store: 
-                             {
-                                fields: ['id_catalogo','id_pagina','imageSrc','numero','share','thumb','xtype'],
-                                data:  $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo })
-                             },
-                            
-                            itemTpl: '<img src="{thumb}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:12px;">Pag. {numero}</div>',
-                            
-                            listeners: {
-                                itemtap: function(list, index, target, record,e) {
-                                     Ext.Msg.confirm(
-                                    "",
-                                    Ext.getStore('Languages').getById(idioma).get('open_page')+' '+record.get('numero')+"?",
-                                    function(buttonId) {
-                                    if (buttonId === 'yes') {
-                                     if (Ext.Viewport.getOrientation() === 'portrait') {
-                                         Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
-                                     }
-                                     else{
-                                         Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
-                                     }
-                                        panel_paginas.hide();
-                                    }});
-                                }
-                            }
-                            }
-                            ],
-                            
-                        },
-                           
-                        ],       
-                        });
-                        //show the panel
-                        panel_paginas.show();
-                        panel_paginas.on('hide', function() {
-                           panel_paginas.destroy();
-                        });
-                        }
+                      xtype: 'toolbar',
+                      docked: 'top',
+                      cls: 'barraPaginas',
+                      items: [
+                          {
+                              xtype: 'button',
+                              ui: 'plain',
+                              cls: 'back icon-back',
+                              handler: function () {
+                                  panel_paginas.hide();
+                              }
+                          }
+                      ]
+                  },
+                  {
+                      title: Ext.getStore('Languages').getById(idioma).get('pages'),
+                      layout : 'fit',
+                      cls: 'tabPaginas',
+                      items: [
+                      {
+                      xtype: 'dataview',
+                      cls: 'favoritos',
+                      flex: 1,
+                      scrollable: {
+                          direction: 'vertical',
+                      },
+                      inline: {
+                          wrap: true
+                      },
+                       store: 
+                       {
+                          fields: ['id_catalogo','id_pagina','imageSrc','numero','share','thumb','xtype'],
+                          data:  $.grep(tpaginas, function(e) { return e.id_catalogo == idcatalogo })
+                       },
+                      
+                      itemTpl: '<img src="{thumb}" style="width:130px; margin:10px 10px 0 10px;"></img><div style="text-align: center; font-size:12px;">Pag. {numero}</div>',
+                      
+                      listeners: {
+                          itemtap: function(list, index, target, record,e) {
+                               Ext.Msg.confirm(
+                              "",
+                              Ext.getStore('Languages').getById(idioma).get('open_page')+' '+record.get('numero')+"?",
+                              function(buttonId) {
+                              if (buttonId === 'yes') {
+                               if (Ext.Viewport.getOrientation() === 'portrait') {
+                                   Ext.getCmp('myCarroucel').setActiveItem((record.get('numero')*2)-3);
+                               }
+                               else{
+                                   Ext.getCmp('myCarroucel').setActiveItem(record.get('numero')-1);
+                               }
+                                  panel_paginas.hide();
+                              }});
+                          }
+                      }
+                      }
+                      ],
+                  },
+                  ],       
+                  });
+                  panel_paginas.show();
+                  panel_paginas.on('hide', function() {
+                     panel_paginas.destroy();
+                  });
+                  }
+              }
+            },
+            {
+                ui: 'plain',
+                xtype: 'button',
+                cls: 'open-menu7 icon-partilha',
+                handler: function () {
+                    if (Ext.getCmp('myCarroucel').getItems().length == 0) {
+                         Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
                     }
-                },
-                 {
-                    /*align: 'middle',*/ 
-                    ui:    'plain',
-                    xtype: 'button',
-                   /* text: 'teste',*/
-                    cls: 'open-menu7 icon-partilha',
-                    handler: function () {
-                        if (Ext.getCmp('myCarroucel').getItems().length == 0) {
-                             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('no_pages'), Ext.emptyFn);
-                        }
-                        else{
-                            //window.plugins.socialsharing.share('Message only');
-                            window.plugins.socialsharing.share(Ext.getStore('Languages').getById(idioma).get('share_page_text')+nomec+Ext.getStore('Languages').getById(idioma).get('share_page_text2'), null, share, null);                          
-                            //alert('Catalogo '+idcatalogo+' Pagina '+numero+' '+source);
-                        }
+                    else{
+                        window.plugins.socialsharing.share(Ext.getStore('Languages').getById(idioma).get('share_page_text')+nomec+Ext.getStore('Languages').getById(idioma).get('share_page_text2'), null, share, null);                          
                     }
-                },
+                }
+            },
         ]
         },
         {
             xtype: 'my-viewport',
             hidden: true,
             id: 'myList',
-            //hidden: true,
         },
-         {
+        {
             xtype: 'my-viewport2',
             hidden: true,
             id: 'myCarroucel'
         },
-         {
+        {
             xtype: 'my-viewport3',
             hidden: true,
             id: 'italbox',
             cls: 'about',
         },
-         {
+        {
             xtype: 'my-viewport4',
             hidden: true,
             id: 'help',
@@ -4014,22 +3191,11 @@ Ext.define('Italbox.ViewportPanel', {
             id: 'search',
             cls: 'pesquisa',
         },
-         {
+        {
             xtype: 'my-viewport7',
-            //hidden: true,
             id: 'menuI',
             cls: 'menuI',
         },
-        //{
-        //    xtype: 'panel',
-        //    id: 'myList2',
-        //    cls: 'menu3',
-        //    height: '150px',
-        //    hidden: true,
-        //    docked: 'bottom',
-        //    
-        //},
-       
         ]
     }
 });
@@ -4079,8 +3245,6 @@ Ext.application({
     tabletStartupScreen: 'resources/startup/italboxStartUp.jpg',
     
     launch: function() {
-        
-        // Destroy the #appLoadingIndicator element
         Ext.fly('loading').destroy();
     
         Ext.Viewport.add({
@@ -4091,11 +3255,6 @@ Ext.application({
         
         Ext.Msg.setZIndex(20);
         
-        /*var oneMoreHotel = { id: 1, lang: '1'};
-        Ext.getStore('Settings').insert(1, oneMoreHotel);    // Use insert to add records or model instances at a given index.*/
-        //Ext.getStore('Settings').removeAt(1);
-        //var languageStore = Ext.getStore('Settings').getById(1).get('company');
-        //var idioma = languageStore.getById(1);
         try{
             var existe = Ext.getStore('Settings').getAt(0).get('lang');
         }
@@ -4124,21 +3283,13 @@ Ext.application({
                     });
                 }
             });
-             // console.dir(Ext.getCmp('barraTab'));
-             // Ext.getCmp('barraTab').getAt(0).setTitle("emoh");
         }
         else{
-            //var valor = { id_setting: '1', lang: '2'};
-            //Ext.getStore('Settings').getAt(0).set(valor);
-            //Ext.getStore('Settings').sync();
-            //alert('Existe!');
-            //console.dir(Ext.getCmp('menuI'));
             idioma = Ext.getStore('Settings').getAt(0).get('lang');
             Ext.getCmp('start-catalogos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_catalogs'));
             Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
             Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
             Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-            //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
             Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
             Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
             Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -4166,11 +3317,8 @@ Ext.application({
                     });
                 }
             });
-            //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-            //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
         }
-        //console.dir(Ext.getStore('Settings').getAt(0).get('lang'));
-        
+       
      _IS_RIPPLE_EMULATOR = $('#tinyhippos-injected').length > 0;    
         
     function onLoad() {
@@ -4186,32 +3334,18 @@ Ext.application({
          if(navigator.network.connection.type == Connection.NONE) {
 		 Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('offline'), Ext.emptyFn);
                  connect = 0;
-               //Ext.Msg.alert("", "A trabalhar em modo offline!",  function ( answer ) { 
-               //     if ( answer == 'ok') { 
-               //         navigator.app.exitApp();
-               //     } else { 
-               //    
-               //     } 
-               // }); 
 	} else {
-		//setupButtonHandler();
-                //Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
                 connect = 1;
 	}
         }
          catch(e){}
     }
- 
-    // Cordova is loaded and it is now safe to make calls Cordova methods
-    //
+
     function onDeviceReady() {
         console.log("onDeviceReady");
     }
- 
-    // Handle the online event
-    //
+
     function onOnline() {
-        //Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
         connect = 1;
     }
  
@@ -4225,12 +3359,6 @@ Ext.application({
                Ext.getCmp('extra').hide();
         }
         catch(err) {}
-        //var carr = Ext.getCmp('myCarroucel');
-        //var italbox = Ext.getCmp('italbox');
-        //var favorites = Ext.getCmp('favorites');
-        //var help = Ext.getCmp('help');
-        //var search = Ext.getCmp('search');
-        //var menuI = Ext.getCmp('menuI');
         
         if (Ext.getCmp('menuI')._hidden === false || Ext.getCmp('italbox')._hidden === false || Ext.getCmp('help')._hidden === false ) {
             Ext.Msg.alert('', Ext.getStore('Languages').getById(idioma).get('offline'), Ext.emptyFn);
@@ -4241,19 +3369,15 @@ Ext.application({
                 Ext.getStore('Languages').getById(idioma).get('offline_error'),
             function(buttonId) {
                   if (buttonId === 'ok') {
-                  //var lista = Ext.getCmp('myList');
-                //console.dir(lista);
             
             Ext.getCmp('myCarroucel').hide();
             Ext.getCmp('myCarroucel').on('hide', function() {
             Ext.getCmp('myCarroucel').removeAll(true,true);
             });
-            //carr.removeAll(true,true);
             Ext.getCmp('barra2').hide();
             Ext.getCmp('footer').hide();
             Ext.getCmp('barra5').hide();
             try {
-               //var myList2 =  Ext.getCmp('myList2');
                Ext.getCmp('myList2').hide();
                Ext.getCmp('myList').hide();
                Ext.getCmp('pop-produto').hide();
@@ -4274,8 +3398,6 @@ Ext.application({
     
     function onBackKeyDown(eve) {
             eve.preventDefault();
-            //var lista = Ext.getCmp('myList');
-            //console.dir(lista);
             try {
                 Ext.getCmp('menuP').hide();
                 Ext.getCmp('menuL').hide();
@@ -4284,12 +3406,6 @@ Ext.application({
                 Ext.getCmp('extra').hide();
             }
             catch(err) {}
-            //var carr = Ext.getCmp('myCarroucel');
-            //var italbox = Ext.getCmp('italbox');
-            //var favorites = Ext.getCmp('favorites');
-            //var help = Ext.getCmp('help');
-            //var search = Ext.getCmp('search');
-            //var menuI = Ext.getCmp('menuI');
             
             if(Ext.getCmp('myList')._hidden === false || Ext.getCmp('italbox')._hidden === false || Ext.getCmp('favorites')._hidden === false || Ext.getCmp('help')._hidden === false || Ext.getCmp('search')._hidden === false )
             {
@@ -4297,12 +3413,10 @@ Ext.application({
                 Ext.getCmp('myCarroucel').on('hide', function() {
                 Ext.getCmp('myCarroucel').removeAll(true,true);
                 });
-                //carr.removeAll(true,true);
                 Ext.getCmp('barra2').hide();
                 Ext.getCmp('footer').hide();
                 Ext.getCmp('barra5').hide();
                 try {
-                    //var myList2 =  Ext.getCmp('myList2');
                     Ext.getCmp('myList2').hide();
                     Ext.getCmp('myList').hide();
                     Ext.getCmp('pop-produto').hide();
@@ -4317,32 +3431,22 @@ Ext.application({
                 Ext.getCmp('barra').show();
                 Ext.getCmp('menuI').show();
             }
-            /*else if (menuI._hidden === false) {
-               Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
-                    if ( answer == 'yes') { 
-                        navigator.app.exitApp();
-                    } else { 
-                   
-                    } 
-                });
-            }*/
+            
             else if (Ext.getCmp('myCarroucel')._hidden === false) 
             {
                 Ext.getCmp('myCarroucel').hide();
                 Ext.getCmp('myCarroucel').on('hide', function() {
                      Ext.getCmp('myCarroucel').removeAll(true,true);
                 });
-                //carr.removeAll(true,true);
                 Ext.getCmp('barra2').hide();
                 Ext.getCmp('footer').hide();
                 Ext.getCmp('barra5').hide();
                 try {
-                    //var myList2 =  Ext.getCmp('myList2');
                     Ext.getCmp('myList2').hide();
                     Ext.getCmp('myList').hide(); 
                 }
                 catch(err) {}
-                //Ext.getCmp('back').hide();
+               
                 Ext.getCmp('italbox').hide();
                 Ext.getCmp('favorites').hide();
                 Ext.getCmp('help').hide();
@@ -4361,16 +3465,14 @@ Ext.application({
                 });
 	    }
             
-        }
+    }
+    
     function onMenuKeyDown(eve) {
             eve.preventDefault();
             var panel_menu = Ext.Viewport.add({ 
             xtype: 'container',
             id: 'menuP',
             modal: true,
-            /*{
-                style: 'opacity: 0.8; background-color: #ffffff;'
-            */
             height    : 100,
             width     : 240,
             floating  : true,                               
@@ -4422,8 +3524,6 @@ Ext.application({
                  Ext.getCmp('favorites').hide();
                  Ext.getCmp('help').hide();
                  Ext.getCmp('search').hide();
-                 /*Ext.getCmp('myList').hide();
-                 Ext.getCmp('myList').hide();*/
                  Ext.getCmp('back').show();
                  Ext.getCmp('italbox').show();
                  panel_menu.hide();
@@ -4443,8 +3543,6 @@ Ext.application({
                         Ext.getCmp('favorites').hide();
                         Ext.getCmp('help').hide();
                         Ext.getCmp('search').hide();
-                        /*Ext.getCmp('myList').hide();
-                        Ext.getCmp('myList').hide();*/
                         Ext.getCmp('back').show();
                         Ext.getCmp('myList').show();
                         panel_menu.hide();
@@ -4460,7 +3558,6 @@ Ext.application({
                 event: 'tap',
                 fn: function() {
                    if (connect === 1) {
-                        //Ext.getStore('loja').sync();
                         Ext.getCmp('menuI').hide();
                         Ext.getCmp('myCarroucel').hide();
                         Ext.getCmp('myList').hide();
@@ -4469,8 +3566,6 @@ Ext.application({
                         Ext.getCmp('italbox').hide();
                         Ext.getCmp('help').hide();
                         Ext.getCmp('search').hide();
-                        /*Ext.getCmp('myList').hide();
-                        Ext.getCmp('myList').hide();*/
                         Ext.getCmp('back').show();
                         Ext.getCmp('favorites').show();
                         panel_menu.hide();
@@ -4489,9 +3584,6 @@ Ext.application({
             xtype: 'container',
             id: 'menuL',
             modal: true,
-            /*{
-                style: 'opacity: 0.8; background-color: #ffffff;'
-            */
             height    : '230px',
             width     : '100%',
             floating  : true,                               
@@ -4542,7 +3634,6 @@ Ext.application({
                 Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
                 Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
                 Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                 Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                 Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                 Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -4571,8 +3662,6 @@ Ext.application({
                     }
                 });
                 panel_language.hide();
-                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
             }
         },
         {
@@ -4588,7 +3677,6 @@ Ext.application({
                 Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
                 Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
                 Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                 Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                 Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                 Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -4617,8 +3705,6 @@ Ext.application({
                     }
                 });
                 panel_language.hide();
-                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
             }
             },
             {
@@ -4634,7 +3720,6 @@ Ext.application({
                 Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
                 Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
                 Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                 Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                 Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                 Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -4663,8 +3748,6 @@ Ext.application({
                     }
                 });
                 panel_language.hide();
-                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
                }
            },
            {
@@ -4680,7 +3763,6 @@ Ext.application({
                 Ext.getCmp('start-favoritos').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_favorites'));
                 Ext.getCmp('start-language').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_language'));
                 Ext.getCmp('start-help').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help'));
-                //Ext.getCmp('start-help2').setStyle(Ext.getStore('Languages').getById(idioma).get('menu_help2'));
                 Ext.getCmp('italboxHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('company_html'));
                 Ext.getCmp('helpHtml').setHtml(Ext.getStore('Languages').getById(idioma).get('help_html'));
                 Ext.getCmp('barraTab').getAt(0).setTitle(Ext.getStore('Languages').getById(idioma).get('pages'));
@@ -4709,13 +3791,10 @@ Ext.application({
                     }
                 });
                 panel_language.hide();
-                //Ext.getCmp('search').setItemTpl(Ext.getStore('Languages').getById(idioma).get('search_list'));
-                //Ext.getCmp('open-menu4').setText(Ext.getStore('Languages').getById(idioma).get('product'));
                }
            }
             ]
             });
-            //show the panel
             panel_language.show();
             panel_language.on('hide', function() {
                 panel_language.destroy();
@@ -4738,8 +3817,6 @@ Ext.application({
                      Ext.getCmp('italbox').hide();
                      Ext.getCmp('favorites').hide();
                      Ext.getCmp('search').hide();
-                     /*Ext.getCmp('myList').hide();
-                     Ext.getCmp('myList').hide();*/
                      Ext.getCmp('back').show();
                      Ext.getCmp('help').show();
                      panel_menu.hide();
@@ -4747,59 +3824,13 @@ Ext.application({
                 }
             ]
         });
-        //show the panel
         panel_menu.show();
         panel_menu.on('hide', function() {
             panel_menu.destroy();
 
         });
     }
-    
     onLoad();
-    
-        //if (Ext.os.is('Android')) {
-     /*   document.addEventListener("deviceready", onDeviceReady, false);
-          // Call onDeviceReady when PhoneGap is loaded.
-  
-    
-        
-        function onDeviceReady() {
-            if(device.platform == "Android"){
-                document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);
-            }
-         document.addEventListener("online", onOnline, false);
-         document.addEventListener("offline", onOffline, false);
-        }
-        
-        function onOnline() {
-            Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
-        }
-        
-        function onOffline() {
-             Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
-            
-        }
-        
-        //document.addEventListener("backbutton", Ext.bind(onBackKeyDown, this), false);  // add back button listener
-
-        function onBackKeyDown(eve) {
-            eve.preventDefault();
-                Ext.Msg.confirm("", "Deseja Sair da Aplicação?",  function ( answer ) { 
-                    if ( answer == 'yes') { 
-                        navigator.app.exitApp();
-                    } else { 
-                   
-                    } 
-                });
-        }*/
-        //}
-        
-        //if (connect = 1) {
-        //    Ext.Msg.alert('', 'A trabalhar em modo online ', Ext.emptyFn);
-        //}
-        //else{
-        //     Ext.Msg.alert('', 'A trabalhar em modo offline ', Ext.emptyFn);
-        //}
     }
 });
 });
