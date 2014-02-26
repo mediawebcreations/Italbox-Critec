@@ -143,36 +143,36 @@ Ext.define('ItalboxCatalog.store.Languages', {
             'background-size: contain; background-position: center;',
         company_html : '<div class="italbox"><img src="imgs/company.jpg"></img><br/><font color="#b69757">COMPANY</font><br/><br/><p>ITALBOX, LDA, is a company founded in 1999 specialized in the manufacture of shower cabins being a reference in Portugal.<br/><br/> The own and unique design, the excellent dichotomy quality/price and the focus on the clients satisfactions are our identifying characteristics. Our experience and know-how allow us to find solutions desired by the clients.</br><br/> So you can meet us and the models that we produce, please consult our web-site: <font color="#b69757">www.italbox.pt</font>.<br/><br/> Beside the various ranges of the catalog products, we also produce by mesure. The various hotels which our products and solutions are applied are the recognition of our profissionalism. <br/><br/>We inform you that we are at your disposal for any further information and additional clarification throught the e-mail: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
         help_html: '<div style="margin:20px; margin-top:0px !important;">'+
-        '<font color="#b69757">HELP</font><br/><br/><p><i>Aceda  em qualquer lugar aos nossos catálogos de forma rápida e intuitiva. </i><br />'+
-        '<i>Com a  APP ITALBOX consulte todos os nossos produtos e seus detalhes. </i><br />'+
-        '<i>Escolha  e partilhe os seus favoritos.</i></p><br/><p>Precisa  de ajuda? Siga as nossas dicas aqui.</p>'+
-        '<p>Ao  abrir a aplicação o utilizador tem acesso aos menus que permitem explorar:<br /><br />'+
-        '<i class="icon-italbox"></i> – menu Italbox – o perfil da empresa<br /><i class="icon-catalogos"></i> – menu catálogos – acesso aos catálogos. <br />'+
-        '<i class="icon-star"></i> – menu Favoritos – arquivo das suas páginas e/ou produtos favoritos.<br />'+
-        '<i class="icon-mundo-catalogos"></i> – menu Language– alterar idioma </p><br /><p><font color="#b69757"><strong>Dicas de navegação</strong></font><br /><br />'+
-        'O  acesso à informação é disponibilizado através dos menus na página principal, no  entanto,'+
-        'a qualquer momento pode trocar de menu acedendo à barra superior.Esta  barra é composta por:<br /><br />'+
-        '<i class="icon-back"></i> – retroceder<br /><i class="icon-pesquisa"></i> – pesquisar<br /><i class="icon-menu"></i> – Menus<br /><br />'+
-        'Se  esta estiver ocultada toque na seta <i class="icon-baixo"></i> para a fazer reaparecer.'+
-        'O  conteúdo de cada menu é disponibilizado imediatamente abaixo desta.<br />'+
-        'Se  já sabe o nome do produto que quer consultar, pesquise através <i class="icon-pesquisa"></i>.<br /><br />'+
-        '<font color="#b69757"><strong>Consultar Catálogos</strong></font><br /><br />No  menu catálogos toque na capa do catálogo que pretende consultar.'+
-        '<a name="_GoBack" id="_GoBack"></a><br />Confirme  a acesso ao catálogo.'+
-        'De seguida navegue entre as páginas fazendo deslizar o  seu dedo para a esquerda ou para a direita.'+
-        'Para uma melhor visualização, pode  ainda aumentar e mover a imagem da página em consulta.<br />'+
-        'Na  barra inferior estão contabilizados os produtos existentes na página que está a  visualizar.'+
-        'Ao tocar na seta poderá aceder aos detalhes do produto. <br />No  lado direito do ecrã encontrará,'+
-        'ainda, as seguintes funções:<br /><br /><i class="icon-lista"></i> – Consultar páginas específicas do catálogo<br />'+
-        '<i class="icon-star-catalogos"></i> – Definir páginas e/ou produtos como favorito<br />'+
-        '<i class="icon-partilha"></i> – Partilhar páginas e/ou produtos com amigos</p><br /><p><font color="#b69757"><strong>Consultar produto</strong></font>'+
-        '<br /><br />Toque  na imagem do produto da barra inferior para ter acesso ao detalhe do mesmo.'+
-        'Para visualizar os extras do produto toque no botão EXTRAS<br />'+
-        'Retroceda  na seta <i class="icon-back"></i> para voltar ao detalhe. Para sair toque no <i class="icon-close"></i> para fechar e  continuar a consultar o catalogo.<br /><br />'+
-        '<font color="#b69757"><strong>Favoritos </strong></font><br /><br />Para  adicionar uma página e/ou produto como favorito utilize o <i class="icon-star-catalogos"></i> '+
-        'apresentado à  sua direita. É notificado o êxito desta operação.<br />'+
-        'Para  visualizar os favoritos aceda ao menu favoritos na página inicial ou na barra  superior.<br />'+
-        'Os  favoritos encontram-se divididos por páginas e produtos, para consultar toque  no separador correspondente.<br />'+
-        'Pode  ainda editar os seus favoritos, apagando páginas e/ou produtos tocando no  <i class="icon-close3"></i>.</p></div>',
+        '<font color="#b69757">HELP</font><br/><br/><p><i>Join our catalogs anywhere and in any space, by a quick and intuitive way. </i><br />'+
+        '<i>Consult all our products and all the details with the APP ITALBOX. </i><br />'+
+        '<i>Select and share your Bookmarks.</i></p><br/><p>Do you need HELP?  Follow our tips in here.</p>'+
+        '<p>When you open this application, you have access to the menus which allows you to explore all that you are looking for:<br /><br />'+
+        '<i class="icon-italbox"></i> – ITALBOX MENU – company profile<br /><i class="icon-catalogos"></i> – CATALOG MENU – Catalogs Access. <br />'+
+        '<i class="icon-star"></i> – FAVORITES MENU – storing your main pages or your favorites products .<br />'+
+        '<i class="icon-mundo-catalogos"></i> – LANGUAGES MENU – switch language </p><br /><p><font color="#b69757"><strong>Browsing Tips</strong></font><br /><br />'+
+        'All the informations is at your disposal on the MENU main page, however, '+
+        'you can switch MENU’s by clicking on the Top bar. In this bar you will find:<br /><br />'+
+        '<i class="icon-back"></i> – Fall back<br /><i class="icon-pesquisa"></i> – Research<br /><i class="icon-menu"></i> – Menu<br /><br />'+
+        'If the bar is some way hidden, please click on this symbol <i class="icon-baixo"></i> this way you will see it again.'+
+        'The content of all Menus will be below at your disposal.<br />'+
+        'If you already know the name of the product you want to see, please research it on <i class="icon-pesquisa"></i>.<br /><br />'+
+        '<font color="#b69757"><strong>How to consult the Catalogs</strong></font><br /><br />In the catalogs Menu, click on the the catalog that you want to consult.'+
+        '<a name="_GoBack" id="_GoBack"></a><br />Confirm you want to acess it.'+
+        'Move your finger either for the left side or right side to browsing the catalog pages.'+
+        'For a better visualization, you can enlarge the page that you are consulting.<br />'+
+        'In the bar below, you will find the number of products at your disposal.'+
+        'By tapping the arrow symbol you will have access to all the details of the products. <br />In the right side of the screen,'+
+        'you will find also the main functions:<br /><br /><i class="icon-lista"></i> – List of the Catalog Pages<br />'+
+        '<i class="icon-star-catalogos"></i> – Bookmark your pages or products<br />'+
+        '<i class="icon-partilha"></i> – Share your bookmarks pages or products with your friends</p><br /><p><font color="#b69757"><strong>Consulting Products</strong></font>'+
+        '<br /><br />Touch the image product on the bar below to access all the details of the product you are seeing.'+
+        'To visualize all EXTRAS of the product tap the button EXTRAS, '+
+        'tap the button  <i class="icon-back"></i> to return to the product details. To leave the product details click on the <i class="icon-close"></i> and continue viewing the catalog.<br /><br />'+
+        '<font color="#b69757"><strong>Favorites </strong></font><br /><br />To add a bookmark, please select <i class="icon-star-catalogos"></i> '+
+        'in the right side of the screen. You will be notified for the operation.<br />'+
+        'To see your favorites, please access the main page or the top bar.<br />'+
+        'Your Favorites will be separated by pages and products, to consult them, please tap on the tab product.<br />'+
+        'You erase your bookmarks by clicking on the <i class="icon-close3"></i>.</p></div>',
         italbox : 'ITALBOX',
         catalogs : 'CATALOGS',
         favorites : 'FAVORITES',
