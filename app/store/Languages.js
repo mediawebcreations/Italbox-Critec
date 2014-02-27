@@ -307,36 +307,36 @@ Ext.define('ItalboxCatalog.store.Languages', {
             'background-size: contain; background-position: center;',
         company_html: '<div class="italbox"><img src="imgs/company.jpg"></img><br/><font color="#b69757">EMPRESA</font><br/><br/><p>Italbox, LDA, es una empresa fundada en 1999 especializada en la fabricación de cabinas de ducha y es una referencia en Portugal.<br/><br/>El diseño propio y único, la dicotomía excelente relación calidad/precio y el centrarse en las satisfacciones del cliente son nuestras señas de identidad. Nuestra experiencia y conocimiento nos permiten encontrar soluciones deseadas por los clientes.<br/><br/>Para conocernos a nosotros y los modelos que producimos, por favor consulte nuestro web-site:  <font color="#b69757">www.italbox.pt</font>.<br/><br/>Al lado de las diferentes gamas de los productos del catálogo, también adaptamos. Los diversos hoteles en cuál nuestros productos y soluciones son aplicados son el reconocimiento de nuestro profissionalismo.<br/>Informamos que estamos a su disposición para cualquier información adicional através del correo electrónico: <font color="#b69757">export.italbox@italbox.pt</font>.</p></div>',
         help_html: '<div style="margin:20px; margin-top:0px !important;">'+
-        '<font color="#b69757">AYUDA</font><br/><br/><p><i>Aceda  em qualquer lugar aos nossos catálogos de forma rápida e intuitiva. </i><br />'+
-        '<i>Com a  APP ITALBOX consulte todos os nossos produtos e seus detalhes. </i><br />'+
-        '<i>Escolha  e partilhe os seus favoritos.</i></p><br/><p>Precisa  de ajuda? Siga as nossas dicas aqui.</p>'+
-        '<p>Ao  abrir a aplicação o utilizador tem acesso aos menus que permitem explorar:<br /><br />'+
-        '<i class="icon-italbox"></i> – menuItalbox – o perfil da empresa<br /><i class="icon-catalogos"></i> – menu catálogos – acesso aos catálogos. <br />'+
-        '<i class="icon-star"></i> – menu favoritos – arquivo das suas páginas e/ou produtos favoritos.<br />'+
-        '<i class="icon-mundo-catalogos"></i> – menu language– alterar idioma </p><br /><p><font color="#b69757"><strong>Dicas de navegação</strong></font><br /><br />'+
-        'O  acesso à informação é disponibilizado através dos menus na página principal, no  entanto,'+
-        'a qualquer momento pode trocar de menu acedendo à barra superior.Esta  barra é composta por:<br /><br />'+
-        '<i class="icon-back"></i> – retroceder<br /><i class="icon-pesquisa"></i> – pesquisar<br /><i class="icon-menu"></i> – Menus<br /><br />'+
-        'Se  esta estiver ocultada toque na seta <i class="icon-baixo"></i> para a fazer reaparecer.'+
-        'O  conteúdo de cada menu é disponibilizado imediatamente abaixo desta.<br />'+
-        'Se  já sabe o nome do produto que quer consultar, pesquise através <i class="icon-pesquisa"></i>.<br /><br />'+
-        '<font color="#b69757"><strong>Consultar Catálogos</strong></font><br /><br />No  menu catálogos toque na capa do catálogo que pretende consultar.'+
-        '<a name="_GoBack" id="_GoBack"></a><br />Confirme  a acesso ao catálogo.'+
-        'De seguida navegue entre as páginas fazendo deslizar o  seu dedo para a esquerda ou para a direita.'+
-        'Para uma melhor visualização, pode  ainda aumentar e mover a imagem da página em consulta.<br />'+
-        'Na  barra inferior estão contabilizados os produtos existentes na página que está a  visualizar.'+
-        'Ao tocar na seta poderá aceder aos detalhes do produto. <br />No  lado direito do ecrã encontrará,'+
-        'ainda, as seguintes funções:<br /><br /><i class="icon-lista"></i> – Consultar páginas específicas do catálogo<br />'+
-        '<i class="icon-star-catalogos"></i> – Definir páginas e/ou produtos como favorito<br />'+
-        '<i class="icon-partilha"></i> – Partilhar páginas e/ou produtos com amigos</p><br /><p><font color="#b69757"><strong>Consultar produto</strong></font>'+
-        '<br /><br />Toque  na imagem do produto da barra inferior para ter acesso ao detalhe do mesmo.'+
-        'Para visualizar os extras do produto toque no botão EXTRAS<br />'+
-        'Retroceda  na seta <i class="icon-back"></i> para voltar ao detalhe. Para sair toque no <i class="icon-close"></i> para fechar e  continuar a consultar o catalogo.<br /><br />'+
-        '<font color="#b69757"><strong>Favoritos </strong></font><br /><br />Para  adicionar uma página e/ou produto como favorito utilize o <i class="icon-star-catalogos"></i> '+
-        'apresentado à  sua direita. É notificado o êxito desta operação.<br />'+
-        'Para  visualizar os favoritos aceda ao menu favoritos na página inicial ou na barra  superior.<br />'+
-        'Os  favoritos encontram-se divididos por páginas e produtos, para consultar toque  no separador correspondente.<br />'+
-        'Pode  ainda editar os seus favoritos, apagando páginas e/ou produtos tocando no  <i class="icon-close3"></i>.</p></div>',
+        '<font color="#b69757">AYUDA</font><br/><br/><p><i>Ve a donde quieras nuestros catálogos de manera rápida e intuitiva. </i><br />'+
+        '<i>Con la aplicatión - APP ITALBOX – usted puede ver nuestros productos y sus detalles. </i><br />'+
+        '<i>Elija y comparta sus favoritos.</i></p><br/><p>Necesita de ayuda? Siga nuestros consejos aquí.</p>'+
+        '<p>Al abrir la aplicación, el usuario tiene acceso a los menús que permiten la exploración:<br /><br />'+
+        '<i class="icon-italbox"></i> –  menu ITALBOX  – el perfil de la empresa<br /><i class="icon-catalogos"></i> – menu Catálogos – acceso a los catálogos. <br />'+
+        '<i class="icon-star"></i> – menu FAVORITOS – archivo de sus páginas y/o productos favoritos.<br />'+
+        '<i class="icon-mundo-catalogos"></i> – menu IDIOMA – cambiar de idioma</p><br /><p><font color="#b69757"><strong>Consejos de navegation</strong></font><br /><br />'+
+        'El acceso a la información está disponible mediante los menús de la página principal,'+
+        'pero se puede cambiar en cualquier momento, accediendo a la barra del menú superior. En esta Barra encontrará las siguientes funciones:<br /><br />'+
+        '<i class="icon-back"></i> – Retroceder<br /><i class="icon-pesquisa"></i> – Investigar<br /><i class="icon-menu"></i> – Menus<br /><br />'+
+        'Si está oculta, puntee en la flecha <i class="icon-baixo"></i> para hacer que vuelva a aparecer.'+
+        'El contenido de cada menú está disponible inmediatamente por debajo de este.<br />'+
+        'Si ya conoce el nombre del producto que desea ver, buscar a través del <i class="icon-pesquisa"></i>.<br /><br />'+
+        '<font color="#b69757"><strong>Consultar los Catálogos</strong></font><br /><br/> En el menú Catálogos, puntee en la portada del catálogoque quieres ver.'+
+        '<a name="_GoBack" id="_GoBack"></a><br />Validar el acceso al catálogo.'+
+        'Entonces navega entre las páginas deslizando el dedo hacia la izquierda y/o derecha.'+
+        'Para una mejor visualización, puedes aumentar e mover la imagende la página que se está visualizando.<br />'+
+        'En la barra inferior, puedes mirar e contabilizar los productos existentes en la página que se está visualizando.'+
+        'Al hacer uso dela flecha puede acceder a los detalles del producto. <br />En el lado derecho de la pantalla '+
+        'también puede encontrar las siguientes funciones:<br /><br /><i class="icon-lista"></i> – Consulte las páginas específicas del catálogo<br />'+
+        '<i class="icon-star-catalogos"></i> – Configurar páginas y/o productos como favoritos<br />'+
+        '<i class="icon-partilha"></i> – Compartir páginas y/o productos con los amigos</p><br /><p><font color="#b69757"><strong>Analizar los productos</strong></font>'+
+        '<br /><br />Toque la imagen del producto en la barra inferior para acceder al detalle de la misma.'+
+        'Para ver el otro producto,toque en la tecla EXTRAS.<br />'+
+        'Para volver a atrás, sólo tiene que pulsar la flecha <i class="icon-back"></i> de este modo vuelve al detalle. Para salir, pulse en la <i class="icon-close"></i> para cerrar y continuar navegando por el catálogo.<br /><br />'+
+        '<font color="#b69757"><strong>Los Favoritos </strong></font><br /><br />Para agregar una página o un producto favorito, utilice <i class="icon-star-catalogos"></i> '+
+        'que está a su derecha. Será notificado por el éxito de esta operación.<br />'+
+        'Para ver sus favoritos, vaya al menú de favoritos en la página principal o en la barra superior.<br />'+
+        'Los favoritos son divididos por páginas. Para ver puntee en la ficha correspondiente para acceder alo que quieres.<br />'+
+        'También puede editar todos sus favoritos, páginas y/o productos así como eliminar las mimas solamente pulsando en lo símbolo<i class="icon-close3"></i>.</p></div>',
         italbox : 'ITALBOX',
         catalogs : 'CATALOGOS',
         favorites : 'FAVORITOS',

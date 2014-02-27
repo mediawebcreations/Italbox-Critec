@@ -753,10 +753,10 @@ window.dao =  {
 $(document).ready(function() {
     setTimeout('runApp()',2000);
     setTimeout('runApp2()',4000);
-    //setTimeout('runApp3()',3000);
-    setTimeout('runApp4()',6000);
-    setTimeout('runApp5()',8000);
-    setTimeout('runApp6()',10000);
+    setTimeout('runApp3()',6000);
+    setTimeout('runApp4()',8000);
+    setTimeout('runApp5()',10000);
+    setTimeout('runApp6()',12000);
 });
 
 function runApp() {
@@ -775,7 +775,7 @@ dao.sync6(renderList6);
 };
 
 function runApp3() {
-renderList();
+$.when(dao.initialize()).then(dao.sync(renderList)).then(dao.sync2(renderList2)).then(dao.sync3(renderList3)).then(dao.sync4(renderList4)).then(dao.sync5(renderList5)).then(dao.sync6(renderList6));
 };
 
 function runApp4() {
