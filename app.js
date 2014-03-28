@@ -1977,18 +1977,17 @@ Ext.define('Italbox.Viewport3', {
        items : [
         {
             id: 'italboxHtml',
-            html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/>'+
-            '<font color="#b69757">EMPRESA</font><br/><br/><p>A ITALBOX, LDA, empresa portuguesa fundada em 1999,'+
-            'é uma empresa especializada no fabrico de cabines de banho com design próprio e exclusivo,'+
-            'e uma excelente dicotomia qualidade/preço. Com uma equipa de 62 colaboradores,'+
-            'a Italbox é líder no mercado Português e tem apresentado taxas de crescimentono volume'+
-            'de negócios de 20% por ano, nos últimos 5 anos.<br/><br/>Em 2011 lançou o novo catalogo com uma nova'+
-            'linha de produtos que completa, no nosso entender, soluções que não estavam contempladas no nosso'+
-            'anterior catálogo.<br/>Lançamos também um catálogo de móveis de casa de banho, de fabrico próprio,'+
-            'no sentido de complementar a oferta.<br/><br/>Para que possam verificar os modelos que produzimos,'+
-            'queiram consultar o nosso Web site: <font color="#b69757">www.italbox.pt</font>.<br/>'+
-            'Informamos que estamos ao vosso dispor para qualquer informação e esclarecimento adicional'+
-            'através do e-mail: <font color="#b69757">comercial@italbox.pt</font>.</p></div>',
+            html  : '<div class="italbox"><img src="imgs/company.jpg"></img><br/><font color="#b69757">EMPRESA</font><br/><br/>'+
+                    '<p>A ITALBOX, é uma empresa fundada em 1999 situada em Águeda, que se dedica à produção de resguardos para casa de banho.<br/>'+
+                    'Empresa líder na sua atividade em Portugal, conta com 62 colaboradores e 3.500m2 de instalações.<br/><br/>'+
+                    'São princípios orientadores da empresa: a Inovação, o Design, a Qualidade, a Personalização e o Serviço,'+
+                    'com vista à satisfação do cliente e ao reforço e consolidação da sua posição nos diferentes mercados.<br/><br/>'+
+                    'Venha conhecer-nos os nossos produtos consultando o site: <font color="#b69757">www.italbox.pt</font><br/><br/>'+
+                    'Reconhecida pela sua qualidade, capacidade de desenvolvimento e produção personalizada,'+
+                    'a ITALBOX está presente em obras de referência, nomeadamente em hotéis e resorts (Portugal, Espanha, França, Cabo Verde, Angola, Moçambique),'+
+                    'bem como nos empreendimentos habitacionais mais exigentes.<br/><br/>'+
+                    'Informamos que estamos ao vosso dispor para esclarecer qualquer dúvida adicional através do email:'+
+                    '<font color="#b69757">comercial@italbox.pt</font>.</p></div>'
         },                  
         ],
     }
