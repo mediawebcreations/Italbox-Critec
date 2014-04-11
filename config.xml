@@ -71,10 +71,10 @@
     <preference name="fullscreen" value="true" /> <!-- remove the upper bar on iOS and Android -->
         
     <!-- iOS PREFERENCES -->
-    <preference name="fullscreen" value="true" />
+    
     <preference name="target-device" value="universal" />
     <preference name="prerendered-icon" value="true" />
-    <!--<preference name="ios-statusbarstyle" value="black-opaque" />-->
+    <preference name="ios-statusbarstyle" value="black-opaque" />
     <preference name="detect-data-types" value="false" />
     <preference name="exit-on-suspend" value="false" />
 
